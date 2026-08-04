@@ -21,3 +21,7 @@ tools/mips-binutils/usr/share/man/man1/mips-linux-gnu-objdump.1.gz
 tools/mips-binutils/usr/share/man/man1/mips-linux-gnu-readelf.1.gz
 tools/mips-binutils/usr/share/man/man1/mips-linux-gnu-strings.1.gz
 tools/mips-binutils/usr/share/man/man1/mips-linux-gnu-addr2line.1.gz
+tools/mips-binutils/lib/libctf-mips.so
+tools/mips-binutils/lib/libctf-mips.so.0
+tools/mips-binutils/lib/libctf-nobfd-mips.so
+tools/mips-binutils/lib/libctf-nobfd-mips.so.0
