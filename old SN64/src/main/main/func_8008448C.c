@@ -1,0 +1,61 @@
+#include "ultra64.h"
+#define M2C_ERROR(x) ((Unk *)0)
+f64 func_800842C0(f64, s32 *);                      /* extern */
+extern f64 D_8004CED8;
+extern f64 D_8004CEE0;
+extern Unk D_80095570;
+
+s16 func_8008448C(f64 arg1, s32 arg0) {
+    s16 *saved_reg_s1 = (s16*)M2C_ERROR(/* saved s1 */);
+    s32 spB0;
+    s32 sp68[32];
+    f64 temp_fa0;
+    f64 temp_fs0;
+    f64 temp_fv0;
+    f64 temp_fv1;
+    f64 var_fa1;
+    f64 var_fv0;
+    f64 var_fv1;
+    s32 temp_ft3;
+    s32 temp_t9;
+    s32 var_s0;
+
+    var_fa1 = arg1;
+    if (arg0 == 0) {
+        if ((s32)M2C_ERROR(/* Read from unset register $f16 */) <= var_fa1) {
+            *saved_reg_s1 = 0xFFFF;
+            return 0x7FFF;
+        }
+        *saved_reg_s1 = 0;
+        return 0;
+    }
+    if (var_fa1 < 1.0) {
+        var_fa1 = 1.0;
+    }
+    if ((s32)M2C_ERROR(/* Read from unset register $f16 */) <= 0.0) {
+
+    }
+    M2C_MEMCPY_ALIGNED(&sp68, &D_80095570, 0x3C);
+    temp_fs0 = (f64) 0x40000000;
+    ((Unk*)&sp68)->unk3C = (s32) D_80095570.unk3C;
+    var_s0 = (s32) ((1.0 / (f64) arg0) * temp_fs0);
+    var_fv1 = 1.0;
+    var_fv0 = 1.0 + (((((Unk*)((s32)sp68 + ((s32) (func_800842C0(var_fa1 / (s32)M2C_ERROR(/* Read from unset register $f16 */), &spB0) * (f64) 0x10) * 8))))->unk0 /* FIXME: was ->unk-40 */ + (f64) spB0) * D_8004CED8) / (1.0 * temp_fs0);
+
+    if (var_s0 != 0) {
+        do {
+            temp_t9 = var_s0 >> 1;
+            if (var_s0 & 1) {
+                var_fv1 *= var_fv0;
+            }
+            var_fv0 *= var_fv0;
+            var_s0 = temp_t9;
+        } while (temp_t9 != 0);
+    }
+    temp_fv0 = var_fv1 * var_fv1;
+    temp_fa0 = temp_fv0 * temp_fv0;
+    temp_fv1 = temp_fa0 * temp_fa0;
+    temp_ft3 = (s32) temp_fv1;
+    *saved_reg_s1 = (s16) (s32) ((temp_fv1 - (f64) (f32) (s16) temp_ft3) * D_8004CEE0);
+    return (s16) temp_ft3;
+}

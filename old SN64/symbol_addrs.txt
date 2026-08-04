@@ -1,0 +1,498 @@
+// ============================================================
+// XG2 symbol address table
+// Format: name = address; // type:[func|data] [hw:true] [size:N]
+// ============================================================
+
+// ---- Boot functions ----
+func_8004B400 = 0x8004B400; // type:func // RDRAM clear + cache flush stub
+func_8004B498 = 0x8004B498; // type:func // LZSS decompressor
+func_8004B5B8 = 0x8004B5B8; // type:func // LZSS inner loop (back-reference copy)
+
+// ---- Known main-block functions ----
+func_8004C54C = 0x8004C54C; // type:func
+func_80053ED0 = 0x80053ED0; // type:func
+func_8005413C = 0x8005413C; // type:func
+func_8005A3E0 = 0x8005A3E0; // type:func
+func_8005DCCC = 0x8005DCCC; // type:func
+func_80062240 = 0x80062240; // type:func
+
+// ---- Boot / LZSS data ----
+D_8004BA20 = 0x8004BA20;   // LZSS decompressed block load address (= compressed_main destination)
+
+// ============================================================
+// N64 Hardware Registers
+// Addresses are uncached (0xA4xxxxxx) per N64 memory map.
+// ============================================================
+
+// SP (Signal Processor) — 0xA4040000
+SP_MEM_ADDR_REG    = 0xA4040000; // type:data hw:true
+SP_DRAM_ADDR_REG   = 0xA4040004; // type:data hw:true
+SP_RD_LEN_REG      = 0xA4040008; // type:data hw:true
+SP_WR_LEN_REG      = 0xA404000C; // type:data hw:true
+SP_STATUS_REG      = 0xA4040010; // type:data hw:true
+
+// DP Command (RDP) — 0xA4080000
+DPC_START_REG      = 0xA4080000; // type:data hw:true
+
+// MI (MIPS Interface) — 0xA4300000
+MI_MODE_REG        = 0xA4300000; // type:data hw:true
+MI_INTR_REG        = 0xA4300008; // type:data hw:true
+MI_INTR_MASK_REG   = 0xA430000C; // type:data hw:true
+
+// VI (Video Interface) — 0xA4400000
+VI_STATUS_REG      = 0xA4400000; // type:data hw:true  // VI_CONTROL_REG
+VI_ORIGIN_REG      = 0xA4400004; // type:data hw:true  // framebuffer DRAM address
+VI_WIDTH_REG       = 0xA4400008; // type:data hw:true
+VI_INTR_REG        = 0xA440000C; // type:data hw:true  // VI_V_INTR_REG
+VI_CURRENT_REG     = 0xA4400010; // type:data hw:true  // VI_V_CURRENT_LINE_REG
+VI_BURST_REG       = 0xA4400014; // type:data hw:true  // VI_TIMING_REG
+VI_V_SYNC_REG      = 0xA4400018; // type:data hw:true
+VI_H_SYNC_REG      = 0xA440001C; // type:data hw:true
+VI_LEAP_REG        = 0xA4400020; // type:data hw:true  // VI_H_SYNC_LEAP_REG
+VI_H_START_REG     = 0xA4400024; // type:data hw:true  // VI_H_VIDEO_REG
+VI_V_START_REG     = 0xA4400028; // type:data hw:true  // VI_V_VIDEO_REG
+VI_V_BURST_REG     = 0xA440002C; // type:data hw:true
+VI_X_SCALE_REG     = 0xA4400030; // type:data hw:true
+VI_Y_SCALE_REG     = 0xA4400034; // type:data hw:true
+
+// AI (Audio Interface) — 0xA4500000
+AI_DRAM_ADDR_REG   = 0xA4500000; // type:data hw:true
+AI_LEN_REG         = 0xA4500004; // type:data hw:true
+AI_CONTROL_REG     = 0xA4500008; // type:data hw:true
+AI_STATUS_REG      = 0xA450000C; // type:data hw:true
+AI_DACRATE_REG     = 0xA4500010; // type:data hw:true
+AI_BITRATE_REG     = 0xA4500014; // type:data hw:true
+
+// PI (Peripheral Interface) — 0xA4600000
+PI_DRAM_ADDR_REG    = 0xA4600000; // type:data hw:true
+PI_CART_ADDR_REG    = 0xA4600004; // type:data hw:true
+PI_RD_LEN_REG       = 0xA4600008; // type:data hw:true
+PI_WR_LEN_REG       = 0xA460000C; // type:data hw:true
+PI_STATUS_REG       = 0xA4600010; // type:data hw:true
+PI_BSD_DOM1_LAT_REG = 0xA4600014; // type:data hw:true
+PI_BSD_DOM1_PWD_REG = 0xA4600018; // type:data hw:true
+PI_BSD_DOM1_PGS_REG = 0xA460001C; // type:data hw:true
+PI_BSD_DOM1_RLS_REG = 0xA4600020; // type:data hw:true
+PI_BSD_DOM2_LAT_REG = 0xA4600024; // type:data hw:true
+PI_BSD_DOM2_PWD_REG = 0xA4600028; // type:data hw:true
+PI_BSD_DOM2_PGS_REG = 0xA460002C; // type:data hw:true
+PI_BSD_DOM2_RLS_REG = 0xA4600030; // type:data hw:true
+
+// SI (Serial Interface) — 0xA4800000
+SI_DRAM_ADDR_REG      = 0xA4800000; // type:data hw:true
+SI_PIF_ADDR_RD64B_REG = 0xA4800004; // type:data hw:true
+SI_PIF_ADDR_WR64B_REG = 0xA4800010; // type:data hw:true
+SI_STATUS_REG         = 0xA4800018; // type:data hw:true
+
+// Cart SRAM (save data) — 0xB1xxxxxx (uncached, DOM2)
+SRAM_SAVE_DATA        = 0xB1FFFFD8; // type:data hw:true
+SRAM_SAVE_DATA2       = 0xB1FFFFF0; // type:data hw:true
+
+// Uncached RDRAM base
+RDRAM_BASE_UNCACHED   = 0xA0000000; // type:data hw:true
+
+// ============================================================
+// Main-block data section globals
+// Decompressed block: 0x8004BA20–0x800965A0
+// .text: 0x8004BA20–0x80090CF8  (.data begins 0x80090CF8)
+// ============================================================
+
+// ---- Display list manager globals (BSS, runtime-initialized) ----
+// These 7 words (0x80090CF8–0x80090D13) are individual runtime globals,
+// all zero at ROM load time and initialized at boot by the DL/RSP task manager.
+gDLWritePtr        = 0x80090CF8; // type:data  // Gfx* current display list write position
+gDLBase            = 0x80090CFC; // type:data  // Gfx* display list base (restore ptr)
+gRSPTaskA          = 0x80090D00; // type:data  // OSTask* RSP task double-buffer slot A
+gRSPTaskB          = 0x80090D04; // type:data  // OSTask* RSP task double-buffer slot B
+gFrameWait         = 0x80090D08; // type:data  // s32 frame sync/wait counter
+gFrameState        = 0x80090D0C; // type:data  // s32 frame state flags
+gDLSavePtr         = 0x80090D10; // type:data  // Gfx* display list checkpoint/save
+
+// ---- Video mode descriptor table ----
+// VideoModeDesc struct (0x20 bytes each):
+//   Vp*  vp_a;       // +0x00: primary viewport pointer
+//   Vp*  vp_b;       // +0x04: secondary/split viewport pointer
+//   s16  scissor_wd; // +0x08: scissor width (×2 fixed-point)
+//   s16  scissor_ht; // +0x0A: scissor height
+//   u32  dims_a;     // +0x0C: packed {width<<16|height} for viewport A
+//   u32  dims_b;     // +0x10: packed {width<<16|height} for viewport B
+//   Gfx* dl_a;       // +0x14: setup display list A
+//   Gfx* dl_b;       // +0x18: setup display list B
+//   s32  yOffset;    // +0x1C: Y offset for split-screen modes
+// Null-terminated: first entry with vp_a==NULL marks end.
+// 10 entries (index 0–9): 640×480 full, split-screen variants, letterbox, etc.
+gVideoModeTable    = 0x80090D14; // type:data size:0x140
+
+// gViewports: array of N64 Vp structs for various resolutions.
+// vp[0]: 640×480 full  vp[1]: 640×480 mirrored
+// vp[2]: 640×240 top   vp[3]: 640×240 bottom  (split-screen halves)
+// Each Vp = { s16 vscale[4], s16 vtrans[4] } = 16 bytes
+gViewports         = 0x800933A0; // type:data size:0x110
+
+// gSetupDisplayList: RSP setup display list (runs once per frame to load viewport
+// into RSP DMEM, set scissor 320×240, program MOVEWORD params, ENDDL).
+gSetupDisplayList  = 0x80093578; // type:data size:0x100
+
+// ---- Track parameters (22 tracks) ----
+// TrackParams struct (0x34 bytes = 13 floats):
+//   f32 speedMult;     // [0] base speed multiplier (1.40 typical, 2.80 on fastest)
+//   f32 gripMult;      // [1] surface grip/friction  (0.875 typical, 1.85 on ice)
+//   f32 bankMult;      // [2] banking strength       (~1.80 all tracks)
+//   f32 cornerMult;    // [3] corner difficulty      (1.10–1.50)
+//   f32 cameraFOV;     // [4] camera field of view   (70.0° typical, 90.0° on one)
+//   f32 scale;         // [5] always 1.0
+//   f32 unk6, unk7, unk8; // [6-8] reserved zeros
+//   f32 viewDist;      // [9]  view/fog distance     (200–600 units)
+//   f32 nearClip;      // [10] near clip / fog start (20–68 units)
+//   f32 fogDensity;    // [11] fog density           (0.1–4.0)
+//   f32 cameraAngle;   // [12] camera pitch angle    (51–90°)
+gTrackParams       = 0x80091984; // type:data size:0x2D8  // TrackParams[22]
+gTrackParamTable   = 0x80091DFC; // type:data size:0x58   // TrackParams*[22]
+
+// ---- Input / controller ----
+// gButtonTable: u32[5][11] — maps 11 in-game actions to N64 button bitmasks,
+// for each of 5 control scheme presets.
+// Actions (col): Z, R, DUp, DDown, B, CDown, A, CRight, CLeft, L, CUp
+// Schemes (row): 5 presets (default + 4 alternates)
+gButtonTable       = 0x80091EA0; // type:data size:0xDC
+
+// ---- Entity pool (XYZ positional entities / trigger zones) ----
+// Array of game entities, each 0x228 (552) bytes.  Stride confirmed by GCC
+// divide-by-552 magic in func_8005D9C0 (nearest-entity search).
+// Layout per element:
+//   +0x00: f32 radius_a  (ROM init: 500.0)
+//   +0x04: f32 unk04
+//   +0x08: f32 radius_b  (ROM init: 1000.0)
+//   +0x0C: f32 posX      (world X position)
+//   +0x10: f32 posY      (world Y position)
+//   +0x14: f32 posZ      (world Z position)
+//   +0x1C: (first ROM init = 1.0f for element 0)
+//   +0xD0: void* subObj  (optional sub-object pointer, nullable)
+//   +0x1DC: s32 state    (compared to 0x4 in update logic)
+// Count of live elements stored in overlay var D_8017C950 (end-pointer).
+gEntityPool        = 0x80090EA0; // type:data size:0xAD8  // Entity[5?] entity pool, stride 0x228
+
+// ---- Rendering mode flags (BSS, in main block ~0x80091000 range) ----
+// gZBufEnabled: Z-buffer / extended display list mode flag.  In func_8006D1FC
+//   (DL emitter switch on command type 0-6), non-zero triggers an extra
+//   D_8017C934 clear and alternate RSP code path before emitting the Gfx cmd.
+//   Likely 0 = ZB off (simpler DL), 1 = ZB on (full depth-buffer DL).
+gZBufEnabled       = 0x80091084; // type:data  // s32 Z-buffer enabled flag (22 refs)
+
+// gMirrorMode: render mirror/flip-X flag.  In func_8006D1FC, non-zero negates
+//   the vertex X coordinate (`negu $a0, $a0`) and redirects to a mirrored
+//   RSP function pointer at D_80093B08 → D_80093A28.  Used for reflection passes.
+gMirrorMode        = 0x800912AC; // type:data  // s32 flip-X / mirror render flag (26 refs)
+
+// gColorSwapMode: RGB channel swap flag.  Computed as `(numBuf < 3) XOR modeFlag`
+//   in the video init path.  Non-zero swaps R↔B when blitting pixels (BGR order),
+//   as required on certain N64 VI configurations or frame-buffer formats.
+gColorSwapMode     = 0x80091FCC; // type:data  // s32 BGR channel swap flag (24 refs)
+
+// gViewportTimestamp: 4-byte (two s16) value written by the main render setup
+//   function (func_800541C0) after calling func_8007C948.  Stored via two sh
+//   instructions, so typed as s16[2].  Likely a packed {u16 frameId, u16 unk} or
+//   a 32-bit value split for unaligned writes.
+gViewportTimestamp = 0x80091F7C; // type:data size:4  // s16[2] packed render timestamp (22 refs)
+
+// ---- Game state machine ----
+// gGameState: current game state enum (0-6).  Drives a 7-case jump table in
+//   func_8004E830 (jtbl_8004BB20).  Cleared to 0 in init; written to 1-6
+//   at mode transitions.  Zero-compared to skip to the default "idle" branch.
+// gPendingEventFlag: a value that is atomically captured then zero-cleared
+//   (load, sw $zero, store-back pattern in func_8005566C).  Behaves as a
+//   one-shot signal — likely the current pending input event or frame-start token.
+// gNumViewports: non-zero enables the split-screen viewport path in the DL
+//   emitter (func_8006D1FC), updating D_80170878 and selecting alternate sub-DLs.
+//   0 = single viewport, 1 = split-screen / multi-viewport.
+// gTrackNodeCount: count of path/AI-node entries in overlay table D_80170880
+//   (each entry 0x668 bytes).  Written from overlay config offset +0x16E4.
+// gActiveEntityCount: s32 count of active game entities; capped at 13 (0xD) in
+//   func_8005308C (slti $v0, $v0, 0xD); passed as arg0 to func_800521BC (entity
+//   update dispatcher) and func_8013C2A0.  Written in func_80052F5C init path.
+// gSessionActive: s32 flag set to 1 when a race/game session is running; cleared
+//   to 0 on session exit.  Checked (beqz) to gate session-specific update logic
+//   in the frame-step function area around func_80070850.
+// gRaceCtrl: void* pointer to the main race controller object.  Written by
+//   func_8005FF44 (stores arg0 → gRaceCtrl).  NULL-checked before use; when
+//   non-null, offset +0x16F8 gives a sub-object whose word at +0x8 is the racer
+//   count (compared to 10 and 13 for difficulty/size checks).
+// gLocaleIdx: u16 immediately following the gLocale "enUK" string (at +0x4).
+//   Read with lhu; when non-zero, gLocale is cleared (written in func_80061800).
+//   Controls locale-switching: 0 = keep current locale, non-zero = reset.
+gGameState         = 0x80091E5C; // type:data  // u32 game state enum 0-6 (14 refs)
+gPendingEventFlag  = 0x80091E54; // type:data  // s32 atomic one-shot event flag (13 refs)
+gNumViewports      = 0x800914D4; // type:data  // s32 split-screen viewport count (14 refs)
+gTrackNodeCount    = 0x80091968; // type:data  // s32 count of overlay track/AI path nodes (47 refs)
+gActiveEntityCount = 0x80091E68; // type:data  // s32 active entity count, max 13 (9 refs)
+
+// ---- Game state globals ----
+gPlayerList        = 0x80091E70; // type:data  // Player* head of player linked list (null at init)
+gPlayerList2       = 0x80091E74; // type:data  // secondary list or shadow ptr
+gInitFlag          = 0x80091E80; // type:data  // s32 game init flag (1 after boot init)
+gSessionActive     = 0x80091E84; // type:data  // s32 race/session active flag (1=running, 0=idle)
+gNumActivePads     = 0x80091E9C; // type:data  // s32 number of connected controllers (3 at init)
+gRaceCtrl          = 0x80092B80; // type:data  // void* race controller object ptr (null when no race)
+gLocaleIdx         = 0x80092B78; // type:data size:2 // u16 locale index; non-zero resets gLocale string
+
+// ---- Line drawing globals (BSS, set at runtime from overlay D_80178690) ----
+// Used by the L3DEX line-primitive emitter functions (func_80060960, etc.)
+// gLineVtxBuf: pointer to the line vertex array (16 bytes per vertex, F3DEX Vtx format).
+// gLineVtxIdx: current write index into the vertex array (incremented per vertex pair).
+// gLineTexPtr: nullable pointer to a material/texture for the current line batch.
+gLineVtxBuf        = 0x80092B68; // type:data  // Vtx* line vertex buffer (from overlay)
+gLineVtxIdx        = 0x80092B6C; // type:data  // s32 current line vertex index
+gLineTexPtr        = 0x80092B70; // type:data  // void* line texture/material ptr (nullable)
+
+// ---- Audio ring-buffer submission counters ----
+// The SFX/audio system uses a ring buffer at D_80180B38 (overlay) with 128 slots
+// (0x80 entries, stride 20 bytes each).  Two index pointers manage head/tail:
+//   gAudioQueueWriteIdx: write (producer) index, wraps at 128.
+//   gAudioQueueReadIdx:  read (consumer) index; compared against write idx for
+//     empty-queue detection.  Offset from write idx by 4 bytes.
+// Each entry: {u32 soundId, s16 type, s16 priority, f32 volume, u32 extra,
+//              u8 channel, u8 flags} = 20 bytes (0x14).
+// gSfxActiveCount / gSfxMaxIndex / gSfxAllocCount: three adjacent s32 counters
+//   at +0 / +4 / +8 within a cluster, tracking active/max/allocated SFX slots.
+//   gSfxMaxIndex can be negative (uninitialized / no cap).  Used by the SFX
+//   priority-sorted insertion logic in func_80061FB4.
+// gSfxChannelMute: u8[4] array at 0x80092CD0.  Each byte is a per-channel mute
+//   flag; set to bit 12 of an overlay field shifted right 12 → 0 or 1.
+//   Iterated with sb (stride 1) over 4 entries in func_800622C0.
+// gSfxChannelIdx: s32 index cycling 0–3 over the 4 SFX output channels.
+//   Compared against 4 to detect end-of-channels in func_800621C0.
+// gSfxVolScale: f32 volume scaling constant.  Read with lwc1 from 0x80092CDC.
+// gSfxSlotEnd: void* past-end sentinel for the active SFX slot array.
+//   Return value of func_800621C0 is compared against gSfxSlotEnd to detect
+//   the "all slots visited" condition in func_80062B0C.
+// gSfxDefTable: void* base pointer to the SFX definition table.  Each record is
+//   16 bytes (stride 0x10); fields at +0, +4, +8 are accessed by index arg × 16.
+//   Written from func_80063700 (stores arg2); read in func_800639FC / func_80063A20.
+gAudioQueueWriteIdx = 0x8009282C; // type:data           // u32 audio ring write index (wraps at 128) (18 refs)
+gAudioQueueReadIdx  = 0x80092828; // type:data           // u32 audio ring read index
+gSfxActiveCount     = 0x80092CB8; // type:data           // s32 active SFX count (40 refs)
+gSfxMaxIndex        = 0x80092CBC; // type:data           // s32 max active SFX index (can be negative) (24 refs)
+gSfxAllocCount      = 0x80092CC0; // type:data           // s32 allocated SFX slot count
+gSfxChannelMute     = 0x80092CD0; // type:data size:4    // u8[4] per-channel mute flags
+gSfxChannelIdx      = 0x80092CD4; // type:data           // s32 current channel index (cycles 0–3)
+gSfxVolScale        = 0x80092CDC; // type:data           // f32 SFX volume scale factor
+gSfxSlotEnd         = 0x80092CE0; // type:data           // void* past-end sentinel for SFX slot array (12 refs)
+gSfxDefTable        = 0x80092D38; // type:data           // void* base of 16-byte SFX definition records (12 refs)
+
+// ---- Game flags ----
+// gGameFlags: primary runtime bitfield controlling game mode / state.
+// Bit 0x200: race/gameplay is active (many subsystems gate on this bit).
+// Adjacent vars (D_80092B80, D_80092B8C) appear to be secondary state words.
+gGameFlags         = 0x80092B88; // type:data  // u32 game state bitflags
+
+// ---- "Probe" game mode descriptor ----
+// Struct beginning at D_80092B88 region, contains mode name "Probe" at +0x0D,
+// followed by 4 function pointers at +0x18 (init/update/draw/shutdown) and
+// a display list fragment at +0x30 (G_NOOP, G_SETSCISSOR, G_MOVEWORD×N, G_ENDDL).
+// "Probe" is likely a diagnostic/test game mode, not a shipping mode.
+D_80092B90         = 0x80092B90; // type:data size:0x30  // "Probe" mode name field ("\0Probe")
+D_80092BA0         = 0x80092BA0; // type:data size:0x10  // Probe mode function table (4× func ptr)
+
+// ---- VI config ----
+// gVIConfig: video interface parameter struct.
+// +00: ptr to framebuffer BSS block
+// +10: VI_STATUS value   (0x320E = 16bpp interlaced NTSC)
+// +14: VI_WIDTH          (0x140 = 320 pixels)
+// +1C: VI_V_SYNC         (0x20D = 525 lines NTSC)
+// +20: VI_H_SYNC         (0xC15 = 3093 cycles NTSC)
+gVIConfig          = 0x80095644; // type:data size:0x40
+
+// ---- Strings / identifiers ----
+gLocale            = 0x80092B74; // type:data size:4   // "enUK" locale code
+gGameID            = 0x80093EC4; // type:data size:4   // "NG2E" cartridge ID
+gHexDigits         = 0x80093110; // type:data size:16  // "0123456789ABCDEF"
+
+// gContPakNoteCode: u16 identifier used alongside gGameID when calling
+//   controller-pak (memcard) save functions (func_800884E8, func_8008A288,
+//   func_8008B088).  Passed as $a1 = note file address / publisher code.
+//   Immediately precedes gGameID at 0x80093EC4 in the save-system header.
+gContPakNoteCode   = 0x80093EC0; // type:data size:2   // u16 controller pak note code (16 refs)
+
+// ---- RSP microcode blobs ----
+// L3DEX = Line3D extended (wireframe / line drawing ucode)
+// F3DEX.NoN = Fast3D extended, no-near-clip variant (main rendering ucode)
+// Both are fifo 2.05 by Yoshitaka Yasumoto, 1998 Nintendo.
+gRspL3DEX_Text     = 0x80094388; // type:data size:0x3F0  // RSP L3DEX ucode instructions
+gRspF3DexNoN_Text  = 0x80094778; // type:data size:0x3F0  // RSP F3DEX.NoN ucode instructions
+
+// ---- Sine lookup table ----
+// Partial sine table: s16[892], 4096-entry full-circle cycle, indices 132..1023.
+// Covers sin(≈11.6°) to sin(90°) = values 6595..32767 (s16 fixed-point, 32767 = 1.0).
+// Accessed via D_8009525E (last entry = 32767 = sin(90°)) in func_8007B568.
+// Placed immediately after the F3DEX.NoN RSP text blob.
+gSineTable         = 0x80094B68; // type:data size:0x6F8  // s16[892] sine LUT (4096-cycle)
+
+// ---- Callback / function-pointer tables ----
+// D_80093EE4: array of 4 function pointers + metadata, used as a message
+// handler table.  Ptrs 0-2 point to func_8007...  stubs; ptr 3 to a real
+// function.  Field [4]=0x01000000 (flags), [5]=1 (count/mode).
+gHandlerTable      = 0x80093EE4; // type:data size:0x20  // void*[4] + u32 flags/count
+
+// D_80093F04: counter/flag cleared to zero in multiple init paths (func_80052F5C,
+//   func_80053F00).  Located immediately after gHandlerTable's 0x20-byte block.
+//   Likely a reset/init state counter or enabled-modules bitmask.
+gInitStateFlags    = 0x80093F04; // type:data  // u32 init state / reset counter (18 refs)
+
+// D_80092CB8: game object type descriptor (HUD/UI node or "Probe" variant).
+// Fields: {0, -5, -5, -1, 0×5, 1.0f, fnInit, fnUpdate, fnDraw, fnFree,
+//          0x01000000, 6,4,2,4,0xFFFFFF, 6,4,2,4,0xFFFFFF, ptr, ptr}
+// The -5/-1 values look like animation frame counts; 6,4,2,4 = vertex/tri counts.
+// NOTE: 0x80092CB8 = gSfxActiveCount (s32 counter, not an object descriptor — see audio section)
+
+// D_800927F0: system module config struct (18 refs).
+// +0x00: void* bufPtr  (= 0x80180888, from overlay)
+// +0x18: u32 bufSize1 = 0x100
+// +0x1C: u32 bufSize2 = 0x100
+D_800927F0         = 0x800927F0; // type:data size:0x20  // module config {void* buf, u32 sz, u32 sz}
+
+// ---- Audio subsystem globals (0x800927D0–0x80092848 cluster) ----
+// The audio system uses a triple-buffer scheme.  gAudioFrameCount is incremented
+// each audio frame; slot = gAudioFrameCount % 3 selects which of the three
+// s16 entries in gAudioBufSizes and which pointer in D_8017F438[] to use.
+//
+// gAudioOutputCtx: persistent void* handle to the audio output context.
+//   Held in $s0 throughout func_8005C0BC; passed as arg0 to numerous audio
+//   functions (func_8007EA18, func_8007E9D8, etc.).
+// gAudioBufSizes: s16[3] array (stride 2 bytes) at this address.
+//   Element [slot] is updated each frame with the computed DMA buffer size
+//   (derived from D_801808E2 - gAudioBufBase + 0x28, aligned to 0x10).
+// gAudioModeIdx: s32 index into D_8017F370 (audio mode function-pointer table).
+//   gAudioFrameCount % 3 is also used here to select the mode entry (× 4 bytes).
+// gAudioFrameLock: set to 1 at the start of the per-frame audio DMA setup function
+//   (func_8005C688).  Acts as a "frame-in-progress" guard.
+// gAudioBufBase: u16 base offset; subtracted from the AI register value and added
+//   0x28 to compute the DMA transfer size (with 0x10-byte alignment).
+// gAudioStatus: audio state machine.  0 = idle, 3 = DMA in progress, 4 = complete.
+//   func_8005C88C is gAudioStatus != 0 && != 4 branch — stores $a0 → gAudioCallback.
+// gAudioCfgPtr: cached ptr to field [1] of the module config at D_800927F0;
+//   dereferenced further (+0xC) to obtain the ADPCM/sequence book pointer.
+// gAudioBufLen: u32 value copied from *(D_800927F0 + 0x4)[0x4]; audio buffer length.
+gAudioBufSizes     = 0x800927D0; // type:data size:6    // s16[3] per-slot DMA buffer sizes
+gAudioModeIdx      = 0x800927DC; // type:data           // s32 index into audio mode table D_8017F370
+gAudioFrameCount   = 0x800927E0; // type:data           // s32 frame counter; slot = value % 3
+gAudioOutputCtx    = 0x800927E4; // type:data           // void* audio output context handle (15 refs)
+gAudioBufLen       = 0x800927EC; // type:data           // u32 audio buffer length (from overlay +4)
+gAudioCfgPtr       = 0x800927F4; // type:data           // void* cached audio config sub-object ptr
+gAudioFrameLock    = 0x800927F8; // type:data           // s32 frame-in-progress lock (set to 1 at DMA start)
+gAudioBufBase      = 0x800927FE; // type:data size:2    // u16 audio buffer base offset for size calc
+gAudioStatus       = 0x80092800; // type:data           // s32 audio state: 0=idle, 3=running, 4=done (15 refs)
+gAudioCallback     = 0x80092810; // type:data           // void* callback ptr stored when status active
+
+// ---- Thread / OS scheduler globals ----
+// N64 libultra-style thread run queue; the game implements its own lightweight
+// scheduler (not the full Nintendo libultra OS, but the same data structures).
+//
+// gRunQueueSentinel: the empty-queue anchor node.  Its next ptr is NULL and
+//   priority is 0xFFFFFFFF (sentinel marker).
+// __osRunQueue: the run queue head pointer (OSThread*), initially = &sentinel.
+//   Insertion/removal via priority-sorted linked list (func_8007C584 / _5CC).
+// __osRunningThread: pointer to the currently executing thread; set by the
+//   context-switch dispatcher (func_8007C5DC) when it dequeues the next thread.
+// __osFaultedThread: saved pointer to the thread that was interrupted when an
+//   exception fires (written in the .L8007C36C branch of func_8007C0F4).
+// gOSMsgQueuePtr: pointer to an OSMsgQueue struct resident in overlay space
+//   (init value 0x80189A68); used for PI/SI message passing.
+// osIntMask: SR value applied when resuming a thread = 0x003FFF01
+//   (IE set, all interrupt masks enabled, kernel mode).
+// gCpuClock: CPU oscillator frequency in Hz = 62,500,000 (62.5 MHz).
+// gAiClock: AI/RDRAM clock frequency used for audio rate calculations.
+gRunQueueSentinel  = 0x800952A0; // type:data size:8   // OSThread sentinel node {next=NULL, pri=0xFFFFFFFF}
+__osRunQueue       = 0x800952A8; // type:data          // OSThread* head of priority run queue (44 refs)
+__osRunningThread  = 0x800952B0; // type:data          // OSThread* currently executing thread (38 refs)
+__osFaultedThread  = 0x800952B4; // type:data          // OSThread* interrupted thread saved in exception handler
+gOSMsgQueuePtr     = 0x800952C0; // type:data          // OSMsgQueue* → overlay msgqueue at 0x80189A68 (24 refs)
+// D_800952D0: one-shot "pending work" flag used by func_8007DA74.
+//   If non-zero → calls func_80086078 (audio/RSP flush) then self-clears.
+//   func_8007DA6C returns its value; func_8007DAA4 returns its address.
+gPendingFlushFlag  = 0x800952D0; // type:data          // s32 pending flush/task flag (26 refs)
+// D_8009528C: scheduler re-entrancy lock.  In the interrupt handler
+//   (func_8007C0F4) this is atomically checked (beqz = skip re-entry) and
+//   set to 1 before running the scheduler, preventing nested scheduling.
+gSchedulerLock     = 0x8009528C; // type:data          // s32 ISR scheduler re-entrancy lock
+osIntMask          = 0x80095290; // type:data          // u32 SR mask for thread init = 0x003FFF01
+// gCpuClockHi / gCpuClock form a u64 pair = osClockRate = 62,500,000 Hz.
+// Written and read as a pair: sw $zero, gCpuClockHi / sw $val, gCpuClock.
+// Passed as (a0=hi, a1=lo) to func_8008ECC0 (64-bit divide for timer math).
+// gCpuClockHi is always 0 since 62.5 MHz fits in 32 bits.
+gCpuClockHi        = 0x80095280; // type:data           // u32 high word of u64 CPU clock rate (= 0)
+gCpuClock          = 0x80095284; // type:data           // u32 CPU clock Hz = 62500000 (low word of u64)
+gAiClock           = 0x80095288; // type:data           // u32 AI clock Hz (audio rate source)
+// __osAllThreadList: singly-linked list of all created threads (through OSThread.unk_0C).
+// func_8007BD08 (osCreateThread equivalent) inserts at head: new->unk_0C = head; head = new.
+// Separate from the priority-sorted run queue (__osRunQueue) which uses OSThread.next.
+__osAllThreadList  = 0x800952AC; // type:data           // OSThread* creation-order all-threads list head
+
+// ============================================================
+// N64 RDRAM bootstrap globals (written by IPL3)
+// ============================================================
+osMemSize   = 0x80000300; // type:data  // u32: installed RDRAM size in bytes
+osRomBase   = 0x80000308; // type:data  // u32: cartridge ROM physical base address
+osResetType = 0x8000030C; // type:data  // u32: cold(0) vs warm(1) reset
+osTvType    = 0x80000318; // type:data  // u32: TV standard (0=PAL, 1=NTSC, 2=MPAL)
+osVersion   = 0x8000031C; // type:data  // u32: OS version
+
+// ---- Exception/interrupt vector area (low RDRAM 0x80000000) ----
+// func_8007CAA0/func_80075F90 patch these with jalr/jr instruction pairs.
+D_80000000  = 0x80000000; // type:data  // exception vector slot 0 (MIPS TLB refill, inst 0)
+D_80000004  = 0x80000004; // type:data  // exception vector slot 0 (inst 1)
+D_80000008  = 0x80000008; // type:data  // exception vector slot 1 (inst 0)
+D_8000000C  = 0x8000000C; // type:data  // exception vector slot 1 (inst 1)
+
+// ============================================================
+// SFX subsystem globals (identified during SFX decompilation)
+// ============================================================
+// ---- Overlay BSS (0x80180000 segment) ----
+gSfxChannelState   = 0x801820D8; // type:data  // SfxChannelState[4] per-channel processed output
+gSfxHeap           = 0x80182348; // type:data  // SfxSortEntry[] priority-insert heap (0x0C stride)
+gSfxPhase          = 0x801823A8; // type:data  // s32  3-phase SFX state machine phase (0/1/2)
+gSfxEntity         = 0x801823AC; // type:data  // void* entity to re-insert in phase 1
+gSfxFadeTimer      = 0x801823B0; // type:data  // s32  fade-in timer (ramps 0→0xFF)
+D_801823B8         = 0x801823B8; // type:data  // s32  (loaded from D_80092CB0 on reset)
+D_801823BC         = 0x801823BC; // type:data  // s32  (loaded from D_80092CB4 on reset)
+D_801823C0         = 0x801823C0; // type:data  // s32  gSfxFrameState — jump-table index (0–7)
+D_801823C4         = 0x801823C4; // type:data  // s32  gSfxBlockedFlag
+D_801823C8         = 0x801823C8; // type:data  // s32  gSfxTimerD (countdown/warmup, ceiling 0xFF)
+D_801823CC         = 0x801823CC; // type:data  // s32  DL timing reference snapshot
+D_801823E0         = 0x801823E0; // type:data  // void* frame output value (returned by func_80063B0C)
+D_80182EA8         = 0x80182EA8; // type:data  // u8[] SFX block data (12 × 0xD8 bytes)
+D_801839A8         = 0x801839A8; // type:data  // void* audio output context pointer
+gSfxInputTable     = 0x8017CA08; // type:data  // SfxInputEntry[4] per-channel input params
+
+// ---- Main BSS (0x80090000+ segment) ----
+gSfxActiveCount    = 0x80092CB8; // type:data  // s32  number of active SfxSortEntry nodes in heap
+gSfxMaxIndex       = 0x80092CBC; // type:data  // s32  highest occupied heap index (-1 if empty)
+gSfxAllocCount     = 0x80092CC0; // type:data  // s32  heap allocation cursor / search index
+D_80092CB0         = 0x80092CB0; // type:data  // s32  (copied to D_801823B8 on reset)
+D_80092CB4         = 0x80092CB4; // type:data  // s32  (copied to D_801823BC on reset)
+gSfxPendingSlot    = 0x80092CC4; // type:data  // s32  pending insertion slot
+gSfxPendingCount   = 0x80092CC8; // type:data  // s32  pending entry count
+gSfxCurrentSlot    = 0x80092CCC; // type:data  // s32  current active slot index
+D_80092CD0         = 0x80092CD0; // type:data  // u8[4] gSfxChannelMute (0=play, nonzero=mute)
+gSfxSlotEnd        = 0x80092CE0; // type:data  // void* heap past-end sentinel entity
+D_80092CF4         = 0x80092CF4; // type:data  // s32  saved audio param 0
+D_80092CF8         = 0x80092CF8; // type:data  // s32  saved audio param 1 / gSfxRampStep
+gSfxRampStep       = 0x80092CF8; // type:data  // s32  alias — fade-in ramp step per frame
+D_80092CFC         = 0x80092CFC; // type:data  // s32  saved audio param 2
+D_80092D00         = 0x80092D00; // type:data  // s32  saved audio param 3 / gSfxDecayStep
+gSfxDecayStep      = 0x80092D00; // type:data  // s32  alias — fade-out decay step per frame
+D_80092D04         = 0x80092D04; // type:data  // s32  saved audio param 4
+D_80092D08         = 0x80092D08; // type:data  // s32  audio engine param 0 (set to 6 on trigger)
+D_80092D0C         = 0x80092D0C; // type:data  // s32  audio engine param 1 (set to 4)
+D_80092D10         = 0x80092D10; // type:data  // s32  audio engine param 2 (set to 2)
+D_80092D14         = 0x80092D14; // type:data  // s32  audio engine param 3 (set to 4)
+D_80092D18         = 0x80092D18; // type:data  // s32  audio engine param 4 (set to 0xFFFFFF)
+gSfxSavedState     = 0x80092B58; // type:data  // s32  saved SFX state (phase machine)
+D_80092B60         = 0x80092B60; // type:data  // s32  sound-active / probe-mode flag
+D_80092B64         = 0x80092B64; // type:data  // s32  audio output-active flag
+D_80093EE4         = 0x80093EE4; // type:data  // void* master SFX handler entity
+D_80096540         = 0x80096540; // type:data  // s32 DMA destination buffer (main BSS)
+
+// ---- Four-CC tags for SFX definition table dispatch (func_80063A3C) ----
+// SFX_TAG_HUFH = 0x4C485546 → func_8005B224 (Huffman full sample)
+// SFX_TAG_COPY = 0x434F5059 → func_8005AB80 (copy/loop)
+// SFX_TAG_LZSS = 0x4C5A5353 → func_8005AC70 (LZSS compressed)

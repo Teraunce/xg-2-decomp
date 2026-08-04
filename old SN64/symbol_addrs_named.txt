@@ -1,0 +1,47 @@
+decompressed_entry = 0x8004BA20; // type:func rom_name:decompressed_entry // entry: set sp=0x803FFFF0, clear BSS, call osInitialize->game
+gameInit = 0x8004E094; // type:func rom_name:gameInit // first game function: init subsystems, create main thread
+__osPiRawWriteIo = 0x80074F08; // type:func rom_name:__osPiRawWriteIo // waits PI_STATUS & 3 == 0, then sw arg1 -> arg0
+__osPiRawReadIo = 0x80074F40; // type:func rom_name:__osPiRawReadIo // waits PI_STATUS & 3 == 0, then lw from arg0
+__osPiResetCount = 0x80074F7C; // type:func rom_name:__osPiResetCount // clears D_80188E40 counter, falls through to wait loop
+__osPiWaitForCount = 0x80074F8C; // type:func rom_name:__osPiWaitForCount // spins until D_80188E40 >= arg0
+osWritebackInvalDCache = 0x8007BA98; // type:func rom_name:osWritebackInvalDCache // cache 0x15/0x11, threshold 0x2000, 0x10-byte lines
+osInvalICache = 0x8007BB48; // type:func rom_name:osInvalICache // cache 0x10/0x0, threshold 0x4000, 0x20-byte lines
+osWritebackDCache = 0x8007BC28; // type:func rom_name:osWritebackDCache // cache 0x19/0x1, threshold 0x2000, 0x10-byte lines
+__osInvalICache_full = 0x8007BCA8; // type:func rom_name:__osInvalICache_full // full icache index-invalidate [0x80000000, 0x80001FF0)
+osCreateMesgQueue = 0x8007BCD8; // type:func rom_name:osCreateMesgQueue // init queue struct: head=tail=sentinel, cnt=0, size/buf args
+osCreateThread = 0x8007BD08; // type:func rom_name:osCreateThread // init thread struct, link into D_800952AC list
+osDisableInt = 0x8007C768; // type:func rom_name:osDisableInt // save and disable interrupts (returns prev state)
+osRestoreInt = 0x8007C788; // type:func rom_name:osRestoreInt // restore interrupt state saved by osDisableInt
+osInitialize = 0x8007C9E8; // type:func rom_name:osInitialize // installs exception vectors, flushes cache, inits PI domain
+__osGetSR = 0x8007CC78; // type:func rom_name:__osGetSR // mfc0 $v0, $12 (COP0 Status)
+__osGetFpcsr = 0x8007CC88; // type:func rom_name:__osGetFpcsr // cfc1 $v0 (FPU control/status)
+__osSetSR = 0x8007CC98; // type:func rom_name:__osSetSR // mtc0 $a0, $12 (COP0 Status)
+__osInitTLB = 0x8007CCA8; // type:func rom_name:__osInitTLB // mtc0 + tlbwi to zero out TLB entries
+osVirtualToPhysical = 0x8007D688; // type:func rom_name:osVirtualToPhysical // strips 0x80/0xA0 prefix; TLB walk fallback
+__osVirtualToPhysical_noop = 0x8007D7C8; // type:func rom_name:__osVirtualToPhysical_noop // empty stub between VToP and next func
+osAiSetFrequency = 0x800866F4; // type:func rom_name:osAiSetFrequency // computes dacrate/bitrate, writes 0xA4500010/14, enables AI
+osAiRawStartDma = 0x80086848; // type:func rom_name:osAiRawStartDma // sets AI_DRAM_ADDR (0xA4500000) and AI_LEN (0xA4500004)
+osSpTaskStart = 0x80086BD4; // type:func rom_name:osSpTaskStart // waits SP idle, writes 0x125 to SP_STATUS to start RSP
+osSpGetStatusBits = 0x80086C20; // type:func rom_name:osSpGetStatusBits // checks SP_STATUS bits 0x1C (SIG flags)
+osSpSetStatus = 0x80086C48; // type:func rom_name:osSpSetStatus // writes arg to SP_STATUS (0xA4040010)
+osSpSetPc = 0x80086C60; // type:func rom_name:osSpSetPc // writes arg0 to SP_PC (0xA4080000)
+osSpRawStartDma = 0x80086C98; // type:func rom_name:osSpRawStartDma // sets SP_MEM_ADDR/DRAM_ADDR/RD_LEN or WR_LEN
+osSpTaskYield = 0x80086D48; // type:func rom_name:osSpTaskYield // reads SP_STATUS, checks YIELD/YIELDED bits
+osSpGetStatus = 0x80086DC8; // type:func rom_name:osSpGetStatus // returns SP_STATUS register value
+osViInit = 0x80087158; // type:func rom_name:osViInit // inits VI mode tables, sets control reg, calls osViSwapBuffer
+osViGetCurrentFramebuffer = 0x80087298; // type:func rom_name:osViGetCurrentFramebuffer // returns D_80095640 (current VI framebuffer)
+osViSwapBuffer = 0x80087728; // type:func rom_name:osViSwapBuffer // writes all VI regs from mode table, swaps front/back buffers
+osEPiRawReadIo = 0x80087AF8; // type:func rom_name:osEPiRawReadIo // checks SI busy, reads from 0xA0000000|arg0
+osEPiRawWriteIo = 0x80087B78; // type:func rom_name:osEPiRawWriteIo // checks SI busy, writes arg1 to 0xA0000000|arg0
+osSiRawStartDma = 0x80087C78; // type:func rom_name:osSiRawStartDma // sets SI_DRAM_ADDR, triggers PIF DMA read or write 64B
+osEPiRawReadIo_cart = 0x8008CEC0; // type:func rom_name:osEPiRawReadIo_cart // waits PI busy, reads from (D_80000308|arg0|0xA0000000)
+osEPiLoad = 0x8008CF18; // type:func rom_name:osEPiLoad // async overlay loader: queues DMA+decompress via func_8007BD08
+osEPiStartDma_simple = 0x8008D0A8; // type:func rom_name:osEPiStartDma_simple // sets PI DRAM/CART/LEN regs; no domain config
+osEPiStartDma = 0x8008D188; // type:func rom_name:osEPiStartDma // sets PI regs with domain config update (osEPiStartDma)
+osEPiGetDomainInfo = 0x8008D3C0; // type:func rom_name:osEPiGetDomainInfo // reads domain config from 0xB0000000, inits D_8018C208 table
+heap_alloc_default = 0x8004D4A8; // type:func // wrapper: loads D_80090D00 (heap end) as arg1, falls into heap_alloc
+heap_alloc = 0x8004D4B0; // type:func // bump allocator: D_80090D04=remaining, 16-byte aligned
+gameMainThread = 0x8004E0F8; // type:func // main thread: init VI, load overlay, create next thread
+gameMainLoop_setup = 0x8004E21C; // type:func // setup queues, VI retrace, controller, main game loop
+osViSetMode = 0x80087318; // type:func // sets VI mode from D_80095640 mode table
+osViSetYScale = 0x80087388; // type:func // sets VI y-scale value (arg0)

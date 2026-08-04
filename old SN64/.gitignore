@@ -1,0 +1,6 @@
+build/
+*.map
+baserom.z64
+*.pyc
+__pycache__/
+.splat_cache/

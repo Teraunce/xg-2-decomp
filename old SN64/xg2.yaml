@@ -1,0 +1,75 @@
+name: xg2
+sha1: ed0a50086ef9a89f5b445c20ab6f365165959630
+options:
+  basename: xg2
+  target_path: baserom.z64
+  elf_path: build/xg2.elf
+  base_path: .
+  compiler: IDO
+  platform: n64
+  endianness: big
+  find_file_boundaries: True
+  header_encoding: ASCII
+  o_as_suffix: True
+  gp_value: 0x00000000
+  asm_path: asm
+  src_path: src
+  asset_path: assets
+  undefined_funcs_auto_path: undefined_funcs_auto.txt
+  undefined_syms_auto_path: undefined_syms_auto.txt
+  symbol_addrs_path:
+    - symbol_addrs.txt
+  ld_script_path: xg2.ld
+  ld_dependencies: True
+  section_order:
+    - .text
+    - .data
+    - .rodata
+    - .bss
+  asm_inc_header: |
+    .set noat
+    .set noreorder
+
+segments:
+  # ROM header (64 bytes)
+  - name: header
+    type: header
+    start: 0x0
+    vram: 0x80000000
+
+  # IPL3 bootcode (CIC-6102)
+  - name: ipl3
+    type: bin
+    start: 0x40
+    vram: 0xA4000040
+
+  # Main 1MB load: ROM:0x1000 -> VRAM:0x8004B400 (IPL3 boot address from ROM header)
+  # IPL3 (CIC-6102) copies ROM[0x1000..0x101000] to VRAM:0x8004B400 and jumps there.
+  - name: boot
+    type: code
+    start: 0x1000
+    vram: 0x8004B400
+    subsegments:
+      # Handwritten boot stub: func_8004B400 (35 instructions, 0x94 bytes)
+      - [0x1000, asm, boot/boot]
+      # 4-byte gap (invalid opcode 0x74680200)
+      - [0x1094, bin, boot/boot_pad]
+      # LZSS decompressor + OS init: func_8004B498 (runs until 0x1620)
+      # Copies VRAM:0x8004BA20->0x8024BA20 (staging), then decompresses back to 0x8004BA20
+      - [0x1098, asm, boot/init]
+      # LZSS compressed block: 'LZSS' header (0x18) + compressed data (0x2B56F bytes)
+      # output_size=0x4AB20 (305,952 bytes), decompressed to VRAM:0x8004BA20-0x80096540
+      - [0x1620, bin, boot/compressed_main]
+      # Overlay destination area: loaded at VRAM:0x80096400 initially; first 0x140 bytes
+      # overwritten by LZSS output. Remainder (ROM:0x4C140-0x101000) is DMA overlay space.
+      - [0x4C000, bin, boot/overlay_dest]
+      - [0x101000]
+
+  # Remaining ROM: overlays, textures, audio, levels
+  # Each of these will need further analysis to split properly
+  - name: assets
+    type: bin
+    start: 0x101000
+    vram: 0x00101000
+
+  - [0xC00000]

@@ -1,0 +1,4 @@
+Comparing build/xg2.z64 with baserom.z64...
+ed0a50086ef9a89f5b445c20ab6f365165959630  baserom.z64
+ed0a50086ef9a89f5b445c20ab6f365165959630  build/xg2.z64
+✓ BYTE-EXACT MATCH

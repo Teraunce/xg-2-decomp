@@ -1,0 +1,19 @@
+# XG2 Decomp — Python tool requirements
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# Also required (system packages, not pip):
+#   sudo apt-get install binutils-mips-linux-gnu
+#
+# Also required (manual install for byte-matching C compilation):
+#   IDO 7.1 — https://github.com/decompals/ido-static-recomp
+
+# ROM splitter
+splat64==0.41.1
+
+# MIPS disassembler (used by splat)
+spimdisasm==1.42.2
+
+# MIPS-to-C decompiler
+m2c @ git+https://github.com/matt-kempster/mips_to_c.git

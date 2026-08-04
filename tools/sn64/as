@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# SN64 assembler wrapper: called by GCC 2.7.2 via -B
+# Preprocesses SGI MIPS assembly, then assembles with mips-linux-gnu-as
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+GNU_AS="$SCRIPT_DIR/../mips-binutils/bin/mips-linux-gnu-as"
+
+# Pull out the input .s file (last arg not starting with -)
+# and -o output (arg after -o)
+OUTPUT=""
+INPUT=""
+PASS_ARGS=()
+i=0; args=("$@")
+while [ $i -lt ${#args[@]} ]; do
+    arg="${args[$i]}"
+    if [ "$arg" = "-o" ]; then
+        i=$((i+1)); OUTPUT="${args[$i]}"
+        PASS_ARGS+=("-o" "$OUTPUT")
+    elif [[ "$arg" != -* && "$arg" == *.s ]]; then
+        INPUT="$arg"
+    else
+        PASS_ARGS+=("$arg")
+    fi
+    i=$((i+1))
+done
+
+if [ -z "$INPUT" ]; then
+    # No .s file found — pass through unchanged
+    exec "$GNU_AS" -march=vr4300 -mabi=32 -G0 -EB "$@"
+fi
+
+# Preprocess: convert SGI-specific instructions to GNU as equivalents
+TMPFILE=$(mktemp /tmp/sn64_as_XXXXXX.s)
+trap 'rm -f "$TMPFILE"' EXIT
+
+sed \
+    -e 's/\bj \$\([0-9][0-9]*\)\b/jr $\1/g' \
+    -e 's/\bj \$ra\b/jr $ra/g' \
+    "$INPUT" > "$TMPFILE"
+
+exec "$GNU_AS" -march=vr4300 -mabi=32 -G0 -EB "${PASS_ARGS[@]}" "$TMPFILE"
