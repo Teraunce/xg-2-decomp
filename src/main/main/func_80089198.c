@@ -1,5 +1,5 @@
 #include "ultra64.h"
-u16 func_80089198(u8 *arg0, s32 arg1) {
+u16 contPakByteSum(u8 *arg0, s32 arg1) {
     s32 spC;
     s32 sp8;
     u8 *sp4;

@@ -2,19 +2,19 @@
 #include "audio.h"
 
 /*
- * func_80063A3C — SFX definition lookup and sample dispatch (nonmatching).
- * func_80063B0C — Return the current SFX frame output value (nonmatching).
+ * sfxDispatchSample — SFX definition lookup and sample dispatch (nonmatching).
+ * sfxGetFrameOutput — Return the current SFX frame output value (nonmatching).
  *
- * func_80063A3C(defIndex, volume):
+ * sfxDispatchSample(defIndex, volume):
  *   Reads gSfxDefTable[defIndex] (16-byte record) from the table whose
  *   base pointer lives at gSfxDefTable.  Dispatches on the four-CC tag
  *   at record[+0x04]:
  *
  *     'LHUF' / 0x4C485546 — full sample (Huffman):
- *         func_8005B224(D_8004B658 + rec[0], volume, rec[2])   → returns 1
+ *         audioDecodeHufh(D_8004B658 + rec[0], volume, rec[2])   → returns 1
  *
  *     'COPY' / 0x434F5059 — copy/loop sample:
- *         func_8005AB80(D_8004B658 + rec[0], rec[2], volume)   → returns 1
+ *         audioPlayCopySample(D_8004B658 + rec[0], rec[2], volume)   → returns 1
  *
  *     'LZSS' / 0x4C5A5353 — LZSS compressed sample:
  *         func_8005AC70(D_8004B658 + rec[0], volume, rec[2], rec[3])  → returns 1
@@ -43,9 +43,9 @@ extern void *D_8004B658;  /* 0x8004B658 — sample bank base pointer */
 extern s32   D_801823E0;  /* 0x801823E0 — current SFX frame output value */
 
 /* Sample decoder prototypes — argument order confirmed from asm. */
-s32 func_8005AB80(void *ptr, s32 length, s32 volume);
+s32 audioPlayCopySample(void *ptr, s32 length, s32 volume);
 s32 func_8005AC70(void *ptr, s32 volume, s32 length, s32 loopEnd);
-s32 func_8005B224(void *ptr, s32 volume, s32 length);
+s32 audioDecodeHufh(void *ptr, s32 volume, s32 length);
 
 /* Four-CC tags stored at record[+0x4] */
 #define SFX_TAG_HUFH  0x4C485546u   /* 'LHUF' big-endian → Huffman full sample */
@@ -53,12 +53,12 @@ s32 func_8005B224(void *ptr, s32 volume, s32 length);
 #define SFX_TAG_LZSS  0x4C5A5353u   /* 'LZSS' → LZSS-compressed sample        */
 
 /* -------------------------------------------------------------------------
- * func_80063A3C
+ * sfxDispatchSample
  * Look up SFX def record by index and dispatch to the matching decoder.
  * Returns 1 on success, 0 for an unknown type tag.
  * nonmatching
  * ------------------------------------------------------------------------- */
-s32 func_80063A3C(s32 defIndex, s32 volume) {
+s32 sfxDispatchSample(s32 defIndex, s32 volume) {
     /* Record pointer: *(base_ptr) + defIndex * 16 */
     s32  *rec    = (s32 *)((u8 *)gSfxDefTable + (defIndex << 4));
     void *bank   = D_8004B658;
@@ -68,7 +68,7 @@ s32 func_80063A3C(s32 defIndex, s32 volume) {
     s32   loopEnd = rec[3];                /* rec[0xC] (LZSS only) */
 
     if (tag == SFX_TAG_HUFH) {
-        func_8005B224(sample, volume, length);
+        audioDecodeHufh(sample, volume, length);
         return 1;
     }
 
@@ -88,7 +88,7 @@ s32 func_80063A3C(s32 defIndex, s32 volume) {
 
     /* tag < SFX_TAG_HUFH: check for COPY */
     if (tag == SFX_TAG_COPY) {
-        func_8005AB80(sample, length, volume);
+        audioPlayCopySample(sample, length, volume);
         return 1;
     }
 
@@ -96,10 +96,10 @@ s32 func_80063A3C(s32 defIndex, s32 volume) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80063B0C
+ * sfxGetFrameOutput
  * Return the current SFX frame output value stored in D_801823E0.
  * nonmatching (0x8 bytes in binary — only 2 instructions before fall-through)
  * ------------------------------------------------------------------------- */
-s32 func_80063B0C(void) {
+s32 sfxGetFrameOutput(void) {
     return D_801823E0;
 }

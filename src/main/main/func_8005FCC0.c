@@ -2,8 +2,8 @@
 void func_8005FC3C(void);                              /* extern */
 void sfxPlay(u16);                               /* extern */
 char *sfxGetEntry(s32);                           /* extern */
-s32 func_80063B0C(s32);                             /* extern */
-s32 func_80066FD0(s32, s32, void *, s32);              /* extern */
+s32 sfxGetFrameOutput(s32);                             /* extern */
+s32 trackSegmentOffset(s32, s32, void *, s32);              /* extern */
 s32 func_80070C88(void *, s32 (*)(void *, s32));                /* extern */
 extern s32 gRaceCtrl;
 extern s32 gGameFlags;
@@ -76,7 +76,7 @@ loop_8:
     if (temp_s1 == 1) {
         temp_v1_2 = ((Unk*)D_80182EA8.unk16F8)->unk8;
         if ((temp_v1_2 >= 0xA) && (temp_v1_2 < 0xD)) {
-            temp_s0 = func_80063B0C(func_80066FD0(D_80182EA8.unk16DC, D_80182EA8.unk16E0, &D_80182EA8, var_a3)) & 0xFFFF;
+            temp_s0 = sfxGetFrameOutput(trackSegmentOffset(D_80182EA8.unk16DC, D_80182EA8.unk16E0, &D_80182EA8, var_a3)) & 0xFFFF;
             temp_v0_2 = sfxGetEntry(temp_s0);
             if (temp_v0_2->unkC < *D_80093350) {
                 D_8009334C = temp_s1;

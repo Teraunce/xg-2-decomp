@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 osContPakWrite(s32, s32, u16, s32, s32);      /* extern */
-u16 func_80089198(u8*, s32);                      /* extern */
+u16 contPakByteSum(u8*, s32);                      /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);           /* extern */
 
@@ -33,7 +33,7 @@ s32 contPakReadWriteNote(Unk *arg0, Unk *arg1, u8 arg2, u8 arg3) {
         sp28 = arg0->unk60;
     }
     if (arg2 == 1) {
-        arg1->unk1 = func_80089198(arg1 + (sp28 * 2), (sp28 * -2) + 0x100);
+        arg1->unk1 = contPakByteSum(arg1 + (sp28 * 2), (sp28 * -2) + 0x100);
     }
     sp30 = 0;
 loop_9:
@@ -53,7 +53,7 @@ loop_9:
     sp30 = temp_t5;
     if (temp_t5 >= 8) {
         if (arg2 == 0) {
-            sp37 = func_80089198(arg1 + (sp28 * 2), (sp28 * -2) + 0x100);
+            sp37 = contPakByteSum(arg1 + (sp28 * 2), (sp28 * -2) + 0x100);
             if (arg1->unk1 != sp37) {
                 sp30 = 0;
                 do {

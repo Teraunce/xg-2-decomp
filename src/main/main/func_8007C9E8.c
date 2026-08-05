@@ -4,9 +4,9 @@ void osWritebackDCache(u32, s32);                              /* extern */
 s32 osEPiRawReadIo(s32, s32 *);                        /* extern */
 s32 osEPiRawWriteIo(s32, s32);                          /* extern */
 void func_8008CEB8(s32, u32 *);                          /* extern */
-void func_8008EAB8(s32, s32);                            /* extern */
-u32 func_8008EBC0(s32, u32, s32, s32);                  /* extern */
-s32 func_8008ECC0(u32, s32, s32, s32);                  /* extern */
+void bzero(s32, s32);                            /* extern */
+u32 __udivdi3(s32, u32, s32, s32);                  /* extern */
+s32 __muldi3(u32, s32, s32, s32);                  /* extern */
 s32 __osGetSR();                                /* static */
 s32 __osGetFpcsr(s32);                               /* static */
 void __osSetSR(s32);                            /* static */
@@ -70,14 +70,14 @@ void osInitialize(void) {
         gCpuClockHi = 0;
         gCpuClockHi = temp_t9;
     }
-    temp_ret = func_8008ECC0(gCpuClockHi, gCpuClock, 0, 3);
+    temp_ret = __muldi3(gCpuClockHi, gCpuClock, 0, 3);
     sp20 = temp_ret;
     sp24 = (u32) (u64) temp_ret;
-    temp_ret_2 = func_8008EBC0(sp20, sp24, 0, 4);
+    temp_ret_2 = __udivdi3(sp20, sp24, 0, 4);
     gCpuClockHi = temp_ret_2;
     gCpuClockHi = (u32) (u64) temp_ret_2;
     if (osResetType == 0) {
-        func_8008EAB8(&osVersion, 0x40);
+        bzero(&osVersion, 0x40);
     }
     if (osMemSize == 0) {
         gAiClock = 0x02F5B2D2;

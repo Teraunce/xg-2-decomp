@@ -5,7 +5,7 @@ s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
 u8 func_800890C8(u8*);                           /* extern */
 void func_8008A114(s32, u16);                          /* extern */
-s32 func_8008C788(s32, s32);                        /* extern */
+s32 contPakProbe(s32, s32);                        /* extern */
 extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
 
@@ -66,7 +66,7 @@ loop_1:
     if (temp_t2 == 0) {
         sp27 = func_800890C8(&sp2C + 6);
         if (sp27 != sp52) {
-            sp5C = func_8008C788(arg0, arg1);
+            sp5C = contPakProbe(arg0, arg1);
             if (sp5C != 0) {
                 __siUnlock();
             } else {

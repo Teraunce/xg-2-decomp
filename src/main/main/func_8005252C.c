@@ -6,7 +6,7 @@ void func_8004F2F0(Unk*);                            /* extern */
 s32 vec3Normalize(void *, void *, void *);            /* extern */
 void func_800576FC(Unk*, Unk*, Unk*);                 /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);            /* extern */
-void func_80058294(void *, s32, s32, s32, s32, s32, s32); /* extern */
+void mtxLookAt(void *, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_800EEC78(void *, f32, f32, f32, void *);     /* extern */
 s32 func_800F1604(void *, void *, void *);               /* extern */
 s32 func_801114CC(void *, s32);                       /* extern */
@@ -52,7 +52,7 @@ void func_8005252C(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
     temp_s2 = arg0->unkC;
     if (temp_s2 != NULL) {
         temp_fs0 = D_8004BC60;
-        func_80058294(&sp20, arg1->unk0, arg1->unk4, arg1->unk8, 0, temp_fs0, 0);
+        mtxLookAt(&sp20, arg1->unk0, arg1->unk4, arg1->unk8, 0, temp_fs0, 0);
         sp70 = temp_s2->unk34;
         sp74 = temp_s2->unk38;
         sp78 = temp_s2->unk3C;

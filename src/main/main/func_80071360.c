@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);       /* extern */
+s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);       /* extern */
 extern Unk D_801887D0;
 
 void func_80071360(s32 arg0) {
@@ -25,10 +25,10 @@ loop_2:
     } else {
 block_5:
         if (D_801887D0.unk170 != 0) {
-            func_80070F50(0x51, arg0, 0, 0, 0, 0, 0);
+            handlerPostCmd(0x51, arg0, 0, 0, 0, 0, 0);
             D_801887D0.unk170 = 0;
             return;
         }
-        func_80070F50(0x41, arg0, 0, 0, 0, 0, 0);
+        handlerPostCmd(0x41, arg0, 0, 0, 0, 0, 0);
     }
 }

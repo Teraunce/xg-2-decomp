@@ -1,9 +1,9 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_800661A4 (initial). */
+/* Warning: missing "jr $ra" in last block of sfxGetVolLevel (initial). */
 
-u16 func_8006421C(void**, Unk*, u32, s16, s32, u32);   /* extern */
-s32 func_80065008(s32, s32, s16, s16, s32);        /* extern */
-s32 func_80065B44(s32, s16, s16);                   /* extern */
+u16 renderCurveStrip(void**, Unk*, u32, s16, s32, u32);   /* extern */
+s32 gfxAddPoint(s32, s32, s16, s16, s32);        /* extern */
+s32 trackComputeLen(s32, s16, s16);                   /* extern */
 extern s16 D_80182E68;
 extern u16 D_80182E74;
 extern s16 D_80182E76;
@@ -38,7 +38,7 @@ void func_80065BDC(s32 arg0, u8 **arg1, s32 arg2) {
     u8 **var_s0_2;
     u8 **var_v1_3;
 
-    var_s6 = func_80065B44(arg1, 0, D_80182E68);
+    var_s6 = trackComputeLen(arg1, 0, D_80182E68);
     if ((u16) D_80182E68 != 0) {
         if ((D_80182E76 >= (D_80182E96 + D_80182E90)) || (D_80182E76 >= 0xFF)) {
             D_80182E68 = 0;
@@ -57,17 +57,17 @@ void func_80065BDC(s32 arg0, u8 **arg1, s32 arg2) {
                 var_s0 = arg1;
                 do {
                     if (((Unk *)var_s0)->unk0 != 0) {
-                        if ((D_80182EA0 != 0) && (func_80065008(((Unk *)var_s0)->unk0, ((Unk *)var_s0)->unk8, (s16) D_80182E74, D_80182E76, ((Unk *)var_s0)->unkC) != 0)) {
-                            if ((((Unk *)var_s0)->unk4 != 0) && (func_80065008(((Unk *)var_s0)->unk4, ((Unk *)var_s0)->unk8, (s16) D_80182E74, D_80182E76, ((Unk *)var_s0)->unkC) == 0)) {
-                                func_8006421C(arg0, ((Unk *)var_s0)->unk4, ((Unk *)var_s0)->unk8, (s16) D_80182E74, (s32) D_80182E76, ((Unk *)var_s0)->unkC);
+                        if ((D_80182EA0 != 0) && (gfxAddPoint(((Unk *)var_s0)->unk0, ((Unk *)var_s0)->unk8, (s16) D_80182E74, D_80182E76, ((Unk *)var_s0)->unkC) != 0)) {
+                            if ((((Unk *)var_s0)->unk4 != 0) && (gfxAddPoint(((Unk *)var_s0)->unk4, ((Unk *)var_s0)->unk8, (s16) D_80182E74, D_80182E76, ((Unk *)var_s0)->unkC) == 0)) {
+                                renderCurveStrip(arg0, ((Unk *)var_s0)->unk4, ((Unk *)var_s0)->unk8, (s16) D_80182E74, (s32) D_80182E76, ((Unk *)var_s0)->unkC);
                             }
                             var_v0 = D_80182E74;
                             var_v1 = (u32) (*(u8*)(s32)((Unk *)var_s0)->unk0 * ((Unk *)var_s0)->unk8) >> 0x10;
                             goto block_26;
                         }
-                        temp_s1 = func_8006421C(arg0, ((Unk *)var_s0)->unk0, ((Unk *)var_s0)->unk8, (s16) D_80182E74, (s32) D_80182E76, ((Unk *)var_s0)->unkC) & 0xFFFF;
+                        temp_s1 = renderCurveStrip(arg0, ((Unk *)var_s0)->unk0, ((Unk *)var_s0)->unk8, (s16) D_80182E74, (s32) D_80182E76, ((Unk *)var_s0)->unkC) & 0xFFFF;
                         if (((Unk *)var_s0)->unk4 != 0) {
-                            func_8006421C(arg0, ((Unk *)var_s0)->unk4, ((Unk *)var_s0)->unk8, (s16) D_80182E74, (s32) D_80182E76, ((Unk *)var_s0)->unkC);
+                            renderCurveStrip(arg0, ((Unk *)var_s0)->unk4, ((Unk *)var_s0)->unk8, (s16) D_80182E74, (s32) D_80182E76, ((Unk *)var_s0)->unkC);
                         }
                         var_v0_2 = D_80182E74 + temp_s1;
                     } else {
@@ -118,15 +118,15 @@ block_26:
                         var_s2 = (s32) ((D_80182E92 - var_s6) * var_s4_3) / (s32) ((u16) D_80182E68 - 1);
                     }
                     if (((Unk *)var_s0_2)->unk0 != 0) {
-                        if ((D_80182EA0 != 0) && (func_80065008(((Unk *)var_s0_2)->unk0, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), D_80182E76, ((Unk *)var_s0_2)->unkC) != 0)) {
-                            if ((((Unk *)var_s0_2)->unk4 != 0) && (func_80065008(((Unk *)var_s0_2)->unk4, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), D_80182E76, ((Unk *)var_s0_2)->unkC) == 0)) {
-                                func_8006421C(arg0, ((Unk *)var_s0_2)->unk4, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), (s32) D_80182E76, ((Unk *)var_s0_2)->unkC);
+                        if ((D_80182EA0 != 0) && (gfxAddPoint(((Unk *)var_s0_2)->unk0, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), D_80182E76, ((Unk *)var_s0_2)->unkC) != 0)) {
+                            if ((((Unk *)var_s0_2)->unk4 != 0) && (gfxAddPoint(((Unk *)var_s0_2)->unk4, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), D_80182E76, ((Unk *)var_s0_2)->unkC) == 0)) {
+                                renderCurveStrip(arg0, ((Unk *)var_s0_2)->unk4, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), (s32) D_80182E76, ((Unk *)var_s0_2)->unkC);
                             }
                             D_80182E74 += (u32) (*(u8*)(s32)((Unk *)var_s0_2)->unk0 * ((Unk *)var_s0_2)->unk8) >> 0x10;
                         } else {
-                            temp_s1_2 = func_8006421C(arg0, ((Unk *)var_s0_2)->unk0, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), (s32) D_80182E76, ((Unk *)var_s0_2)->unkC) & 0xFFFF;
+                            temp_s1_2 = renderCurveStrip(arg0, ((Unk *)var_s0_2)->unk0, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), (s32) D_80182E76, ((Unk *)var_s0_2)->unkC) & 0xFFFF;
                             if (((Unk *)var_s0_2)->unk4 != 0) {
-                                func_8006421C(arg0, ((Unk *)var_s0_2)->unk4, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), (s32) D_80182E76, ((Unk *)var_s0_2)->unkC);
+                                renderCurveStrip(arg0, ((Unk *)var_s0_2)->unk4, ((Unk *)var_s0_2)->unk8, (s16) (D_80182E74 + var_s2), (s32) D_80182E76, ((Unk *)var_s0_2)->unkC);
                             }
                             D_80182E74 += temp_s1_2;
                         }
@@ -147,6 +147,6 @@ block_55:
     }
 }
 
-u8 func_800661A4(void) {
+u8 sfxGetVolLevel(void) {
     return D_80182E9C;
 }

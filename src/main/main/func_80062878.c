@@ -2,11 +2,11 @@
 #include "audio.h"
 
 /*
- * func_80062878 — Per-frame SFX output dispatch.
- * func_80062A6C — Tick all active heap entries (decrement state counters).
+ * sfxUpdateHeap — Per-frame SFX output dispatch.
+ * sfxFlushInactive — Tick all active heap entries (decrement state counters).
  * func_80062ACC — Reset SFX state machine phase and fade timer.
  *
- * func_80062878 iterates over every active heap entry (0 .. gSfxActiveCount-1)
+ * sfxUpdateHeap iterates over every active heap entry (0 .. gSfxActiveCount-1)
  * looking for entries whose type does NOT have bits 0x2 or 0x4 set
  * (i.e. entries that have been inserted but not yet assigned a channel).
  * For each such entry it:
@@ -18,9 +18,9 @@
  *   4. Writes a G_ENDDL (0xE7000000) terminator into the DL buffer.
  * After the loop, if s1 (the saved D_80178690 value) is non-zero it is
  * restored; if the caller-supplied flag (sp+0x38) is set and no active
- * entries were found, calls func_80052C88(0xFF, 0xFF, 0xFF).
+ * entries were found, calls rdpSetFillColor(0xFF, 0xFF, 0xFF).
  *
- * func_80062A6C iterates the heap, decrementing each active entry's state
+ * sfxFlushInactive iterates the heap, decrementing each active entry's state
  * counter (heap[i].state) until it reaches zero, then OR-ing 0x8 into type.
  *
  * func_80062ACC resets gSfxPhase = 0, gSfxFadeTimer = 0, and writes the
@@ -65,19 +65,19 @@ extern void         *D_800E412C;        /* effect table A sentinel */
 extern void         *D_800E4220;        /* effect table B sentinel */
 extern void         *gHandlerTable;        /* handler table base */
 
-void func_80052C88(s32 a0, s32 a1, s32 a2);   /* audio volume set */
+void rdpSetFillColor(s32 a0, s32 a1, s32 a2);   /* audio volume set */
 
 /* DL opcode constants (F3DEX) */
 #define G_ENDDL       0xE7000000u
 #define G_SETOTHERMODE_H  0xE3000000u
 
 /* -------------------------------------------------------------------------
- * func_80062878
+ * sfxUpdateHeap
  * Per-frame: dispatch each unassigned heap entry to its channel handler.
- *   arg0  — extra flag stored at sp+0x38; triggers func_80052C88 if set
+ *   arg0  — extra flag stored at sp+0x38; triggers rdpSetFillColor if set
  *            when no active entries are found.
  * ------------------------------------------------------------------------- */
-void func_80062878(s32 arg0) {
+void sfxUpdateHeap(s32 arg0) {
     s32 i;
     s32 savedChannel = 0;
     s32 anyActive = 0;
@@ -151,16 +151,16 @@ done:
 
     if (!anyActive && arg0) {
         /* No active SFX entries — mute all channels (R=G=B=0xFF). */
-        func_80052C88(0xFF, 0xFF, 0xFF);
+        rdpSetFillColor(0xFF, 0xFF, 0xFF);
     }
 }
 
 /* -------------------------------------------------------------------------
- * func_80062A6C
+ * sfxFlushInactive
  * Tick every active heap entry's state counter downward.
  * When state reaches 0, OR SFX_TYPE_DONE (0x8) into type.
  * ------------------------------------------------------------------------- */
-void func_80062A6C(void) {
+void sfxFlushInactive(void) {
     s32 i;
     s32 count = gSfxActiveCount;
 

@@ -1,6 +1,6 @@
 #include "ultra64.h"
-void func_800608C8(s32, s8, s8, u16, u16, u16); /* extern */
-void func_80060960(s32, s16, s16, s32, s32, s32, s32, s32, u32, u32, u32, u32); /* extern */
+void gfxAddLineTex(s32, s8, s8, u16, u16, u16); /* extern */
+void gfxAddLineVtx(s32, s16, s16, s32, s32, s32, s32, s32, u32, u32, u32, u32); /* extern */
 void renderLineStrip(void**);                            /* extern */
 extern f32 D_8004C788;
 extern f32 D_8004C78C;
@@ -310,8 +310,8 @@ void func_80073480(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5,
                 temp_s3 = sp3C + (s32) ((f32) var_s1->unk6 * (f32) var_fv1_2 * temp_fs1);
                 if (D_80188E24 != 0) {
                     sp50 = var_t3;
-                    func_800608C8(temp_a1, 4, arg7, (s32) temp_a3, (s32) var_s1->unk2, 0);
-                    func_80060960(arg0, (s32) (temp_s2 << 0xE) >> 0x10, (s32) (temp_s3 << 0xE) >> 0x10, (s32) (temp_s4 << 0xE) >> 0x10, (s32) (temp_s5 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1->unk0, (s32) (s16) var_s1->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
+                    gfxAddLineTex(temp_a1, 4, arg7, (s32) temp_a3, (s32) var_s1->unk2, 0);
+                    gfxAddLineVtx(arg0, (s32) (temp_s2 << 0xE) >> 0x10, (s32) (temp_s3 << 0xE) >> 0x10, (s32) (temp_s4 << 0xE) >> 0x10, (s32) (temp_s5 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1->unk0, (s32) (s16) var_s1->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
                 } else {
                     if (arg7 != 0) {
                         temp_v0_9 = *arg0;
@@ -560,8 +560,8 @@ block_47:
                 temp_s3_2 = sp44 + (s32) ((f32) var_s1_2->unk6 * (f32) var_fv1_4 * temp_fs1_2);
                 if (D_80188E24 != 0) {
                     sp50 = var_t3_2;
-                    func_800608C8(temp_a1_4, 8, arg7, (s32) temp_a3_2, (s32) var_s1_2->unk2, 0);
-                    func_80060960(arg0, (s32) (temp_s2_2 << 0xE) >> 0x10, (s32) (temp_s3_2 << 0xE) >> 0x10, (s32) (temp_s4_2 << 0xE) >> 0x10, (s32) (temp_s5_2 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1_2->unk0, (s32) (s16) var_s1_2->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
+                    gfxAddLineTex(temp_a1_4, 8, arg7, (s32) temp_a3_2, (s32) var_s1_2->unk2, 0);
+                    gfxAddLineVtx(arg0, (s32) (temp_s2_2 << 0xE) >> 0x10, (s32) (temp_s3_2 << 0xE) >> 0x10, (s32) (temp_s4_2 << 0xE) >> 0x10, (s32) (temp_s5_2 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1_2->unk0, (s32) (s16) var_s1_2->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
                 } else {
                     if (arg7 != 0) {
                         temp_v0_33 = *arg0;
@@ -782,8 +782,8 @@ block_113:
                     temp_s3_3 = sp4C + (s32) ((f32) var_s1_3->unk6 * (f32) var_fv1_6 * temp_fs1_3);
                     if (D_80188E24 != 0) {
                         sp50 = var_t3_3;
-                        func_800608C8(temp_a1_7, 0x10, arg7, (s32) temp_a3_3, (s32) var_s1_3->unk2, 0);
-                        func_80060960(arg0, (s32) (temp_s2_3 << 0xE) >> 0x10, (s32) (temp_s3_3 << 0xE) >> 0x10, (s32) (temp_s4_3 << 0xE) >> 0x10, (s32) (temp_s5_3 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1_3->unk0, (s32) (s16) var_s1_3->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
+                        gfxAddLineTex(temp_a1_7, 0x10, arg7, (s32) temp_a3_3, (s32) var_s1_3->unk2, 0);
+                        gfxAddLineVtx(arg0, (s32) (temp_s2_3 << 0xE) >> 0x10, (s32) (temp_s3_3 << 0xE) >> 0x10, (s32) (temp_s4_3 << 0xE) >> 0x10, (s32) (temp_s5_3 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1_3->unk0, (s32) (s16) var_s1_3->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
                     } else {
                         temp_v0_51 = *arg0;
                         *arg0 = temp_v0_51 + 8;

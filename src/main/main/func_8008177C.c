@@ -19,7 +19,7 @@
  *   unkA  — second data byte (or 0 for channel-pressure / prog-change)
  *   unkB–unkD — additional bytes for meta events
  *
- * The jal delay-slot ABI: before calling func_80081730, a2=a0 and a3=a1
+ * The jal delay-slot ABI: before calling streamReadVarInt, a2=a0 and a3=a1
  * are set in the two instructions straddling the jal. m2c did not track
  * these and emitted M2C_ERROR for every $a2/$a3 reference after the call.
  * Fixed: all 43 M2C_ERROR occurrences replaced with arg0 / arg1.
@@ -30,7 +30,7 @@ typedef struct {
     /* 0x01 */ s32 unk1;
 } UnkStruct_temp_v1;
 
-u8 func_80081730(Unk*);                            /* extern */
+u8 streamReadVarInt(Unk*);                            /* extern */
 
 void func_8008177C(Unk *arg0, Unk *arg1) {
     s32 temp_t9;
@@ -48,7 +48,7 @@ void func_8008177C(Unk *arg0, Unk *arg1) {
     char *temp_t8;
     UnkStruct_temp_v1 *temp_v1;
 
-    temp_v0 = func_80081730(arg0);
+    temp_v0 = streamReadVarInt(arg0);
     temp_v1 = (UnkStruct_temp_v1 *)(s32) arg0->unk8;
     arg0->unkC = (s32) (arg0->unkC + temp_v0);
     temp_a0 = temp_v1->unk0;

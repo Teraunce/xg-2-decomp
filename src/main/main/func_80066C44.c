@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_800619B0(u32, u32, u32);                       /* extern */
+void safeCopy(u32, u32, u32);                       /* extern */
 void func_80066A60(Unk*, s32, s32);                       /* extern */
 extern s32 D_80093318;
 extern s32 D_80173C18;
@@ -183,13 +183,13 @@ loop_2:
         var_s1_6 += 1;
         var_v1_3 += 4;
     } while (var_s1_6 < 8);
-    func_800619B0(&D_80184640, &D_80182EA8, 0x1738);
+    safeCopy(&D_80184640, &D_80182EA8, 0x1738);
     D_8018DBC8.unk0 = -1;
     D_8018DBC8.unk1 = -1;
 }
 
 /*
- * func_80066FD0 — palette-offset lookup + modulo-3 adjustment (nonmatching).
+ * trackSegmentOffset — palette-offset lookup + modulo-3 adjustment (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  * 1. jr dispatch through jtbl_8004C2F8 (12 entries, index = arg0).
@@ -201,7 +201,7 @@ loop_2:
  *   6→0xB2, 7→0xB5, 8→0xB8, 9→0xBB, 10→0xCA, 11→0xCD
  * Then returns base + (arg1 % 3).  Index >= 12 → base = 0.
  */
-s32 func_80066FD0(s32 arg0, s32 arg1, void *arg2, s32 arg3) {
+s32 trackSegmentOffset(s32 arg0, s32 arg1, void *arg2, s32 arg3) {
     s32 base;
     (void)arg2; (void)arg3;
     if ((u32)arg0 >= 12U) {

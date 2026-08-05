@@ -8,7 +8,7 @@ s32 func_80087BC8(s32);                               /* extern */
 void func_80087C4C(s32);                               /* extern */
 s32 func_8008C898(void *);                             /* extern */
 s32 func_8008CA00(void *);                             /* extern */
-s32 func_8008CCE8(s32, Unk*, s32);                   /* extern */
+s32 contPakBuildMap(s32, Unk*, s32);                   /* extern */
 extern s32 D_800925C8;
 extern s32 D_80093EFC;
 extern s32 D_80093F00;
@@ -62,7 +62,7 @@ void func_80072E00(s32 arg0) {
             if ((gInitStateFlags != 0) || (D_800925C8 != 0)) {
                 var_s0 = 0;
                 if (D_80093F08 == 0) {
-                    if (func_8008CCE8(&D_801887A0, var_s5, var_s4) != 0) {
+                    if (contPakBuildMap(&D_801887A0, var_s5, var_s4) != 0) {
                         var_s1->unk33C = 1;
                     } else {
                         var_s1->unk33C = 0;
@@ -111,7 +111,7 @@ block_32:
                             osWritebackInvalDCache(&D_8018AD28, 0x40);
                             func_80087C4C(&D_80192860);
                         }
-                        if ((void *)(((Unk*)((char*)&D_80192860 + sp10))->unk2 & 1) && (func_8008CCE8(&D_801887A0, var_s5, var_s4) == 0)) {
+                        if ((void *)(((Unk*)((char*)&D_80192860 + sp10))->unk2 & 1) && (contPakBuildMap(&D_801887A0, var_s5, var_s4) == 0)) {
                             var_s1->unk33C = 0;
                             var_s1->unk32C = 1;
                             goto block_71;
@@ -170,7 +170,7 @@ block_32:
 block_67:
                         var_a0 = &D_801887A0;
 block_68:
-                        if (func_8008CCE8(var_a0, var_s5, var_s4) == 0) {
+                        if (contPakBuildMap(var_a0, var_s5, var_s4) == 0) {
                             var_s1->unk32C = 0;
                             var_s1->unk33C = 0;
                             var_s1->unk34C = 0;

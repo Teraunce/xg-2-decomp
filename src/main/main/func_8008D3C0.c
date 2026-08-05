@@ -2,7 +2,7 @@
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 void func_8008CEB8(s32, u32 *);                          /* extern */
-void func_8008EAB8(s32, s32);                           /* extern */
+void bzero(s32, s32);                           /* extern */
 extern char *D_8009649C;
 extern char *D_8018C208;
 extern s8 D_8018C20C;
@@ -34,7 +34,7 @@ void **osEPiGetDomainInfo(void) {
         D_8018C20E = (sp1C >> 0x10) & 0xF;
         D_8018C20E = (sp1C >> 0x14) & 0xF;
         D_8018C211 = 0;
-        func_8008EAB8(&D_8018C208 + 0x14, 0x60);
+        bzero(&D_8018C208 + 0x14, 0x60);
         temp_v0 = osDisableInt();
         D_8018C208 = D_8009649C;
         sp18 = temp_v0;

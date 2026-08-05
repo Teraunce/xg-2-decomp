@@ -2,7 +2,7 @@
 void func_80061A9C(s8*, s8, s32);                        /* extern */
 s32 func_80061AEC(u8 *, u8 *, s32);                   /* extern */
 s32 func_800884E8(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
-s32 func_8008A288(Unk*, u16, s32, s32, s32);       /* extern */
+s32 contPakLoadSave(Unk*, u16, s32, s32, s32);       /* extern */
 s32 contPakWriteNote(Unk*, s32, u8, s32, s32, char*);    /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern u16 gContPakNoteCode;
@@ -96,6 +96,6 @@ s32 func_80071408(s32 arg0) {
 block_8:
     temp_s0_2 = ((((var_s0 + arg0) * 4) + arg0) * 8) + &D_8018894C;
     temp_s5 = contPakReadNote(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, &sp68);
-    func_8008A288(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60);
+    contPakLoadSave(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60);
     return temp_s5 == 0;
 }

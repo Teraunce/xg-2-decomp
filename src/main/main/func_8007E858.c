@@ -2,7 +2,7 @@
 s32 osSetIntMask(s32);                             /* extern */
 void __osTimerUnlink(Unk*);                            /* extern */
 void __osTimerInsert(Unk*, void**);                    /* extern */
-void func_8007E958(Unk*, char*, s32);                  /* extern */
+void memcpyBytes(Unk*, char*, s32);                  /* extern */
 
 s32 osStopTimer(Unk *arg0, s16 *arg1) {
     s32 sp28;
@@ -15,7 +15,7 @@ s32 osStopTimer(Unk *arg0, s16 *arg1) {
     var_v1 = 0;
     if (temp_s0 != NULL) {
         __osTimerUnlink(temp_s0);
-        func_8007E958(temp_s0 + 0xC, arg1, 0x10);
+        memcpyBytes(temp_s0 + 0xC, arg1, 0x10);
         __osTimerInsert(temp_s0, arg0);
         var_v1 = temp_s0->unk8;
     } else {

@@ -34,8 +34,8 @@
  *
  * case 5:
  *   s0 = s2->0x3C; s1 = s0->0x10;
- *   func_80086188(s2->0x14, s0);
- *   func_800860D8(s2->0x14, s0);
+ *   sfxPlayNoteAtEntity(s2->0x14, s0);
+ *   sfxStopAtEntity(s2->0x14, s0);
  *   if (s1->0x37) func_800813E8(s2, s1);
  *   func_800801B8(s2, s0);
  *
@@ -44,8 +44,8 @@
  *   if (!s1->0x34) s1->0x34 = 1;
  *   s1->0x30 = s2->0x44; s3 = s2->0x40;
  *   s1->0x24 = s2->0x1C + s3;
- *   v0 = func_8007FF5C(s1, s2);
- *   func_80086418(s2->0x14, s0, (s16)v0, s3);
+ *   v0 = sfxComputeVolume(s1, s2);
+ *   sfxPlayAtEntity(s2->0x14, s0, (s16)v0, s3);
  *
  * case 7:
  *   func_80080304(sp+0x50, s2);   [sp+0x50 = stored obj+0x38 ptr]
@@ -55,8 +55,8 @@
  *
  * case 0xA:
  *   sh s2->0x3C→s2->0x32; walk linked-list from s2->0x64;
- *   for each node: func_8007FF5C(node, s2); progress=clamp(node->0x24-s2->0x1C, 0x3E8);
- *   func_80086418(s2->0x14, node+4, (s16)v0, progress);
+ *   for each node: sfxComputeVolume(node, s2); progress=clamp(node->0x24-s2->0x1C, 0x3E8);
+ *   sfxPlayAtEntity(s2->0x14, node+4, (s16)v0, progress);
  *   advance via node->0x0.
  *
  * case 0xB:
@@ -74,10 +74,10 @@
  *     s2->0x24 = trunc(D_8004CE50 * s2->0x3C->0x14);
  *   else:
  *     s2->0x24 = 0x1E8;
- *   if (s2->0x20 != NULL) func_8007FE7C(s2);
+ *   if (s2->0x20 != NULL) audioLoadNotes(s2);
  *
  * case 0xE:
- *   func_8007FE7C(s2, a1=s2->0x3C, saved s2->0x3C→s2->0x20);
+ *   audioLoadNotes(s2, a1=s2->0x3C, saved s2->0x3C→s2->0x20);
  *
  * case 0xF:
  *   if (s2->0x2C == 1) → loop (no advance);
@@ -86,10 +86,10 @@
  *
  * case 0x10:
  *   if (s2->0x2C != 2) → next;
- *   func_8007E618(s5, 0); func_8007E618(s5, 2);
+ *   timerRelinkByType(s5, 0); timerRelinkByType(s5, 2);
  *   walk linked-list from s2->0x64;
  *     func_80080110(s2, node+4, 0xC350);
- *     if result: func_8007FFE4(s2, node+4, 0xC350);
+ *     if result: sfxNoteRetrigger(s2, node+4, 0xC350);
  *     advance via node->0x0.
  *   s2->0x2C = 2;
  *   osSetTimer(s5, cmd=0x10, a2=0x7FFFFFFF);
@@ -97,9 +97,9 @@
  * case 0x11:
  *   if (s2->0x2C != 1) → next;
  *   walk linked-list from s2->0x64;
- *     v0 = func_8007FF5C(node, s2);
+ *     v0 = sfxComputeVolume(node, s2);
  *     progress = clamp(node->0x24 - s2->0x1C, 0x3E8);
- *     func_80086418(s2->0x14, node+4, (s16)v0, progress);
+ *     sfxPlayAtEntity(s2->0x14, node+4, (s16)v0, progress);
  *     advance via node->0x0.
  *   s2->0x1C = 0; s2->0x2C = 0;
  *
@@ -107,9 +107,9 @@
  *   fn = s2->0x74; s4 = s2->0x40; s1 = s2->0x3C;
  *   s3 = fn(s4, sp+0xA8);              [sp+0xA8 = float result]
  *   [IDO saturating f32→s32 of sp+0xA8 → s1->0x36]
- *   v0 = func_8007FF5C(s1, s2);
+ *   v0 = sfxComputeVolume(s1, s2);
  *   progress = clamp(s1->0x24 - s2->0x1C, 0x3E8);
- *   func_80086418(s2->0x14, s1+4, (s16)v0, progress);
+ *   sfxPlayAtEntity(s2->0x14, s1+4, (s16)v0, progress);
  *   osSetTimer(s5, cmd=0x16/s1/s4, a2=s3);
  *
  * case 0x17:
@@ -117,7 +117,7 @@
  *   s3 = fn(s4, sp+0xA8);
  *   s1->0x2C = sp+0xA8;                [store float result]
  *   vol = s2->0x60[(s0<<4) + 0xC] * (s1->0x28 * s1->0x2C);
- *   func_80086388(s2->0x14, s1+4, (s32)vol);
+ *   sfxPlayLoopAtEntity(s2->0x14, s1+4, (s32)vol);
  *   osSetTimer(s5, cmd=0x17/s1/s4/s0, a2=s3);
  */
 void func_80080DC4(void) { /* nonmatching — see asm stub */ }

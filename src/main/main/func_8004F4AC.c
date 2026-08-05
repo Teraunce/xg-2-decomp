@@ -1,5 +1,5 @@
 #include "ultra64.h"
-u16 *func_8004D380();                               /* extern */
+u16 *gfxGetWritePtr();                               /* extern */
 s32 heap_alloc_default(s32, s32);                        /* extern */
 void func_8004F440(Unk*);                            /* extern */
 void func_80056A90(Unk*, s32, s32, s32);                   /* extern */
@@ -173,7 +173,7 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
     }
     func_8004F440(arg0);
     var_s1_2 = 0;
-    temp_v0 = func_8004D380();
+    temp_v0 = gfxGetWritePtr();
     *((0 * 2) + temp_v0) = 0;
     if (arg0->unk58 <= 0) {
 
@@ -219,7 +219,7 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
     }
     arg0->unk4C = heap_alloc_default(var_a1 * 0xC, var_a1);
     var_a1_2 = 0;
-    temp_fp = func_8004D380();
+    temp_fp = gfxGetWritePtr();
     temp_v0_4 = var_s0 + 1;
     var_s1_5 = 0;
     if (temp_v0_4 > 0) {

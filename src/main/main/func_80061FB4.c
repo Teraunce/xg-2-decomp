@@ -21,7 +21,7 @@ extern s32 gSfxMaxIndex;        /* 0x80092CBC */
 extern s32 gSfxAllocCount;      /* 0x80092CC0 */
 extern SfxSortEntry gSfxHeap[]; /* 0x80182348 */
 
-s32 sfxSlotResolve(s32);  /* slot-index resolver (func_80061F0C.c) */
+s32 sfxSlotResolve(s32);  /* slot-index resolver (sfxLookupName.c) */
 
 /* -------------------------------------------------------------------------
  * sfxHeapInsert

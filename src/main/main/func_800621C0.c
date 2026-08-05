@@ -6,9 +6,9 @@
  *
  * sfxGetEntity — look up an entity pointer from the heap by resolved index,
  *                  optionally returning the slot's type field.
- * func_80062240 — return the entity at gSfxMaxIndex (highest occupied slot).
- * func_80062278 — return the entity at gSfxAllocCount (allocation cursor).
- * func_800622C0 — update all four SFX channel states from the input table.
+ * sfxGetTopEntity — return the entity at gSfxMaxIndex (highest occupied slot).
+ * sfxGetAllocEntity — return the entity at gSfxAllocCount (allocation cursor).
+ * sfxUpdateChannels — update all four SFX channel states from the input table.
  * func_800625C0 — trivially return gSfxActiveCount.
  *
  * Globals:
@@ -42,7 +42,7 @@ extern SfxChannelState gSfxChannelState[4];    /* 0x801820D8 */
 extern f32 D_8004C028;   /* rodata: volume multiplier for active-channel fade */
 extern f32 D_8004C02C;   /* rodata: volume multiplier for counter-expired fade */
 
-s32 sfxSlotResolve(s32);  /* slot resolver (func_80061F0C.c) */
+s32 sfxSlotResolve(s32);  /* slot resolver (sfxLookupName.c) */
 
 /* -------------------------------------------------------------------------
  * sfxGetEntity
@@ -72,11 +72,11 @@ void *sfxGetEntity(s32 slotSpec, s32 *outType) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80062240
+ * sfxGetTopEntity
  * Return the entity pointer at gSfxMaxIndex (the highest occupied heap slot).
  * Returns NULL if gSfxMaxIndex < 0 (heap is empty / uninitialized).
  * ------------------------------------------------------------------------- */
-void *func_80062240(void) {
+void *sfxGetTopEntity(void) {
     s32 idx = gSfxMaxIndex;
     if (idx < 0) {
         return NULL;
@@ -85,11 +85,11 @@ void *func_80062240(void) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80062278
+ * sfxGetAllocEntity
  * Return the entity pointer at gSfxAllocCount (the allocation cursor).
  * Returns NULL if gSfxAllocCount < 0 or >= gSfxActiveCount.
  * ------------------------------------------------------------------------- */
-void *func_80062278(void) {
+void *sfxGetAllocEntity(void) {
     s32 idx = gSfxAllocCount;
     if (idx < 0) {
         return NULL;
@@ -101,7 +101,7 @@ void *func_80062278(void) {
 }
 
 /* -------------------------------------------------------------------------
- * func_800622C0
+ * sfxUpdateChannels
  * Per-frame SFX channel state update.
  *
  * Iterates over all 4 SFX channels.  For each channel:
@@ -125,7 +125,7 @@ void *func_80062278(void) {
  * division ( /10 ) and the flag-encoding bit positions are compiler-generated;
  * they will reproduce correctly only with the SN64 compiler.
  * ------------------------------------------------------------------------- */
-void func_800622C0(void) {
+void sfxUpdateChannels(void) {
     s32 chan;
     SfxInputEntry  *inp = gSfxInputTable;
     SfxChannelState *out = gSfxChannelState;

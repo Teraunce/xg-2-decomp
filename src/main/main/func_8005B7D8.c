@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8005B864 (initial). */
 
-void func_8005AA64(Unk*, s32, s32);                       /* extern */
+void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void func_8005AEB4();                                  /* extern */
 extern s16 D_8017DF3E;
 extern s8 D_8017DF40;
@@ -18,7 +18,7 @@ void func_8005B7D8(s32 arg0) {
     s8 *var_v1;
 
     D_8017DF44 = &D_8017EF98;
-    func_8005AA64(&D_8017EF98, arg0, -1);
+    audioSetupCopySample(&D_8017EF98, arg0, -1);
     func_8005AEB4();
     var_a0 = 0xFC3;
     var_v1 = &D_8017DF58 + 0xFC3;

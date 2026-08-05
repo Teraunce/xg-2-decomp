@@ -20,7 +20,7 @@ typedef struct {
 
 char *sfxEventDequeue();                              /* extern */
 
-void func_800864B8(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, u8 arg2) {
+void sfxPlayAbsAtEntity(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, u8 arg2) {
     UnkStruct_temp_a0 *temp_a0;
     UnkStruct_temp_v0 *temp_v0;
 

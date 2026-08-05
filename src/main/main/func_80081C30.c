@@ -28,7 +28,7 @@ typedef struct {
     /* 0x1A */ s16 unk1A;
 } UnkStruct_arg0;
 
-s32 func_80081BB0(UnkStruct_arg0 *);
+s32 streamReadU32(UnkStruct_arg0 *);
 s16 func_80081C00(UnkStruct_arg0 *);
 
 void func_80081C30(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
@@ -39,15 +39,15 @@ void func_80081C30(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
     arg0->unk1A = 0;
     arg0->unkC = 0;
     arg0->unk8 = arg1;
-    if (func_80081BB0(arg0) == 0x4D546864) {
-        func_80081BB0(arg0);
+    if (streamReadU32(arg0) == 0x4D546864) {
+        streamReadU32(arg0);
         if ((func_80081C00(arg0) == 0) && (func_80081C00(arg0) == 1)) {
             arg0->unk18 = func_80081C00(arg0);
             temp_v1 = arg0->unk18;
             if (!(temp_v1 & 0x8000)) {
                 arg0->unk14 = (f32) (1.0 / (f64) (f32) temp_v1);
-                if (func_80081BB0(arg0) == 0x4D54726B) {
-                    func_80081BB0(arg0);
+                if (streamReadU32(arg0) == 0x4D54726B) {
+                    streamReadU32(arg0);
                     arg0->unk4 = arg0->unk8;
                 }
             }

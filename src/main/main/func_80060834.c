@@ -20,7 +20,7 @@ void func_80060834(s32 arg0) {
     osStartThread(&D_80178458);
 }
 
-void func_800608C8(s32 arg1, s8 arg2, s8 arg3, u16 arg4, u16 arg5, u16 arg6) {
+void gfxAddLineTex(s32 arg1, s8 arg2, s8 arg3, u16 arg4, u16 arg5, u16 arg6) {
     Unk *var_v1;
     u32 var_a0;
     Unk *temp_v0;

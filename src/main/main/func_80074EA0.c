@@ -1,11 +1,11 @@
 #include "ultra64.h"
-s32 func_80076154();                                /* extern */
-void func_80076160();                              /* extern */
+s32 getCOP0Status();                                /* extern */
+void setCOP0Status();                              /* extern */
 
-s32 func_80074EA0(void) {
+s32 intDisable(void) {
     s32 temp_v0;
 
-    temp_v0 = func_80076154();
-    func_80076160();
+    temp_v0 = getCOP0Status();
+    setCOP0Status();
     return temp_v0 & 1;
 }

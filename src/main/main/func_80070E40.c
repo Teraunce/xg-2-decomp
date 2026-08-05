@@ -17,7 +17,7 @@ void func_80070E40(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
     }
 }
 
-s32 func_80070ED4(void) {
+s32 entityFindActive(void) {
     Unk *var_a0;
     s32 temp_v0;
     s32 var_v1;

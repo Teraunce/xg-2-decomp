@@ -27,7 +27,7 @@
  *   State 0 — "Is the SFX system initialised?"
  *     Check sfxHasEntity(gSfxSlotEnd) (the gSfxSlotEnd sentinel).
  *     NOT found → DMA-load the audio overlay via __osInvalICache_full /
- *       osWritebackInvalDCache / osInvalICache / func_8005B224 / func_8005F838
+ *       osWritebackInvalDCache / osInvalICache / audioDecodeHufh / func_8005F838
  *       (twice: once for code, once for data).  → advance state.
  *     Found → scan gSfxChannelMute[0..3]; if any byte is nonzero set
  *       gSfxBlockedFlag = 1.  → DO NOT advance state (return as-is).
@@ -48,8 +48,8 @@
  *
  *   State 3 — Compute and store SFX block volumes (12 × 3 nested loop).
  *     Outer (s1 = 0..11, s5 += 0xD8), inner (s2 = 0..2, s3 += 0x10):
- *       func_80066FD0(outer, inner) → result
- *       func_80063B0C(result) → id_word
+ *       trackSegmentOffset(outer, inner) → result
+ *       sfxGetFrameOutput(result) → id_word
  *       s0 = id_word & 0xFFFF
  *       def = sfxGetEntry(s0)
  *       vol = def[+0xC]   (raw s32)
@@ -61,21 +61,21 @@
  *     → advance state.
  *
  *   State 4 — Audio engine tick + scheduled CD4 dispatch.
- *     result = func_80070ED4()
+ *     result = entityFindActive()
  *     if result < 0: call sfxFrameTick(); return.
  *     extra = func_800DD984(entity)
  *     func_80070CD4(entity, sfxFrameTick, result, extra)
  *     → DO NOT advance state.
  *
  *   State 5 — Audio engine tick + D50 dispatch.
- *     result = func_80070ED4()
+ *     result = entityFindActive()
  *     if result < 0: call sfxFrameTick(); return.
  *     func_80070D50(entity, sfxFrameTick, result, D_800DDC5C)
  *     → DO NOT advance state.
  *
  *   State 6 — Timing gate + trigger output.
  *     if (D_801823CC + 0xB4) >= D_80173D08: return (not yet time).
- *     func_8005C8D4(D_801839A8)
+ *     audioSetTrack(D_801839A8)
  *     D_80092B64 = 1
  *     func_800C0810(0, 0)
  *     → DO NOT advance state.
@@ -123,19 +123,19 @@ s32   sfxHasEntity(void *entity);
 void  __osInvalICache_full(void);
 void  osWritebackInvalDCache(void *dst, u32 len);
 void  osInvalICache(void *dst, u32 len);
-void  func_8005B224(void *src, void *dst, u32 len, s32 unk);
+void  audioDecodeHufh(void *src, void *dst, u32 len, s32 unk);
 void  func_8005F838(void);
 void  sfxFrameTick(void);
-void  func_80066FD0(s32 outer, s32 inner);
-s32   func_80063B0C(void);
+void  trackSegmentOffset(s32 outer, s32 inner);
+s32   sfxGetFrameOutput(void);
 void *sfxGetEntry(s32 id);
 void  sfxPlay(s32 soundId);
 s32   func_80070C3C(void *entity, void (*cb)(void));
-s32   func_80070ED4(void);
+s32   entityFindActive(void);
 s32   func_800DD984(void *entity);
 void  func_80070CD4(void *entity, void (*cb)(void), s32 result, s32 extra);
 void  func_80070D50(void *entity, void (*cb)(void), s32 result, void *tbl);
-void  func_8005C8D4(void *ctx);
+void  audioSetTrack(void *ctx);
 void  func_800C0810(s32 a0, s32 a1);
 
 /* -------------------------------------------------------------------------
@@ -179,7 +179,7 @@ void func_80063158(void *entity, s32 arg1) {
             __osInvalICache_full();
             osWritebackInvalDCache(&D_80096540, D_1F080);
             osInvalICache(&D_80096540, D_1F080);
-            func_8005B224((u8 *)D_8004BA14 + 0x18,
+            audioDecodeHufh((u8 *)D_8004BA14 + 0x18,
                           &D_80096540,
                           D_1F080,
                           0);
@@ -254,8 +254,8 @@ void func_80063158(void *entity, s32 arg1) {
                 s32 id, vol;
                 void *def;
 
-                func_80066FD0(outer, inner);
-                id  = func_80063B0C();  /* nonmatching: compiler passes $v0 from prior call */
+                trackSegmentOffset(outer, inner);
+                id  = sfxGetFrameOutput();  /* nonmatching: compiler passes $v0 from prior call */
                 id  = (u16)id;                      /* andi 0xFFFF */
                 def = sfxGetEntry(id);
 
@@ -281,7 +281,7 @@ void func_80063158(void *entity, s32 arg1) {
      * State 4: audio engine tick → CD4 scheduled dispatch.
      * ------------------------------------------------------------------ */
     case 4: {
-        s32 result = func_80070ED4();
+        s32 result = entityFindActive();
         if (result < 0) {
             goto lbl_error;
         }
@@ -296,7 +296,7 @@ void func_80063158(void *entity, s32 arg1) {
      * State 5: audio engine tick → D50 table dispatch.
      * ------------------------------------------------------------------ */
     case 5: {
-        s32 result = func_80070ED4();
+        s32 result = entityFindActive();
         if (result < 0) {
             goto lbl_error;
         }
@@ -312,7 +312,7 @@ void func_80063158(void *entity, s32 arg1) {
         if (ref >= D_80173D08) {
             return;  /* too soon */
         }
-        func_8005C8D4(D_801839A8);
+        audioSetTrack(D_801839A8);
         D_80092B64 = 1;
         func_800C0810(0, 0);
         return;

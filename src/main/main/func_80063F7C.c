@@ -6,7 +6,7 @@ extern Unk *D_801823EC;
 extern Unk *D_801823F0;
 extern s32 D_80182EA4;
 
-s32 func_80063F7C(u16 arg0, s32 *arg1, s32 *arg2) {
+s32 fontGetCharWidth(u16 arg0, s32 *arg1, s32 *arg2) {
     Unk *var_s0;
     s32 var_v0;
     s32 var_v1;
@@ -83,9 +83,9 @@ loop_23:
         var_a1_2 += 1;
         if ((arg0 & 0xFFFF) == var_s0->unk0) {
             if (arg2 != NULL) {
-                *arg2 = func_80063F7C(var_s0->unk4, arg1, NULL);
+                *arg2 = fontGetCharWidth(var_s0->unk4, arg1, NULL);
             }
-            return func_80063F7C(var_s0->unk2, arg1, NULL);
+            return fontGetCharWidth(var_s0->unk2, arg1, NULL);
         }
         var_s0 += 6;
         if (var_a1_2 >= 0x3BU) {

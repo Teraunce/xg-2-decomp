@@ -2,10 +2,10 @@
 #include "audio.h"
 
 /*
- * func_80062D98 — SFX trigger: start playing a new sound effect.
- * func_80062F1C — write audio engine parameter block.
+ * sfxPlayCue — SFX trigger: start playing a new sound effect.
+ * sfxSetCueParams — write audio engine parameter block.
  *
- * func_80062D98(entity, soundId):
+ * sfxPlayCue(entity, soundId):
  *   1. Checks whether 'entity' already exists in the D_800E1F30 effect list
  *      via sfxHasEntity.  If it does and D_800E1F74 == 0, either:
  *        a. entity == D_80092BA0 (Probe mode table): play a specific cue
@@ -21,7 +21,7 @@
  *      sfxGetEntity, and inserts soundId at the found position via
  *      sfxHeapInsert.
  *
- * func_80062F1C — write five audio parameters from the function arguments
+ * sfxSetCueParams — write five audio parameters from the function arguments
  *   directly into D_80092D08–D_80092D18.
  *
  * Globals:
@@ -68,11 +68,11 @@ void  sfxQueueCmd(s32 prio, s32 vol, s32 pitch,   /* audio cue trigger */
                     s32 extra, s32 flags);
 
 /* -------------------------------------------------------------------------
- * func_80062F1C
+ * sfxSetCueParams
  * Write the five audio engine parameters from the supplied arguments.
  * The sixth argument comes from the caller's stack (arg4 → D_80092D18).
  * ------------------------------------------------------------------------- */
-void func_80062F1C(s32 p0, s32 p1, s32 p2, s32 p3, s32 p4) {
+void sfxSetCueParams(s32 p0, s32 p1, s32 p2, s32 p3, s32 p4) {
     D_80092D08 = p0;
     D_80092D0C = p1;
     D_80092D10 = p2;
@@ -81,13 +81,13 @@ void func_80062F1C(s32 p0, s32 p1, s32 p2, s32 p3, s32 p4) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80062D98
+ * sfxPlayCue
  * Start playing a new SFX cue.
  *
  *   entity   — sound-source entity (used as a heap lookup key)
  *   soundId  — the cue to insert / trigger
  * ------------------------------------------------------------------------- */
-void func_80062D98(void *entity, void *soundId) {
+void sfxPlayCue(void *entity, void *soundId) {
     s32 slot;
     s32 savedP0, savedP1, savedP2, savedP3, savedP4;
 
@@ -216,7 +216,7 @@ void func_80063144(void) {
 }
 
 /* =========================================================================
- * func_80062F4C — build RDP display list setup sequence.
+ * rdpSetFogColor — build RDP display list setup sequence.
  *
  * Writes 12 × 8-byte GBI entries (96 bytes total) to *D_80173CC0 and
  * advances the pointer.  Commands emitted in order:
@@ -235,7 +235,7 @@ extern u32 *D_80173CC0;   /* RDP display-list write pointer */
 extern s32  D_8017CA44;   /* scissor / tile width  */
 extern s32  D_80173C18;   /* scissor / tile height */
 
-void func_80062F4C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void rdpSetFogColor(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     u32 *dl = D_80173CC0;
     u32 fog_rgba;
     u32 mode_data;

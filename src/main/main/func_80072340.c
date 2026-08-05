@@ -1,12 +1,12 @@
 #include "ultra64.h"
 
 /* -------------------------------------------------------------------------
- * func_80072340 — entity state-machine step (0x210 bytes, nonmatching).
+ * entityStepState — entity state-machine step (0x210 bytes, nonmatching).
  *
  * Advances the animation/state for entity 'entity_idx' (arg1) according
- * to command code 'cmd' (arg0, 0-8).  Calls func_80070F50 for sound/event
- * triggers and func_8008C528 for path/action queries; may retry the switch
- * with a new command code returned by func_8008C528.
+ * to command code 'cmd' (arg0, 0-8).  Calls handlerPostCmd for sound/event
+ * triggers and contPakReadEntry for path/action queries; may retry the switch
+ * with a new command code returned by contPakReadEntry.
  *
  * Writes to D_801887D0[entity_idx*4].unk31C (entity state slot) and
  * D_801887D0->unk168 (shared cleared flag).
@@ -19,9 +19,9 @@
  * -------------------------------------------------------------------------
  */
 
-s32  func_80070F50(s32, s32, s32, s32, s32, s32, s32);
-s32  func_80071108(s32, s32);
-s32  func_8008C528(void *);
+s32  handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);
+s32  handlerPostSfxCmd(s32, s32);
+s32  contPakReadEntry(void *);
 
 extern Unk D_801887D0;   /* game state struct; stride 0x2C per cmd entry */
 
@@ -32,8 +32,8 @@ static s32 set_state3(s32 entity_idx) {
     return 0;
 }
 
-s32 func_80072340(s32 cmd, s32 entity_idx, s32 arg2) {
-    /* nonmatching: jump table + retry loop — see asm/main/main/func_80072340.s */
+s32 entityStepState(s32 cmd, s32 entity_idx, s32 arg2) {
+    /* nonmatching: jump table + retry loop — see asm/main/main/entityStepState.s */
 
 retry:
     if ((u32)cmd >= 9U) goto default_case;
@@ -58,19 +58,19 @@ retry:
         s32 result;
         if (D_801887D0.unk170 == 0) {
             /* unk170 not yet set: ask for animation slot */
-            result = func_80070F50(0x3F, entity_idx, 0x52, 0x50, 0x36, 0, 0);
+            result = handlerPostCmd(0x3F, entity_idx, 0x52, 0x50, 0x36, 0, 0);
             if (result == 0)  return 1;            /* still waiting */
             if (result != 1) return set_state3(entity_idx); /* error → state 3 */
             D_801887D0.unk170 = 1;
         } else {
             /* unk170 already set: check progress */
-            result = func_80070F50(0x40, entity_idx, 0x53, 0x36, 0, 0, 0);
+            result = handlerPostCmd(0x40, entity_idx, 0x53, 0x36, 0, 0, 0);
             if (result == 0) return set_state3(entity_idx);
         }
         /* both paths converge here: query path command */
         {
             void *base = (char *)&D_801887D0 + 0x17C + entity_idx * 0x68;
-            cmd = func_8008C528(base);
+            cmd = contPakReadEntry(base);
             if (cmd != 0) {
                 goto retry;
             }
@@ -81,10 +81,10 @@ retry:
     /* ---- cases 7 & 8: play directional sound, then wait or commit ---- */
     case 7: case 8: {
         s32 sound_id = (cmd == 7) ? 0x4C : 0x4E;
-        s32 result = func_80070F50(sound_id, entity_idx, 0x37, 0x49, 0x36, 0, 0);
+        s32 result = handlerPostCmd(sound_id, entity_idx, 0x37, 0x49, 0x36, 0, 0);
         if (result == 0) return 1;                     /* still waiting */
         if (result == 1) {                             /* confirmed */
-            func_80071108(entity_idx, arg2);
+            handlerPostSfxCmd(entity_idx, arg2);
             return 1;
         }
         if (result == 2) {                             /* transition */
@@ -100,7 +100,7 @@ retry:
 
 default_case: {
         /* Fallback: trigger default sound/event, then set state 3 if busy */
-        s32 result = func_80070F50(0x3C, entity_idx, 0x52, 0x31, 0, 0, 0);
+        s32 result = handlerPostCmd(0x3C, entity_idx, 0x52, 0x31, 0, 0, 0);
         if (result == 0) return 1;
         return set_state3(entity_idx);
     }

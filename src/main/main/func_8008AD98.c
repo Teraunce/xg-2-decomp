@@ -22,7 +22,7 @@ s32 contPakReadWriteNote(void *, u16 (*)[], s32, u8);        /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);            /* extern */
 
-s32 func_8008AD98(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
+s32 contPakFetchNote(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
     Unk *sp = (Unk*)0;
     s32 sp14C;
     s32 sp148;

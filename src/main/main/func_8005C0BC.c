@@ -2,7 +2,7 @@
 /* Warning: missing "jr $ra" in last block of func_8005C538 (initial). */
 
 s32 *heap_alloc_default(s32);                            /* extern */
-void func_8005C8D4(s32);                               /* extern */
+void audioSetTrack(s32);                               /* extern */
 void func_8005C8EC(s32, s32);                              /* extern */
 void func_8005CF84(s32);                               /* extern */
 void func_8005CF9C(s32);                               /* extern */
@@ -152,7 +152,7 @@ void func_8005C0BC(void) {
     osRecvMesg(&D_8017EFC8, 0, 1);
     osWritebackInvalDCache(D_801808F8, temp_s1);
     var_s4_2 = 0;
-    func_8005C8D4(D_801839A8);
+    audioSetTrack(D_801839A8);
     func_8005C8EC(0x78, 0);
     var_v1 = &D_80180908;
     do {

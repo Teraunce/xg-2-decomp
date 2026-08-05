@@ -8,8 +8,8 @@ s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 void func_80088310(s32);                                 /* extern */
 s32 func_80088408(void *, s32, s32, s32, s32, s32, s32);       /* extern */
-u64 func_8008EBC0(s32, u32, s32, s32);                  /* extern */
-s32 func_8008ECC0(s32, s32, s32, s32);                  /* extern */
+u64 __udivdi3(s32, u32, s32, s32);                  /* extern */
+s32 __muldi3(s32, s32, s32, s32);                  /* extern */
 extern s32 gCpuClockHi;
 extern s32 gCpuClock;
 extern s32 D_80096380;
@@ -45,17 +45,17 @@ s32 func_80088048(char *arg0, s32 arg1, s32 arg2) {
     temp_ret = osGetTime();
     sp70 = temp_ret;
     sp74 = (u32) (u64) temp_ret;
-    temp_ret_2 = func_8008ECC0(0, 0x7A120, gCpuClockHi, gCpuClock);
+    temp_ret_2 = __muldi3(0, 0x7A120, gCpuClockHi, gCpuClock);
     sp30 = temp_ret_2;
     sp34 = (u32) (u64) temp_ret_2;
-    temp_ret_3 = func_8008EBC0(sp30, sp34, 0, 0xF4240);
+    temp_ret_3 = __udivdi3(sp30, sp34, 0, 0xF4240);
     temp_v0 = temp_ret_3;
     if ((temp_v0 >= sp70) && ((sp70 < temp_v0) || (sp74 < (u32) temp_ret_3))) {
         osCreateMesgQueue(&sp38, &sp7C, 1);
-        temp_ret_4 = func_8008ECC0(0, 0x7A120, gCpuClockHi, gCpuClock);
+        temp_ret_4 = __muldi3(0, 0x7A120, gCpuClockHi, gCpuClock);
         sp28 = temp_ret_4;
         sp2C = (u32) (u64) temp_ret_4;
-        temp_ret_5 = func_8008EBC0(sp28, sp2C, 0, 0xF4240);
+        temp_ret_5 = __udivdi3(sp28, sp2C, 0, 0xF4240);
         sp30 = temp_ret_5;
         sp34 = (u32) temp_ret_5;
         func_80088408(&sp50, sp30 - (s32)sp70, sp34 - sp74, 0, 0, (s32)&sp38, (s32)&sp7C);

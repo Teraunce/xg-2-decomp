@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80065B44(s32, s16, s16);                     /* extern */
+s32 trackComputeLen(s32, s16, s16);                     /* extern */
 void func_80065BDC(s32, u8**, s32);                       /* extern */
 extern s16 D_80182E68;
 extern u16 D_80182E74;
@@ -19,7 +19,7 @@ void func_800661AC(s32 arg0, s32 arg1) {
 
     if ((s32)0 /* implicit $v0 from caller */ & 1) {
 loop_2:
-        if (D_80182E92 < func_80065B44(arg1, 0, D_80182E68)) {
+        if (D_80182E92 < trackComputeLen(arg1, 0, D_80182E68)) {
             var_s0 = (u16) D_80182E68 - 1;
             if (var_s0 >= 0) {
                 var_v1 = (var_s0 * 0x10) + arg1;
@@ -32,11 +32,11 @@ loop_5:
                     }
                 }
                 if (var_s0 >= 0) {
-                    if (func_80065B44(arg1, 0, var_s0) < ((s16) (u16) D_80182E92 / 2)) {
+                    if (trackComputeLen(arg1, 0, var_s0) < ((s16) (u16) D_80182E92 / 2)) {
                         var_s0_2 = (u16) D_80182E68 - 1;
                         if (var_s0_2 > 0) {
 loop_10:
-                            if (D_80182E92 < func_80065B44(arg1, 0, var_s0_2)) {
+                            if (D_80182E92 < trackComputeLen(arg1, 0, var_s0_2)) {
                                 var_s0_2 -= 1;
                                 if (var_s0_2 <= 0) {
 
@@ -58,7 +58,7 @@ block_14:
                 var_s0_2 = (u16) D_80182E68 - 1;
                 if (var_s0_2 > 0) {
 loop_15:
-                    if (D_80182E92 < func_80065B44(arg1, 0, var_s0_2)) {
+                    if (D_80182E92 < trackComputeLen(arg1, 0, var_s0_2)) {
                         var_s0_2 -= 1;
                         if (var_s0_2 > 0) {
                             goto loop_15;

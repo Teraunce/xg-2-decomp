@@ -25,7 +25,7 @@ typedef struct {
 void func_80082818(s32, s32);                    /* extern */
 char *sfxEventDequeue(void *, void *);                /* extern */
 
-void func_800860D8(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
+void sfxStopAtEntity(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     UnkStruct_temp_a0 *temp_a0;
     UnkStruct_temp_a2 *temp_a2;
     UnkStruct_temp_v0 *temp_v0;

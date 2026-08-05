@@ -291,7 +291,7 @@ loop_21:
     return temp_a3;
 }
 
-void func_8008EAB8(s32 arg0, s32 arg1) {
+void bzero(s32 arg0, s32 arg1) {
     s32 temp_a1;
     s32 temp_a1_2;
     s32 temp_a1_3;
@@ -355,7 +355,7 @@ s64 func_8008EB84(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
     return (s64) (arg0 % arg2) >> 0x20;
 }
 
-s64 func_8008EBC0(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
+s64 __udivdi3(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
     return (s64) (arg0 / arg2) >> 0x20;
 }
 
@@ -374,7 +374,7 @@ s64 func_8008EC64(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
     return (s64) (arg0 / arg2) >> 0x20;
 }
 
-s64 func_8008ECC0(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
+s64 __muldi3(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
     return (s64) (arg0 * arg2) >> 0x20;
 }
 

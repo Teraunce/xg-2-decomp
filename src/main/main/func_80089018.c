@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80089018(s32 arg0) {
+s32 crc5Calc(s32 arg0) {
     u8 spF;
     u8 spE;
     s32 sp8;

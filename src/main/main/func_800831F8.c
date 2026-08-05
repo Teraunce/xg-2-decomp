@@ -13,14 +13,14 @@
  *
  * After selection, iterates over the table entries converting integer
  * geometry data to floats and building vertex/strip arrays via
- * func_8007FD48, func_80083158.  Uses double-precision FPU for scale.
+ * audioHeapAlloc, func_80083158.  Uses double-precision FPU for scale.
  *
  * Jump table: jtbl_8004CEB8 (6 entries, selector-1 = 0-5).
  * -------------------------------------------------------------------------
  */
 
-void func_80084EF8(void *arg0, void *arg1, void *arg2, s32 arg3);
-char *func_8007FD48(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4);
+void audioNodeInit(void *arg0, void *arg1, void *arg2, s32 arg3);
+char *audioHeapAlloc(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4);
 void func_80083158(Unk *arg0);
 void osSendMesg(void *arg0, void *arg1, s32 arg2);  /* unused extern? */
 
@@ -46,7 +46,7 @@ void func_800831F8(Unk *arg0, Unk *arg1, void *arg2) {
     /* Install callbacks and init dest object */
     arg0->unk4  = (s32)func_80085C74;
     arg0->unk28 = (s32)func_80085A00;
-    func_80084EF8(arg0, (void *)0, (void *)func_80085C5C, 5);
+    audioNodeInit(arg0, (void *)0, (void *)func_80085C5C, 5);
 
     /* Select geometry data table from arg1->unk1C (1-6) */
     sel = *(u8 *)((char *)arg1 + 0x1C);
@@ -62,7 +62,7 @@ void func_800831F8(Unk *arg0, Unk *arg1, void *arg2) {
 
     /* nonmatching: FPU vertex/strip loop over tbl[].
      * Reads count from tbl[0], converts geometry to floats,
-     * calls func_8007FD48 / func_80083158 per strip.
+     * calls audioHeapAlloc / func_80083158 per strip.
      * See asm stub for full implementation. */
     (void)tbl;
     (void)arg2;

@@ -1,12 +1,12 @@
 #include "ultra64.h"
-s32 func_8007FD48(s32, s32, s32, s32, s32);               /* extern */
-void func_80084EF8(Unk*, s32, s32, s32);              /* extern */
+s32 audioHeapAlloc(s32, s32, s32, s32, s32);               /* extern */
+void audioNodeInit(Unk*, s32, s32, s32);              /* extern */
 extern s32 func_800843AC;
 extern s32 func_800849A4;
 
 void func_800830B4(Unk *arg0, s32 arg1) {
-    func_80084EF8(arg0, &func_800849A4, &func_800843AC, 4);
-    arg0->unk14 = func_8007FD48(0, 0, arg1, 1, 0x50);
+    audioNodeInit(arg0, &func_800849A4, &func_800843AC, 4);
+    arg0->unk14 = audioHeapAlloc(0, 0, arg1, 1, 0x50);
     arg0->unk38 = 1;
     arg0->unk48 = 0;
     arg0->unk1A = 1;

@@ -1,7 +1,7 @@
 #include "ultra64.h"
-s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);     /* extern */
-s32 func_80071108(s32, s32);                            /* extern */
-void func_800716E4(s32, s32);                       /* extern */
+s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
+s32 handlerPostSfxCmd(s32, s32);                            /* extern */
+void entityClearSlots(s32, s32);                       /* extern */
 s32 func_8008B248(s32, u8*);                       /* extern */
 extern s32 gSfxChannelMute;
 extern s32 D_80174724;
@@ -32,7 +32,7 @@ void func_80071A28(s32 *arg0) {
 
     D_801887D0.unk164 = 0;
     if (D_80174724 != 0) {
-        func_80070F50(0x4B, 0, 0x4B, 0, 0, 0, 0);
+        handlerPostCmd(0x4B, 0, 0x4B, 0, 0, 0, 0);
     }
     var_s0 = 0;
     var_v1 = &D_801887D0;
@@ -56,8 +56,8 @@ loop_5:
         var_s2 = arg0;
         do {
             if ((((s32) sp20 >> var_s0_2) & 1) && (*var_s2 != 0)) {
-                if ((var_s1->unk31C != 2) && (func_800716E4(var_s0_2, 0), (var_s1->unk31C == 2)) && (*(var_s0_2 + &gSfxChannelMute) != 0)) {
-                    func_80071108(var_s0_2, -1);
+                if ((var_s1->unk31C != 2) && (entityClearSlots(var_s0_2, 0), (var_s1->unk31C == 2)) && (*(var_s0_2 + &gSfxChannelMute) != 0)) {
+                    handlerPostSfxCmd(var_s0_2, -1);
                     var_s1 += 4;
                 } else {
                     goto block_15;
@@ -104,7 +104,7 @@ loop_30:
 block_34:
                     var_v0 = var_s0_4 < 4;
                 }
-                if ((var_v0 == 0) && (func_80070F50(0x4D, 0, 0x52, 0x36, 0, 0, 0) == 0)) {
+                if ((var_v0 == 0) && (handlerPostCmd(0x4D, 0, 0x52, 0x36, 0, 0, 0) == 0)) {
                     var_s0_5 = 3;
                     var_v0_2 = &gSfxChannelMute + 3;
                     do {
@@ -122,7 +122,7 @@ block_34:
             /* fallthrough */
         case 1:
         case 4:
-            if (func_80070F50(0x4A, var_s0_3, 0x52, 0x36, 0, 0, 0) != 0) {
+            if (handlerPostCmd(0x4A, var_s0_3, 0x52, 0x36, 0, 0, 0) != 0) {
                 var_v1_4 = &D_801887D0;
             } else {
                 goto loop_4;

@@ -15,7 +15,7 @@ typedef struct {
 s32 func_8007E464(Unk*, Unk*);                      /* extern */
 void osSetTimer(void **, s32, s32);           /* extern */
 
-void func_8007EB18(UnkStruct_arg0 *arg0) {
+void audioStartTimer(UnkStruct_arg0 *arg0) {
     s16 sp20;
     s32 sp1C;
     s32 temp_a0;

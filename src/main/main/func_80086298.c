@@ -26,7 +26,7 @@ typedef struct {
     /* 0x18 */ s32 unk18;
 } UnkStruct_temp_v0;
 
-s32 func_800827C0(UnkStruct_arg0*, s32);                      /* extern */
+s32 sfxComputePitch(UnkStruct_arg0*, s32);                      /* extern */
 char *sfxEventDequeue();                              /* extern */
 
 void func_80086298(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2, f32 arg3, s16 arg4, u8 arg5, u8 arg6, s32 arg7) {
@@ -51,7 +51,7 @@ void func_80086298(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2, f32 arg
             temp_v0->unk10 = arg4;
             temp_v0->unkC = arg3;
             sp1C = temp_v0;
-            temp_v0->unk14 = func_800827C0(arg0, arg7);
+            temp_v0->unk14 = sfxComputePitch(arg0, arg7);
             temp_v0->unk18 = arg2;
             temp_a0 = ((Unk *)arg1->unk8)->unkC;
             ((s32(*)())(s32)temp_a0->unk8)(temp_a0, 3, temp_v0, arg1);

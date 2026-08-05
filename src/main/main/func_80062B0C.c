@@ -19,7 +19,7 @@
  *     triggers secondary logic (func_8006394C / func_80061884 / func_80061800).
  *     Then either re-inserts gSfxEntity (gSfxEntity) at the top of the heap
  *     via sfxHeapInsert (priority -3, flags 1), or re-marks the current
- *     highest-priority entity via func_80062240 + sfxMarkEntityActive.
+ *     highest-priority entity via sfxGetTopEntity + sfxMarkEntityActive.
  *     Sets gSfxFadeTimer = 0xFF and advances to phase 2.
  *
  *   Phase 2 — DECAY / RAMP-OUT:
@@ -59,7 +59,7 @@ extern void *gSfxFadeTimer;       /* overlay alias: same storage as gSfxFadeTime
 void sfxMarkEntityActive(void *entity);                    /* mark active (sfxHeapInsert.c) */
 void sfxHeapInsert(void *entity, s32 slot, s32 flags); /* heap insert (sfxHeapInsert.c) */
 void *sfxGetEntity(s32 slotSpec, s32 *outType);    /* slot lookup (sfxGetEntity.c) */
-void *func_80062240(void);                           /* entity at gSfxMaxIndex */
+void *sfxGetTopEntity(void);                           /* entity at gSfxMaxIndex */
 void func_8006394C(void);                            /* secondary trigger (asm) */
 void *func_80061884(void);                           /* secondary query A (asm) */
 void func_80061800(void);                            /* secondary trigger B (asm) */
@@ -154,7 +154,7 @@ phase1:
     if (gSfxEntity != NULL) {
         sfxHeapInsert(gSfxEntity, -3, 1);
     } else {
-        void *top = func_80062240();
+        void *top = sfxGetTopEntity();
         sfxMarkEntityActive(top);
     }
 
@@ -177,7 +177,7 @@ phase2:
 
         /* Timer expired — mark the top entity done and return. */
         {
-            void *top = func_80062240();
+            void *top = sfxGetTopEntity();
             sfxMarkEntityActive(top);
         }
         return;

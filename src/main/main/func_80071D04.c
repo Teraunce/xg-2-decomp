@@ -1,12 +1,12 @@
 #include "ultra64.h"
-void func_800716E4(s32, s32);                       /* extern */
+void entityClearSlots(s32, s32);                       /* extern */
 void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 func_80087BC8(s32);                               /* extern */
 void func_80087C4C(s32);                               /* extern */
 s32 func_8008B248(s32, u8*);                       /* extern */
-s32 func_8008CCE8(s32, Unk*, s32);                /* extern */
+s32 contPakBuildMap(s32, Unk*, s32);                /* extern */
 extern s32 D_801887A0;
 extern Unk D_801887D0;
 extern s32 D_8018AD28;
@@ -40,9 +40,9 @@ void func_80071D04(s32 *arg0) {
                     }
                 } else {
 block_10:
-                    func_800716E4(var_s1, 1);
+                    entityClearSlots(var_s1, 1);
                     if (var_s0->unk31C == 5) {
-                        if (func_8008CCE8(&D_801887A0, var_s4, var_s1) != 0) {
+                        if (contPakBuildMap(&D_801887A0, var_s4, var_s1) != 0) {
                             var_s0->unk33C = 1;
                         } else {
                             var_s0->unk33C = 0;

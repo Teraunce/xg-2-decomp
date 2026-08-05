@@ -1,8 +1,8 @@
 #include "ultra64.h"
-void func_8007E8E4(Unk*, s32, s32);                  /* extern */
-char *func_8007FD48(s32, s32, s32, u8, s32);               /* extern */
+void timerQueueInit(Unk*, s32, s32);                  /* extern */
+char *audioHeapAlloc(s32, s32, s32, u8, s32);               /* extern */
 void func_800814EC(Unk*);                            /* extern */
-void func_80086088(void *, void *);                       /* extern */
+void pendingFlushEnqueue(void *, void *);                       /* extern */
 extern s32 gPendingFlushFlag;
 extern s32 func_80080DC4;
 
@@ -34,9 +34,9 @@ void func_8008155C(Unk *arg0, Unk *arg1) {
     arg0->unk78 = (s32) arg1->unk18;
     arg0->unk34 = (u8) arg1->unk8;
     sp2C = temp_a2;
-    arg0->unk60 = func_8007FD48(0, 0, temp_a2, arg1->unk8, 0x10);
+    arg0->unk60 = audioHeapAlloc(0, 0, temp_a2, arg1->unk8, 0x10);
     func_800814EC(arg0);
-    temp_v0 = func_8007FD48(0, 0, temp_a2, (u8) arg1->unk0, 0x38);
+    temp_v0 = audioHeapAlloc(0, 0, temp_a2, (u8) arg1->unk0, 0x38);
     arg0->unk6C = 0;
     var_a0 = 0;
     if (arg1->unk0 > 0) {
@@ -50,11 +50,11 @@ void func_8008155C(Unk *arg0, Unk *arg1) {
     }
     arg0->unk64 = 0;
     arg0->unk68 = 0;
-    func_8007E8E4(arg0 + 0x48, func_8007FD48(0, 0, sp2C, (u8) arg1->unk4, 0x1C), arg1->unk4);
+    timerQueueInit(arg0 + 0x48, audioHeapAlloc(0, 0, sp2C, (u8) arg1->unk4, 0x1C), arg1->unk4);
     arg0->unk0 = 0;
     arg0->unk8 = &func_80080DC4;
     arg0->unk4 = arg0;
-    func_80086088(gPendingFlushFlag, arg0);
+    pendingFlushEnqueue(gPendingFlushFlag, arg0);
 }
 
 void func_800816E8(Unk *arg0, Unk *arg1) {
@@ -77,7 +77,7 @@ void func_80081728(void) {
 
 }
 
-u8 func_80081730(Unk *arg0) {
+u8 streamReadVarInt(Unk *arg0) {
     u8 *temp_v1;
     u8 *temp_v1_2;
     u8 temp_v0;

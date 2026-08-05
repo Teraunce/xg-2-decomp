@@ -12,7 +12,7 @@ typedef struct {
     /* 0x00 */ s32 unk0;
 } UnkStruct_var_t7;
 
-s32 func_80089018(s32);                             /* extern */
+s32 crc5Calc(s32);                             /* extern */
 
 void func_8008CB6C(s32 arg0, u16 arg1, u8 *arg2, UnkStruct_arg3 *arg3) {
     char sp_buf[64];
@@ -46,7 +46,7 @@ void func_8008CB6C(s32 arg0, u16 arg1, u8 *arg2, UnkStruct_arg3 *arg3) {
     sp1D = 0x23;
     sp1E = 1;
     sp1F = 3;
-    temp_v0 = func_80089018(arg1);
+    temp_v0 = crc5Calc(arg1);
     sp42 = 0xFF;
     sp20 = temp_v0 | (arg1 << 5);
     sp18 = 0;

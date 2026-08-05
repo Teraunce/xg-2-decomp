@@ -96,7 +96,7 @@ block_37:
     *var_s0 = 0;
 }
 
-s32 func_80065B44(s32 arg0, s16 arg1, s16 arg2) {
+s32 trackComputeLen(s32 arg0, s16 arg1, s16 arg2) {
     s16 var_a1;
     s32 var_a3;
     s32 var_v0;

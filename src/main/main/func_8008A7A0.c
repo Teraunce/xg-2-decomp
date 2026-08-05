@@ -7,7 +7,7 @@ typedef struct {
     /* 0x65 */ s32 unk65;
 } UnkStruct_arg0;
 
-u16 func_80089198(u8*, s32);                          /* extern */
+u16 contPakByteSum(u8*, s32);                          /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);              /* extern */
 
@@ -30,7 +30,7 @@ loop_3:
         arg0->unk65 = 0U;
         contPakRepairId(arg0);
     } else {
-        *arg2 += func_80089198(&sp18, 0x20);
+        *arg2 += contPakByteSum(&sp18, 0x20);
         temp_t9 = sp3C + 1;
         sp3C = temp_t9;
         if (temp_t9 >= 8) {

@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_80074EA0();                                /* extern */
-void func_80074ED8(s32);                               /* extern */
+s32 intDisable();                                /* extern */
+void intRestore(s32);                               /* extern */
 s32 sramStartDma(s32, s32, s32);                    /* extern */
 static void func_80076000(void);                      /* static, forward decl */
 void func_8007611C();                               /* static */
@@ -14,9 +14,9 @@ s32 func_80075F90(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
     s32 temp_s0_2;
 
-    temp_s0_2 = func_80074EA0();
+    temp_s0_2 = intDisable();
     temp_s0 = sramStartDma(0x707, arg1, arg2);
-    func_80074ED8(temp_s0_2);
+    intRestore(temp_s0_2);
     return temp_s0;
 }
 
@@ -89,11 +89,11 @@ void func_80076138(void) {
     } while (var_t0 != (char*)&D_80003FE0);
 }
 
-s32 func_80076154(void) {
+s32 getCOP0Status(void) {
     return 0; /* mfc0 $v0, $12 — read COP0 Status */
 }
 
-void func_80076160(void) {
+void setCOP0Status(void) {
     /* mtc0 $a0, $12 — write COP0 Status */
 }
 

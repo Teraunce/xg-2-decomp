@@ -71,7 +71,7 @@ s32 sfxQueueCmd(s16 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     return temp_a0;
 }
 
-void func_8005CD90(s32 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
+void audioQueuePlay(s32 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     s32 var_t0;
     Unk *temp_v0;
 
@@ -107,7 +107,7 @@ void audioQueueStop(s32 arg0) {
     }
 }
 
-s32 func_8005CE68(s32 arg0, f32 *arg1, s32 *arg2, s32 *arg3) {
+s32 audioQueueFind(s32 arg0, f32 *arg1, s32 *arg2, s32 *arg3) {
     Unk *var_v1;
     s32 var_t0;
     s32 var_t0_2;

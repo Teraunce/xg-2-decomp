@@ -22,7 +22,7 @@ typedef struct {
 
 char *sfxEventDequeue();                              /* extern */
 
-void func_80086558(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, u8 arg2) {
+void sfxPlayPanAtEntity(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, u8 arg2) {
     UnkStruct_temp_a0 *temp_a0;
     UnkStruct_temp_v0 *temp_v0;
 
@@ -39,6 +39,6 @@ void func_80086558(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, u8 arg2) {
     }
 }
 
-void func_800865E8(s32 arg0, UnkStruct_arg1 *arg1, s16 arg2) {
+void sfxResetNote(s32 arg0, UnkStruct_arg1 *arg1, s16 arg2) {
     arg1->unk16 = arg2;
 }

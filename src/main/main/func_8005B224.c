@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8005AA64(Unk*, s32, s32);                       /* extern */
+void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void viSwapBuffers(Unk*);                            /* extern */
 s32 func_8005AB28();                                  /* extern */
 void func_8005AEB4();                                  /* extern */
@@ -16,7 +16,7 @@ extern u32 D_8017DF48;
 extern s32 D_8017DF4C;
 extern s32 D_80190000;
 
-void func_8005B224(s32 arg0, u8 *arg1, u32 arg2) {
+void audioDecodeHufh(s32 arg0, u8 *arg1, u32 arg2) {
     u32 *sp1070;
     s32 sp106C;
     s32 sp1068;
@@ -78,7 +78,7 @@ void func_8005B224(s32 arg0, u8 *arg1, u32 arg2) {
     Unk *sp = 0;
     var_fp = arg1;
     D_8017DF44 = &sp1050;
-    func_8005AA64(&sp1050, arg0, -1);
+    audioSetupCopySample(&sp1050, arg0, -1);
     func_8005AEB4();
     var_v1 = 0;
     D_8017DF3E = 0;

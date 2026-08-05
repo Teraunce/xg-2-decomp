@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_80074EA0();                                /* extern */
-void func_80074ED8(s32);                               /* extern */
+s32 intDisable();                                /* extern */
+void intRestore(s32);                               /* extern */
 void func_80075044(s32, s8*, u32);                       /* extern */
 s32 sramStartDma(s32, s32, s32);                  /* extern */
 
@@ -15,7 +15,7 @@ s32 func_80075E04(s32 arg0, s32 arg1, u32 arg2) {
     var_s3 = arg1;
     var_s1 = arg2;
     var_s2 = 0;
-    temp_s4 = func_80074EA0();
+    temp_s4 = intDisable();
     if (var_s1 != 0) {
 loop_2:
         var_a2 = var_s1;
@@ -33,6 +33,6 @@ loop_2:
             }
         }
     }
-    func_80074ED8(temp_s4);
+    intRestore(temp_s4);
     return var_s2;
 }

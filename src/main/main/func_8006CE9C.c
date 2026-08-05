@@ -19,7 +19,7 @@ typedef struct {
     /* 0x4C */ s32 unk4C;
 } UnkStruct_arg0;
 
-void func_80086A44(UnkStruct_arg0*);                   /* extern */
+void sfxLoadUcode(UnkStruct_arg0*);                   /* extern */
 void osSpTaskStart(s32);                            /* extern */
 extern s32 D_800777C8;
 extern s32 D_80077898;
@@ -59,7 +59,7 @@ char *func_8006CE9C(UnkStruct_arg0 *arg0, s32 arg1) {
     arg0->unk40 = (void *) (arg0 + 0x58);
     arg0->unk44 = arg1;
     arg0->unk4C = 0xC00;
-    func_80086A44(temp_s0);
+    sfxLoadUcode(temp_s0);
     osSpTaskStart(temp_s0);
     return temp_s0;
 }

@@ -4,7 +4,7 @@ void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);    /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 void osSetEventMesg(s32, s32, s32);                     /* extern */
-void func_8007D008(Unk*, s32);                            /* extern */
+void osSetThreadPri(Unk*, s32);                            /* extern */
 void osStartThread(Unk*);                               /* extern */
 void func_8007D278();                                  /* extern */
 s32 func_80087138(char*);                               /* extern */
@@ -40,7 +40,7 @@ void func_80086DE0(s32 arg0) {
         sp24 = func_80087138(0);
         if (sp24 < arg0) {
             sp28 = sp24;
-            func_8007D008(0, arg0);
+            osSetThreadPri(0, arg0);
         }
         temp_v0 = osDisableInt();
         D_800955C0 = (void *)1;
@@ -56,7 +56,7 @@ void func_80086DE0(s32 arg0) {
         osStartThread(&D_80189AE8);
         osRestoreInt(sp2C);
         if (sp28 != -1) {
-            func_8007D008(0, sp28);
+            osSetThreadPri(0, sp28);
         }
     }
 }

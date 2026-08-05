@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80063800(s32);                               /* extern */
+s32 sfxFreeBlock(s32);                               /* extern */
 extern s32 D_801823EC;
 extern s32 D_801823F0;
 extern s32 D_80182408;
@@ -14,8 +14,8 @@ extern s32 D_80182EA0;
 extern u32 D_80182EA4;
 
 void func_80063DF0(void) {
-    D_80182408 = func_80063800(0x1800);
-    D_80182410 = func_80063800(0x300);
+    D_80182408 = sfxFreeBlock(0x1800);
+    D_80182410 = sfxFreeBlock(0x300);
 }
 
 void func_80063E24(void) {

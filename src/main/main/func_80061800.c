@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void sfxPlay(u16);                               /* extern */
-u16 func_80063B0C(s32);                               /* extern */
+u16 sfxGetFrameOutput(s32);                               /* extern */
 extern s32 gLocale;
 extern u16 gLocaleIdx;
 
@@ -16,7 +16,7 @@ s32 func_80061800(s32 arg0) {
     if (gLocaleIdx != 0) {
         sfxPlay(gLocaleIdx);
     }
-    temp_v0 = func_80063B0C(0x4E);
+    temp_v0 = sfxGetFrameOutput(0x4E);
     gLocaleIdx = temp_v0;
     if (temp_v0 & 0xFFFF) {
         gLocale = var_s0;

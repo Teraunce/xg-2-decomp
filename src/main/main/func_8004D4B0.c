@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8004D434(s32, s32 *);                        /* extern */
+s32 frameAlloc(s32, s32 *);                        /* extern */
 extern s32 gRSPTaskB;
 
 void heap_alloc(s32 arg0, s32 arg1, s32 arg2, s32 *arg3) {
@@ -20,5 +20,5 @@ void heap_alloc(s32 arg0, s32 arg1, s32 arg2, s32 *arg3) {
             return;
         }
     }
-    func_8004D434(var_a2, var_a3);
+    frameAlloc(var_a2, var_a3);
 }

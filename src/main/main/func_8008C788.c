@@ -5,7 +5,7 @@ void func_8008B3E8(s32);                                 /* extern */
 s32 func_8008B4E4(void *, s32 (*)[]);                    /* extern */
 extern s32 D_8018ADB8;
 
-s32 func_8008C788(s32 arg0, s32 arg1) {
+s32 contPakProbe(s32 arg0, s32 arg1) {
     Unk sp_buf[8];
     char *sp = (char*)sp_buf; /* $sp base — local stack byte-pointer */
     s32 sp34;

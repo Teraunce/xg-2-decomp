@@ -47,7 +47,7 @@ s32 func_80061924(void) {
     return (temp_a1 >> 4) | (temp_a0 << 0x1C);
 }
 
-void func_800619B0(u32 arg0, u32 arg1, u32 arg2) {
+void safeCopy(u32 arg0, u32 arg1, u32 arg2) {
     s32 temp_v0;
     s32 temp_v0_2;
     s32 temp_v1;

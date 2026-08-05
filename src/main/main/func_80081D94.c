@@ -32,13 +32,13 @@
 
 void  func_80090AE8(void *a, void *b, void *c);
 void func_80086208(void *a, void *b, s32 c);
-void  func_80086558(void *a, void *b, s32 vol);
-void  func_80086418(void *a, void *b, s32 pitch, s32 c);
-void  func_80086388(void *a, void *b, f32 rate);
-void  func_800864B8(void *a, void *b, s32 fine);
+void  sfxPlayPanAtEntity(void *a, void *b, s32 vol);
+void  sfxPlayAtEntity(void *a, void *b, s32 pitch, s32 c);
+void  sfxPlayLoopAtEntity(void *a, void *b, f32 rate);
+void  sfxPlayAbsAtEntity(void *a, void *b, s32 fine);
 void  osSetTimer(void *node, void *pkt, s32 param);
-void  func_80086188(void *a, void *b);
-void  func_800860D8(void *a, void *b);
+void  sfxPlayNoteAtEntity(void *a, void *b);
+void  sfxStopAtEntity(void *a, void *b);
 void  func_80081D08(void);
 s32   osStopTimer(void *a, void *b);
 
@@ -113,10 +113,10 @@ next_frame:
         func_80086208(*(void **)((u8 *)obj + 0x38), s5,
                       *(s32 *)((u8 *)s1 + 0x8));
         *(s32 *)((u8 *)s5 + 0x28) = fp;
-        func_80086558(*(void **)((u8 *)obj + 0x38), s5, t0);
-        func_80086418(*(void **)((u8 *)obj + 0x38), s5, vol16, s0);
-        func_80086388(*(void **)((u8 *)obj + 0x38), s5, ft0);
-        func_800864B8(*(void **)((u8 *)obj + 0x38), s5,
+        sfxPlayPanAtEntity(*(void **)((u8 *)obj + 0x38), s5, t0);
+        sfxPlayAtEntity(*(void **)((u8 *)obj + 0x38), s5, vol16, s0);
+        sfxPlayLoopAtEntity(*(void **)((u8 *)obj + 0x38), s5, ft0);
+        sfxPlayAbsAtEntity(*(void **)((u8 *)obj + 0x38), s5,
                       *(u8 *)((u8 *)s5 + 0x2F));
 
         raw  = *(s32 *)*(void **)s1;
@@ -139,7 +139,7 @@ next_frame:
         fv0  = (f64)((f32)raw / fv1);
         s0   = (fv0 < D_8004CE68) ? (s32)fv0 : 0x7FFFFFFF;
 
-        func_80086418(*(void **)((u8 *)obj + 0x38), s5, 0, s0);
+        sfxPlayAtEntity(*(void **)((u8 *)obj + 0x38), s5, 0, s0);
         if (s0 != 0) {
             pkt_cmd = 7;
             pkt_sub = s5;
@@ -147,14 +147,14 @@ next_frame:
             *(s32 *)((u8 *)s5 + 0x28) = 2;
             goto lbl_done;
         }
-        func_80086188(*(void **)((u8 *)obj + 0x38), s5);
-        func_800860D8(*(void **)((u8 *)obj + 0x38), s5);
+        sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x38), s5);
+        sfxStopAtEntity(*(void **)((u8 *)obj + 0x38), s5);
         func_80081D08();
         *(s32 *)((u8 *)s5 + 0x28) = 0;
         goto lbl_done;
 
     /* ------------------------------------------------------------------ */
-    /* Case 2: update panning; call func_80086558 with clamped volume.    */
+    /* Case 2: update panning; call sfxPlayPanAtEntity with clamped volume.    */
     /* ------------------------------------------------------------------ */
     case 2:
         if (*(s32 *)((u8 *)s5 + 0x28) != fp) goto lbl_done;
@@ -164,7 +164,7 @@ next_frame:
         t9 = *(u8 *)((u8 *)s1 + 0xC);
         v1 = (s16)((t6 & 0xFF) + t9 - 0x40);
         t0 = (v1 <= 0) ? 0 : (v1 >= 0x7F ? 0x7F : v1);
-        func_80086558(*(void **)((u8 *)obj + 0x38), s5, t0);
+        sfxPlayPanAtEntity(*(void **)((u8 *)obj + 0x38), s5, t0);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -178,7 +178,7 @@ next_frame:
         a3 = *(Unk **)s1;
         t6 = *(u8 *)((u8 *)a3 + 0xD);
         t8 = (s32)(t6 * t7) / 0x7F;
-        func_80086418(*(void **)((u8 *)obj + 0x38), s5,
+        sfxPlayAtEntity(*(void **)((u8 *)obj + 0x38), s5,
                       (s16)t8, 0x3E8);
         goto lbl_epilogue;
 
@@ -193,7 +193,7 @@ next_frame:
             *(f32 *)((u8 *)s5 + 0x24) = ft0;
         }
         if (*(s32 *)((u8 *)s5 + 0x28) != fp) goto lbl_epilogue;
-        func_80086388(*(void **)((u8 *)obj + 0x38), s5, ft0);
+        sfxPlayLoopAtEntity(*(void **)((u8 *)obj + 0x38), s5, ft0);
         goto lbl_epilogue;
 
     case 5:
@@ -213,7 +213,7 @@ next_frame:
         raw = *(s32 *)((u8 *)a3 + 4);
         fv0 = (f64)((f32)raw / fv1);
         s0  = (fv0 < D_8004CE68) ? (s32)fv0 : 0x7FFFFFFF;
-        func_80086418(*(void **)((u8 *)obj + 0x38), s5, a2, s0);
+        sfxPlayAtEntity(*(void **)((u8 *)obj + 0x38), s5, a2, s0);
         pkt_cmd = (s16)fp;
         pkt_sub = s5;
         osSetTimer(s7, &pkt_cmd, s0);
@@ -223,20 +223,20 @@ next_frame:
     /* Case 7: end-of-note teardown (same as case 1 else branch).          */
     /* ------------------------------------------------------------------ */
     case 7:
-        func_80086188(*(void **)((u8 *)obj + 0x38), s5);
-        func_800860D8(*(void **)((u8 *)obj + 0x38), s5);
+        sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x38), s5);
+        sfxStopAtEntity(*(void **)((u8 *)obj + 0x38), s5);
         func_80081D08();
         *(s32 *)((u8 *)s5 + 0x28) = 0;
         goto lbl_done;
 
     /* ------------------------------------------------------------------ */
-    /* Case 8: update pitch-fine byte; call func_800864B8.                 */
+    /* Case 8: update pitch-fine byte; call sfxPlayAbsAtEntity.                 */
     /* ------------------------------------------------------------------ */
     case 8:
         if (*(s32 *)((u8 *)s5 + 0x28) != fp) goto lbl_done;
         t9 = *(u8 *)((u8 *)s4 + 8);
         *(u8 *)((u8 *)s5 + 0x2F) = (u8)t9;
-        func_800864B8(*(void **)((u8 *)obj + 0x38), s5, t9 & 0xFF);
+        sfxPlayAbsAtEntity(*(void **)((u8 *)obj + 0x38), s5, t9 & 0xFF);
         goto lbl_epilogue;
 
     } /* end switch */

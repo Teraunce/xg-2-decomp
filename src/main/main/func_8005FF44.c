@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 sfxMapId(s32);                               /* extern */
-void func_80062D98(void*, void*);                            /* extern */
-void func_80062F1C(s32, s32, s32, s32, s32);                   /* extern */
+void sfxPlayCue(void*, void*);                            /* extern */
+void sfxSetCueParams(s32, s32, s32, s32, s32);                   /* extern */
 void copyU16Array(u16*, u16*);                          /* extern */
 extern s32 gRaceCtrl;
 extern s32 D_80092BA0;
@@ -36,6 +36,6 @@ void func_8005FF44(s32 arg0) {
     copyU16Array(&D_80181F10, sfxMapId(0x13C));
     copyU16Array(&D_80181F50, sfxMapId(0xCA));
     copyU16Array(&D_801822B0, sfxMapId(0x13D));
-    func_80062F1C(3, 4, 0, 0x100, 0);
-    func_80062D98(&D_80092BA0, 0);
+    sfxSetCueParams(3, 4, 0, 0x100, 0);
+    sfxPlayCue(&D_80092BA0, 0);
 }

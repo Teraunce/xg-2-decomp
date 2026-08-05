@@ -30,11 +30,11 @@ extern ModeEntry D_80096390;
 extern vu32 D_A4400010;
 extern vu32 D_A4400000;
 
-void func_8008EAB8(VIBuf *, s32);
+void bzero(VIBuf *, s32);
 void osViSwapBuffer(void);
 
 void osViInit(void) {
-    func_8008EAB8(&D_800955E0, 0x60);
+    bzero(&D_800955E0, 0x60);
     D_80095640 = &D_800955E0;
     gVIConfig = &D_800955E0.sub30;
     D_800955E0.sub30.unk02 = 1;

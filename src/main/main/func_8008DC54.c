@@ -4,7 +4,7 @@ typedef struct {
     /* 0x10 */ s32 unk10;
 } UnkStruct_sp1C;
 
-void func_8008DD34();                                  /* extern */
+void piDmaNotify();                                  /* extern */
 extern s32 osIntMask;
 extern s32 D_A4600010;
 extern s32 D_A5000510;
@@ -28,7 +28,7 @@ void func_8008DC54(void) {
         } while (sp18 & 3);
     }
     D_A5000510 = sp1C->unk10;
-    func_8008DD34();
+    piDmaNotify();
     D_A4600010 = 2;
     osIntMask |= 0x100401;
 }

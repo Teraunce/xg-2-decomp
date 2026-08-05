@@ -2,7 +2,7 @@
 f32 sqrtfWrap(f32);                             /* extern */
 void guMtxIdent(char *);                         /* extern */
 
-void func_80079F58(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+void guLookAtF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fa1_2;

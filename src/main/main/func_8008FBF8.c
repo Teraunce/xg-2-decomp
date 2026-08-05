@@ -1,7 +1,7 @@
 #include "ultra64.h"
 u64 func_8008EB84(s32, s32, s32, s32);              /* extern */
-u64 func_8008EBC0(s32, s32, s32, s32);              /* extern */
-s32 func_8008EE98(s32, void *, s32);                  /* extern */
+u64 __udivdi3(s32, s32, s32, s32);              /* extern */
+s32 byteCopy(s32, void *, s32);                  /* extern */
 void func_8008FE98(void *, s32, u32, s32, u32);        /* extern */
 extern s32 D_80096510;
 extern s32 D_80096524;
@@ -80,7 +80,7 @@ void func_8008FBF8(Unk *arg0, s32 arg1) {
         ((Unk*)&sp78)->unk17 = temp_t7;
     }
     sp70 = var_t1;
-    temp_ret = func_8008EBC0(sp60, sp64, var_t1 >> 0x1F, var_t1);
+    temp_ret = __udivdi3(sp60, sp64, var_t1 >> 0x1F, var_t1);
     temp_v0_2 = temp_ret;
     temp_v1 = (u32) temp_ret;
     arg0->unk4 = (s32) temp_v1;
@@ -110,7 +110,7 @@ loop_24:
     }
     temp_a2 = 0x18 - var_s0;
     arg0->unk14 = temp_a2;
-    func_8008EE98(arg0->unk8, &sp78 + var_s0, temp_a2);
+    byteCopy(arg0->unk8, &sp78 + var_s0, temp_a2);
     temp_a1 = arg0->unk14;
     temp_a0_2 = arg0->unk24;
     if (temp_a1 < temp_a0_2) {

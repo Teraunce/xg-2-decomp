@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /* -------------------------------------------------------------------------
- * func_8008DE28 — GPU command-queue event loop (0x490 bytes, nonmatching).
+ * gfxDmaEventLoop — GPU command-queue event loop (0x490 bytes, nonmatching).
  *
  * Infinite event-processing loop driven by two command queues embedded in
  * the arg0 dispatch-context struct.  Never returns (no epilogue reached
@@ -35,9 +35,9 @@ void func_8008E368(void);
 
 extern s32 D_A4600010;  /* RSP/RDP register */
 
-void func_8008DE28(Unk *arg0) {
+void gfxDmaEventLoop(Unk *arg0) {
     /* nonmatching: geometry update section and full loop body —
-     * see asm/main/main/func_8008DE28.s */
+     * see asm/main/main/gfxDmaEventLoop.s */
 
     Unk *sp44 = NULL;   /* dequeued event */
     s32 sp38 = 0;       /* dispatch result */

@@ -7,7 +7,7 @@ typedef struct {
 } UnkStruct_arg0;
 
 s32 func_8008EC64(s32, u32, s32, u32);              /* extern */
-u64 func_8008ECC0(s32, u32, s32, u32);              /* extern */
+u64 __muldi3(s32, u32, s32, u32);              /* extern */
 
 void func_8008FE98(UnkStruct_arg0 *arg0, s32 arg2, u32 arg3, s32 arg4, u32 arg5) {
     u32 sp2C;
@@ -28,7 +28,7 @@ void func_8008FE98(UnkStruct_arg0 *arg0, s32 arg2, u32 arg3, s32 arg4, u32 arg5)
     temp_v1 = (u32) (u64) temp_ret;
     sp20 = temp_v0;
     sp24 = temp_v1;
-    temp_ret_2 = func_8008ECC0(arg4, arg5, temp_v0, temp_v1);
+    temp_ret_2 = __muldi3(arg4, arg5, temp_v0, temp_v1);
     temp_v1_2 = (u32) temp_ret_2;
     temp_t8 = (arg2 - temp_ret_2) - (arg3 < temp_v1_2);
     temp_t9 = arg3 - temp_v1_2;

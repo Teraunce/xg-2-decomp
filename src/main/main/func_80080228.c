@@ -110,7 +110,7 @@ void func_80080304(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     }
 }
 
-s32 func_8008037C(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
+s32 sfxComputePan(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     s32 var_v1;
 
     var_v1 = (((Unk*)(s32)(arg1->unk60 + (arg0->unk31 * 0x10)))->unk7 + ((Unk *)arg0->unk20)->unkC) - 0x40;

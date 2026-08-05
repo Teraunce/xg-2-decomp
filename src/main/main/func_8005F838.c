@@ -1,8 +1,8 @@
 #include "ultra64.h"
 s32 func_8004E6C8(s32);                               /* extern */
 s32 func_8004E6F4(s32);                               /* extern */
-void func_8005B224(s32, u8*, u32);                     /* extern */
-void func_800622C0();                                  /* extern */
+void audioDecodeHufh(s32, u8*, u32);                     /* extern */
+void sfxUpdateChannels();                                  /* extern */
 void osWritebackInvalDCache(u32, s32);                          /* extern */
 void osInvalICache(u32, s32);                          /* extern */
 void __osInvalICache_full();                                  /* extern */
@@ -30,7 +30,7 @@ void func_8005F838(void) {
     __osInvalICache_full();
     osWritebackInvalDCache(&D_800B55C0, &D_31880);
     osInvalICache(&D_800B55C0, &D_31880);
-    func_8005B224(D_8004BA18 + 0x18, &D_800B55C0, &D_31880);
+    audioDecodeHufh(D_8004BA18 + 0x18, &D_800B55C0, &D_31880);
     __osInvalICache_full();
     osWritebackInvalDCache(&D_800B55C0, &D_31880);
     osInvalICache(&D_800B55C0, &D_31880);
@@ -63,5 +63,5 @@ void func_8005F838(void) {
     func_800AE368(0);
     D_80181F00 = 1;
     D_80182280 = 1;
-    func_800622C0();
+    sfxUpdateChannels();
 }

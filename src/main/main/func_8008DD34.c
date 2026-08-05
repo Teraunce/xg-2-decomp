@@ -4,7 +4,7 @@ s32 __osPopQueue(void *);                          /* extern */
 extern s32 __osRunQueue;
 extern Unk D_801899E8;
 
-void func_8008DD34(void) {
+void piDmaNotify(void) {
     Unk *sp2C;
     Unk *sp28;
     s32 sp24;

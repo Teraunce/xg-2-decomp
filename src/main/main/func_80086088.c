@@ -12,7 +12,7 @@ typedef struct {
 
 s32 osSetIntMask(s32, void *, void *);             /* extern */
 
-void func_80086088(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
+void pendingFlushEnqueue(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     s32 temp_a0;
 
     temp_a0 = osSetIntMask(1, arg0, NULL);

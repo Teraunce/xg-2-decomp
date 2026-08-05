@@ -12,7 +12,7 @@
  */
 void func_800849A4(void) { /* nonmatching — see asm stub */ }
 
-void func_80084EF8(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
+void audioNodeInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk0 = 0;
     arg0->unk4 = arg1;
     arg0->unk8 = arg2;
@@ -21,7 +21,7 @@ void func_80084EF8(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk10 = arg3;
 }
 
-s32 func_80084F18(Unk *arg0, s32 arg1, s32 arg2) {
+s32 audioNoteWrite(Unk *arg0, s32 arg1, s32 arg2) {
     if (arg1 == 2) {
         *(s32*)(s32)(arg0->unk1C + (arg0->unk14 * 4)) = arg2;
         arg0->unk14 = (s32) (arg0->unk14 + 1);

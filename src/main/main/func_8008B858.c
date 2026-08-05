@@ -23,12 +23,12 @@ typedef struct {
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
 s32 contPakChecksum(s32, u16*, u16*);                 /* extern */
-s32 func_8008925C(Unk*, Unk*, Unk*);                /* extern */
+s32 contPakTransfer(Unk*, Unk*, Unk*);                /* extern */
 s32 func_80089674(Unk*, Unk*);                     /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);             /* extern */
 s32 func_8008BAC8(Unk*);                          /* extern */
-s32 func_8008C788(s32, s32);                        /* extern */
+s32 contPakProbe(s32, s32);                        /* extern */
 
 s32 func_8008B858(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     s32 sp64;
@@ -43,7 +43,7 @@ s32 func_8008B858(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
 
     sp60 = 0;
     __siLock();
-    sp60 = func_8008C788(arg0, arg2);
+    sp60 = contPakProbe(arg0, arg2);
     __siUnlock();
     if (sp60 != 0) {
         return sp60;
@@ -70,7 +70,7 @@ s32 func_8008B858(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     }
 block_10:
     if (!(sp38->unk18 & 1)) {
-        sp60 = func_8008925C(arg1, sp38, &sp18);
+        sp60 = contPakTransfer(arg1, sp38, &sp18);
         if (sp60 != 0) {
             return sp60;
         }

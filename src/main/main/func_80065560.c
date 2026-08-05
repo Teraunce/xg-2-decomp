@@ -1,5 +1,5 @@
 #include "ultra64.h"
-u8 *func_80063F7C(u16, s32 *, s32);                   /* extern */
+u8 *fontGetCharWidth(u16, s32 *, s32);                   /* extern */
 extern Unk D_80182E88;
 extern s32 D_80182EA4;
 
@@ -16,7 +16,7 @@ s32 func_80065560(u16 *arg0) {
     var_s0 = 0;
     if (*var_s1 != 0) {
 loop_2:
-        temp_v0 = func_80063F7C(*var_s1, &sp10, 0);
+        temp_v0 = fontGetCharWidth(*var_s1, &sp10, 0);
         if (temp_v0 != NULL) {
             var_v0_2 = (u32) (*temp_v0 * sp10) >> 0x10;
         } else {

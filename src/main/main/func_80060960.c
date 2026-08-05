@@ -6,7 +6,7 @@ extern u32 gLineTexPtr;
 extern s32 D_80178690;
 extern Unk *D_801821E8;
 
-void func_80060960(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, u32 arg9, u32 arg10, u32 arg11) {
+void gfxAddLineVtx(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, u32 arg9, u32 arg10, u32 arg11) {
     s16 temp_a0;
     s16 temp_a0_2;
     s16 temp_a1;

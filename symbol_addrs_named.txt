@@ -188,3 +188,213 @@ sfxFormatName = 0x80061CF0; // type:func // build u16 string with format substit
 
 // ---- Controller pak ----
 contPakWriteNote = 0x8008A994; // type:func // write note entry to controller pak (validates idx, reads dir, writes sectors)
+
+// ---- Interrupt helpers (game-local COP0 wrappers) ----
+getCOP0Status = 0x80076154; // type:func // mfc0 $v0, $12 — read COP0 Status register
+setCOP0Status = 0x80076160; // type:func // mtc0 $a0, $12 — write COP0 Status register
+intDisable = 0x80074EA0; // type:func // disable interrupts (clears IE bit), returns old IE bit
+intRestore = 0x80074ED8; // type:func // restore interrupts: Status |= arg0 (re-sets IE if arg0==1)
+
+// ---- Entity / game handler ----
+handlerPostCmd = 0x80070F50; // type:func // post type-0xA command to D_801887D0 ring, signal handler, return result
+entityClearSlots = 0x800716E4; // type:func // clear 6 entity state fields at entity_idx*4 in D_801887D0
+entityStepState = 0x80072340; // type:func // advance entity state machine (cmds 0-8); calls handlerPostCmd + path queries
+
+// ---- SFX / audio ----
+sfxPlayAtEntity = 0x80086418; // type:func // dequeue SFX event, fill type=0xB (positional), dispatch to instrument callback
+sfxComputePitch = 0x800827C0; // type:func // scale arg1 by unk44/D_8004CEA8, round to nearest 16 — pitch frequency
+sfxComputeVolume = 0x8007FF5C; // type:func // fixed-point volume chain: unk36*unk33*unk30 * unk9*unkD*unk32 >> shifts
+sfxAllocBlock = 0x80063730; // type:func // allocate block of at least arg0 bytes from SFX freelist
+
+// ---- Audio heap / nodes ----
+audioHeapAlloc = 0x8007FD48; // type:func // bump allocator: alloc arg3*arg4 bytes (rounded to 16) from audio heap
+audioNodeInit = 0x80084EF8; // type:func // init audio node: unk0=0, unk4=cb1, unk8=cb2, unk10=count
+audioStartTimer = 0x8007EB18; // type:func // start osSetTimer for node if active (unk2C==1) and duration valid
+
+// ---- Byte copy helpers ----
+byteCopy = 0x8008EE98; // type:func // copy arg2 bytes from arg1 to arg0; return arg0
+byteCopyEnd = 0x8008EE18; // type:func // byteCopy(a0,a1,a2) + a2 — returns pointer past end of copy
+
+// ---- Math / matrix ----
+mtxLookAt = 0x80058294; // type:func // build 4x4 look-at matrix from direction+up vectors via cross products
+
+// ---- Rendering ----
+renderCurveStrip = 0x8006421C; // type:func // render curved road segment: fixed-point Bezier math + renderLineStrip
+
+// ---- 64-bit runtime helpers ----
+__udivdi3 = 0x8008EBC0; // type:func // unsigned 64-bit division helper (returns high 32 bits of quotient)
+__muldi3 = 0x8008ECC0; // type:func // 64-bit multiply helper (returns high 32 bits of product)
+
+// ---- SFX positional dispatch variants ----
+sfxPlayLoopAtEntity = 0x80086388; // type:func // dequeue event type=7 (loop), fill pos+rate, dispatch to instrument callback
+sfxPlayPanAtEntity = 0x80086558; // type:func // dequeue event type=0xC (pan), fill pos+pan byte, dispatch
+sfxPlayAbsAtEntity = 0x800864B8; // type:func // dequeue event type=0x10, fill pos+abs(arg2), dispatch
+sfxResetNote = 0x800865E8; // type:func // reset instrument note field: arg1->unk16 = arg2
+sfxNoteRetrigger = 0x8007FFE4; // type:func // relink timers, reset instrument state, sfxPlayAtEntity, restart osSetTimer
+
+// ---- SFX volume / pan helpers ----
+sfxComputePan = 0x8008037C; // type:func // compute pan byte: (chan->unk7 + obj->unkC) - 0x40, clamped [0,0x7F]
+sfxGetFrameOutput = 0x80063B0C; // type:func // return D_801823E0 (current SFX frame output value)
+sfxSetCueParams = 0x80062F1C; // type:func // store 5 cue params to D_80092D08..D_80092D18
+sfxGetTopEntity = 0x80062240; // type:func // return gSfxHeap[gSfxMaxIndex].entity
+
+// ---- Audio note setup ----
+audioLoadNotes = 0x8007FE7C; // type:func // iterate instrument note list, populate audio node track slots
+
+// ---- Controller pak ----
+contPakByteSum = 0x80089198; // type:func // compute 16-bit byte sum over arg1 bytes starting at arg0
+
+// ---- Utility ----
+storeByteUnaligned = 0x80075120; // type:func // misaligned byte write to address arg0 using bit-field manipulation
+
+// ---- SFX dispatch (more variants) ----
+sfxStopAtEntity = 0x800860D8; // type:func // dequeue event type=0 (stop), or call func_80082818; clear instrument ptr
+sfxPlayNoteAtEntity = 0x80086188; // type:func // dequeue event type=0xF (note), fill pos, dispatch to instrument callback
+sfxIsBusy = 0x80086C18; // type:func // returns 0 always (SFX channel-busy stub)
+
+// ---- SFX cue playback ----
+sfxPlayCue = 0x80062D98; // type:func // start playing a new SFX cue for an entity/soundId
+
+// ---- Controller pak ----
+contPakTransfer = 0x8008925C; // type:func // read/write pak block with repair and timing (osContPakRead/Write)
+contPakBuildMap = 0x8008CCE8; // type:func // init pak sector tables by writing/reading sector 0x400 and building lookup arrays
+
+// ---- PI DMA ----
+piDmaNotify = 0x8008DD34; // type:func // dequeue msg from PI ring buffer, wake waiting thread via __osEnqueueThread
+
+// ---- GFX / RDP display list helpers ----
+gfxGetWritePtr = 0x8004D380; // type:func // return gFrameWait if set, else gDLWritePtr (current DL write head)
+rdpSetFillColor = 0x80052C88; // type:func // emit gDPFullSync+gDPSetFillColor+gSPSetGeometryMode GBI commands
+rdpSetFogColor = 0x80062F4C; // type:func // emit GBI commands for fog color, combine mode, scissor into display list
+gfxAddLineVtx = 0x80060960; // type:func // append a vertex (pos+color) to gLineVtxBuf for line-strip rendering
+
+// ---- OS thread ----
+osSetThreadPri = 0x8007D008; // type:func // set thread priority; re-queue if changed; yield if lower than run queue
+
+// ---- PI (cartridge bus) byte I/O helpers ----
+piReadByteUnaligned = 0x80074FC4; // type:func // read byte from unaligned PI address via __osPiRawReadIo + shift
+piWriteByteUnaligned = 0x80075270; // type:func // write byte to unaligned PI address via __osPiRawWriteIo + bit-mask
+
+// ---- Audio stream ----
+audioStreamSchedule = 0x8007DD7C; // type:func // scan active channels, update timers, find min-time channel
+
+// ---- SFX sample dispatch ----
+sfxDispatchSample = 0x80063A3C; // type:func // lookup gSfxDefTable[defIndex] and dispatch HUFH/COPY/LZSS sample decoder
+sfxLookupName = 0x80061F0C; // type:func // wrapper: sfxFormatName(a0, a1, a2, 0, 0, 1)
+sfxFreeBlock = 0x80063800; // type:func // return block of given size to SFX freelist (counterpart to sfxAllocBlock)
+
+// ---- Track / layout ----
+trackComputeLen = 0x80065B44; // type:func // weighted sum of track-node lengths from arg1 to arg2 (stride-16 array)
+
+// ---- Entity / game handler ----
+handlerGetResult = 0x800707A8; // type:func // return D_80093EF8 (result of last handler command)
+gfxDmaEventLoop = 0x8008DE28; // type:func // osRecvMesg loop: dispatch geometry + DMA events (types 10-16)
+
+// ---- Audio note / track slot ----
+audioSetNoteSlot = 0x8007FDA8; // type:func // write instrument fields into arg0->unk60[arg2*0x10] track slot
+audioNoteWrite = 0x80084F18; // type:func // if arg1==2, append arg2 to note array at arg0->unk1C[unk14++]
+audioRspSetupSample = 0x800854C8; // type:func // build RSP audio ucode commands for sample segment (osVirtualToPhysical)
+audioDecodeHufh = 0x8005B224; // type:func // decode Huffman-coded ('LHUF') audio sample; called by sfxDispatchSample
+
+// ---- Stream reader helpers ----
+streamReadU32 = 0x80081BB0; // type:func // read big-endian u32 from stream pointer (advances by 4)
+streamReadVarInt = 0x80081730; // type:func // read 1-or-2-byte variable-length int from stream
+
+// ---- OS timer helpers ----
+timerRelinkByType = 0x8007E618; // type:func // with IntMask: relink timers matching unkC==arg1 to head of list arg0
+
+// ---- Controller pak ----
+contPakReadEntry = 0x8008C528; // type:func // read + verify controller pak note entry (repair, read, checksum)
+contPakFetchNote = 0x8008AD98; // type:func // read note by arg1 index from pak directory
+
+// ---- Matrix / view ----
+guLookAtF = 0x80079F58; // type:func // build float look-at matrix from eye/at/up 9-arg vectors
+guLookAt = 0x8007A210; // type:func // build look-at matrix and convert to fixed-point via guMtxF2L
+
+// ---- Entity handler ----
+entityFindActive = 0x80070ED4; // type:func // scan D_801887D0[0..3] for entity with state==2 or 4; return index or -1
+
+// ---- Track / road layout ----
+trackSegmentOffset = 0x80066FD0; // type:func // map segment type 0-11 to byte offset constant (switch table)
+
+// ---- SFX heap management ----
+sfxGetVolLevel = 0x800661A4; // type:func // return D_80182E9C (current SFX volume level byte)
+sfxUpdateHeap = 0x80062878; // type:func // iterate gSfxHeap[0..gSfxActiveCount]: update active channel entries
+sfxFlushInactive = 0x80062A6C; // type:func // iterate gSfxHeap, flush/clear inactive entries by type
+
+// ---- GFX draw list ----
+gfxAddPoint = 0x80065008; // type:func // bounds-check (x,y) and append to 2D point draw list (D_8018240C cap)
+fontGetCharWidth = 0x80063F7C; // type:func // lookup char metrics in font table; returns pitch/width
+
+// ---- SRAM / PI byte I/O ----
+sramBlockRead = 0x8007558C; // type:func // read SRAM block from 0xB1FFFxxx via __osPiRawReadIo lookup table
+piWriteBytes = 0x80075360; // type:func // write arg2 bytes from arg1 to PI address arg0 using piWriteByteUnaligned
+
+// ---- SFX channel processing ----
+sfxUpdateChannels = 0x800622C0; // type:func // process gSfxInputTable into gSfxChannelState with gSfxVolScale
+sfxGetAllocEntity = 0x80062278; // type:func // return gSfxHeap[gSfxAllocCount].entity if valid, else NULL
+
+// ---- GFX line texture ----
+gfxAddLineTex = 0x800608C8; // type:func // append entry to D_801821E8[gLineTexPtr] line texture buffer
+
+// ---- Audio node callbacks ----
+audioAdpcmCmd = 0x80083CE4; // type:func // audioNode callback: emit RSP 0x0B (G_LOADBLOCK) ADPCM command into arg4
+
+// ---- Memory utility ----
+safeCopy = 0x800619B0; // type:func // memmove-style: copy arg2 bytes from arg1 to arg0, overlap-safe, word-aligned fast path
+
+// ---- Audio queue / SFX play ----
+audioQueuePlay = 0x8005CD90; // type:func // enqueue type-2 play command (float vol, id, flags) into D_80180B38 ring
+audioQueueFind = 0x8005CE68; // type:func // search D_80180908 + D_80180B38 for audio entry matching arg0
+
+// ---- Audio sample decode ----
+audioPlayCopySample = 0x8005AB80; // type:func // play 'COPY' loop sample: audioSetupCopySample + frame-process loop
+audioSetupCopySample = 0x8005AA64; // type:func // init audio struct (unk0/4=arg1/2, reset counts), call func_8005A978
+
+// ---- Audio mode ----
+audioSetTrack = 0x8005C8D4; // type:func // set D_80092804=arg0 (track id) and D_80092824=1 (trigger flag)
+
+// ---- Geometry dot product ----
+vec3DotOffset = 0x80059948; // type:func // dot product of (arg0->xyz - s0->xyz) with arg2->xyz
+
+// ---- Matrix (float/fixed-point) ----
+guMtxL2F = 0x8007A918; // type:func // convert fixed-point N64 Mtx to float MtxF (divides by 65536.0)
+guMtxCatF = 0x8007AA68; // type:func // 4x4 float matrix multiply: arg2 = arg0 * arg1
+guMtxCat = 0x8007AC38; // type:func // fixed-point matrix concatenate: L2F + CatF + F2L
+mtxTransformVec = 0x8007A9C8; // type:func // multiply 3D point (arg1,2,3) by float 4x4 matrix arg0 + translation
+guMtxXfm = 0x8007ABD8; // type:func // transform 3D point by fixed-point N64 matrix (L2F + mtxTransformVec)
+
+// ---- Memory zero ----
+bzero = 0x8008EAB8; // type:func // fast memory zero: align-to-4, 32-byte-per-iter bulk clear, byte tail
+
+// ---- Handler ring ----
+handlerPostSfxCmd = 0x80071108; // type:func // post opcode 0xB cmd (arg0,arg1) to D_801887D0 ring, call handlerGetResult
+
+// ---- Audio RSP ----
+audioRspSubmit = 0x8005A978; // type:func // submit RSP audio task (double-buffered at D_80190000), advance src ptr
+
+// ---- SFX ucode load ----
+sfxLoadUcode = 0x80086A44; // type:func // DMA RSP IMEM/DMEM via osSpRawStartDma, wait sfxIsBusy
+
+// ---- Frame allocator ----
+frameAlloc = 0x8004D434; // type:func // alloc aligned block from frame/DL pool (gDLWritePtr or gFrameWait)
+
+// ---- SFX state ----
+sfxGetState = 0x8006541C; // type:func // return D_80182EA0 (sfx active state flag)
+
+// ---- Timer queue ----
+timerQueueInit = 0x8007E8E4; // type:func // init timer queue struct (all-zero) + insert arg2 entries from arg1
+
+// ---- Memory copy (bytes) ----
+memcpyBytes = 0x8007E958; // type:func // copy arg2 bytes from arg0 to arg1 (byte-by-byte, word-aligned fast path)
+
+// ---- Pending flush list ----
+pendingFlushEnqueue = 0x80086088; // type:func // interrupt-safe prepend arg1 into arg0 linked list via osSetIntMask
+
+// ---- Controller pak CRC ----
+crc5Calc = 0x80089018; // type:func // compute CRC-5 over 16-bit arg0 (10-iteration LFSR, returns 5-bit result)
+
+// ---- Controller pak save ----
+contPakLoadSave = 0x8008A288; // type:func // read/verify game save note from pak (note code, game ID, data ptrs)
+contPakCountNotes = 0x8008B5B8; // type:func // count note entries with status=3 in pak note directory
+contPakProbe = 0x8008C788; // type:func // SI DMA read + probe controller pak via osSiRawStartDma + sense

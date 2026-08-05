@@ -86,7 +86,7 @@ void func_8004D358(void) {
     gDLWritePtr = &D_801A3000;
 }
 
-char *func_8004D380(void) {
+char *gfxGetWritePtr(void) {
     if (gFrameWait == NULL) {
         return gDLWritePtr;
     }
@@ -122,7 +122,7 @@ void func_8004D420(void) {
     gRSPTaskB = 0;
 }
 
-char *func_8004D434(s32 arg0) {
+char *frameAlloc(s32 arg0) {
     char *temp_a0_2;
     char *temp_v0;
     char *temp_v0_2;

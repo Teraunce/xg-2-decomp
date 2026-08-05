@@ -11,7 +11,7 @@ typedef struct {
 s32 osSetIntMask(s32, s32);                        /* extern */
 void __osTimerUnlink(Unk*);                           /* extern */
 void __osTimerInsert(Unk*, void**);                        /* extern */
-void func_8007E958(Unk*, char*, s32);                    /* extern */
+void memcpyBytes(Unk*, char*, s32);                    /* extern */
 
 void osSetTimer(void **arg0, s32 arg1, s32 arg2) {
     char *sp2C;
@@ -36,7 +36,7 @@ void osSetTimer(void **arg0, s32 arg1, s32 arg2) {
     sp1C = temp_a1;
     sp2C = temp_t0;
     __osTimerUnlink(temp_t0);
-    func_8007E958(arg1, temp_t0 + 0xC, 0x10);
+    memcpyBytes(arg1, temp_t0 + 0xC, 0x10);
     var_a3 = arg2;
     if (var_a3 == 0x7FFFFFFF) {
         sp20 = -1;

@@ -99,7 +99,7 @@ loop_7:
     return 1;
 }
 
-void func_80052C88(s32 arg0, s32 arg1, s32 arg2) {
+void rdpSetFillColor(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_a0;
     UnkStruct_temp_a3 *temp_a3;
 

@@ -2,7 +2,7 @@
 #include "audio.h"
 
 /*
- * func_80061F0C / sfxSlotResolve / func_80061F38 — SFX slot-index resolver
+ * sfxLookupName / sfxSlotResolve / func_80061F38 — SFX slot-index resolver
  *
  * func_80061F38 resolves four magic negative sentinel values into real heap
  * indices before any access to gSfxHeap (gSfxHeap):
@@ -17,7 +17,7 @@
  * sfxSlotResolve is the label name for the same function (4-byte-aligned
  * padding precedes the real entry at func_80061F38).
  *
- * func_80061F0C is a thin wrapper around sfxFormatName that passes
+ * sfxLookupName is a thin wrapper around sfxFormatName that passes
  * a3=0, sp+0x10=0, sp+0x14=1 while forwarding a0–a2 unchanged.
  */
 
@@ -62,10 +62,10 @@ s32 sfxSlotResolve(s32 slotSpec) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80061F0C
+ * sfxLookupName
  * Wrapper: call sfxFormatName with fixed last three args (0, 0, 1).
  * a0/a1/a2 are forwarded from the caller.
  * ------------------------------------------------------------------------- */
-void func_80061F0C(s32 a0, s32 a1, s32 a2) {
+void sfxLookupName(s32 a0, s32 a1, s32 a2) {
     sfxFormatName(a0, a1, a2, 0, 0, 1);
 }

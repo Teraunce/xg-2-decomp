@@ -7,7 +7,7 @@ extern f32 D_8004BDCC;
 extern f32 D_8004BDD0;
 extern f32 D_8004BDD4;
 
-void func_80058294(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void mtxLookAt(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp78;
     f32 sp74;
     f32 sp70;

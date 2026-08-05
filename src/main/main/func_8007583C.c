@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_80074EA0();                                /* extern */
-void func_80074ED8(s32);                               /* extern */
+s32 intDisable();                                /* extern */
+void intRestore(s32);                               /* extern */
 void __osPiRawWriteIo(s32*, s32);                              /* extern */
 void func_80076070();                                  /* extern */
 extern u32 osTvType;
@@ -13,7 +13,7 @@ void func_8007583C(void) {
     s32 temp_a0;
     s32 temp_s0;
 
-    temp_s0 = func_80074EA0();
+    temp_s0 = intDisable();
     func_80076070();
     __osPiRawWriteIo(0xB1FFFFF0, 0);
     __osPiRawWriteIo(0xB1FFFFFC, 0);
@@ -26,5 +26,5 @@ void func_8007583C(void) {
             D_80093F60 = temp_a0 + 0xA0000000;
         }
     }
-    func_80074ED8(temp_s0);
+    intRestore(temp_s0);
 }

@@ -1,11 +1,11 @@
 #include "ultra64.h"
-s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);     /* extern */
-s32 func_80071108(s32, s32);                          /* extern */
-void func_800716E4(s32, s32);                       /* extern */
-s32 func_80072340(s32, s32, s32);                     /* extern */
-s32 func_8008AD98(void *, s32, void *);              /* extern */
+s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
+s32 handlerPostSfxCmd(s32, s32);                          /* extern */
+void entityClearSlots(s32, s32);                       /* extern */
+s32 entityStepState(s32, s32, s32);                     /* extern */
+s32 contPakFetchNote(void *, s32, void *);              /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
-s32 func_8008B5B8(void *, s32*);                   /* extern */
+s32 contPakCountNotes(void *, s32*);                   /* extern */
 s32 func_8008B708(void *, s32*, s32*);              /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
@@ -36,19 +36,19 @@ loop_2:
     var_v0->unk168 = 1;
     temp_s0 = (arg1 * 4) + var_v0;
     if ((temp_s0->unk31C != 2) || (temp_s0->unk34C != 0)) {
-        func_800716E4(arg1, 2);
+        entityClearSlots(arg1, 2);
         if (temp_s0->unk31C != 2) {
             var_v0->unk168 = 0;
         }
     }
     sp40 = 0;
-    if ((D_801887D0.unk168 != 0) && ((temp_s0_2 = (arg1 * 0x68) + (&D_801887D0 + 0x17C), var_v0 = &D_801887D0, (func_80072340(func_8008B5B8(temp_s0_2, &sp40), arg1, -1) != 0)) || ((D_801887D0.unk168 != 0) && (var_v0 = &D_801887D0, (func_80072340(func_8008B708(temp_s0_2, &sp44, &sp48), arg1, -1) != 0))))) {
+    if ((D_801887D0.unk168 != 0) && ((temp_s0_2 = (arg1 * 0x68) + (&D_801887D0 + 0x17C), var_v0 = &D_801887D0, (entityStepState(contPakCountNotes(temp_s0_2, &sp40), arg1, -1) != 0)) || ((D_801887D0.unk168 != 0) && (var_v0 = &D_801887D0, (entityStepState(func_8008B708(temp_s0_2, &sp44, &sp48), arg1, -1) != 0))))) {
         goto loop_2;
     }
     var_s1 = 0;
     if (D_801887D0.unk168 != 0) {
         temp_s0_3 = (arg1 * 0x68) + (&D_801887D0 + 0x17C);
-        if ((contPakReadNote(temp_s0_3, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp4C) == 0) && (func_8008AD98(temp_s0_3, sp4C, &sp20) == 0)) {
+        if ((contPakReadNote(temp_s0_3, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp4C) == 0) && (contPakFetchNote(temp_s0_3, sp4C, &sp20) == 0)) {
             var_s1 = sp20;
             sp48 -= 1;
         }
@@ -58,7 +58,7 @@ loop_2:
                 if (sp48 >= 0x10) {
                     var_a0 = 0x4C;
                 }
-                temp_v0 = func_80070F50(var_a0, arg1, 0x37, 0x49, 0x36, 0, 0);
+                temp_v0 = handlerPostCmd(var_a0, arg1, 0x37, 0x49, 0x36, 0, 0);
                 if (temp_v0 != 1) {
                     if (temp_v0 < 2) {
                         if (temp_v0 != 0) {
@@ -74,7 +74,7 @@ loop_2:
                         goto block_28;
                     }
                 } else {
-                    func_80071108(arg1, arg2);
+                    handlerPostSfxCmd(arg1, arg2);
                     var_v0 = (void *)0x80190000;
                     goto loop_2;
                 }

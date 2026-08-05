@@ -58,9 +58,9 @@ typedef struct {
     /* 0x08 */ s32 unk8;
 } UnkStruct_temp_v1_5;
 
-void func_8007E958(Unk*, char*, s32);                   /* extern */
+void memcpyBytes(Unk*, char*, s32);                   /* extern */
 extern s32 func_8008380C;
-extern s32 func_80083CE4;
+extern s32 audioAdpcmCmd;
 
 void func_80083638(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
     u8 temp_v0;
@@ -84,7 +84,7 @@ void func_80083638(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
             switch (temp_v0) {                      /* irregular */
             case 0:
                 temp_v0_2 = arg0->unk28;
-                arg0->unk4 = &func_80083CE4;
+                arg0->unk4 = &audioAdpcmCmd;
                 temp_v0_2->unk4 = (s32) (((s32) temp_v0_2->unk4 / 9) * 9);
                 temp_v0_3 = arg0->unk28;
                 temp_a0 = temp_v0_3->unk10;
@@ -94,7 +94,7 @@ void func_80083638(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
                     arg0->unk1C = (s32) temp_v1->unk0;
                     arg0->unk20 = (s32) ((Unk *)temp_v0_3->unkC)->unk4;
                     arg0->unk24 = (s32) ((Unk *)temp_v0_3->unkC)->unk8;
-                    func_8007E958(temp_v0_3->unkC + 0xC, arg0->unk18, 0x20);
+                    memcpyBytes(temp_v0_3->unkC + 0xC, arg0->unk18, 0x20);
                     return;
                 }
                 arg0->unk24 = 0;

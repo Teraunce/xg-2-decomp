@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void renderLineStrip(void**);                               /* extern */
-u16 func_8006421C(void**, Unk*, u32, s16, s32, u32);      /* extern */
+u16 renderCurveStrip(void**, Unk*, u32, s16, s32, u32);      /* extern */
 extern Unk *D_80182408;
 extern s16 D_8018240C;
 extern Unk *D_80182410;
@@ -29,7 +29,7 @@ void func_80065424(s32 arg0) {
                         temp_s0 = (var_s0 + var_v0) * 2;
                         temp_v0 = (Unk *)((char *)D_80182408 + temp_s0);
                         temp_v1 = (Unk *)((char *)D_80182410 + var_s1);
-                        func_8006421C(arg0, temp_v1->unk8, temp_v1->unk4, temp_v0->unk2, (s32) temp_v0->unk4, *(((temp_v0->unk0 & 0xF) * 4) + &D_80182418));
+                        renderCurveStrip(arg0, temp_v1->unk8, temp_v1->unk4, temp_v0->unk2, (s32) temp_v0->unk4, *(((temp_v0->unk0 & 0xF) * 4) + &D_80182418));
                         var_v0 = (u16) *(s32 *)((char *)D_80182408 + temp_s0) >> 4;
                         var_s0 = var_v0 * 2;
                     } while (var_v0 != 0);

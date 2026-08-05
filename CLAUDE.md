@@ -10,7 +10,7 @@ Byte-matching every function is **not** the goal — the ROM is always byte-exac
 because it embeds the original `compressed_main.bin` blob.  C files are compiled
 for readability, correctness, and as many IDO byte-matches as possible.
 
-## Current Status (as of 2026-08-04)  <!-- update date when status changes -->
+## Current Status (as of 2026-08-05)  <!-- update date when status changes -->
 
 | Metric | Count |
 |---|---|
@@ -19,7 +19,7 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Files compiling with zero errors (IDO 7.1) | **453** |
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
-| Named functions (proper identifiers) | **134** |
+| Named functions (proper identifiers) | **236** |
 | Named data globals applied | **97** |
 | ROM byte-exact match | ✅ yes |
 
@@ -336,3 +336,36 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
     RSP/display list (`spTaskSubmit`, `gfxSpTaskWait`, `renderLineStrip`), overlay
     memory (`overlayDecompress`), game (`gameHandlerSetup`). Applied 177
     replacements across 53 files.
+25. **Named 11 additional functions** — eighth batch: entity handler (`handlerGetResult`,
+    `gfxDmaEventLoop`), audio (`audioSetNoteSlot`, `audioNoteWrite`, `audioRspSetupSample`,
+    `audioDecodeHufh`), stream readers (`streamReadU32`, `streamReadVarInt`),
+    timer (`timerRelinkByType`), controller pak (`contPakReadEntry`, `contPakFetchNote`).
+    Applied replacements across 35 files.
+24. **Named 10 additional functions** — seventh batch: SFX dispatch variants
+    (`sfxStopAtEntity`, `sfxPlayNoteAtEntity`, `sfxIsBusy`, `sfxPlayCue`),
+    controller pak (`contPakTransfer`, `contPakBuildMap`), PI DMA (`piDmaNotify`),
+    GFX helpers (`gfxGetWritePtr`, `rdpSetFillColor`, `rdpSetFogColor`).
+    Applied replacements across 29 files.
+23. **Named 13 additional functions** — sixth batch: SFX dispatch variants
+    (`sfxPlayLoopAtEntity`, `sfxPlayPanAtEntity`, `sfxPlayAbsAtEntity`,
+    `sfxResetNote`, `sfxNoteRetrigger`, `sfxComputePan`, `sfxGetFrameOutput`,
+    `sfxSetCueParams`, `sfxGetTopEntity`), audio note setup (`audioLoadNotes`),
+    controller pak (`contPakByteSum`), runtime helpers (`__muldi3`),
+    utility (`storeByteUnaligned`). Applied replacements across 29 files.
+22. **Named 19 additional functions** — fifth batch: COP0/interrupt helpers
+    (`getCOP0Status`, `setCOP0Status`, `intDisable`, `intRestore`), entity/handler
+    (`handlerPostCmd`, `entityClearSlots`, `entityStepState`), SFX/audio
+    (`sfxPlayAtEntity`, `sfxComputePitch`, `sfxComputeVolume`, `sfxAllocBlock`,
+    `audioHeapAlloc`, `audioNodeInit`, `audioStartTimer`), byte utilities
+    (`byteCopy`, `byteCopyEnd`), math/rendering (`mtxLookAt`, `renderCurveStrip`),
+    runtime (`__udivdi3`). Applied ~270 replacements across 62 files.
+26. **Named 6 audio/math functions** — ninth batch: audio queue (`audioQueuePlay`,
+    `audioQueueFind`), audio sample (`audioPlayCopySample`, `audioSetupCopySample`,
+    `audioSetTrack`), geometry (`vec3DotOffset`). Applied replacements across 18 files.
+27. **Named 18 additional functions** — tenth batch: matrix (`guMtxL2F`, `guMtxCatF`,
+    `guMtxCat`, `mtxTransformVec`, `guMtxXfm`), memory (`bzero`, `memcpyBytes`),
+    handler (`handlerPostSfxCmd`), audio RSP (`audioRspSubmit`), sfx ucode
+    (`sfxLoadUcode`), frame allocator (`frameAlloc`), sfx state (`sfxGetState`),
+    timer queue (`timerQueueInit`), flush list (`pendingFlushEnqueue`), controller pak
+    (`crc5Calc`, `contPakLoadSave`, `contPakCountNotes`, `contPakProbe`).
+    Applied replacements across 55 files. Total named: **236**.

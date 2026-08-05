@@ -24,8 +24,8 @@
  *   [4] set D_8018916A = 0xFF
  *   [5] clear D_8018916A
  *   [6] write packed colour bytes to 0xB1FE0000
- *   [7] func_8007558C(2)
- *   [8] func_8007558C(1)
+ *   [7] sramBlockRead(2)
+ *   [8] sramBlockRead(1)
  *   [9] func_8007573C(), then default path
  * -------------------------------------------------------------------------
  */
@@ -33,9 +33,9 @@
 u32  __osPiRawReadIo(u32 addr);
 void __osPiRawWriteIo(u32 addr, u32 val);
 void __osPiResetCount(s32 delay);
-s32  func_80076154(void);
-void func_80076160(s32 arg0);
-void func_8007558C(s32 arg0);
+s32  getCOP0Status(void);
+void setCOP0Status(s32 arg0);
+void sramBlockRead(s32 arg0);
 void func_8007573C(void);
 
 extern s32 D_80188FC0;
@@ -90,7 +90,7 @@ top:
                 D_80189168 = 0;
                 D_8018916A = 0;
                 D_80188FC0 = tmp;
-                func_80076160(func_80076154() & -2);
+                setCOP0Status(getCOP0Status() & -2);
                 break;
             }
             case 3:
@@ -108,10 +108,10 @@ top:
                     ((u32)D_8018916A << 24) | ((u32)D_80189168 << 16));
                 break;
             case 7:
-                func_8007558C(2);
+                sramBlockRead(2);
                 break;
             case 8:
-                func_8007558C(1);
+                sramBlockRead(1);
                 break;
             case 9:
                 func_8007573C();

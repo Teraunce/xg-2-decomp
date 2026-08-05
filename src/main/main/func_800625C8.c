@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_800622C0();                                  /* extern */
+void sfxUpdateChannels();                                  /* extern */
 extern u32 gSfxActiveCount;
 extern u32 gSfxMaxIndex;
 extern u32 gSfxAllocCount;
@@ -83,7 +83,7 @@ s32 func_800625C8(char *arg1) {
                     temp_s2 = temp_s0->unk4 & 1;
                     temp_s0->unk8 = 0;
                     if (temp_s2 != 0) {
-                        func_800622C0();
+                        sfxUpdateChannels();
                     }
                     gSfxMaxIndex = var_s1_2;
                     ((s32(*)())(s32)((Unk *)temp_s0->unk0)->unk8)(&gSfxChannelState, temp_s2);

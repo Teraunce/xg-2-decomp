@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void __osTimerInsert(Unk*, void**);                       /* extern */
 
-void func_8007E8E4(Unk *arg0, s32 arg1, s32 arg2) {
+void timerQueueInit(Unk *arg0, s32 arg1, s32 arg2) {
     s32 var_s0;
     s32 var_s1;
 
@@ -21,7 +21,7 @@ void func_8007E8E4(Unk *arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void func_8007E958(Unk *arg0, char *arg1, s32 arg2) {
+void memcpyBytes(Unk *arg0, char *arg1, s32 arg2) {
     s32 temp_a1;
     s32 var_a3;
     Unk *var_v0;

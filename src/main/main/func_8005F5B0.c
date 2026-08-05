@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8005F6B4 (initial). */
 
-void func_8005CD90(s32, f32, s32, s8, s32);           /* extern */
+void audioQueuePlay(s32, f32, s32, s8, s32);           /* extern */
 extern f32 D_8004BF48;
 extern f32 D_8004BF4C;
 extern f32 D_8004BF50;
@@ -40,7 +40,7 @@ void func_8005F5B0(f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
         temp_a2 = var_s0->unk0;
         var_s0 += 4;
         var_s1 += 1;
-        func_8005CD90(temp_a0, arg5, temp_a2, arg6, 0);
+        audioQueuePlay(temp_a0, arg5, temp_a2, arg6, 0);
     } while (var_s1 < 4);
 }
 

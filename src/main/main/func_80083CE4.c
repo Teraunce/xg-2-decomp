@@ -1,7 +1,7 @@
 #include "ultra64.h"
 char *func_80083BB8(s32, s32, s32, s16 *);          /* extern */
 
-char *func_80083CE4(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
+char *audioAdpcmCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
     s32 sp90;
     s32 sp8C;                                       /* compiler-managed */
     s32 sp88;

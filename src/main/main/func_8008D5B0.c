@@ -2,7 +2,7 @@
 /* Warning: missing "jr $ra" in last block of func_8008DC4C (initial). */
 
 s32 osEPiStartDma(Unk*, s32, s32, s32, s32);               /* extern */
-void func_8008DD34();                                  /* extern */
+void piDmaNotify();                                  /* extern */
 void func_8008DC4C();                               /* static */
 extern s32 osIntMask;
 extern s32 D_8018C2FC;
@@ -32,7 +32,7 @@ s32 func_8008D5B0(void) {
     if (sp38 & 1) {
         osIntMask &= ~0x800;
         temp_t0->unk18 = 0x1D;
-        func_8008DD34();
+        piDmaNotify();
         goto block_59;
     }
     sp38 = D_A4600010;
@@ -65,7 +65,7 @@ s32 func_8008D5B0(void) {
         }
         sp3C = D_A5000508;
         sp2C->unk0 = 0x16;
-        func_8008DD34();
+        piDmaNotify();
         D_A4600010 = 2;
         osIntMask |= 0x100401;
         goto block_59;
@@ -79,7 +79,7 @@ s32 func_8008D5B0(void) {
                 D_A4600010 = 2;
                 osIntMask |= 0x100401;
                 sp2C->unk0 = 0;
-                func_8008DD34();
+                piDmaNotify();
             }
         } else {
             sp2C->unk4 = (s32) (sp2C->unk4 + sp2C->unkC);
@@ -152,7 +152,7 @@ block_36:
                 }
             }
             *sp24 = 0;
-            func_8008DD34();
+            piDmaNotify();
             goto block_51;
         }
 block_51:

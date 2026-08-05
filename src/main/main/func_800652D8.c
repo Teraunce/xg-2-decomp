@@ -12,7 +12,7 @@ typedef struct {
     /* 0x04 */ s32 unk4;
 } UnkStruct_temp_v0_3;
 
-s32 func_8006541C();                                  /* extern */
+s32 sfxGetState();                                  /* extern */
 extern s32 D_80182E78;
 extern s32 D_80182E80;
 
@@ -21,7 +21,7 @@ void func_800652D8(void **arg0) {
     UnkStruct_temp_v0_2 *temp_v0_2;
     UnkStruct_temp_v0_3 *temp_v0_3;
 
-    func_8006541C();
+    sfxGetState();
     temp_v0 = *arg0;
     *arg0 = temp_v0 + 8;
     temp_v0->unk0 = 0xE7000000;

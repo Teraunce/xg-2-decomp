@@ -2,10 +2,10 @@
 void __osTimerUnlink(Unk*);                            /* extern */
 void __osTimerInsert(Unk*, void**);                    /* extern */
 void osSetTimer(void**, s32, s32);                /* extern */
-void func_80086418(void *, void *, s16, s32);               /* extern */
-void func_800865E8(s32, void *, s16);                    /* extern */
+void sfxPlayAtEntity(void *, void *, s16, s32);               /* extern */
+void sfxResetNote(s32, void *, s16);                    /* extern */
 
-void func_8007FFE4(Unk *arg0, Unk *arg1, s32 arg2) {
+void sfxNoteRetrigger(Unk *arg0, Unk *arg1, s32 arg2) {
     char *sp54;
     s16 sp50;
     Unk *temp_s1;
@@ -33,8 +33,8 @@ void func_8007FFE4(Unk *arg0, Unk *arg1, s32 arg2) {
     temp_s6->unk34 = 3U;
     temp_s6->unk30 = 0;
     temp_s6->unk24 = (s32) (arg0->unk1C + arg2);
-    func_800865E8(arg0->unk14, arg1, 0);
-    func_80086418(arg0->unk14, arg1, 0, arg2);
+    sfxResetNote(arg0->unk14, arg1, 0);
+    sfxPlayAtEntity(arg0->unk14, arg1, 0, arg2);
     sp50 = 5;
     sp54 = arg1;
     osSetTimer(arg0 + 0x48, &sp50, arg2);

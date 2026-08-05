@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_800619B0(u32, u32, u32);                /* extern */
+void safeCopy(u32, u32, u32);                /* extern */
 extern s32 D_8017CE08;
 extern s32 D_8017D2F8;
 extern s32 D_8017DA58;
@@ -67,10 +67,10 @@ void func_8005AFC4(void) {
         temp_s0_2 = temp_s0 * 2;
         temp_s2 = temp_s0_2 + &D_8017CE08;
         temp_s1 = ((var_s4_2 - temp_s0) * 2) & 0xFFFF;
-        func_800619B0(temp_s0_2 + (&D_8017CE08 + 2), temp_s2, temp_s1);
+        safeCopy(temp_s0_2 + (&D_8017CE08 + 2), temp_s2, temp_s1);
         temp_s0_3 = temp_s0_2 + (&D_8017DA5A - 2);
         *temp_s2 = temp_v1_3;
-        func_800619B0(temp_s0_2 + &D_8017DA5A, temp_s0_3, temp_s1);
+        safeCopy(temp_s0_2 + &D_8017DA5A, temp_s0_3, temp_s1);
         *temp_s0_3 = var_s3_2;
         temp_v0 = var_s4_2 + 1;
         var_s4_2 = temp_v0;

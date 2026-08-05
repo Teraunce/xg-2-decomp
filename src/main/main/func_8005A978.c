@@ -6,7 +6,7 @@ extern s32 D_8017CDF8;
 extern s32 D_8017EFB0;
 extern s32 D_80190000;
 
-void func_8005A978(Unk *arg0) {
+void audioRspSubmit(Unk *arg0) {
     s32 temp_s1;
     u32 temp_a0;
     u32 var_s1;

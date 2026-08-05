@@ -3,7 +3,7 @@
 
 s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
-void func_8007AC38(s32, s32, s32);                  /* extern */
+void guMtxCat(s32, s32, s32);                  /* extern */
 void func_8007B820(s32, f32, f32, f32);                  /* extern */
 void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2); /* static */
 s32 func_8005A33C();                                  /* static */
@@ -97,7 +97,7 @@ void func_800586CC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     temp_a3 = temp_ft2_9 & 0xFFFF0000;
     spD4 = temp_a3;
     spF4 = temp_ft2_9 << 0x10;
-    func_8007AC38(&spC0, &sp80, arg0);
+    guMtxCat(&spC0, &sp80, arg0);
 }
 
 s16 func_80058940(s16 arg0) {
@@ -187,7 +187,7 @@ s32 func_80059774(f32 arg_fa0_unused, f32 arg_fa1_unused) {
     return 0;
 }
 
-f32 func_80059948(Unk *arg0, Unk *arg2) {
+f32 vec3DotOffset(Unk *arg0, Unk *arg2) {
     Unk *saved_reg_s0;
     return ((arg0->unk0 - (f32) ((Unk *)(s32)(saved_reg_s0->unk0 + (s32)((Unk*)0 /* implicit $t5 */)))->unk4) * arg2->unk0) + ((arg0->unk4 - (f32) ((Unk *)(s32)(saved_reg_s0->unk2 + (s32)((Unk*)0 /* implicit $t5 */)))->unk8) * arg2->unk4) + ((arg0->unk8 - (f32) ((Unk *)(s32)(saved_reg_s0->unk4 + (s32)((Unk*)0 /* implicit $t5 */)))->unkC) * arg2->unk8);
 }
@@ -222,9 +222,9 @@ s32 func_80059CFC(Unk *arg0, Unk *arg1) {
                 if (*(s32*)((char*)(s32)0 /* implicit $t3 */ + ((Unk*)((char*)(s32)0 /* implicit $t2 */ + temp_t4 * 0xC))->unk4 * 0x10) <= 0) {
 
                 }
-                temp_fv0 = func_80059948(arg0->unk0, NULL);
+                temp_fv0 = vec3DotOffset(arg0->unk0, NULL);
                 if (temp_fv0 < 0.0f) {
-                    temp_fv0_2 = func_80059948(arg0->unk4, NULL);
+                    temp_fv0_2 = vec3DotOffset(arg0->unk4, NULL);
                     temp_v0 = arg0->unk0;
                     if (!(temp_fv0_2 < 0.0f)) {
                         temp_v1 = arg0->unk4;
@@ -273,8 +273,8 @@ s32 func_80059F34(Unk *arg0, Unk *arg1) {
                 if (*(s32*)((char*)(s32)0 /* implicit $t3 */ + ((Unk*)((char*)(s32)0 /* implicit $t2 */ + temp_t4 * 0xC))->unk4 * 0x10) <= 0) {
 
                 }
-                temp_fs1 = func_80059948(arg0->unk0, NULL);
-                temp_fv0 = func_80059948(arg0->unk4, NULL);
+                temp_fs1 = vec3DotOffset(arg0->unk0, NULL);
+                temp_fv0 = vec3DotOffset(arg0->unk4, NULL);
                 if (temp_fv0 < 0.0f) {
                     if (!(temp_fs1 < 0.0f)) {
                         goto block_9;

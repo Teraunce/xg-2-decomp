@@ -1,6 +1,6 @@
 #include "ultra64.h"
-char *func_8004D380();                              /* extern */
-s32 *func_8004D434(s32, s32, void *, void *);         /* extern */
+char *gfxGetWritePtr();                              /* extern */
+s32 *frameAlloc(s32, s32, void *, void *);         /* extern */
 s32 func_800524B8(s32);                               /* extern */
 extern s32 D_8004B9C8;
 extern s32 D_80091FD8;
@@ -43,8 +43,8 @@ void func_800521BC(s32 arg0) {
     Unk *temp_v0_8;
     Unk *temp_v0_9;
 
-    D_8017CCBC = func_8004D380();
-    temp_v0 = func_8004D380();
+    D_8017CCBC = gfxGetWritePtr();
+    temp_v0 = gfxGetWritePtr();
     D_801786A8 = temp_v0;
     temp_v0_2 = temp_v0 + 8;
     temp_v0_3 = temp_v0_2 + 8;
@@ -122,8 +122,8 @@ void func_800521BC(s32 arg0) {
     temp_v0_22->unk4 = -0xC08;
     temp_v0_22->unk8 = 0xDF000000;
     temp_v0_23->unk4 = 0;
-    func_8004D434((temp_v0_23 + 8) - temp_v0, 0xF2000000, temp_v0_23, temp_v0_20);
-    temp_v0_24 = func_8004D434(0x88, 0, NULL, NULL);
+    frameAlloc((temp_v0_23 + 8) - temp_v0, 0xF2000000, temp_v0_23, temp_v0_20);
+    temp_v0_24 = frameAlloc(0x88, 0, NULL, NULL);
     *temp_v0_24 = 0;
     D_80174BF8 = temp_v0_24;
     func_800524B8(arg0);
@@ -132,10 +132,10 @@ void func_800521BC(s32 arg0) {
 /* -------------------------------------------------------------------------
  * func_80052490 — async wait/alloc loop (0x9C bytes, nonmatching).
  *
- * Allocates a 0x88-byte block via func_8004D434, sets up a linked-list node,
+ * Allocates a 0x88-byte block via frameAlloc, sets up a linked-list node,
  * then polls func_800503F8 in a tight loop until it returns 0.  On success,
  * resolves a symbol via D_80174BF8, calls func_80050260, then accounts for
- * elapsed time (D_8017CCBC delta) via func_8004D380.
+ * elapsed time (D_8017CCBC delta) via gfxGetWritePtr.
  * Branch back to function start (bnez $s1, func_80052490) caused m2c to fail.
  * ------------------------------------------------------------------------- */
 s32  func_800503F8(void);               /* extern */

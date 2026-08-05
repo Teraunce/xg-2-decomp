@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8007AA68(char *arg0, f32 *arg1, char *arg2) {
+void guMtxCatF(char *arg0, f32 *arg1, char *arg2) {
     s32 sp5C;
     f32 sp1C;
     f32 *temp_a1;

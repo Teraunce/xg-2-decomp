@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 osVirtualToPhysical(u32);                       /* extern */
 
-char *func_800854C8(Unk *arg0, u32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
+char *audioRspSetupSample(Unk *arg0, u32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
     u32 sp4C;
     char *sp44;
     char *sp3C;

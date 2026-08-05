@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 __osPiRawReadIo(s32*);                             /* extern */
-s32 func_80074FC4(s32);                             /* extern */
-void func_80075120(s32, s32);                          /* extern */
+s32 piReadByteUnaligned(s32);                             /* extern */
+void storeByteUnaligned(s32, s32);                          /* extern */
 
 void func_8007515C(s32 arg0, s32 arg1, u32 arg2) {
     s32 temp_a0;
@@ -34,7 +34,7 @@ loop_2:
     var_s3 += 1;
     temp_a0_2 = var_s1;
     var_s1 += 1;
-    func_80075120(temp_a0_2, func_80074FC4(temp_a0) & 0xFF);
+    storeByteUnaligned(temp_a0_2, piReadByteUnaligned(temp_a0) & 0xFF);
     var_s2 -= 1;
     var_v0 = var_s3 & 3;
     if (var_s2 != 0) {
@@ -45,13 +45,13 @@ loop_2:
 block_5:
     temp_v0 = __osPiRawReadIo(var_s3);
     temp_s1 = var_s1 + 1;
-    func_80075120(var_s1, temp_v0 >> 0x18);
+    storeByteUnaligned(var_s1, temp_v0 >> 0x18);
     temp_s1_2 = temp_s1 + 1;
-    func_80075120(temp_s1, (temp_v0 >> 0x10) & 0xFF);
+    storeByteUnaligned(temp_s1, (temp_v0 >> 0x10) & 0xFF);
     temp_s1_3 = temp_s1_2 + 1;
-    func_80075120(temp_s1_2, (temp_v0 >> 8) & 0xFF);
+    storeByteUnaligned(temp_s1_2, (temp_v0 >> 8) & 0xFF);
     var_s1 = temp_s1_3 + 1;
-    func_80075120(temp_s1_3, temp_v0 & 0xFF);
+    storeByteUnaligned(temp_s1_3, temp_v0 & 0xFF);
     var_s3 += 4;
     var_s2 -= 4;
 block_6:
@@ -68,7 +68,7 @@ loop_9:
     var_s3 += 1;
     temp_a0_3 = var_s1;
     var_s1 += 1;
-    func_80075120(temp_a0_3, func_80074FC4(var_a0) & 0xFF);
+    storeByteUnaligned(temp_a0_3, piReadByteUnaligned(var_a0) & 0xFF);
     var_s2 -= 1;
     var_a0 = var_s3;
     if (var_s2 != 0) {

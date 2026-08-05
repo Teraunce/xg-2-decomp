@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 __osPiRawReadIo(s32*);                              /* extern */
-s32 func_80074FC4(s32);                              /* extern */
+s32 piReadByteUnaligned(s32);                              /* extern */
 
 void func_80075044(s32 arg0, s8 *arg1, u32 arg2) {
     s32 temp_a0;
@@ -27,7 +27,7 @@ loop_1:
     }
     temp_a0 = var_s2;
     var_s2 += 1;
-    var_s0->unk0 = func_80074FC4(temp_a0);
+    var_s0->unk0 = piReadByteUnaligned(temp_a0);
     var_s1 -= 1;
     var_s0 += 1;
     if (var_s1 != 0) {
@@ -58,7 +58,7 @@ block_6:
 loop_8:
     temp_a0_2 = var_s2;
     var_s2 += 1;
-    var_s0->unk0 = func_80074FC4(temp_a0_2);
+    var_s0->unk0 = piReadByteUnaligned(temp_a0_2);
     var_s1 -= 1;
     var_s0 += 1;
     if (var_s1 != 0) {
@@ -68,7 +68,7 @@ block_9:
     return;
 }
 
-void func_80075120(s32 arg0, s32 arg1) {
+void storeByteUnaligned(s32 arg0, s32 arg1) {
     s32 temp_a0;
     s32 temp_a2;
 

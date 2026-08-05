@@ -21,12 +21,12 @@ typedef struct {
 } UnkStruct_sp18;
 
 s32 contPakChecksum(s32, u16*, u16*);                 /* extern */
-s32 func_8008925C(Unk*, Unk*, Unk*);                /* extern */
+s32 contPakTransfer(Unk*, Unk*, Unk*);                /* extern */
 s32 func_80089674(Unk*, Unk*);                     /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);                /* extern */
 
-s32 func_8008C528(UnkStruct_arg0 *arg0) {
+s32 contPakReadEntry(UnkStruct_arg0 *arg0) {
     s32 sp64;
     u16 sp62;
     u16 sp60;
@@ -52,7 +52,7 @@ s32 func_8008C528(UnkStruct_arg0 *arg0) {
     if ((((Unk*)&sp40)->unk1C != sp62) || (((Unk*)&sp40)->unk1E != sp60)) {
         sp1C = func_80089674(arg0, sp18);
         if (sp1C == 0xA) {
-            sp1C = func_8008925C(arg0, sp18, &sp20);
+            sp1C = contPakTransfer(arg0, sp18, &sp20);
             if (sp1C != 0) {
                 return sp1C;
             }
@@ -66,7 +66,7 @@ s32 func_8008C528(UnkStruct_arg0 *arg0) {
     }
 block_13:
     if (!(sp18->unk18 & 1)) {
-        sp1C = func_8008925C(arg0, sp18, &sp20);
+        sp1C = contPakTransfer(arg0, sp18, &sp20);
         if (sp1C != 0) {
             return sp1C;
         }

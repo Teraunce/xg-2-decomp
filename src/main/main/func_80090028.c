@@ -4,7 +4,7 @@ typedef struct {
     /* 0x01 */ s32 unk1;
 } UnkStruct_temp_s1;
 
-s32 func_8008EE98(s32, u8 *, s32);                    /* extern */
+s32 byteCopy(s32, u8 *, s32);                    /* extern */
 extern u8 D_8004D128;
 
 /* Warning: Gap in callee-saved word stack region.
@@ -79,10 +79,10 @@ void func_80090028(void) {
                 var_s3 = (s16) temp_t8_2;
             }
             saved_reg_s0->unk1C = (s32) var_s3;
-            func_8008EE98(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1, (s32) var_s3);
+            byteCopy(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1, (s32) var_s3);
             saved_reg_s0->unk20 = (s32) (saved_reg_s0->unk24 - var_s3);
         } else if (var_s3 < var_s2_2) {
-            func_8008EE98(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1, (s32) var_s3);
+            byteCopy(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1, (s32) var_s3);
             saved_reg_s0->unk14 = (s32) (saved_reg_s0->unk14 + var_s3);
             saved_reg_s0->unk18 = (s32) (var_s2_2 - var_s3);
             if ((saved_reg_s0->unk24 > 0) || (saved_reg_s0->unk30 & 8)) {
@@ -91,7 +91,7 @@ void func_80090028(void) {
             }
             saved_reg_s0->unk20 = saved_reg_s0->unk24;
         } else {
-            func_8008EE98(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1, (s32) var_s2_2);
+            byteCopy(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1, (s32) var_s2_2);
             saved_reg_s0->unk14 = (s32) (saved_reg_s0->unk14 + var_s2_2);
             var_s3_2 = var_s3 - var_s2_2;
             if ((saved_reg_s0->unk24 > 0) || (saved_reg_s0->unk30 & 8)) {
@@ -101,7 +101,7 @@ void func_80090028(void) {
             if ((s16) saved_reg_s0->unk24 < var_s3_2) {
                 var_s3_2 = (s16) saved_reg_s0->unk24;
             }
-            func_8008EE98(saved_reg_s0->unk8 + saved_reg_s0->unk14, &var_s1[var_s2_2], (s32) var_s3_2);
+            byteCopy(saved_reg_s0->unk8 + saved_reg_s0->unk14, &var_s1[var_s2_2], (s32) var_s3_2);
             saved_reg_s0->unk14 = (s32) (saved_reg_s0->unk14 + var_s3_2);
             saved_reg_s0->unk18 = (s32) (saved_reg_s0->unk24 - var_s3_2);
         }
@@ -133,7 +133,7 @@ void func_80090028(void) {
             if ((s16) saved_reg_s0->unk24 < var_s3_3) {
                 var_s3_3 = (s16) saved_reg_s0->unk24;
             }
-            func_8008EE98(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1 + 1, (s32) var_s3_3);
+            byteCopy(saved_reg_s0->unk8 + saved_reg_s0->unk14, var_s1 + 1, (s32) var_s3_3);
             saved_reg_s0->unk14 = (s32) (saved_reg_s0->unk14 + var_s3_3);
             saved_reg_s0->unk18 = (s32) (saved_reg_s0->unk24 - var_s3_3);
         }

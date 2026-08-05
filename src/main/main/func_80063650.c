@@ -1,7 +1,7 @@
 #include "ultra64.h"
 char *heap_alloc_default(s32);                             /* extern */
-void func_8005AB80(s32, s32, s32);                     /* extern */
-u32 *func_80063800(s32 arg0);                       /* static */
+void audioPlayCopySample(s32, s32, s32);                     /* extern */
+u32 *sfxFreeBlock(s32 arg0);                       /* static */
 extern s32 D_8004B658;
 extern u32 *gSfxDefTable;
 extern Unk D_800E6E40;
@@ -37,14 +37,14 @@ void func_80063650(void) {
     D_801823D8.unk4 = &D_800E6E40;
     D_800E6E40.unk0 = &D_85388;
     D_800E6E40.unk4 = 0;
-    func_8005AB80(D_8004B658, 4, &D_801823E0);
+    audioPlayCopySample(D_8004B658, 4, &D_801823E0);
     temp_s0 = D_801823E0 * 0x10;
-    temp_v0_3 = func_80063800(temp_s0);
+    temp_v0_3 = sfxFreeBlock(temp_s0);
     gSfxDefTable = temp_v0_3;
-    func_8005AB80(D_8004B658 + 8, temp_s0, temp_v0_3);
+    audioPlayCopySample(D_8004B658 + 8, temp_s0, temp_v0_3);
 }
 
-u16 func_80063730(s32 arg0) {
+u16 sfxAllocBlock(s32 arg0) {
     u16 temp_a2;
     u32 *temp_v1_2;
     Unk *var_a1;
@@ -93,7 +93,7 @@ loop_6:
     return 0U;
 }
 
-u32 *func_80063800(s32 arg0) {
+u32 *sfxFreeBlock(s32 arg0) {
     Unk *temp_v0_2;
     Unk *var_a2;
     Unk *var_v1;

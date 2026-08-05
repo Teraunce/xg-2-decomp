@@ -1,11 +1,11 @@
 #include "ultra64.h"
 s32 func_80074FA8();                                  /* extern */
-s32 func_80076154();                                /* extern */
-void func_80076160();                              /* extern */
+s32 getCOP0Status();                                /* extern */
+void setCOP0Status();                              /* extern */
 extern s32 D_80188E40;
 
-void func_80074ED8(s32 arg0) {
-    func_80076160(func_80076154() | arg0);
+void intRestore(s32 arg0) {
+    setCOP0Status(getCOP0Status() | arg0);
 }
 
 void __osPiRawWriteIo(s32 *arg0, s32 arg1) {

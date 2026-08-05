@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_8004DC24(Unk*, s32, s32, s32, s32, s32, s32);       /* extern */
 void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);          /* extern */
-void func_8007D008(Unk*, s32);                              /* extern */
+void osSetThreadPri(Unk*, s32);                              /* extern */
 void osStartThread(Unk*);                               /* extern */
 void func_80086DD8(s32);                                 /* extern */
 void osViSetMode(char*);                               /* extern */
@@ -24,7 +24,7 @@ void gameMainThread(void) {
     osEPiLoad(0x96, &D_80170378, &D_80170398, 0xC8);
     osCreateThread(&D_801706B8, 3, &gameMainLoop_setup, 0, &D_8016D9D0, 0xA);
     osStartThread(&D_801706B8);
-    func_8007D008(0, 0);
+    osSetThreadPri(0, 0);
 loop_1:
     goto loop_1;
 }

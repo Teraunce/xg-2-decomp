@@ -1,8 +1,8 @@
 #include "ultra64.h"
 s16 func_80058940(s16);                                 /* extern */
-void func_8007A210(void *, s32, s32, s32, f32, f32, f32, s32, s32, s32); /* extern */
-void func_8007ABD8(s32, s32, s32, s32, s32, s32, s32); /* extern */
-void func_8007AC38(s32, s32, s32);               /* extern */
+void guLookAt(void *, s32, s32, s32, f32, f32, f32, s32, s32, s32); /* extern */
+void guMtxXfm(s32, s32, s32, s32, s32, s32, s32); /* extern */
+void guMtxCat(s32, s32, s32);               /* extern */
 void func_8007B118(void *, u16 *, f32, f32, f32, f32, f32); /* extern */
 void func_8007B30C(void *, f32, f32);                    /* extern */
 void func_8007B55C(void *, f32, f32);                    /* extern */
@@ -248,14 +248,14 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
     sp128 = temp_s1_2->unk20;
     if (gGameFlags & 0x10) {
         func_8007B30C(&spE0, (f32) -gPlayerList2, temp_s1_2->unkC - temp_s1_2->unk0);
-        func_8007ABD8(&spE0, sp120, sp124, sp128, &sp120, &sp124, &sp128);
+        guMtxXfm(&spE0, sp120, sp124, sp128, &sp120, &sp124, &sp128);
     }
     temp_s0_2 = temp_s2 + (&gEntityPool + 0x30);
-    func_8007A210(temp_s0_2 + (gPlayerList << 6), 0, 0, 0, temp_s1_2->unkC - temp_s1_2->unk0, temp_s1_2->unk10 - temp_s1_2->unk4, temp_s1_2->unk14 - temp_s1_2->unk8, sp120, sp124, sp128);
+    guLookAt(temp_s0_2 + (gPlayerList << 6), 0, 0, 0, temp_s1_2->unkC - temp_s1_2->unk0, temp_s1_2->unk10 - temp_s1_2->unk4, temp_s1_2->unk14 - temp_s1_2->unk8, sp120, sp124, sp128);
     temp_a0 = temp_s0_2 + (gPlayerList << 6);
-    func_8007AC38(temp_a0, &sp68, temp_a0);
+    guMtxCat(temp_a0, &sp68, temp_a0);
     temp_s0_3 = temp_s0_2 + (gPlayerList << 6);
-    func_8007AC38(temp_s0_3, &sp28, temp_s0_3);
+    guMtxCat(temp_s0_3, &sp28, temp_s0_3);
     temp_v1_4 = gPlayerList << 6;
     var_a0 = temp_v1_4 + ((D_8017C118 << 7) + D_8017C7F0);
     temp_v1_5 = temp_v1_4 + temp_s2 + &gEntityPool;

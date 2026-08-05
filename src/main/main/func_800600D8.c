@@ -1,8 +1,8 @@
 #include "ultra64.h"
-void func_80052C88(s32, s32, s32);                           /* extern */
-void func_80062878(s32);                               /* extern */
-void func_80062A6C();                                  /* extern */
-void func_80062F4C(s32, s32, s32, s32);                      /* extern */
+void rdpSetFillColor(s32, s32, s32);                           /* extern */
+void sfxUpdateHeap(s32);                               /* extern */
+void sfxFlushInactive();                                  /* extern */
+void rdpSetFogColor(s32, s32, s32, s32);                      /* extern */
 s32 func_800B1558(s32);                             /* extern */
 extern s32 gSfxSavedState;
 extern s32 D_80092BB8;
@@ -40,10 +40,10 @@ void func_800600D8(s32 arg0, s32 arg1) {
             }
         } else {
 block_12:
-            func_80052C88(0, 0, 0);
+            rdpSetFillColor(0, 0, 0);
 block_13:
             if (arg0 == 4) {
-                func_80062878((u32) D_80092CA8 >= 5U);
+                sfxUpdateHeap((u32) D_80092CA8 >= 5U);
             }
         }
         if (arg1 != 0) {
@@ -62,20 +62,20 @@ block_13:
             if (var_a1 <= 0) {
                 var_a0 = 0;
             }
-            func_80062F4C(var_a0, 0, 0, 0);
+            rdpSetFogColor(var_a0, 0, 0, 0);
         }
         break;
     case 3:
 block_25:
-        func_80052C88(0, 0, 0);
+        rdpSetFillColor(0, 0, 0);
         break;
     case 2:
-        func_80052C88(0, 0, 0);
+        rdpSetFillColor(0, 0, 0);
         if (func_800B1558(D_80173D08 - D_80181E4C) == 0) {
             D_80181E48 = 3;
         }
         break;
     }
-    func_80062A6C();
+    sfxFlushInactive();
     D_80092CA8 += 1;
 }

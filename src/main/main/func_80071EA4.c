@@ -1,9 +1,9 @@
 #include "ultra64.h"
 s32 func_80061AEC(void *, void *, s32);                  /* extern */
-s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);     /* extern */
-void func_800716E4(s32, s32);                       /* extern */
-s32 func_8008AD98(void *, s32, void *);              /* extern */
-s32 func_8008B5B8(void *, s32*);                  /* extern */
+s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
+void entityClearSlots(s32, s32);                       /* extern */
+s32 contPakFetchNote(void *, s32, void *);              /* extern */
+s32 contPakCountNotes(void *, s32*);                  /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
 extern s32 D_80093ECC;
@@ -37,24 +37,24 @@ loop_2:
     } while (var_s2 >= 0);
     temp_s0 = (arg1 * 4) + &D_801887D0;
     if ((temp_s0->unk31C != 2) || (temp_s0->unk34C != 0)) {
-        func_800716E4(arg1, 2);
+        entityClearSlots(arg1, 2);
         if (temp_s0->unk31C != 2) {
             D_801887D0.unk168 = 0;
         }
     }
     if (D_801887D0.unk168 != 0) {
-        temp_v0 = func_8008B5B8((arg1 * 0x68) + (&D_801887D0 + 0x17C), &D_801887D0 + 0x64C);
+        temp_v0 = contPakCountNotes((arg1 * 0x68) + (&D_801887D0 + 0x17C), &D_801887D0 + 0x64C);
         if (temp_v0 != 0) {
             if (temp_v0 == 2) {
                 temp_s0_2 = (arg1 * 4) + &D_801887D0;
                 temp_s0_2->unk31C = 6;
-                func_800716E4(arg1, 2);
+                entityClearSlots(arg1, 2);
                 if (temp_s0_2->unk31C != temp_v0) {
                     D_801887D0.unk168 = 0;
                 } else {
                     goto loop_2;
                 }
-            } else if (func_80070F50(0x3C, arg1, 0x52, 0x31, 0, 0, 0) != 0) {
+            } else if (handlerPostCmd(0x3C, arg1, 0x52, 0x31, 0, 0, 0) != 0) {
                 ((arg1 * 4) + &D_801887D0)->unk31C = 3;
                 D_801887D0.unk168 = 0;
             } else {
@@ -69,7 +69,7 @@ loop_2:
 loop_17:
     if (D_801887D0.unk168 != 0) {
         temp_s3 = var_s6 + (&D_801887D0 + 0x398);
-        temp_v0_2 = func_8008AD98((arg1 * 0x68) + (&D_801887D0 + 0x17C), var_s2_2, temp_s3);
+        temp_v0_2 = contPakFetchNote((arg1 * 0x68) + (&D_801887D0 + 0x17C), var_s2_2, temp_s3);
         switch (temp_v0_2) {                        /* irregular */
         case 0:
             var_a0 = 0;
@@ -92,14 +92,14 @@ block_35:
             break;
         case 2:
             temp_s7->unk31C = 6;
-            func_800716E4(arg1, 2);
+            entityClearSlots(arg1, 2);
             if (temp_s7->unk31C != temp_v0_2) {
                 D_801887D0.unk168 = 0;
                 goto block_35;
             }
             goto loop_2;
         default:
-            if (func_80070F50(0x3C, arg1, 0x52, 0x31, 0, 0, 0) != 0) {
+            if (handlerPostCmd(0x3C, arg1, 0x52, 0x31, 0, 0, 0) != 0) {
                 temp_s7->unk31C = 3;
                 D_801887D0.unk168 = 0;
                 goto block_35;

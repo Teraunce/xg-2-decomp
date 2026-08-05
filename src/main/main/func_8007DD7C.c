@@ -2,7 +2,7 @@
 u8 audioStreamReadByte(s32, s32);                         /* extern */
 s32 func_8007DD1C();                                /* extern */
 
-void func_8007DD7C(Unk *arg0, Unk *arg1) {
+void audioStreamSchedule(Unk *arg0, Unk *arg1) {
     s32 sp28;
     s32 sp24;
     s32 temp_a2;

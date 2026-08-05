@@ -20,12 +20,12 @@
  *   others           -> return
  *
  * Inner dispatch for 0xB0 via jtbl_8004CD9C (21 entries, index = cmd_b - 7):
- *   [0]  cmd_b==0x07 -> 0x80080B38 : write s4@[ch*16+9]; list func_8007FF5C+func_80086418
- *   [3]  cmd_b==0x0A -> 0x80080ADC : write s4@[ch*16+7]; list func_8008037C+func_80086558
+ *   [0]  cmd_b==0x07 -> 0x80080B38 : write s4@[ch*16+9]; list sfxComputeVolume+sfxPlayAtEntity
+ *   [3]  cmd_b==0x0A -> 0x80080ADC : write s4@[ch*16+7]; list sfxComputePan+sfxPlayPanAtEntity
  *   [9]  cmd_b==0x10 -> 0x80080BCC : write s4@[ch*16+8]; return
  *   others -> return
  *   cmd_b==0x40 (direct): write s4@[ch*16+0xB]; gate state machine
- *   cmd_b==0x5B (direct): write s4@[ch*16+0xA]; list func_800864B8
+ *   cmd_b==0x5B (direct): write s4@[ch*16+0xA]; list sfxPlayAbsAtEntity
  *   cmd_b==0x5D (direct): return
  */
 
@@ -35,16 +35,16 @@ extern void *func_800803C4(void *node, u8 b, u8 c);
 extern void  func_80090AE8(void *a0, void *a1, void *stk);
 extern f32   func_80086698(s16 cents);
 extern void  osSetTimer(void *a, void *cmd_stk, s32 c);
-extern s32   func_8007FF5C(void *node, void *ctx);
-extern void  func_8007FFE4(void *a, void *b, s32 c);
-extern void  func_80086418(void *a, void *b, s32 c, s32 d);
-extern void  func_80086558(void *a, void *b, u8 c);
-extern void  func_80086388(void *a, void *b, f32 c);
-extern void  func_800864B8(void *a, void *b, u8 c);
-extern void  func_8008037C(void *node, void *ctx);
+extern s32   sfxComputeVolume(void *node, void *ctx);
+extern void  sfxNoteRetrigger(void *a, void *b, s32 c);
+extern void  sfxPlayAtEntity(void *a, void *b, s32 c, s32 d);
+extern void  sfxPlayPanAtEntity(void *a, void *b, u8 c);
+extern void  sfxPlayLoopAtEntity(void *a, void *b, f32 c);
+extern void  sfxPlayAbsAtEntity(void *a, void *b, u8 c);
+extern void  sfxComputePan(void *node, void *ctx);
 extern void  func_80086298(void *a0, void *a1, s32 a2, f32 a3,
                            s32 sp10, u8 sp14, u8 sp18, s32 sp1c);
-extern void  func_8007FDA8(void *node, void *a1, u8 a2);
+extern void  audioSetNoteSlot(void *node, void *a1, u8 a2);
 
 void func_800805A4(Unk *cmd, Unk *node) {
     u8  cmd_a;
@@ -204,10 +204,10 @@ void func_800805A4(Unk *cmd, Unk *node) {
             s2_a   = *(u8  *)((u8 *)tbl2 + 0xA);
             fs0_v  = tbl_c * s0_28 * s0_2c;
 
-            func_8008037C(s0, node);
+            sfxComputePan(s0, node);
             s4_v    = *(s32 *)s0 & 0xFF;   /* v0 & 0xFF */
 
-            v0_ff5c = func_8007FF5C(s0, node);
+            v0_ff5c = sfxComputeVolume(s0, node);
 
             inner0 = *(void **)*(void **)((u8 *)s7);
             func_80086298(*(void **)((u8 *)node + 0x14),
@@ -247,7 +247,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
         *(u8 *)((u8 *)s0_80 + 0x35) = 3;
         owner  = *(void **)((u8 *)s0_80 + 0x20);
         owner0 = *(void **)owner;
-        func_8007FFE4(node, (u8 *)s0_80 + 4, *(s32 *)((u8 *)owner0 + 8));
+        sfxNoteRetrigger(node, (u8 *)s0_80 + 4, *(s32 *)((u8 *)owner0 + 8));
         return;
     }
 
@@ -260,10 +260,10 @@ void func_800805A4(Unk *cmd, Unk *node) {
         if (s0_a0 == NULL) return;
 
         *(u8 *)((u8 *)s0_a0 + 0x33) = cmd_c;
-        v0_ff5c = func_8007FF5C(s0_a0, node);
+        v0_ff5c = sfxComputeVolume(s0_a0, node);
         dist    = *(s32 *)((u8 *)s0_a0 + 0x24) - *(s32 *)((u8 *)node + 0x1C);
         clamped = (dist >= 0) ? dist : 0x3E8;
-        func_80086418(*(void **)((u8 *)node + 0x14),
+        sfxPlayAtEntity(*(void **)((u8 *)node + 0x14),
                       (u8 *)s0_a0 + 4, (s16)v0_ff5c, clamped);
         return;
     }
@@ -281,10 +281,10 @@ void func_800805A4(Unk *cmd, Unk *node) {
         while (1) {
             if (cmd_low == t6) {
                 *(u8 *)((u8 *)s0_d0 + 0x33) = cmd_b;
-                v0_ff5c = func_8007FF5C(s0_d0, node);
+                v0_ff5c = sfxComputeVolume(s0_d0, node);
                 dist    = *(s32 *)((u8 *)s0_d0 + 0x24) - *(s32 *)((u8 *)node + 0x1C);
                 clamped = (dist >= 0) ? dist : 0x3E8;
-                func_80086418(*(void **)((u8 *)node + 0x14),
+                sfxPlayAtEntity(*(void **)((u8 *)node + 0x14),
                               (u8 *)s0_d0 + 4, (s16)v0_ff5c, clamped);
                 s0_d0 = *(void **)s0_d0;
             } else {
@@ -324,7 +324,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
 
         switch (t9_b) {
 
-        /* cmd_b==0x07: velocity byte; list -> func_8007FF5C + func_80086418 */
+        /* cmd_b==0x07: velocity byte; list -> sfxComputeVolume + sfxPlayAtEntity */
         case 0: {
             void *s0_b0;
             u8    t9_filt;
@@ -338,10 +338,10 @@ void func_800805A4(Unk *cmd, Unk *node) {
             while (1) {
                 if (cmd_low == t9_filt) {
                     if (*(u8 *)((u8 *)s0_b0 + 0x34) != 3) {
-                        v0_ff5c = func_8007FF5C(s0_b0, node);
+                        v0_ff5c = sfxComputeVolume(s0_b0, node);
                         dist    = *(s32 *)((u8 *)s0_b0 + 0x24) - *(s32 *)((u8 *)node + 0x1C);
                         clamped = (dist >= 0) ? dist : 0x3E8;
-                        func_80086418(*(void **)((u8 *)node + 0x14),
+                        sfxPlayAtEntity(*(void **)((u8 *)node + 0x14),
                                       (u8 *)s0_b0 + 4, (s16)v0_ff5c, clamped);
                     }
                 }
@@ -352,7 +352,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
             return;
         }
 
-        /* cmd_b==0x0A: pan byte; list -> func_8008037C + func_80086558 */
+        /* cmd_b==0x0A: pan byte; list -> sfxComputePan + sfxPlayPanAtEntity */
         case 3: {
             void *s0_b3;
             u8    t9_filt3;
@@ -365,9 +365,9 @@ void func_800805A4(Unk *cmd, Unk *node) {
 
             while (1) {
                 if (cmd_low == t9_filt3) {
-                    func_8008037C(s0_b3, node);
-                    pan_v0 = 0; /* v0 from func_8008037C; represented as s32 */
-                    func_80086558(*(void **)((u8 *)node + 0x14),
+                    sfxComputePan(s0_b3, node);
+                    pan_v0 = 0; /* v0 from sfxComputePan; represented as s32 */
+                    sfxPlayPanAtEntity(*(void **)((u8 *)node + 0x14),
                                   (u8 *)s0_b3 + 4, (u8)pan_v0);
                 }
                 s0_b3 = *(void **)s0_b3;
@@ -409,7 +409,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
                             void *ow   = *(void **)((u8 *)s0_40 + 0x20);
                             void *ow0  = *(void **)ow;
                             *(u8 *)((u8 *)s0_40 + 0x35) = 3;
-                            func_8007FFE4(node, (u8 *)s0_40 + 4,
+                            sfxNoteRetrigger(node, (u8 *)s0_40 + 4,
                                          *(s32 *)((u8 *)ow0 + 8));
                         }
                     } else {
@@ -420,7 +420,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
                             void *ow   = *(void **)((u8 *)s0_40 + 0x20);
                             void *ow0  = *(void **)ow;
                             *(u8 *)((u8 *)s0_40 + 0x35) = 3;
-                            func_8007FFE4(node, (u8 *)s0_40 + 4,
+                            sfxNoteRetrigger(node, (u8 *)s0_40 + 4,
                                          *(s32 *)((u8 *)ow0 + 8));
                         }
                     }
@@ -434,7 +434,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
     }
 
     lbl_B_5B: {
-        /* cmd_b==0x5B: set byte at offset 0xA; list -> func_800864B8 */
+        /* cmd_b==0x5B: set byte at offset 0xA; list -> sfxPlayAbsAtEntity */
         void *s0_5b;
         u8    t9_5b;
 
@@ -446,7 +446,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
 
         while (1) {
             if (cmd_low == t9_5b) {
-                func_800864B8(*(void **)((u8 *)node + 0x14),
+                sfxPlayAbsAtEntity(*(void **)((u8 *)node + 0x14),
                               (u8 *)s0_5b + 4, (u8)cmd_c);
             }
             s0_5b = *(void **)s0_5b;
@@ -468,7 +468,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
         if ((s32)cmd_b >= (s32)count) return;
 
         entry = (u8 *)arr + (s32)cmd_b * 4;
-        func_8007FDA8(node, *(void **)((u8 *)entry + 0xC), cmd_low);
+        audioSetNoteSlot(node, *(void **)((u8 *)entry + 0xC), cmd_low);
         return;
     }
 
@@ -502,7 +502,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
             if (cmd_low == t6_e) {
                 f32 ft1_e = *(f32 *)((u8 *)s0_e + 0x28);
                 f32 ft3_e = *(f32 *)((u8 *)s0_e + 0x2C);
-                func_80086388(*(void **)((u8 *)node + 0x14),
+                sfxPlayLoopAtEntity(*(void **)((u8 *)node + 0x14),
                               (u8 *)s0_e + 4,
                               ft1_e * fs0_e * ft3_e);
             }

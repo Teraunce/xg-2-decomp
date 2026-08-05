@@ -6,7 +6,7 @@
  *
  * Reads phase / timer from gSfxPhase (gSfxPhase) and gSfxFadeTimer
  * (gSfxFadeTimer) to derive volume/pan byte arguments, then calls
- * func_80062F4C which writes the RSP display-list words for an audio
+ * rdpSetFogColor which writes the RSP display-list words for an audio
  * mix/colour command.
  *
  * Logic summary:
@@ -24,7 +24,7 @@
  *   default (phase == 1, or phase != 0/2):
  *       if gSfxPhase == 1:  a0 = 0xFF,  a1 = (byte0 & 0xFF)
  *
- *   Then calls func_80062F4C(a0, a1, a2, a3) where a1/a2/a3 come from
+ *   Then calls rdpSetFogColor(a0, a1, a2, a3) where a1/a2/a3 come from
  *   the bytes of D_80092D04.
  *
  * Globals:
@@ -41,7 +41,7 @@ extern s32 gSfxRampStep;    /* 0x80092CF8 */
 extern s32 gSfxDecayStep;   /* 0x80092D00 */
 extern u32 D_80092D04;      /* packed audio params: bytes used as RGBA */
 
-void func_80062F4C(s32 a0, s32 a1, s32 a2, s32 a3);  /* RSP DL audio command */
+void rdpSetFogColor(s32 a0, s32 a1, s32 a2, s32 a3);  /* RSP DL audio command */
 
 void func_80062CE8(void) {
     u32  packed = D_80092D04;
@@ -98,5 +98,5 @@ void func_80062CE8(void) {
     a1 = byte0 & 0xFF;
 
 call:
-    func_80062F4C(a0, a1, a2, a3);
+    rdpSetFogColor(a0, a1, a2, a3);
 }

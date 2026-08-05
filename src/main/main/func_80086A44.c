@@ -21,13 +21,13 @@ typedef struct {
 
 void osWritebackDCache(u32, s32);                         /* extern */
 char *func_80086928(void *);                        /* extern */
-s32 func_80086C18();                                /* extern */
+s32 sfxIsBusy();                                /* extern */
 void osSpSetStatus(s32);                                 /* extern */
 s32 func_80086C58(s32);                               /* extern */
 s32 osSpRawStartDma(s32, s32, s32, s32);               /* extern */
 extern s32 D_A0000000;
 
-void func_80086A44(UnkStruct_arg0 *arg0) {
+void sfxLoadUcode(UnkStruct_arg0 *arg0) {
     UnkStruct_sp1C *sp1C;
 
     sp1C = func_80086928(arg0);
@@ -51,10 +51,10 @@ void func_80086A44(UnkStruct_arg0 *arg0) {
 
         } while (osSpRawStartDma(1, 0x04000FC0, sp1C, 0x40) == -1);
     }
-    if (func_80086C18() != 0) {
+    if (sfxIsBusy() != 0) {
         do {
 
-        } while (func_80086C18() != 0);
+        } while (sfxIsBusy() != 0);
     }
     if (osSpRawStartDma(1, 0x04001000, sp1C->unk8, sp1C->unkC) == -1) {
         do {

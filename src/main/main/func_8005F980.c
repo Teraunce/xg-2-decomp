@@ -3,16 +3,16 @@ void func_8004D358();                                  /* extern */
 void func_8004D420();                                  /* extern */
 s32 heap_alloc_default(s32);                               /* extern */
 void func_8005C88C(s32);                                 /* extern */
-void func_8005C8D4(s32);                               /* extern */
+void audioSetTrack(s32);                               /* extern */
 void func_8005C8EC(s32, s32);                              /* extern */
 s32 sfxQueueCmd(s32, s32, s32, s32, s32);                   /* extern */
 void func_8005F838();                                  /* extern */
 void func_8005FF44(s32);                                 /* extern */
 s32 func_80061800(s32);                               /* extern */
-void func_80062D98(void*, void*);                            /* extern */
-void func_80062F1C(s32, s32, s32, s32, s32);                   /* extern */
+void sfxPlayCue(void*, void*);                            /* extern */
+void sfxSetCueParams(s32, s32, s32, s32, s32);                   /* extern */
 void func_80063650();                                  /* extern */
-s32 func_80063800(s32);                               /* extern */
+s32 sfxFreeBlock(s32);                               /* extern */
 void func_80063DF0();                                  /* extern */
 s32 func_800AE150();                                  /* extern */
 s32 func_800C0810(s32, s32, s32, s32);                  /* extern */
@@ -70,17 +70,17 @@ void func_8005F980(s32 arg0) {
         func_8005F838();
     }
     func_80063DF0();
-    D_801821E8 = func_80063800(0x200);
+    D_801821E8 = sfxFreeBlock(0x200);
     gLocaleIdx = 0;
     func_80061800(gLocale);
     if (arg0 != 0) {
-        func_80062F1C(0, 0x55, 0, 4, 0);
-        func_80062D98(&D_80092D20, 0);
+        sfxSetCueParams(0, 0x55, 0, 4, 0);
+        sfxPlayCue(&D_80092D20, 0);
         var_v1 = (s32 *)0x80090000;
     } else {
-        func_80062F1C(0, 0x100, 2, 4, 0);
+        sfxSetCueParams(0, 0x100, 2, 4, 0);
         func_8005C8EC(0, 0);
-        func_8005C8D4(D_80182EA8.unkB00);
+        audioSetTrack(D_80182EA8.unkB00);
         if (gRaceCtrl != 0) {
             D_80092B64 = 1;
             D_80182EA8.unk16D8 = (s32) D_80093338;

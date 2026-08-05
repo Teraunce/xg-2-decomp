@@ -5,7 +5,7 @@
  *
  * Outer switch: index = u16(obj+0x38), 24 entries via jtbl_8004CB5C.
  * Case 0 has a nested inner switch using jtbl_8004CBBC (20 entries);
- *   the sub-index comes from func_8007DD7C writing to stk58 (sp+0x58).
+ *   the sub-index comes from audioStreamSchedule writing to stk58 (sp+0x58).
  *
  * Epilogue: result = osStopTimer(obj+0x48, &obj->0x38).
  *   obj->0x28 = result always; if 0 loop; else obj->0x1C += result.
@@ -29,25 +29,25 @@
  *   func_8007ED94 via $t0 (non-standard ABI), not representable in C.
  */
 
-void  func_8007DD7C(void *a, s16 *b);
+void  audioStreamSchedule(void *a, s16 *b);
 void  func_8007ED94(void);      /* nonmatching: reads $t0, not $a0/$a1 */
-void  func_8007EB18(void *a);
+void  audioStartTimer(void *a);
 void func_8007EBC4(void *);
 void func_8007EB88(void *);                           /* extern */
-void  func_8007E618(void *a, s32 b);
-s32   func_8007FF5C(void *a, void *b);
+void  timerRelinkByType(void *a, s32 b);
+s32   sfxComputeVolume(void *a, void *b);
 s32   func_8007FF38(void *a, void *b);
-void func_8007FE7C(Unk*, Unk*);                   /* extern */
+void audioLoadNotes(Unk*, Unk*);                   /* extern */
 s32   func_80080110(void *a, void *b, s32 c);
-void  func_8007FFE4(void *a, void *b, s32 c);
+void  sfxNoteRetrigger(void *a, void *b, s32 c);
 void  func_800801B8(void *a, void *b);
 void  func_800813E8(void *a, void *b);
 void  osSetTimer(void *a, void *b, s32 c);
 s32   osStopTimer(void *a, void *b);
-void  func_80086188(void *a, void *b);
-void  func_800860D8(void *a, void *b);
-void  func_80086418(void *a, void *b, s32 c, s32 d);
-void  func_80086388(void *a, void *b, f32 c);
+void  sfxPlayNoteAtEntity(void *a, void *b);
+void  sfxStopAtEntity(void *a, void *b);
+void  sfxPlayAtEntity(void *a, void *b, s32 c, s32 d);
+void  sfxPlayLoopAtEntity(void *a, void *b, f32 c);
 
 extern f32 D_8004CC0C;
 
@@ -72,7 +72,7 @@ void func_8007F5C4(Unk *obj) {
     void *inner_s0;
 
     /* Stack packet scalars */
-    s16   stk58;        /* sp+0x58: func_8007DD7C out-param / sub-cmd */
+    s16   stk58;        /* sp+0x58: audioStreamSchedule out-param / sub-cmd */
     f32   stk78;        /* sp+0x78: fn-ptr f32 out-param */
     s16   stk8C;        /* sp+0x8C: packet command */
     void *stk90;        /* sp+0x90 */
@@ -86,12 +86,12 @@ lbl_loop:
     switch ((s32)type) {
 
     /* ------------------------------------------------------------------ */
-    /* Case 0: inner dispatch via func_8007DD7C + jtbl_8004CBBC.         */
+    /* Case 0: inner dispatch via audioStreamSchedule + jtbl_8004CBBC.         */
     /*   obj->0x18 must be non-NULL; inner index = stk58 - 1, [0..19].  */
     /* ------------------------------------------------------------------ */
     case 0:
         if (*(void **)((u8 *)obj + 0x18) == NULL) goto lbl_epilogue;
-        func_8007DD7C(*(void **)((u8 *)obj + 0x18), &stk58);
+        audioStreamSchedule(*(void **)((u8 *)obj + 0x18), &stk58);
         inner_idx = (s16)((s32)stk58 - 1);
         if ((u32)(s32)inner_idx >= 20u) goto lbl_default;
         switch ((s32)inner_idx) {
@@ -99,13 +99,13 @@ lbl_loop:
         /* Sub-case 0: func_8007ED94 ($t0=&stk58, non-std) + EB18 */
         case 0:
             func_8007ED94(); /* nonmatching: $t0 = &stk58 */
-            func_8007EB18(obj);
+            audioStartTimer(obj);
             goto lbl_epilogue;
 
-        /* Sub-case 2: func_8007EBC4(obj) + func_8007EB18 */
+        /* Sub-case 2: func_8007EBC4(obj) + audioStartTimer */
         case 2:
             func_8007EBC4(obj);
-            func_8007EB18(obj);
+            audioStartTimer(obj);
             goto lbl_epilogue;
 
         /* Sub-case 3: obj->0x2C=2; send cmd=0x10 with 0x7FFFFFFF */
@@ -115,11 +115,11 @@ lbl_loop:
             osSetTimer(s5, &stk58, 0x7FFFFFFF);
             goto lbl_epilogue;
 
-        /* Sub-cases 17/18/19: func_8007EB18(obj) */
+        /* Sub-cases 17/18/19: audioStartTimer(obj) */
         case 17:
         case 18:
         case 19:
-            func_8007EB18(obj);
+            audioStartTimer(obj);
             goto lbl_epilogue;
 
         default:
@@ -140,8 +140,8 @@ lbl_loop:
     /* ------------------------------------------------------------------ */
     case 5:
         s0 = *(Unk **)((u8 *)obj + 0x3C);
-        func_80086188(*(void **)((u8 *)obj + 0x14), s0);
-        func_800860D8(*(void **)((u8 *)obj + 0x14), s0);
+        sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x14), s0);
+        sfxStopAtEntity(*(void **)((u8 *)obj + 0x14), s0);
         s1 = *(Unk **)((u8 *)s0 + 0x10);
         if (*(u8 *)((u8 *)s1 + 0x37) != 0) func_800813E8(obj, s1);
         func_800801B8(obj, s0);
@@ -149,7 +149,7 @@ lbl_loop:
 
     /* ------------------------------------------------------------------ */
     /* Case 6: arm s1->0x34; update s1->0x24/s1->0x30;                  */
-    /*   func_8007FF5C → func_80086418                                    */
+    /*   sfxComputeVolume → sfxPlayAtEntity                                    */
     /* ------------------------------------------------------------------ */
     case 6:
         s0  = *(Unk **)((u8 *)obj + 0x3C);
@@ -158,8 +158,8 @@ lbl_loop:
         if (*(u8 *)((u8 *)s1 + 0x34) == 0) *(u8 *)((u8 *)s1 + 0x34) = 1;
         *(s32 *)((u8 *)s1 + 0x24) = *(s32 *)((u8 *)obj + 0x1C) + s3i;
         *(u8 *)((u8 *)s1 + 0x30) = *(u8 *)((u8 *)obj + 0x44);
-        v0a = (s16)func_8007FF5C(s1, obj);
-        func_80086418(*(void **)((u8 *)obj + 0x14), s0, v0a, s3i);
+        v0a = (s16)sfxComputeVolume(s1, obj);
+        sfxPlayAtEntity(*(void **)((u8 *)obj + 0x14), s0, v0a, s3i);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -178,7 +178,7 @@ lbl_loop:
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
-    /* Case 0xA: linked-list traversal; func_8007FF5C + func_80086418.  */
+    /* Case 0xA: linked-list traversal; sfxComputeVolume + sfxPlayAtEntity.  */
     /*   Head = obj->0x64; next = *(void**)s1 each iteration.            */
     /* ------------------------------------------------------------------ */
     case 0xA:
@@ -187,9 +187,9 @@ lbl_loop:
         if (s1 == NULL) goto lbl_default;
         *(s16 *)((u8 *)obj + 0x32) = (s16)t6;
         do {
-            v0a = (s16)func_8007FF5C(s1, obj);
+            v0a = (s16)sfxComputeVolume(s1, obj);
             v0b = func_8007FF38(s1, *(void **)((u8 *)obj + 0x1C));
-            func_80086418(*(void **)((u8 *)obj + 0x14),
+            sfxPlayAtEntity(*(void **)((u8 *)obj + 0x14),
                           (u8 *)s1 + 4, v0a, v0b);
             s1 = *(Unk **)s1;
         } while (s1 != NULL);
@@ -207,30 +207,30 @@ lbl_loop:
 
     /* ------------------------------------------------------------------ */
     /* Case 0xD: obj->0x18 = obj->0x3C; func_8007EB88;                  */
-    /*   if obj->0x20 != NULL: func_8007FE7C                              */
+    /*   if obj->0x20 != NULL: audioLoadNotes                              */
     /* ------------------------------------------------------------------ */
     case 0xD:
         *(s32 *)((u8 *)obj + 0x18) = *(s32 *)((u8 *)obj + 0x3C);
         func_8007EB88(obj);
         if (*(void **)((u8 *)obj + 0x20) == NULL) goto lbl_epilogue;
-        func_8007FE7C(obj, *(void **)((u8 *)obj + 0x20));
+        audioLoadNotes(obj, *(void **)((u8 *)obj + 0x20));
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
-    /* Case 0xE: obj->0x20 = obj->0x3C; func_8007FE7C                   */
+    /* Case 0xE: obj->0x20 = obj->0x3C; audioLoadNotes                   */
     /* ------------------------------------------------------------------ */
     case 0xE:
         *(s32 *)((u8 *)obj + 0x20) = *(s32 *)((u8 *)obj + 0x3C);
-        func_8007FE7C(obj, *(void **)((u8 *)obj + 0x3C));
+        audioLoadNotes(obj, *(void **)((u8 *)obj + 0x3C));
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
-    /* Case 0xF: if obj->0x2C != 1: set 1, call func_8007EB18           */
+    /* Case 0xF: if obj->0x2C != 1: set 1, call audioStartTimer           */
     /* ------------------------------------------------------------------ */
     case 0xF:
         if (*(s32 *)((u8 *)obj + 0x2C) == 1) goto lbl_default;
         *(s32 *)((u8 *)obj + 0x2C) = 1;
-        func_8007EB18(obj);
+        audioStartTimer(obj);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -243,8 +243,8 @@ lbl_loop:
         if (s1 != NULL) {
             inner_s0 = (u8 *)s1 + 4;
             do {
-                func_80086188(*(void **)((u8 *)obj + 0x14), inner_s0);
-                func_800860D8(*(void **)((u8 *)obj + 0x14), inner_s0);
+                sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x14), inner_s0);
+                sfxStopAtEntity(*(void **)((u8 *)obj + 0x14), inner_s0);
                 if (*(u8 *)((u8 *)s1 + 0x37) != 0) func_800813E8(obj, s1);
                 func_800801B8(obj, inner_s0);
                 s1 = *(Unk **)((u8 *)obj + 0x64); /* re-read */
@@ -260,15 +260,15 @@ lbl_loop:
     /* ------------------------------------------------------------------ */
     case 0x11:
         if (*(s32 *)((u8 *)obj + 0x2C) != 1) goto lbl_epilogue;
-        func_8007E618(s5, 0);
-        func_8007E618(s5, 0x15);
-        func_8007E618(s5, 2);
+        timerRelinkByType(s5, 0);
+        timerRelinkByType(s5, 0x15);
+        timerRelinkByType(s5, 2);
         s1 = *(Unk **)((u8 *)obj + 0x64);
         if (s1 != NULL) {
             inner_s0 = (u8 *)s1 + 4;
             do {
                 if (func_80080110(obj, inner_s0, 0xC350) != 0)
-                    func_8007FFE4(obj, inner_s0, 0xC350);
+                    sfxNoteRetrigger(obj, inner_s0, 0xC350);
                 s1 = *(Unk **)s1;  /* linked-list next */
                 inner_s0 = (u8 *)s1 + 4;
             } while (s1 != NULL);
@@ -280,7 +280,7 @@ lbl_loop:
 
     /* ------------------------------------------------------------------ */
     /* Case 0x16: jalr obj->0x74(s4, &stk78); saturate f32→s32;         */
-    /*   store at s1->0x36; func_8007FF5C, FF38, 80086418, E734.        */
+    /*   store at s1->0x36; sfxComputeVolume, FF38, 80086418, E734.        */
     /* ------------------------------------------------------------------ */
     case 0x16:
         s4  = *(Unk **)((u8 *)obj + 0x40);
@@ -304,9 +304,9 @@ lbl_loop:
             t6 = -1;
         if (t6 < 0) t6 = -1;
         *(u8 *)((u8 *)s1 + 0x36) = (u8)t6;
-        v0a = (s16)func_8007FF5C(s1, obj);
+        v0a = (s16)sfxComputeVolume(s1, obj);
         v0b = func_8007FF38(s1, *(void **)((u8 *)obj + 0x1C));
-        func_80086418(*(void **)((u8 *)obj + 0x14),
+        sfxPlayAtEntity(*(void **)((u8 *)obj + 0x14),
                       (u8 *)s1 + 4, v0a, v0b);
         stk8C = 0x16;
         stk90 = s1;
@@ -316,7 +316,7 @@ lbl_loop:
 
     /* ------------------------------------------------------------------ */
     /* Case 0x17: jalr obj->0x74(s4, &stk78); f32 multiply chain;       */
-    /*   func_80086388, osSetTimer.                                    */
+    /*   sfxPlayLoopAtEntity, osSetTimer.                                    */
     /* ------------------------------------------------------------------ */
     case 0x17:
         s4    = *(Unk **)((u8 *)obj + 0x40);
@@ -336,7 +336,7 @@ lbl_loop:
             ft3 = *(f32 *)(tbl + ((s32)stk98 << 4) + 0xC);
         }
         ft0 = ft3 * ft2;
-        func_80086388(*(void **)((u8 *)obj + 0x14), (u8 *)s1 + 4, ft0);
+        sfxPlayLoopAtEntity(*(void **)((u8 *)obj + 0x14), (u8 *)s1 + 4, ft0);
         stk8C = 0x17;
         stk90 = s1;
         stk94 = s4;

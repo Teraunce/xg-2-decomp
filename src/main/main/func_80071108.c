@@ -1,15 +1,15 @@
 #include "ultra64.h"
-s32 func_800707A8(void *);                               /* extern */
+s32 handlerGetResult(void *);                               /* extern */
 extern s32 D_800E4220;
 extern Unk D_801887D0;
 
-s32 func_80071108(s32 arg0, s32 arg1) {
+s32 handlerPostSfxCmd(s32 arg0, s32 arg1) {
     *(s32 *)(((D_801887D0.unk160 + 1) * 0x2C) + &D_801887D0) = 0xB;
     (((D_801887D0.unk160 + 1) * 0x2C) + &D_801887D0)->unk4 = arg0;
     (((D_801887D0.unk160 + 1) * 0x2C) + &D_801887D0)->unk8 = arg1;
     (((D_801887D0.unk160 + 1) * 0x2C) + &D_801887D0)->unk28 = -1;
     D_801887D0.unk160 = (s32) (D_801887D0.unk160 + 1);
-    func_800707A8(&D_800E4220);
+    handlerGetResult(&D_800E4220);
     return (((D_801887D0.unk160 + 1) * 0x2C) + &D_801887D0)->unk28;
 }
 

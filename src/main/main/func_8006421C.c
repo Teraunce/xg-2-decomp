@@ -1,6 +1,6 @@
 #include "ultra64.h"
-void func_800608C8(s32, s8, s8, u16, u16, u16);          /* extern */
-void func_80060960(s32, s16, s16, s32, s32, s32, s32, s32, u32, u32, u32, u32); /* extern */
+void gfxAddLineTex(s32, s8, s8, u16, u16, u16);          /* extern */
+void gfxAddLineVtx(s32, s16, s16, s32, s32, s32, s32, s32, u32, u32, u32, u32); /* extern */
 void renderLineStrip(void **);                           /* extern */
 extern f64 D_8004C060;
 extern f64 D_8004C068;
@@ -39,7 +39,7 @@ extern s32 D_80182E80;
 extern s32 D_80182E98;
 extern u16 D_80182E9A;
 
-u16 func_8006421C(void **arg0, Unk *arg1, u32 arg2, s16 arg3, s32 arg4, u32 arg5) {
+u16 renderCurveStrip(void **arg0, Unk *arg1, u32 arg2, s16 arg3, s32 arg4, u32 arg5) {
     s16 subroutine_argD = 0;
     s16 subroutine_argF = 0;
     f64 var_ft0;
@@ -128,15 +128,15 @@ u16 func_8006421C(void **arg0, Unk *arg1, u32 arg2, s16 arg3, s32 arg4, u32 arg5
             }
             if (((void*)D_801823F4 != (void*)arg1) || (D_80182404 != temp_s0)) {
                 temp_s0_2 = temp_s0 & 0xFF;
-                func_800608C8(arg1->unk4, 4, 0, (arg1->unk0 + 0xF) & 0x1F0, (s32) arg1->unk1, temp_s0_2);
+                gfxAddLineTex(arg1->unk4, 4, 0, (arg1->unk0 + 0xF) & 0x1F0, (s32) arg1->unk1, temp_s0_2);
                 D_801823F4 = arg1;
                 D_80182404 = temp_s0_2;
             }
             if (D_80182E7C != 0) {
-                func_80060960(arg0, (s16) (arg3 + D_80182E9A), (s16) (D_80182E9A + (arg4 - temp_fp)), (s16) subroutine_argD, (s32) (s16) subroutine_argF, (s32) D_80182E7A, (s32) arg1->unk0, (s32) arg1->unk1, 0x80000000, 0x80000000, 0x80000000, 0x80000000);
+                gfxAddLineVtx(arg0, (s16) (arg3 + D_80182E9A), (s16) (D_80182E9A + (arg4 - temp_fp)), (s16) subroutine_argD, (s32) (s16) subroutine_argF, (s32) D_80182E7A, (s32) arg1->unk0, (s32) arg1->unk1, 0x80000000, 0x80000000, 0x80000000, 0x80000000);
                 renderLineStrip(arg0);
             }
-            func_80060960(arg0, arg3, (s16) (arg4 - temp_fp), (s16) subroutine_argD, (s32) (s16) subroutine_argF, (s32) D_80182E7A, (s32) arg1->unk0, (s32) arg1->unk1, temp_s4, temp_s4, var_s3, var_s3);
+            gfxAddLineVtx(arg0, arg3, (s16) (arg4 - temp_fp), (s16) subroutine_argD, (s32) (s16) subroutine_argF, (s32) D_80182E7A, (s32) arg1->unk0, (s32) arg1->unk1, temp_s4, temp_s4, var_s3, var_s3);
             if (D_80182E7C != 0) {
                 renderLineStrip(arg0);
             }
@@ -415,7 +415,7 @@ u16 func_8006421C(void **arg0, Unk *arg1, u32 arg2, s16 arg3, s32 arg4, u32 arg5
     return subroutine_argD;
 }
 
-s32 func_80065008(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
+s32 gfxAddPoint(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
     s32 *var_v1;
     u16 temp_a3;
     u32 var_t1;

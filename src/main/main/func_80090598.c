@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8008EE98(s32, void *, s32);                       /* extern */
+s32 byteCopy(s32, void *, s32);                       /* extern */
 s32 func_8008FF98(s32, s32);                            /* extern */
 void func_80090028();                                  /* extern */
 extern s32 D_8004D0D8;
@@ -83,7 +83,7 @@ void func_80090598(Unk *arg0, u8 arg1) {
             var_a1 = &D_8004D124;
         }
         arg0->unk14 = 3;
-        func_8008EE98(arg0->unk8, var_a1, 3);
+        byteCopy(arg0->unk8, var_a1, 3);
         return;
     }
     if (var_v0 == 0) {

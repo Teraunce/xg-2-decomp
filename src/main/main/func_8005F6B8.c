@@ -1,9 +1,9 @@
 #include "ultra64.h"
 void func_8005C8B8();                                  /* extern */
 void func_8005C8EC(s32, s32);                              /* extern */
-void func_8007A210(void *, s32, s32, s32, s32, s32, f32, f32, f32, f32); /* extern */
+void guLookAt(void *, s32, s32, s32, s32, s32, f32, f32, f32, f32); /* extern */
 void func_8007A8E0(s32);                               /* extern */
-void func_8007AC38(s32, s32, s32);                     /* extern */
+void guMtxCat(s32, s32, s32);                     /* extern */
 void func_8007AE7C(s32, s32, s32, s32, f32, f32, f32, f32);  /* extern */
 void func_8007B118(void *, void *, s32, s32, f32, f32, f32);     /* extern */
 extern f32 D_8004BF58;
@@ -51,8 +51,8 @@ void func_8005F6B8(void) {
     temp_fs0 = D_8004BF60;
     func_8007AE7C(&D_80182078, 0, 0x43A00000, 0x43700000, 0.0f, D_8004BF58, D_8004BF5C, temp_fs0);
     func_8007B118(&sp28, &D_801822D8, 0x42040000, 0x3FAAAAAB, temp_fs0, D_8004BF64, temp_fs0);
-    func_8007A210(&sp68, D_8004BF68, D_8004BF6C, 0xC3CB0000, D_8004BF68, D_8004BF6C, 0.0f, 0.0f, D_8004BF70, 0.0f);
-    func_8007AC38(&sp68, &sp28, &D_80181E70);
+    guLookAt(&sp68, D_8004BF68, D_8004BF6C, 0xC3CB0000, D_8004BF68, D_8004BF6C, 0.0f, 0.0f, D_8004BF70, 0.0f);
+    guMtxCat(&sp68, &sp28, &D_80181E70);
     D_80181E48 = 0;
     D_80181E4C = 0;
     gSfxPendingSlot = -1;

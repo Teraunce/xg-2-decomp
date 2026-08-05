@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void __osPiRawWriteIo(s32*, s32);                          /* extern */
-void func_80075270(s32, s32);                          /* extern */
+void piWriteByteUnaligned(s32, s32);                          /* extern */
 
 void func_8007544C(s32 arg0, s32 arg1, u32 arg2) {
     s32 temp_a0;
@@ -18,7 +18,7 @@ loop_2:
         temp_a0 = var_s1;
         if (var_v0 != 0) {
             var_s1 += 1;
-            func_80075270(temp_a0, arg1 & 0xFF);
+            piWriteByteUnaligned(temp_a0, arg1 & 0xFF);
             var_s0 -= 1;
             var_v0 = var_s1 & 3;
             if (var_s0 != 0) {
@@ -38,7 +38,7 @@ loop_2:
     if (var_s0 != 0) {
         do {
             var_s1 += 1;
-            func_80075270(var_a0, arg1 & 0xFF);
+            piWriteByteUnaligned(var_a0, arg1 & 0xFF);
             var_s0 -= 1;
             var_a0 = var_s1;
         } while (var_s0 != 0);

@@ -1,8 +1,8 @@
 #include "ultra64.h"
-void func_8007E8E4(Unk*, s32, s32);                  /* extern */
+void timerQueueInit(Unk*, s32, s32);                  /* extern */
 void func_800814EC(Unk*);                            /* extern */
-void func_80086088(void *, void *);                       /* extern */
-char *func_8007FD48(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4); /* static */
+void pendingFlushEnqueue(void *, void *);                       /* extern */
+char *audioHeapAlloc(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4); /* static */
 extern s32 gPendingFlushFlag;
 extern s32 func_8007F5C4;
 
@@ -30,9 +30,9 @@ void func_8007FBD8(Unk *arg0, Unk *arg1) {
     arg0->unk78 = (s32) arg1->unk18;
     arg0->unk34 = (u8) arg1->unk8;
     sp2C = temp_a2;
-    arg0->unk60 = func_8007FD48(0, 0, temp_a2, arg1->unk8, 0x10);
+    arg0->unk60 = audioHeapAlloc(0, 0, temp_a2, arg1->unk8, 0x10);
     func_800814EC(arg0);
-    temp_v0 = func_8007FD48(0, 0, temp_a2, (u8) arg1->unk0, 0x38);
+    temp_v0 = audioHeapAlloc(0, 0, temp_a2, (u8) arg1->unk0, 0x38);
     arg0->unk6C = 0;
     var_a0 = 0;
     if (arg1->unk0 > 0) {
@@ -46,14 +46,14 @@ void func_8007FBD8(Unk *arg0, Unk *arg1) {
     }
     arg0->unk64 = 0;
     arg0->unk68 = 0;
-    func_8007E8E4(arg0 + 0x48, func_8007FD48(0, 0, sp2C, (u8) arg1->unk4, 0x1C), arg1->unk4);
+    timerQueueInit(arg0 + 0x48, audioHeapAlloc(0, 0, sp2C, (u8) arg1->unk4, 0x1C), arg1->unk4);
     arg0->unk0 = 0;
     arg0->unk8 = &func_8007F5C4;
     arg0->unk4 = arg0;
-    func_80086088(gPendingFlushFlag, arg0);
+    pendingFlushEnqueue(gPendingFlushFlag, arg0);
 }
 
-char *func_8007FD48(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4) {
+char *audioHeapAlloc(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4) {
     char *temp_a0;
     char *var_v1;
     s32 temp_t7;
@@ -68,7 +68,7 @@ char *func_8007FD48(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4) {
     return var_v1;
 }
 
-void func_8007FDA8(Unk *arg0, Unk *arg1, s32 arg2) {
+void audioSetNoteSlot(Unk *arg0, Unk *arg1, s32 arg2) {
     s32 temp_v0;
 
     temp_v0 = arg2 * 0x10;

@@ -9,7 +9,7 @@ typedef struct {
 s32 contPakReadNoteDir(UnkStruct_arg0*);                          /* extern */
 s32 contPakReadWriteNote(Unk*, Unk*, u8, u8);              /* extern */
 
-s32 func_8008B5B8(UnkStruct_arg0 *arg0, s32 *arg1) {
+s32 contPakCountNotes(UnkStruct_arg0 *arg0, s32 *arg1) {
     s32 sp12C;
     s32 sp128;
     s32 sp28[66];

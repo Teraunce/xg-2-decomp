@@ -12,7 +12,7 @@ void func_8005C8B8(void) {
     func_8005C88C(-1);
 }
 
-void func_8005C8D4(s32 arg0) {
+void audioSetTrack(s32 arg0) {
     D_80092804 = arg0;
     D_80092824 = 1;
 }

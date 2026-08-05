@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8005AA64(Unk*, s32, s32);                       /* extern */
+void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void viSwapBuffers(Unk*);                               /* extern */
 s32 func_8005AB28();                                  /* extern */
 extern s32 D_8017CE08;
@@ -36,7 +36,7 @@ void func_8005AC70(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
     u8 temp_v1_2;
 
     var_s2 = arg1;
-    func_8005AA64(&sp1028, arg0, arg3);
+    audioSetupCopySample(&sp1028, arg0, arg3);
     var_v1 = 0xFED;
     var_v0 = &spFFD;
     do {

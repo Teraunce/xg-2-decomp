@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8005AB28 (initial). */
 
-void func_8005A978(Unk *);                       /* extern */
+void audioRspSubmit(Unk *);                       /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 extern s32 D_8016DF70;
 extern s32 D_8017CDF8;
@@ -23,7 +23,7 @@ void viSwapBuffers(Unk *arg0) {
             arg0->unk14 = 0;
             return;
         }
-        func_8005A978(arg0);
+        audioRspSubmit(arg0);
     }
 }
 

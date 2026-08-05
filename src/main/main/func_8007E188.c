@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8007DD7C(Unk*, Unk*);                        /* extern */
+void audioStreamSchedule(Unk*, Unk*);                        /* extern */
 void func_8007E074(Unk*, char*);                         /* extern */
 extern f64 D_8004C9C8;
 extern f64 D_8004C9D0;
@@ -52,7 +52,7 @@ loop_1:
         var_a1->unk9B = (u8) var_a0->unkA7;
         var_v0->unkA8 = (s32) var_v1->unkB4;
     } while ((void*)var_a0 != (void*)&sp58);
-    func_8007DD7C(&sp48, &sp140);
+    audioStreamSchedule(&sp48, &sp140);
     if ((sp140 != 4) && (sp54 < arg2)) {
         goto loop_1;
     }

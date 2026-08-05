@@ -7,7 +7,7 @@ s32 osContPakRead(s32, s32, u16, u8*);            /* extern */
 s32 func_8008A568(void *, s32, u8, s32, u8, u16*, s32); /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 
-s32 func_8008A288(Unk *arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4) {
+s32 contPakLoadSave(Unk *arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4) {
     Unk *sp = NULL; /* $sp base — used as Unk byte-ptr into local stack (nonmatching) */
     s32 sp3B = 0; /* sp+0x3B — stack slot read before write (nonmatching) */
     s32 sp15C;

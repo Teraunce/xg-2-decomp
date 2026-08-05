@@ -10,7 +10,7 @@ extern s32 D_8018AFF8;
 extern s32 D_8018B018;
 extern s32 D_A4600010;
 
-s32 func_8008CCE8(s32 arg0, Unk *arg1, s32 arg2) {
+s32 contPakBuildMap(s32 arg0, Unk *arg1, s32 arg2) {
     Unk *sp = (Unk*)0;
     s32 sp44;
     s32 sp40;

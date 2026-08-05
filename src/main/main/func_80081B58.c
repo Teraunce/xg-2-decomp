@@ -7,7 +7,7 @@
  *   or  $a2, $a0, $zero   — saves arg0 into $a2 before branch/jal
  *   or  $t0, $a1, $zero   — delay slot of bnez: saves arg1 (ptr) into $t0
  *   or  $a3, $v0, $zero   — saves arg0->unk8 (temp_v0) into $a3
- *   jal func_80081730
+ *   jal streamReadVarInt
  *    or $a0, $a2, $zero   — delay slot restores arg0 into $a0
  *   sw  $v0, 0x0($t0)     — *arg1 = return value
  *   sw  $a3, 0x8($a2)     — arg0->unk8 = temp_v0 (restores stream position)
@@ -35,7 +35,7 @@ typedef struct {
     /* 0x01 */ s32 unk1;
 } UnkStruct_temp_t7;
 
-u8 func_80081730(Unk*);                            /* extern */
+u8 streamReadVarInt(Unk*);                            /* extern */
 
 s32 func_80081B58(UnkStruct_arg0 *arg0, s32 *arg1) {
     u32 temp_v0;
@@ -44,12 +44,12 @@ s32 func_80081B58(UnkStruct_arg0 *arg0, s32 *arg1) {
     if (temp_v0 >= (u32) (arg0->unk0 + arg0->unk10)) {
         return 0;
     }
-    *arg1 = func_80081730(arg0);
+    *arg1 = streamReadVarInt(arg0);
     arg0->unk8 = (char *)(s32) temp_v0;
     return 1;
 }
 
-s32 func_80081BB0(UnkStruct_arg0 *arg0) {
+s32 streamReadU32(UnkStruct_arg0 *arg0) {
     UnkStruct_temp_a1 *temp_a1;
     UnkStruct_temp_t6 *temp_t6;
     UnkStruct_temp_t7 *temp_t7;

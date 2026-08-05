@@ -3,7 +3,7 @@ void func_8005C010();                                  /* extern */
 void __osInvalICache_full();                                  /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osAiRawStartDma(s32, s32);                          /* extern */
-void func_80086A44(void *);                               /* extern */
+void sfxLoadUcode(void *);                               /* extern */
 void osSpTaskStart(s32);                               /* extern */
 extern s32 gAudioBufSizes;
 extern s32 D_800927D8;
@@ -31,7 +31,7 @@ s32 func_8005C540(void) {
             } while (var_s0 < D_800927D8);
         }
         __osInvalICache_full();
-        func_80086A44(D_80180884);
+        sfxLoadUcode(D_80180884);
         osSpTaskStart(D_80180884);
         func_8005C010();
         D_800927D8 = 0;
