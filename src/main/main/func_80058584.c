@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_80056788(f32 *, f32 *, f32 *);               /* extern */
-void func_80057B74(Unk*, Unk*, Unk*);               /* extern */
+s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
+void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 extern f32 D_8004BDD8;
 
 void func_80058584(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
@@ -20,11 +20,11 @@ void func_80058584(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     sp68 = -arg6;
     sp74 = -arg2;
     sp78 = -arg3;
-    func_80057B74(&sp70, &sp60, &sp50);
-    func_80057B74(&sp70, &sp50, &sp60);
-    func_80056788(&sp50, &sp54, &sp58);
-    func_80056788(&sp60, &sp64, &sp68);
-    func_80056788(&sp70, &sp74, &sp78);
+    vec3Cross(&sp70, &sp60, &sp50);
+    vec3Cross(&sp70, &sp50, &sp60);
+    vec3Normalize(&sp50, &sp54, &sp58);
+    vec3Normalize(&sp60, &sp64, &sp68);
+    vec3Normalize(&sp70, &sp74, &sp78);
     arg0->unk0 = sp50;
     arg0->unk10 = sp54;
     arg0->unk30 = 0;

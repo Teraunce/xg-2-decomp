@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8007E734(void **, s32, s32);           /* extern */
+void osSetTimer(void **, s32, s32);           /* extern */
 
 void func_8007EA18(s32 arg0, s8 arg1, s8 arg2) {
     s8 sp1D;
@@ -9,5 +9,5 @@ void func_8007EA18(s32 arg0, s8 arg1, s8 arg2) {
     sp18 = 0xC;
     sp1C = arg1;
     sp1D = arg2;
-    func_8007E734((void **)(arg0 + 0x48), &sp18, 0);
+    osSetTimer((void **)(arg0 + 0x48), &sp18, 0);
 }

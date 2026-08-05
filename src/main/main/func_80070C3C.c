@@ -1,10 +1,10 @@
 #include "ultra64.h"
-s32 func_8006216C(void *);                             /* extern */
-void func_80070BCC(s32, s32);                        /* extern */
+s32 sfxHasEntity(void *);                             /* extern */
+void gameHandlerSetup(s32, s32);                        /* extern */
 extern s32 gHandlerTable;
 
 void func_80070C3C(s32 arg0, s32 arg1) {
-    if (func_8006216C(&gHandlerTable) == 0) {
-        func_80070BCC(1, arg1);
+    if (sfxHasEntity(&gHandlerTable) == 0) {
+        gameHandlerSetup(1, arg1);
     }
 }

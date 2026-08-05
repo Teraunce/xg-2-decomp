@@ -1,7 +1,7 @@
 #include "ultra64.h"
-s32 func_8007C9D8();                                /* extern */
-s32 func_8007CD08(Unk*, s32*, s32);                    /* extern */
-s32 func_8007CE48(Unk*, s32, s32);                       /* extern */
+s32 __osGetCount();                                /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                    /* extern */
+s32 osSendMesg(Unk*, s32, s32);                       /* extern */
 void func_8007D304();                                  /* extern */
 char *osViGetCurrentFramebuffer();                              /* extern */
 void osViSwapBuffer();                                  /* extern */
@@ -35,7 +35,7 @@ void func_80086F60(char *arg0) {
     }
     sp30 = arg0;
 loop_3:
-    func_8007CD08(sp30->unkC, &sp2C, 1);
+    osRecvMesg(sp30->unkC, &sp2C, 1);
     temp_s0 = *sp2C;
     if (temp_s0 == 0xD) {
         osViSwapBuffer();
@@ -45,19 +45,19 @@ loop_3:
             sp34 = osViGetCurrentFramebuffer();
             temp_t6 = sp34->unk10;
             if (temp_t6 != 0) {
-                func_8007CE48(temp_t6, sp34->unk14, 0);
+                osSendMesg(temp_t6, sp34->unk14, 0);
             }
             D_8018ACF8 = sp34->unk2;
         }
         D_80189A94 += 1;
         if (sp28 != 0) {
-            sp24 = func_8007C9D8();
+            sp24 = __osGetCount();
             D_80189A88 = 0;
             D_80189A8C = sp24;
             sp28 = 0;
         }
         sp24 = D_80189A90;
-        D_80189A90 = func_8007C9D8();
+        D_80189A90 = __osGetCount();
         temp_t8 = D_80189A90 - sp24;
         temp_t5 = temp_t8 + D_80189A8C;
         D_80189A88 += temp_t5 < (u32) D_80189A8C;

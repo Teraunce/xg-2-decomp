@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8005CE14(s32);                               /* extern */
+void audioQueueStop(s32);                               /* extern */
 extern s32 D_80181588;
 
 void func_8005F530(void) {
@@ -12,12 +12,12 @@ void func_8005F530(void) {
         var_s0 = &D_80181588;
         do {
             var_s1 += 1;
-            func_8005CE14(var_s0->unk10);
-            func_8005CE14(var_s0->unk14);
-            func_8005CE14(var_s0->unk18);
+            audioQueueStop(var_s0->unk10);
+            audioQueueStop(var_s0->unk14);
+            audioQueueStop(var_s0->unk18);
             temp_a0 = var_s0->unk1C;
             var_s0 += 0x30;
-            func_8005CE14(temp_a0);
+            audioQueueStop(temp_a0);
         } while (var_s1 < ((Unk*)0 /* implicit $v1 */)->unk1648);
     }
 }

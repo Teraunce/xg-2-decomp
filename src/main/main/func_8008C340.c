@@ -9,7 +9,7 @@ typedef struct {
     /* 0x100 */ s32 unk100;
 } UnkStruct_arg2;
 
-s32 func_80089B64(Unk*, Unk*, u8, u8);           /* extern */
+s32 contPakReadWriteNote(Unk*, Unk*, u8, u8);           /* extern */
 
 s32 func_8008C340(UnkStruct_arg0 *arg0, u8 arg1, UnkStruct_arg2 *arg2) {
     s32 sp2C;
@@ -34,7 +34,7 @@ loop_1:
         }
         if ((sp23 == arg1) || (((Unk *)((char*)arg2 + sp28))->unk101 & (1 << ((s32) sp23 % 8)))) {
             if (sp23 != arg2->unk100) {
-                sp18 = func_80089B64(arg0, arg2, 0, sp23);
+                sp18 = contPakReadWriteNote(arg0, arg2, 0, sp23);
                 if ((sp18 != 0) && (sp18 != 3)) {
                     return sp18;
                 }

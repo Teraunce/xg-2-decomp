@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_80056788(f32 *, f32 *, f32 *);               /* extern */
-void func_80057B74(Unk*, Unk*, Unk*);               /* extern */
+s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
+void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 extern f32 D_8004BDB0;
 extern f32 D_8004BDB4;
 extern f32 D_8004BDB8;
@@ -54,15 +54,15 @@ void func_80057DB4(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
 block_8:
         var_a0 = &sp70;
     }
-    func_80057B74(var_a0, &sp60, &sp50);
+    vec3Cross(var_a0, &sp60, &sp50);
     if ((sp50 == 0.0f) && (sp54 == 0.0f) && (sp58 == 0.0f)) {
         sp68 += D_8004BDB8;
-        func_80057B74(&sp60, &sp50, &sp54);
+        vec3Cross(&sp60, &sp50, &sp54);
     }
-    func_80057B74(&sp50, &sp60, &sp64);
-    func_80056788(&sp50, &sp54, &sp58);
-    func_80056788(&sp60, &sp64, &sp68);
-    func_80056788(&sp70, &sp74, &sp78);
+    vec3Cross(&sp50, &sp60, &sp64);
+    vec3Normalize(&sp50, &sp54, &sp58);
+    vec3Normalize(&sp60, &sp64, &sp68);
+    vec3Normalize(&sp70, &sp74, &sp78);
     temp_fa0 = (s32) (sp50 * D_8004BDBC);
     temp_fa0_2 = (s32) (sp54 * D_8004BDBC);
     temp_fa0_3 = (s32) (sp58 * D_8004BDBC);

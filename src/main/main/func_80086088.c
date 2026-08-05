@@ -10,14 +10,14 @@ typedef struct {
     /* 0x10 */ s32 unk10;
 } UnkStruct_arg1;
 
-s32 func_8007C7A8(s32, void *, void *);             /* extern */
+s32 osSetIntMask(s32, void *, void *);             /* extern */
 
 void func_80086088(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     s32 temp_a0;
 
-    temp_a0 = func_8007C7A8(1, arg0, NULL);
+    temp_a0 = osSetIntMask(1, arg0, NULL);
     arg1->unk10 = (s32) arg0->unk20;
     arg1->unk0 = (void *) arg0->unk0;
     arg0->unk0 = arg1;
-    func_8007C7A8(temp_a0, arg1, arg0);
+    osSetIntMask(temp_a0, arg1, arg0);
 }

@@ -1,9 +1,9 @@
 #include "ultra64.h"
-s32 func_8007C484(void *);                            /* extern */
-s32 func_8007C5CC(void *);                          /* extern */
+s32 __osEnqueueWait(void *);                            /* extern */
+s32 __osPopQueue(void *);                          /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
-void func_8007D0E8(Unk*);                               /* extern */
+void osStartThread(Unk*);                               /* extern */
 extern Unk *__osRunningThread;
 extern s32 D_80096480;
 extern s32 D_80096488;
@@ -17,7 +17,7 @@ s32 func_8008E628(Unk *arg0, s32 arg1, s32 arg2) {
 loop_1:
         if (arg2 == 1) {
             __osRunningThread->unk10 = 8;
-            func_8007C484(arg0 + 4);
+            __osEnqueueWait(arg0 + 4);
             if (arg0->unk8 < arg0->unk10) {
                 goto block_5;
             }
@@ -32,7 +32,7 @@ block_5:
     *(s32*)(s32)(arg0->unk14 + (arg0->unkC * 4)) = arg1;
     arg0->unk8 = (s32) (arg0->unk8 + 1);
     if (((Unk*)(s32)arg0->unk0)->unk0 != 0) {
-        func_8007D0E8(func_8007C5CC(arg0));
+        osStartThread(__osPopQueue(arg0));
     }
     osRestoreInt(temp_s0);
     return 0;

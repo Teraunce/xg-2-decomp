@@ -19,8 +19,8 @@ typedef struct {
     /* 0x08 */ s32 unk8;
 } UnkStruct_temp_v0;
 
-void func_8007DA18(Unk*);                           /* extern */
-void func_8007DA48(Unk*, void**);                        /* extern */
+void __osTimerUnlink(Unk*);                           /* extern */
+void __osTimerInsert(Unk*, void**);                        /* extern */
 
 u8 func_80080110(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
     char *sp2C;
@@ -46,8 +46,8 @@ loop_2:
                 }
                 sp2C = var_a3;
                 sp1F = 1;
-                func_8007DA18(var_a3);
-                func_8007DA48(sp2C, (char *)arg0 + 0x48);
+                __osTimerUnlink(var_a3);
+                __osTimerInsert(sp2C, (char *)arg0 + 0x48);
                 var_t1 = 1;
             } else {
                 var_t1 = 0;

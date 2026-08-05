@@ -1,27 +1,27 @@
 #include "ultra64.h"
-void func_8007DA18(Unk*);                               /* extern */
-void func_8007DA48(Unk*, void**);                       /* extern */
+void __osTimerUnlink(Unk*);                               /* extern */
+void __osTimerInsert(Unk*, void**);                       /* extern */
 extern Unk *gPendingFlushFlag;
 
-void func_80082850(Unk *arg0) {
+void sfxFlushTimers(Unk *arg0) {
     s32 var_s0;
 
     var_s0 = arg0->unk14;
     if (var_s0 != 0) {
         do {
-            func_8007DA18(var_s0);
-            func_8007DA48(var_s0, arg0 + 4);
+            __osTimerUnlink(var_s0);
+            __osTimerInsert(var_s0, arg0 + 4);
             var_s0 = arg0->unk14;
         } while (var_s0 != 0);
     }
 }
 
-void func_800828B0(Unk *arg0) {
+void sfxEventEnqueue(Unk *arg0) {
     arg0->unk0 = gPendingFlushFlag->unk2C;
     gPendingFlushFlag->unk2C = arg0;
 }
 
-char *func_800828C8(void) {
+char *sfxEventDequeue(void) {
     char *temp_a0;
     char *var_v1;
 

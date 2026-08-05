@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8007CD08(Unk*, s32*, s32);                       /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 void func_8008B3E8(s32);                                 /* extern */
 s32 func_8008B4E4(void *, s32 (*)[]);                    /* extern */
@@ -18,9 +18,9 @@ s32 func_8008C788(s32 arg0, s32 arg1) {
     sp34 = 0;
     func_8008B3E8(0);
     sp34 = osSiRawStartDma(1, &D_8018ADB8);
-    func_8007CD08(arg0, &sp30, 1);
+    osRecvMesg(arg0, &sp30, 1);
     sp34 = osSiRawStartDma(0, &D_8018ADB8);
-    func_8007CD08(arg0, &sp30, 1);
+    osRecvMesg(arg0, &sp30, 1);
     func_8008B4E4(&sp2F, (s32 (*)[]) &sp1C);
     temp_t8 = ((Unk*)(sp + (arg1 * 4)))->unk1E;
     if ((temp_t8 & 1) && (temp_t8 & 2)) {

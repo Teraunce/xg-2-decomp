@@ -1,12 +1,12 @@
 #include "ultra64.h"
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
-s32 func_8007C9D8();                                /* static */
+s32 __osGetCount();                                /* static */
 extern s32 D_80189A88;
 extern u32 D_80189A8C;
 extern s32 D_80189A90;
 
-s32 func_8007C948(void) {
+s32 osGetTime(void) {
     s32 sp34;
     s32 sp30;
     u32 sp2C;
@@ -14,7 +14,7 @@ s32 func_8007C948(void) {
     s32 temp_s0;
 
     temp_s0 = osDisableInt();
-    sp34 = func_8007C9D8();
+    sp34 = __osGetCount();
     sp30 = sp34 - D_80189A90;
     sp2C = D_80189A8C;
     sp28 = D_80189A88;
@@ -23,10 +23,10 @@ s32 func_8007C948(void) {
 }
 
 /*
- * func_8007C9D8 — read COP0 Count register (hardware cycle counter).
+ * __osGetCount — read COP0 Count register (hardware cycle counter).
  * Uses `mfc0 $v0, $9` — not expressible in standard C.
  */
-s32 func_8007C9D8(void) {
+s32 __osGetCount(void) {
     /* mfc0 $v0, $9 — read COP0 Count */
     return 0;
 }

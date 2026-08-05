@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80061CF0(s32 arg0, u16 *arg1, u16 *arg2, u16 *arg3, u16 *arg4, s32 arg5) {
+s32 sfxFormatName(s32 arg0, u16 *arg1, u16 *arg2, u16 *arg3, u16 *arg4, s32 arg5) {
     s32 temp_v0;
     s32 temp_v0_2;
     s32 temp_v0_3;

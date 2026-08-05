@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8007DA48(Unk*, void**);                       /* extern */
+void __osTimerInsert(Unk*, void**);                       /* extern */
 char *func_8007FD48(s32, s32, s32, s32, s32);              /* extern */
 void func_80082E98(void *);                               /* extern */
 void func_80082EDC(void *, s32, s32);                     /* extern */
@@ -66,7 +66,7 @@ void func_80082B98(Unk *arg0, Unk *arg1) {
         var_s3 = temp_v0_2 + 0x10;
         sp48 = arg0 + 4;
         do {
-            func_8007DA48(var_s0, sp48);
+            __osTimerInsert(var_s0, sp48);
             var_s0->unk8 = 0;
             func_8008300C(var_s3, arg0->unk24, temp_s7);
             func_80083638(var_s3, 1, 0);

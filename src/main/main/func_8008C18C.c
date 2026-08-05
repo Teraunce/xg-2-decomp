@@ -13,7 +13,7 @@ typedef struct {
     /* 0x101 */ u8 unk101;
 } UnkStruct_temp_t8;
 
-s32 func_80089B64(void *, u16 (*)[], s32, u8);        /* extern */
+s32 contPakReadWriteNote(void *, u16 (*)[], s32, u8);        /* extern */
 
 s32 func_8008C18C(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     s32 sp12C;
@@ -45,7 +45,7 @@ loop_3:
         } else {
             sp124 = arg0->unk60;
         }
-        sp1C = func_80089B64(arg0, (u16 (*)[]) &sp20[0], 0, sp123);
+        sp1C = contPakReadWriteNote(arg0, (u16 (*)[]) &sp20[0], 0, sp123);
         if ((sp1C != 0) && (sp1C != 3)) {
             return sp1C;
         }

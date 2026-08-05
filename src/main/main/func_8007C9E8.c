@@ -19,7 +19,7 @@ extern u32 gCpuClockHi;
 extern s32 gCpuClock;
 extern s32 gAiClock;
 extern s32 D_80189828;
-extern Unk func_8007BE58;
+extern Unk __osException;
 
 void osInitialize(void) {
     s32 sp34;
@@ -44,22 +44,22 @@ void osInitialize(void) {
 
         } while (osEPiRawWriteIo(0x1FC007FC, sp34 | 8) != 0);
     }
-    D_80000000 = func_8007BE58.unk0;
-    D_80000000 = func_8007BE58.unk4;
-    D_80000000 = func_8007BE58.unk8;
-    D_80000000 = func_8007BE58.unkC;
-    (( Unk*)0x80000080)->unk0 = (s32) func_8007BE58.unk0;
-    (( Unk*)0x80000080)->unk4 = (s32) func_8007BE58.unk4;
-    (( Unk*)0x80000080)->unk8 = (s32) func_8007BE58.unk8;
-    (( Unk*)0x80000080)->unkC = (s32) func_8007BE58.unkC;
-    (( Unk*)0x80000100)->unk0 = (s32) func_8007BE58.unk0;
-    (( Unk*)0x80000100)->unk4 = (s32) func_8007BE58.unk4;
-    (( Unk*)0x80000100)->unk8 = (s32) func_8007BE58.unk8;
-    (( Unk*)0x80000100)->unkC = (s32) func_8007BE58.unkC;
-    (( Unk*)0x80000180)->unk0 = (s32) func_8007BE58.unk0;
-    (( Unk*)0x80000180)->unk4 = (s32) func_8007BE58.unk4;
-    (( Unk*)0x80000180)->unk8 = (s32) func_8007BE58.unk8;
-    (( Unk*)0x80000180)->unkC = (s32) func_8007BE58.unkC;
+    D_80000000 = __osException.unk0;
+    D_80000000 = __osException.unk4;
+    D_80000000 = __osException.unk8;
+    D_80000000 = __osException.unkC;
+    (( Unk*)0x80000080)->unk0 = (s32) __osException.unk0;
+    (( Unk*)0x80000080)->unk4 = (s32) __osException.unk4;
+    (( Unk*)0x80000080)->unk8 = (s32) __osException.unk8;
+    (( Unk*)0x80000080)->unkC = (s32) __osException.unkC;
+    (( Unk*)0x80000100)->unk0 = (s32) __osException.unk0;
+    (( Unk*)0x80000100)->unk4 = (s32) __osException.unk4;
+    (( Unk*)0x80000100)->unk8 = (s32) __osException.unk8;
+    (( Unk*)0x80000100)->unkC = (s32) __osException.unkC;
+    (( Unk*)0x80000180)->unk0 = (s32) __osException.unk0;
+    (( Unk*)0x80000180)->unk4 = (s32) __osException.unk4;
+    (( Unk*)0x80000180)->unk8 = (s32) __osException.unk8;
+    (( Unk*)0x80000180)->unkC = (s32) __osException.unkC;
     osWritebackDCache(0x80000000, 0x190);
     osInvalICache(0x80000000, 0x190);
     __osInitTLB();

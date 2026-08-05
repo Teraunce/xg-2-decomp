@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 func_80074EA0();                                /* extern */
 void func_80074ED8(s32);                               /* extern */
-s32 func_80075B78(s32, s32, s32);                    /* extern */
+s32 sramStartDma(s32, s32, s32);                    /* extern */
 static void func_80076000(void);                      /* static, forward decl */
 void func_8007611C();                               /* static */
 void func_80076138();                               /* static */
@@ -15,7 +15,7 @@ s32 func_80075F90(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0_2;
 
     temp_s0_2 = func_80074EA0();
-    temp_s0 = func_80075B78(0x707, arg1, arg2);
+    temp_s0 = sramStartDma(0x707, arg1, arg2);
     func_80074ED8(temp_s0_2);
     return temp_s0;
 }

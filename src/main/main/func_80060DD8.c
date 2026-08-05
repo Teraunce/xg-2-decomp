@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8006114C(void **);                   /* extern */
+void renderLineStrip(void **);                   /* extern */
 extern s32 gLineVtxBuf;
 extern Unk gLineVtxIdx;
 extern u32 gLineTexPtr;
@@ -131,6 +131,6 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
     gLineVtxIdx.unk0 = temp_a0;
     D_80178690 += 0x40;
     if ((temp_v1_9 >= 0x20U) || (temp_a0 >= 0x1DU)) {
-        func_8006114C((void **)arg0);
+        renderLineStrip((void **)arg0);
     }
 }

@@ -16,7 +16,7 @@
  *      loops; otherwise loops directly.
  *
  * Jump table: jtbl_8004CFB8 (7 entries, type-10 = 0-6).
- *   type 10 → cancel event (func_8007CE48), sp38 = -1
+ *   type 10 → cancel event (osSendMesg), sp38 = -1
  *   type 11 → arg0->unk14(0, ev.unkC, ev.unk8, ev.unk10)
  *   type 12 → arg0->unk14(1, ev.unkC, ev.unk8, ev.unk10)
  *   type 13, 14, default → sp38 = -1
@@ -25,8 +25,8 @@
  * -------------------------------------------------------------------------
  */
 
-s32  func_8007CD08(void *arg0, void *arg1, s32 arg2);
-s32  func_8007CE48(void *arg0, void *arg1, s32 arg2);
+s32  osRecvMesg(void *arg0, void *arg1, s32 arg2);
+s32  osSendMesg(void *arg0, void *arg1, s32 arg2);
 void func_8008E2B8(s32 arg0);
 void func_8008E408(void *arg0, s32 arg1, s32 arg2);
 void func_8008E3B8(void *arg0, s32 arg1, s32 arg2);
@@ -45,7 +45,7 @@ void func_8008DE28(Unk *arg0) {
 
     for (;;) {
         /* --- dequeue event from arg0->unk8 --- */
-        func_8007CD08((void *)arg0->unk8, &sp44, 1);
+        osRecvMesg((void *)arg0->unk8, &sp44, 1);
 
         /* --- check for geometry-type event --- */
         if (sp44 != 0 && sp44->unk14 != 0) {
@@ -69,16 +69,16 @@ void func_8008DE28(Unk *arg0) {
             } else {
                 switch (idx) {
                 case 0: /* type 10: cancel */
-                    func_8007CE48((void *)sp44->unk4, sp44, 0);
+                    osSendMesg((void *)sp44->unk4, sp44, 0);
                     sp38 = -1;
                     break;
                 case 1: /* type 11: call unk14(0, ...) */
-                    func_8007CD08((void *)arg0->unk10, &sp44, 1);
+                    osRecvMesg((void *)arg0->unk10, &sp44, 1);
                     sp38 = ((s32 (*)(s32, s32, s32, s32))arg0->unk14)(
                                0, sp44->unkC, sp44->unk8, sp44->unk10);
                     break;
                 case 2: /* type 12: call unk14(1, ...) */
-                    func_8007CD08((void *)arg0->unk10, &sp44, 1);
+                    osRecvMesg((void *)arg0->unk10, &sp44, 1);
                     sp38 = ((s32 (*)(s32, s32, s32, s32))arg0->unk14)(
                                1, sp44->unkC, sp44->unk8, sp44->unk10);
                     break;
@@ -88,12 +88,12 @@ void func_8008DE28(Unk *arg0) {
                     sp38 = -1;
                     break;
                 case 5: /* type 15: call unk18(ev.unk14, 0, ...) */
-                    func_8007CD08((void *)arg0->unk10, &sp44, 1);
+                    osRecvMesg((void *)arg0->unk10, &sp44, 1);
                     sp38 = ((s32 (*)(s32, s32, s32, s32, s32))arg0->unk18)(
                                sp44->unk14, 0, sp44->unkC, sp44->unk8, sp44->unk10);
                     break;
                 case 6: /* type 16: call unk18(ev.unk14, 1, ...) */
-                    func_8007CD08((void *)arg0->unk10, &sp44, 1);
+                    osRecvMesg((void *)arg0->unk10, &sp44, 1);
                     sp38 = ((s32 (*)(s32, s32, s32, s32, s32))arg0->unk18)(
                                sp44->unk14, 1, sp44->unkC, sp44->unk8, sp44->unk10);
                     break;
@@ -104,9 +104,9 @@ void func_8008DE28(Unk *arg0) {
         /* --- on success (sp38 == 0): drain secondary queue and release --- */
         if (sp38 != 0) continue;
 
-        func_8007CD08((void *)arg0->unkC, &sp44, 1);
-        func_8007CE48((void *)sp44->unk4, sp44, 0);
-        func_8007CE48((void *)arg0->unk10, NULL, 0);
+        osRecvMesg((void *)arg0->unkC, &sp44, 1);
+        osSendMesg((void *)sp44->unk4, sp44, 0);
+        osSendMesg((void *)arg0->unk10, NULL, 0);
         /* loop */
     }
 }

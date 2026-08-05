@@ -1,7 +1,7 @@
 #include "ultra64.h"
-void func_8007DA18(Unk*);                            /* extern */
-void func_8007DA48(Unk*, void**);                    /* extern */
-void func_8007E734(void**, s32, s32);                /* extern */
+void __osTimerUnlink(Unk*);                            /* extern */
+void __osTimerInsert(Unk*, void**);                    /* extern */
+void osSetTimer(void**, s32, s32);                /* extern */
 void func_80086418(void *, void *, s16, s32);               /* extern */
 void func_800865E8(s32, void *, s16);                    /* extern */
 
@@ -22,8 +22,8 @@ void func_8007FFE4(Unk *arg0, Unk *arg1, s32 arg2) {
                     if (temp_s1 != NULL) {
                         temp_s1->unk8 = (s32) (temp_s1->unk8 + var_s0->unk8);
                     }
-                    func_8007DA18(var_s0);
-                    func_8007DA48(var_s0, arg0 + 0x48);
+                    __osTimerUnlink(var_s0);
+                    __osTimerInsert(var_s0, arg0 + 0x48);
                 }
                 var_s0 = temp_s1;
             } while (temp_s1 != NULL);
@@ -37,5 +37,5 @@ void func_8007FFE4(Unk *arg0, Unk *arg1, s32 arg2) {
     func_80086418(arg0->unk14, arg1, 0, arg2);
     sp50 = 5;
     sp54 = arg1;
-    func_8007E734(arg0 + 0x48, &sp50, arg2);
+    osSetTimer(arg0 + 0x48, &sp50, arg2);
 }

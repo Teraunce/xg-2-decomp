@@ -3,7 +3,7 @@ void __osPiRawWriteIo(s32*, s32);                            /* extern */
 s32 __osPiRawReadIo(s32*);                               /* extern */
 void __osPiResetCount(s32);                                 /* extern */
 
-s32 func_80075B78(s32 arg0, s32 arg2, s32 arg3) {
+s32 sramStartDma(s32 arg0, s32 arg2, s32 arg3) {
     __osPiRawWriteIo(0xB1FFFFE4, 0);
     __osPiRawWriteIo(0xB1FFFFE8, arg2);
     __osPiRawWriteIo(0xB1FFFFEC, arg3);

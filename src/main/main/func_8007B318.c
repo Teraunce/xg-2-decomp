@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8007B368 (initial). */
 
-void func_8007A758(char*, char*);                          /* extern */
+void guMtxF2L(char*, char*);                          /* extern */
 void func_8007B178(void *, f32, f32, s32, f32);             /* extern */
 extern f32 D_8004C888;
 
@@ -17,7 +17,7 @@ void func_8007B318(f32 arg1, s32 arg0, f32 arg2_fa1, f32 arg3_ft4, f32 arg4) {
     s32 sp20;
 
     func_8007B178(&sp20, arg0, arg1, (s32) arg3_ft4, arg4);
-    func_8007A758(&sp20, arg0);
+    guMtxF2L(&sp20, arg0);
 }
 
 /*

@@ -15,7 +15,7 @@
  *   Otherwise write zero to gSfxTimerD and return.
  *   This path is shared between:
  *     a) arg1 == 0  (caller has nothing active)
- *     b) func_8006216C(gHandlerTable) returns nonzero  (master entity is
+ *     b) sfxHasEntity(gHandlerTable) returns nonzero  (master entity is
  *        already in the heap — normal frame-to-frame ticking)
  *
  * -------------------------------------------------------------------------
@@ -25,7 +25,7 @@
  *   States that jump directly to func_800634B4 (epilogue) do not advance.
  *
  *   State 0 — "Is the SFX system initialised?"
- *     Check func_8006216C(gSfxSlotEnd) (the gSfxSlotEnd sentinel).
+ *     Check sfxHasEntity(gSfxSlotEnd) (the gSfxSlotEnd sentinel).
  *     NOT found → DMA-load the audio overlay via __osInvalICache_full /
  *       osWritebackInvalDCache / osInvalICache / func_8005B224 / func_8005F838
  *       (twice: once for code, once for data).  → advance state.
@@ -33,8 +33,8 @@
  *       gSfxBlockedFlag = 1.  → DO NOT advance state (return as-is).
  *
  *   State 1 — Schedule the state-advance callback.
- *     func_80070C3C(entity, func_80063100)
- *     → DO NOT advance state (scheduler fires func_80063100 on completion).
+ *     func_80070C3C(entity, sfxFrameTick)
+ *     → DO NOT advance state (scheduler fires sfxFrameTick on completion).
  *
  *   State 2 — Manage gSfxTimerD.
  *     If gSfxBlockedFlag:
@@ -51,26 +51,26 @@
  *       func_80066FD0(outer, inner) → result
  *       func_80063B0C(result) → id_word
  *       s0 = id_word & 0xFFFF
- *       def = func_800639B0(s0)
+ *       def = sfxGetEntry(s0)
  *       vol = def[+0xC]   (raw s32)
  *       vol = (vol * 3 + sign_bit) >> 1  [round-to-zero *1.5]
  *       if vol >= 0x1519: vol = 0x1518
  *       D_80182EA8[s5 + s3 + 0x1C] = vol  (write 1, s3=s5+inner*0x10)
  *       D_80182EA8[s5 + 0x30 + inner*0x10 + 0x1C] = vol  (write 2)
- *       func_80063878(s0)   [a0 = sound id, not vol]
+ *       sfxPlay(s0)   [a0 = sound id, not vol]
  *     → advance state.
  *
  *   State 4 — Audio engine tick + scheduled CD4 dispatch.
  *     result = func_80070ED4()
- *     if result < 0: call func_80063100(); return.
+ *     if result < 0: call sfxFrameTick(); return.
  *     extra = func_800DD984(entity)
- *     func_80070CD4(entity, func_80063100, result, extra)
+ *     func_80070CD4(entity, sfxFrameTick, result, extra)
  *     → DO NOT advance state.
  *
  *   State 5 — Audio engine tick + D50 dispatch.
  *     result = func_80070ED4()
- *     if result < 0: call func_80063100(); return.
- *     func_80070D50(entity, func_80063100, result, D_800DDC5C)
+ *     if result < 0: call sfxFrameTick(); return.
+ *     func_80070D50(entity, sfxFrameTick, result, D_800DDC5C)
  *     → DO NOT advance state.
  *
  *   State 6 — Timing gate + trigger output.
@@ -119,17 +119,17 @@ extern void *D_800DDC5C;        /* audio callback table */
 extern u32   D_1F080;           /* DMA length */
 
 /* ---- forward declarations for called functions ------------------------- */
-s32   func_8006216C(void *entity);
+s32   sfxHasEntity(void *entity);
 void  __osInvalICache_full(void);
 void  osWritebackInvalDCache(void *dst, u32 len);
 void  osInvalICache(void *dst, u32 len);
 void  func_8005B224(void *src, void *dst, u32 len, s32 unk);
 void  func_8005F838(void);
-void  func_80063100(void);
+void  sfxFrameTick(void);
 void  func_80066FD0(s32 outer, s32 inner);
 s32   func_80063B0C(void);
-void *func_800639B0(s32 id);
-void  func_80063878(s32 soundId);
+void *sfxGetEntry(s32 id);
+void  sfxPlay(s32 soundId);
 s32   func_80070C3C(void *entity, void (*cb)(void));
 s32   func_80070ED4(void);
 s32   func_800DD984(void *entity);
@@ -155,7 +155,7 @@ void func_80063158(void *entity, s32 arg1) {
     /* ------------------------------------------------------------------ */
     /* Quick path B: master entity is already in the heap → just tick      */
     /* ------------------------------------------------------------------ */
-    if (func_8006216C(gHandlerTable)) {
+    if (sfxHasEntity(gHandlerTable)) {
         goto lbl_blocked_check;
     }
 
@@ -174,7 +174,7 @@ void func_80063158(void *entity, s32 arg1) {
      *          (gSfxSlotEnd / gSfxSlotEnd will be in the heap once DMA'd).
      * ------------------------------------------------------------------ */
     case 0:
-        if (!func_8006216C(gSfxSlotEnd)) {
+        if (!sfxHasEntity(gSfxSlotEnd)) {
             /* Sentinel NOT found → DMA-load the audio overlay twice. */
             __osInvalICache_full();
             osWritebackInvalDCache(&D_80096540, D_1F080);
@@ -206,8 +206,8 @@ void func_80063158(void *entity, s32 arg1) {
      * State 1: schedule the state-advance callback via the audio engine.
      * ------------------------------------------------------------------ */
     case 1:
-        func_80070C3C(entity, func_80063100);
-        return;  /* scheduler fires func_80063100 on completion */
+        func_80070C3C(entity, sfxFrameTick);
+        return;  /* scheduler fires sfxFrameTick on completion */
 
     /* ------------------------------------------------------------------
      * State 2: manage gSfxTimerD countdown / warm-up.
@@ -257,7 +257,7 @@ void func_80063158(void *entity, s32 arg1) {
                 func_80066FD0(outer, inner);
                 id  = func_80063B0C();  /* nonmatching: compiler passes $v0 from prior call */
                 id  = (u16)id;                      /* andi 0xFFFF */
-                def = func_800639B0(id);
+                def = sfxGetEntry(id);
 
                 {
                     /* vol = def[+0xC] * 3/2, round toward zero */
@@ -271,7 +271,7 @@ void func_80063158(void *entity, s32 arg1) {
                 *(s32 *)(base + s5 + s3 + 0x1C)        = vol;
                 *(s32 *)(base + s5 + s4 + 0x1C)        = vol;
 
-                func_80063878(id);  /* a0 = sound id (not vol) */
+                sfxPlay(id);  /* a0 = sound id (not vol) */
             }
         }
         goto lbl_advance_state;
@@ -287,7 +287,7 @@ void func_80063158(void *entity, s32 arg1) {
         }
         {
             s32 extra = func_800DD984(entity);
-            func_80070CD4(entity, func_80063100, result, extra);
+            func_80070CD4(entity, sfxFrameTick, result, extra);
         }
         return;
     }
@@ -300,7 +300,7 @@ void func_80063158(void *entity, s32 arg1) {
         if (result < 0) {
             goto lbl_error;
         }
-        func_80070D50(entity, func_80063100, result, D_800DDC5C);
+        func_80070D50(entity, sfxFrameTick, result, D_800DDC5C);
         return;
     }
 
@@ -325,7 +325,7 @@ void func_80063158(void *entity, s32 arg1) {
 
 lbl_error:
     /* Error path: increment state by 1 and return. */
-    func_80063100();
+    sfxFrameTick();
     return;
 
 lbl_advance_state:

@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_800891F4(s32 arg0, u16 *arg1, u16 *arg2) {
+s32 contPakChecksum(s32 arg0, u16 *arg1, u16 *arg2) {
     u16 sp6;
     u32 sp0;
     u16 temp_t9;

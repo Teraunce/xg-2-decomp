@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8006114C(void**);                               /* extern */
+void renderLineStrip(void**);                               /* extern */
 u16 func_8006421C(void**, Unk*, u32, s16, s32, u32);      /* extern */
 extern Unk *D_80182408;
 extern s16 D_8018240C;
@@ -38,7 +38,7 @@ void func_80065424(s32 arg0) {
                 var_s1 += 0xC;
             } while (var_s2 < (u16) D_80182414);
         }
-        func_8006114C(arg0);
+        renderLineStrip(arg0);
         D_8018240C = 1;
         D_80182458 = 0;
         D_80182414 = 0;

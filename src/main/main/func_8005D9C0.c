@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 func_800567DC(f32 *, f32 *, f32 *);               /* extern */
-void func_80057B74(Unk*, Unk*, Unk*);               /* extern */
+void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 extern f32 D_8004BE4C;
 extern f32 D_8004BE50;
 extern f32 D_8004BE54;
@@ -170,7 +170,7 @@ block_12:
         sp40 = var_s1->unk18;
         sp44 = var_s1->unk1C;
         sp48 = var_s1->unk20;
-        func_80057B74(&sp30, &sp40, &sp50);
+        vec3Cross(&sp30, &sp40, &sp50);
         func_800567DC(&sp50, &sp54, &sp58);
         var_ft1 = (sp10 * sp50) + (sp14 * sp54) + (sp18 * sp58);
         goto block_38;

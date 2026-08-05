@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8005CCE0(s32, s32, s32, s32, s32);                   /* extern */
+s32 sfxQueueCmd(s32, s32, s32, s32, s32);                   /* extern */
 extern s32 gGameFlags;
 extern s32 gInitStateFlags;
 extern s32 D_8016DF88;
@@ -31,12 +31,12 @@ void func_80053F00(s32 arg0) {
         temp_v1 = ((Unk*)((char*)&gSfxInputTable + (arg0 * 6)))->unk3;
         if (temp_v1 >= 0x19) {
             if (D_8017C954 > 0) {
-                func_8005CCE0(0x18, 0x3F800000, 0x10000, 0x40, 0);
+                sfxQueueCmd(0x18, 0x3F800000, 0x10000, 0x40, 0);
                 var_v0_2 = D_8017C954 - 0xFF;
                 goto block_9;
             }
         } else if ((temp_v1 < -0x18) && (D_8017C954 < 0xFF)) {
-            func_8005CCE0(0x18, 0x3F800000, 0x10000, 0x40, 0);
+            sfxQueueCmd(0x18, 0x3F800000, 0x10000, 0x40, 0);
             var_v0_2 = D_8017C954 + 0xFF;
 block_9:
             D_8017C954 = var_v0_2;
@@ -45,7 +45,7 @@ block_9:
     temp_v1_2 = *((arg0 * 6) + &gSfxInputTable);
     temp_a0 = temp_v1_2 & ~*((arg0 * 4) + &D_8016DF88);
     if ((((temp_a0 & 0x20) && (temp_v1_2 & 0x10)) || ((temp_a0 & 0x10) && (temp_v1_2 & 0x20))) && (gGameFlags & 0x4000)) {
-        func_8005CCE0(0x19, 0x3F800000, 0x10000, 0x40, 0x20);
+        sfxQueueCmd(0x19, 0x3F800000, 0x10000, 0x40, 0x20);
         D_80174BEC = D_80174BEC == 0;
         return;
     }
@@ -81,6 +81,6 @@ block_9:
 block_27:
             gInitStateFlags = 0;
         }
-        func_8005CCE0(var_a0, 0x3F800000, var_a2, 0x40, 0);
+        sfxQueueCmd(var_a0, 0x3F800000, var_a2, 0x40, 0);
     }
 }

@@ -3,8 +3,8 @@
 
 void osWritebackInvalDCache(u32, s32);                         /* extern */
 void __osInvalICache_full(void);                             /* extern */
-s32 func_8007CD08(Unk*, s32*, s32);                       /* extern */
-s32 func_8008E518(Unk*, s32, s32, s32, s32, s32, s32);    /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
+s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);    /* extern */
 extern char *gDLWritePtr;
 extern char *gDLBase;
 extern s32 gRSPTaskA;
@@ -35,8 +35,8 @@ void func_8004D1C8(s32 arg0, u8 *arg1, s32 arg2) {
     temp_s4 = var_s3 & 0x3F;
     if (temp_s4 != 0) {
         osWritebackInvalDCache(&D_8016DBD0, 0x40);
-        func_8008E518(&sp20, 0, 0, var_s3 & ~0x3F, &D_8016DBD0, 0x40, &D_8016DF70);
-        func_8007CD08(&D_8016DF70, &sp38, 1);
+        spTaskSubmit(&sp20, 0, 0, var_s3 & ~0x3F, &D_8016DBD0, 0x40, &D_8016DF70);
+        osRecvMesg(&D_8016DF70, &sp38, 1);
         temp_a1 = var_s2 + temp_s4;
         var_v1 = temp_s4;
         if (temp_a1 < 0x41) {
@@ -65,8 +65,8 @@ void func_8004D1C8(s32 arg0, u8 *arg1, s32 arg2) {
     } else {
 block_8:
         osWritebackInvalDCache(var_s1, var_s2);
-        func_8008E518(&sp20, 0, 0, var_s3, var_s1, var_s2, &D_8016DF70);
-        func_8007CD08(&D_8016DF70, &sp38, 1);
+        spTaskSubmit(&sp20, 0, 0, var_s3, var_s1, var_s2, &D_8016DF70);
+        osRecvMesg(&D_8016DF70, &sp38, 1);
     }
 }
 

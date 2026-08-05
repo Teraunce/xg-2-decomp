@@ -7,19 +7,19 @@
  *
  * func_80062D98(entity, soundId):
  *   1. Checks whether 'entity' already exists in the D_800E1F30 effect list
- *      via func_8006216C.  If it does and D_800E1F74 == 0, either:
+ *      via sfxHasEntity.  If it does and D_800E1F74 == 0, either:
  *        a. entity == D_80092BA0 (Probe mode table): play a specific cue
  *           (priority 0xF, volume 0.9, pitch 0xC350, extra 0x40) via
- *           func_8005CCE0 and set D_80092B60 = 1.
+ *           sfxQueueCmd and set D_80092B60 = 1.
  *        b. Otherwise: clear D_80092B60.
  *   2. If 'entity' is NOT in the list (or D_800E1F74 != 0): tries to find
- *      'entity' in the main SFX heap (gSfxSlotEnd check via func_8006216C),
- *      optionally marks it active (func_800620CC), then saves the current
+ *      'entity' in the main SFX heap (gSfxSlotEnd check via sfxHasEntity),
+ *      optionally marks it active (sfxMarkEntityActive), then saves the current
  *      audio engine parameters, writes new ones
  *      [6, 4, 2, 4, 0xFFFFFF] into D_80092D08–D_80092D18, stores gSfxEntity
  *      (gSfxEntity) = soundId, searches the heap for 'entity' via
- *      func_800621C0, and inserts soundId at the found position via
- *      func_80061FB4.
+ *      sfxGetEntity, and inserts soundId at the found position via
+ *      sfxHeapInsert.
  *
  * func_80062F1C — write five audio parameters from the function arguments
  *   directly into D_80092D08–D_80092D18.
@@ -60,11 +60,11 @@ extern s32   D_80092D10;    /* engine param 2 */
 extern s32   D_80092D14;    /* engine param 3 */
 extern s32   D_80092D18;    /* engine param 4 */
 
-s32   func_8006216C(void *entity);                   /* contains check */
-void  func_800620CC(void *entity);                   /* mark-active */
-void *func_800621C0(s32 slotSpec, s32 *outType);     /* slot lookup */
-void  func_80061FB4(void *entity, s32 slot, s32 flags); /* heap insert */
-void  func_8005CCE0(s32 prio, s32 vol, s32 pitch,   /* audio cue trigger */
+s32   sfxHasEntity(void *entity);                   /* contains check */
+void  sfxMarkEntityActive(void *entity);                   /* mark-active */
+void *sfxGetEntity(s32 slotSpec, s32 *outType);     /* slot lookup */
+void  sfxHeapInsert(void *entity, s32 slot, s32 flags); /* heap insert */
+void  sfxQueueCmd(s32 prio, s32 vol, s32 pitch,   /* audio cue trigger */
                     s32 extra, s32 flags);
 
 /* -------------------------------------------------------------------------
@@ -92,7 +92,7 @@ void func_80062D98(void *entity, void *soundId) {
     s32 savedP0, savedP1, savedP2, savedP3, savedP4;
 
     /* --- Check if entity is already in the "active effects" list --- */
-    if (func_8006216C(D_800E1F30)) {
+    if (sfxHasEntity(D_800E1F30)) {
         /* Entity is in the D_800E1F30 list. */
         if (D_800E1F74 == 0) {
             D_800E1F74 = (s32)(intptr_t)entity;   /* record entity */
@@ -100,7 +100,7 @@ void func_80062D98(void *entity, void *soundId) {
             if (entity == D_80092BA0) {
                 /* Probe mode entity — play a specific hard-coded cue. */
                 D_80092B60 = 1;
-                func_8005CCE0(0xF,                  /* priority */
+                sfxQueueCmd(0xF,                  /* priority */
                               0x3F666666,            /* volume ≈ 0.9 (IEEE f32) */
                               0xC350,                /* pitch = 50000 */
                               0x40,                  /* extra */
@@ -118,8 +118,8 @@ void func_80062D98(void *entity, void *soundId) {
     /* Optional: if entity is at the heap end sentinel, mark it active. */
     {
         void *slotEnd = gSfxSlotEnd;
-        if (func_8006216C(slotEnd)) {
-            func_800620CC(slotEnd);
+        if (sfxHasEntity(slotEnd)) {
+            sfxMarkEntityActive(slotEnd);
         }
     }
 
@@ -151,7 +151,7 @@ void func_80062D98(void *entity, void *soundId) {
 
     /* Search the heap for 'entity'; insert 'soundId' at the found slot. */
     for (slot = 0; ; slot++) {
-        void *found = func_800621C0(slot, NULL);
+        void *found = sfxGetEntity(slot, NULL);
         if (found == soundId) {
             break;
         }
@@ -161,16 +161,16 @@ void func_80062D98(void *entity, void *soundId) {
         }
     }
 
-    func_80061FB4(gSfxSlotEnd, slot, 1);
+    sfxHeapInsert(gSfxSlotEnd, slot, 1);
 }
 
 /* =========================================================================
  * func_800630FC
  * 0x18-byte block at 0x800630FC.  The first instruction is `sdc1 $ft1,
  * -0x7F80($t8)` which stores FPU reg $f3 into an audio output buffer.
- * The code then falls through to func_80063100.  Marked nonmatching;
+ * The code then falls through to sfxFrameTick.  Marked nonmatching;
  * the exact C form is unknown.
- * func_80063100 is a sub-entry (alabel) 4 bytes in; it is the callback
+ * sfxFrameTick is a sub-entry (alabel) 4 bytes in; it is the callback
  * form that callers (func_80070C3C etc.) invoke directly.
  * ========================================================================= */
 extern s32   D_801823C0;   /* gSfxFrameState */
@@ -180,15 +180,15 @@ extern void *D_801823CC;   /* DL timing reference */
 extern s32   D_80173D08;   /* audio frame timer reference */
 extern u8    D_80182EA8[]; /* SFX block data base */
 
-void func_80063100(void);
+void sfxFrameTick(void);
 /* nonmatching */
 void func_800630FC(void) {
     /* sdc1 ft1, -0x7F80(t8): stores audio FP output — not representable in C */
-    func_80063100();
+    sfxFrameTick();
 }
 
 /* Increment gSfxFrameState.  Called directly and via scheduler callbacks. */
-void func_80063100(void) {
+void sfxFrameTick(void) {
     D_801823C0++;
 }
 

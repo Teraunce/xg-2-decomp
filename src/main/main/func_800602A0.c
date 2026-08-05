@@ -4,7 +4,7 @@ s32 func_8006030C();                                  /* extern */
 s32 func_80060310();                                  /* extern */
 s32 func_80060824(s32, void *);                            /* extern */
 void func_80072E00(s32);                               /* extern */
-s32 func_8007CE48(Unk*, s32, s32);                         /* extern */
+s32 osSendMesg(Unk*, s32, s32);                         /* extern */
 extern s32 D_80173C0C;
 extern s32 D_80173C40;
 extern s32 D_8017C108;
@@ -19,7 +19,7 @@ extern s32 D_8017C108;
  *    this function's code. m2c cannot represent branching into a function body
  *    from outside, so the entire file is rejected.
  *
- * 2. Dispatches via jr through jtbl_8004BF80.  Function calls func_8007CD08 in
+ * 2. Dispatches via jr through jtbl_8004BF80.  Function calls osRecvMesg in
  *    a loop, then checks if (result - 0xB) < 0x11 to select a dispatch table
  *    entry.  m2c marks any function containing jr-from-table as nonmatching.
  *
@@ -46,6 +46,6 @@ void func_80060800(void) {
 void func_80060808(void) {
     s32 saved_reg_s2;
     func_80072E00(D_80173C0C != 0);
-    func_8007CE48(saved_reg_s2, &D_8017C108, 0);
+    osSendMesg(saved_reg_s2, &D_8017C108, 0);
     func_80060310();
 }

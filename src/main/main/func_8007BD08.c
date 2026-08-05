@@ -15,7 +15,7 @@
  * The thread is pushed onto the head of the __osAllThreadList creation-order list via
  * unk_0C before being handed to the scheduler.
  *
- * func_8007BE58 and func_8007C0F4 (same splat-merged asm file) are the N64
+ * __osException and func_8007C0F4 (same splat-merged asm file) are the N64
  * exception/interrupt handler written entirely in handwritten privileged
  * assembly ($k0/$k1, mfc0/mtc0, sd/ld for all registers, eret).  They cannot
  * be expressed in portable C and are retained in

@@ -1,8 +1,8 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8005A2FC (initial). */
 
-s32 func_80056788(f32 *, f32 *, f32 *);               /* extern */
-void func_80057B74(Unk*, Unk*, Unk*);               /* extern */
+s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
+void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 void func_8007AC38(s32, s32, s32);                  /* extern */
 void func_8007B820(s32, f32, f32, f32);                  /* extern */
 void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2); /* static */
@@ -66,11 +66,11 @@ void func_800586CC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     sp70 = arg4 - arg1;
     sp74 = arg5 - arg2;
     sp78 = arg3 - arg6;
-    func_80057B74(&sp70, &sp60, &sp50);
-    func_80057B74(&sp50, &sp70, &sp60);
-    func_80056788(&sp50, &sp54, &sp58);
-    func_80056788(&sp60, &sp64, &sp68);
-    func_80056788(&sp70, &sp74, &sp78);
+    vec3Cross(&sp70, &sp60, &sp50);
+    vec3Cross(&sp50, &sp70, &sp60);
+    vec3Normalize(&sp50, &sp54, &sp58);
+    vec3Normalize(&sp60, &sp64, &sp68);
+    vec3Normalize(&sp70, &sp74, &sp78);
     spD8 = 0;
     spDC = 1;
     spF8 = 0;

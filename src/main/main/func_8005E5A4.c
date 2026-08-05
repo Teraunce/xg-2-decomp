@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8005E8AC (initial). */
 
-s32 func_8005CCE0(s16, f32, s32, s8, s32);               /* extern */
+s32 sfxQueueCmd(s16, f32, s32, s8, s32);               /* extern */
 extern f32 D_8004BE94;
 extern s32 gTrackNodeCount;
 extern s32 D_80092B48;
@@ -59,10 +59,10 @@ void func_8005E5A4(s32 arg0) {
             var_s0->unk28 = -1;
             var_s0->unk2C = -1;
             if (arg0 != 0) {
-                var_s0->unk10 = func_8005CCE0(0, temp_fs0, 0, 0x40, 0);
-                var_s0->unk14 = func_8005CCE0(1, temp_fs0, 0, 0x40, 0);
-                var_s0->unk18 = func_8005CCE0(2, temp_fs0, 0, 0x40, 0);
-                var_s0->unk1C = func_8005CCE0(5, temp_fs0, 0, 0x40, 0);
+                var_s0->unk10 = sfxQueueCmd(0, temp_fs0, 0, 0x40, 0);
+                var_s0->unk14 = sfxQueueCmd(1, temp_fs0, 0, 0x40, 0);
+                var_s0->unk18 = sfxQueueCmd(2, temp_fs0, 0, 0x40, 0);
+                var_s0->unk1C = sfxQueueCmd(5, temp_fs0, 0, 0x40, 0);
             } else if (((Unk *)var_s2->unk16F8)->unk8 < 0xD) {
                 if (gGameFlags & 0x400) {
                     if (D_8017C958 == 0) {

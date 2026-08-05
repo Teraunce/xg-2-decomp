@@ -67,7 +67,7 @@ typedef struct {
     /* 0x35 */ s32 unk35;
 } UnkStruct_var_v1;
 
-void func_8007E734(void **, s32, s32);           /* extern */
+void osSetTimer(void **, s32, s32);           /* extern */
 void func_80081704(Unk*, Unk*);                   /* extern */
 s32 func_80081720(Unk*);                           /* extern */
 s32 func_80081B58(UnkStruct_arg0*, s32*);                    /* extern */
@@ -91,7 +91,7 @@ void func_80080228(UnkStruct_arg0 *arg0) {
                 }
             }
             sp28 = 0;
-            func_8007E734((void **)(arg0 + 0x48), &sp28, arg0->unk24 * sp24);
+            osSetTimer((void **)(arg0 + 0x48), &sp28, arg0->unk24 * sp24);
         }
     }
 }

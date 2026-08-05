@@ -6,7 +6,7 @@ typedef struct {
     /* 0x44 */ s32 unk44;
 } UnkStruct_arg0;
 
-void func_8007E734(void**, s32, s32);                  /* extern */
+void osSetTimer(void**, s32, s32);                  /* extern */
 extern f64 D_8004CEA8;
 
 void func_80082758(UnkStruct_arg0 *arg0, s8 arg1) {
@@ -17,7 +17,7 @@ void func_80082758(UnkStruct_arg0 *arg0, s8 arg1) {
     sp20 = 8;
     sp28 = arg1;
     sp24 = (arg0->unk3C * 0x30) + arg0->unk40;
-    func_8007E734(arg0 + 0x14, &sp20, 0);
+    osSetTimer(arg0 + 0x14, &sp20, 0);
 }
 
 void func_800827B8(void) {

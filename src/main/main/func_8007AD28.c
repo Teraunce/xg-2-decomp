@@ -17,7 +17,7 @@ typedef struct {
     /* 0x3C */ s32 unk3C;
 } UnkStruct_var_v0;
 
-void func_8007A858(char *);                         /* extern */
+void guMtxIdent(char *);                         /* extern */
 
 void func_8007AD28(char *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     f32 temp_fa0;
@@ -34,7 +34,7 @@ void func_8007AD28(char *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     char *temp_v0;
     UnkStruct_var_v0 *var_v0;
 
-    func_8007A858(arg0);
+    guMtxIdent(arg0);
     temp_fv0 = arg2 - arg1;
     var_v0 = arg0;
     temp_fa0 = arg6 - arg5;

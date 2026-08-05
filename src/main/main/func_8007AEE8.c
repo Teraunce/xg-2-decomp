@@ -16,9 +16,9 @@ typedef struct {
     /* 0x3C */ s32 unk3C;
 } UnkStruct_var_v0;
 
-f32 func_80079DB8(f32);                             /* extern */
-void func_8007A858(f32);                               /* extern */
-f32 func_8007B5A8(f32);                             /* extern */
+f32 cosf(f32);                             /* extern */
+void guMtxIdent(f32);                               /* extern */
+f32 sinf(f32);                             /* extern */
 extern f64 D_8004C868;
 
 void func_8007AEE8(char *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
@@ -42,12 +42,12 @@ void func_8007AEE8(char *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
     char *temp_v0;
     UnkStruct_var_v0 *var_v0;
 
-    func_8007A858(arg2);
+    guMtxIdent(arg2);
     temp_fa1 = (f32) ((f64) arg2 * D_8004C868);
     temp_fa0 = temp_fa1 / 2.0f;
     sp1C = temp_fa0;
-    sp20 = func_80079DB8(temp_fa0);
-    temp_fv1 = sp20 / func_8007B5A8(temp_fa0);
+    sp20 = cosf(temp_fa0);
+    temp_fv1 = sp20 / sinf(temp_fa0);
     temp_ft5 = arg4 + arg5;
     var_v0 = arg0;
     temp_fa0_2 = arg4 - arg5;

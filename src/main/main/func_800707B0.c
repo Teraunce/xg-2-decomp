@@ -7,8 +7,8 @@
  * entry has a stride of 0x2C bytes; entry->unk0 (cmd 1-7) selects one of
  * seven action functions to call with &gSfxChannelState as the first arg.
  *
- * Outer loop: calls func_8007CF98(5, D_80188770, D_8017C890) each frame.
- * Inner poll: calls func_8007CD08(&D_801887B8, NULL, 1) until
+ * Outer loop: calls osSetEventMesg(5, D_80188770, D_8017C890) each frame.
+ * Inner poll: calls osRecvMesg(&D_801887B8, NULL, 1) until
  *   D_801887D0.unk160 >= 0.
  * After dispatch, loops back if frame index < s4_limit.
  *
@@ -28,9 +28,9 @@ void func_800721A8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_80072550(s32 arg0, s32 arg1, s32 arg2);
 void func_800727EC(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32));
 void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32));
-void func_8007CF98(s32 arg0, s32 arg1, s32 arg2);
-s32  func_8007CD08(Unk *arg0, s32 *arg1, s32 arg2);
-s32  func_8006216C(void *entity);
+void osSetEventMesg(s32 arg0, s32 arg1, s32 arg2);
+s32  osRecvMesg(Unk *arg0, s32 *arg1, s32 arg2);
+s32  sfxHasEntity(void *entity);
 
 extern Unk D_801887D0;  /* game state; cmd entries at +0, stride 0x2C */
 extern Unk D_801887B8;  /* CD08 queue object */
@@ -59,18 +59,18 @@ void func_800707B0(void *arg0) {
 
     do {
         /* frame tick */
-        func_8007CF98(5, D_80188770, D_8017C890);
+        osSetEventMesg(5, D_80188770, D_8017C890);
         gInitFlag = 1;
         idx = D_801887D0.unk160;
 
         /* inner poll: wait for valid state (idx >= 0) */
         while (idx < 0) {
-            func_8007CD08(&D_801887B8, NULL, 1);
+            osRecvMesg(&D_801887B8, NULL, 1);
             idx = D_801887D0.unk160;
         }
 
         /* process entity if still active */
-        if (func_8006216C(arg0) != 0) {
+        if (sfxHasEntity(arg0) != 0) {
             entry = (Unk *)((char *)&D_801887D0 + idx * 0x2C);
             cmd = *(s32 *)entry;   /* entry->unk0 = cmd type */
 
@@ -115,7 +115,7 @@ void func_800707B0(void *arg0) {
         /* secondary queue drain (when gSessionActive != 0) */
         if (gSessionActive != 0) {
             do {
-                func_8007CD08((Unk *)&D_801887A0, NULL, 1);
+                osRecvMesg((Unk *)&D_801887A0, NULL, 1);
             } while (gSessionActive != 0);
         }
 

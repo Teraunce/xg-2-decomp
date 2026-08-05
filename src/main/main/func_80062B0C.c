@@ -10,7 +10,7 @@
  *     Increments gSfxFadeTimer (gSfxFadeTimer) by gSfxRampStep (gSfxRampStep)
  *     each call until the timer reaches 0xFF.  Simultaneously walks every
  *     heap entry, stores any "interesting" entity in gSfxCurrentSlot
- *     (gSfxCurrentSlot), and marks each entry active via func_800620CC.
+ *     (gSfxCurrentSlot), and marks each entry active via sfxMarkEntityActive.
  *     Transitions to phase 1 when the scan is complete.
  *
  *   Phase 1 — PLAY / TRIGGER:
@@ -18,14 +18,14 @@
  *     (slot -1 = gSfxAllocCount).  If both resolve to the same entity it
  *     triggers secondary logic (func_8006394C / func_80061884 / func_80061800).
  *     Then either re-inserts gSfxEntity (gSfxEntity) at the top of the heap
- *     via func_80061FB4 (priority -3, flags 1), or re-marks the current
- *     highest-priority entity via func_80062240 + func_800620CC.
+ *     via sfxHeapInsert (priority -3, flags 1), or re-marks the current
+ *     highest-priority entity via func_80062240 + sfxMarkEntityActive.
  *     Sets gSfxFadeTimer = 0xFF and advances to phase 2.
  *
  *   Phase 2 — DECAY / RAMP-OUT:
  *     Decrements gSfxFadeTimer by gSfxDecayStep (gSfxDecayStep) each call.
  *     When the timer expires (reaches or crosses zero) it triggers
- *     func_800620CC on the top-priority entity to mark it done, then returns.
+ *     sfxMarkEntityActive on the top-priority entity to mark it done, then returns.
  *     If gSfxDecayStep == 0 the decay is effectively instantaneous.
  *
  * Globals (main BSS unless noted):
@@ -56,9 +56,9 @@ extern void *D_800E4118;       /* handler-table sentinel */
 extern void *gHandlerTable;       /* handler-table base */
 extern void *gSfxFadeTimer;       /* overlay alias: same storage as gSfxFadeTimer */
 
-void func_800620CC(void *entity);                    /* mark active (func_80061FB4.c) */
-void func_80061FB4(void *entity, s32 slot, s32 flags); /* heap insert (func_80061FB4.c) */
-void *func_800621C0(s32 slotSpec, s32 *outType);    /* slot lookup (func_800621C0.c) */
+void sfxMarkEntityActive(void *entity);                    /* mark active (sfxHeapInsert.c) */
+void sfxHeapInsert(void *entity, s32 slot, s32 flags); /* heap insert (sfxHeapInsert.c) */
+void *sfxGetEntity(s32 slotSpec, s32 *outType);    /* slot lookup (sfxGetEntity.c) */
 void *func_80062240(void);                           /* entity at gSfxMaxIndex */
 void func_8006394C(void);                            /* secondary trigger (asm) */
 void *func_80061884(void);                           /* secondary query A (asm) */
@@ -109,7 +109,7 @@ phase0:
             s32  *currentSlotPtr = (s32 *)&gSfxCurrentSlot;
 
             for (i = 0; ; i++) {
-                slot = func_800621C0(i, NULL);
+                slot = sfxGetEntity(i, NULL);
                 if (slot == endSentinel) {
                     break;
                 }
@@ -117,7 +117,7 @@ phase0:
                 if (slot != handlerSentinel && slot != handlerBase) {
                     gSfxCurrentSlot = slot;
                 }
-                func_800620CC(slot);
+                sfxMarkEntityActive(slot);
             }
         }
 
@@ -131,14 +131,14 @@ phase0:
      * Phase 1: trigger / play.
      * ------------------------------------------------------------------ */
 phase1:
-    firstSlot = func_800621C0(-4, NULL);   /* slot 0 (first) */
+    firstSlot = sfxGetEntity(-4, NULL);   /* slot 0 (first) */
     if (firstSlot == gSfxSlotEnd) {
         return;
     }
 
     gSfxSavedState = phase;   /* save current phase value (= 1) */
 
-    slot = func_800621C0(-1, NULL);   /* last slot = gSfxAllocCount */
+    slot = sfxGetEntity(-1, NULL);   /* last slot = gSfxAllocCount */
     if (slot == firstSlot) {
         /* Both ends resolve to the same entity — trigger secondary logic. */
         func_8006394C();
@@ -152,10 +152,10 @@ phase1:
 
     /* Re-insert the pending entity or mark the top-priority slot active. */
     if (gSfxEntity != NULL) {
-        func_80061FB4(gSfxEntity, -3, 1);
+        sfxHeapInsert(gSfxEntity, -3, 1);
     } else {
         void *top = func_80062240();
-        func_800620CC(top);
+        sfxMarkEntityActive(top);
     }
 
     gSfxFadeTimer = 0xFF;
@@ -178,7 +178,7 @@ phase2:
         /* Timer expired — mark the top entity done and return. */
         {
             void *top = func_80062240();
-            func_800620CC(top);
+            sfxMarkEntityActive(top);
         }
         return;
     }

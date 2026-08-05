@@ -3,7 +3,7 @@ void func_80070454(s32, Unk*);                       /* extern */
 s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 void func_80071EA4(s32, s32);                          /* extern */
 s32 func_8008A288(Unk*, u16, s32, s32, s32); /* extern */
-s32 func_8008B088(void *, u16, s32, s32, s32, s32*); /* extern */
+s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern s32 D_8018894C;
 extern Unk D_80188B5C;
 
@@ -41,7 +41,7 @@ block_5:
     if (func_8008A288(temp_s2, temp_s0->unk14, temp_s0->unk10, temp_s3, temp_s1) != 0) {
         goto block_7;
     }
-    if (func_8008B088(temp_s2, temp_s0->unk14, temp_s0->unk10, temp_s3, temp_s1, &sp48) != 0) {
+    if (contPakReadNote(temp_s2, temp_s0->unk14, temp_s0->unk10, temp_s3, temp_s1, &sp48) != 0) {
         goto block_8;
     }
 block_7:

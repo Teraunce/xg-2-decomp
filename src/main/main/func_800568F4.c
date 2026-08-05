@@ -20,8 +20,8 @@ typedef struct {
     /* 0x3C */ f32 unk3C;
 } Matrix4x4;
 
-f32 func_80079DB8(f32);                             /* cosf */
-f32 func_8007B5A8(f32);                             /* sinf */
+f32 cosf(f32);                             /* cosf */
+f32 sinf(f32);                             /* sinf */
 extern f32 D_8004BD84;
 extern f32 D_8004BD88;
 
@@ -42,8 +42,8 @@ extern f32 D_8004BD88;
  */
 void func_800568F4(Matrix4x4 *arg0 /*, f32 arg_ft0, f32 arg_fv0 */) {
     /* angle = arg_ft0 * arg_fv0  (mul.s $fs0, $ft0, $fv0) */
-    f32 sin_val = func_8007B5A8(0.0f /* angle */);
-    f32 cos_val = func_80079DB8(0.0f /* angle */);
+    f32 sin_val = sinf(0.0f /* angle */);
+    f32 cos_val = cosf(0.0f /* angle */);
 
     arg0->unk0  = cos_val;
     arg0->unk4  = 0.0f;

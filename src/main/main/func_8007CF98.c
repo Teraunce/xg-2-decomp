@@ -3,7 +3,7 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 extern s32 D_801899E8;
 
-void func_8007CF98(s32 arg0, s32 arg1, s32 arg2) {
+void osSetEventMesg(s32 arg0, s32 arg1, s32 arg2) {
     Unk *sp20;
     s32 *temp_t9;
     s32 temp_v0;

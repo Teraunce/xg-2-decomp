@@ -3,9 +3,9 @@ void func_8004E594(void *);                           /* extern */
 void func_8004E5D8(void *);                            /* extern */
 void func_8004EF78(void *, void *, s32);                 /* extern */
 void func_8004F2F0(Unk*);                            /* extern */
-s32 func_80056788(void *, void *, void *);            /* extern */
+s32 vec3Normalize(void *, void *, void *);            /* extern */
 void func_800576FC(Unk*, Unk*, Unk*);                 /* extern */
-void func_80057B74(Unk*, Unk*, Unk*);            /* extern */
+void vec3Cross(Unk*, Unk*, Unk*);            /* extern */
 void func_80058294(void *, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_800EEC78(void *, f32, f32, f32, void *);     /* extern */
 s32 func_800F1604(void *, void *, void *);               /* extern */
@@ -252,13 +252,13 @@ void func_8005252C(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
         arg0->unk334 = (f32) (arg0->unk10 - arg0->unk1C);
         arg0->unk338 = (f32) (arg0->unk14 - arg0->unk20);
         arg0->unk33C = (f32) (arg0->unk18 - arg0->unk24);
-        func_80056788(temp_s4, arg0 + 0x338, arg0 + 0x33C);
+        vec3Normalize(temp_s4, arg0 + 0x338, arg0 + 0x33C);
         temp_s0_2 = arg0 + 0x100;
         arg0->unk340 = (f32) arg0->unk334;
         arg0->unk344 = (f32) arg0->unk338;
         arg0->unk348 = (f32) arg0->unk33C;
-        func_80057B74(temp_s4, arg0 + 0x40, temp_s0_2);
-        func_80056788(temp_s0_2, arg0 + 0x104, arg0 + 0x108);
+        vec3Cross(temp_s4, arg0 + 0x40, temp_s0_2);
+        vec3Normalize(temp_s0_2, arg0 + 0x104, arg0 + 0x108);
         arg0->unk618 = 0;
         arg0->unk61C = 0;
         arg0->unk648 = 0;

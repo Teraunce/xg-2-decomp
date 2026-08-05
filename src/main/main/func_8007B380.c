@@ -1,9 +1,9 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8007B4B4 (initial). */
 
-f32 func_80079DB8(f32);                             /* cosf */
-void func_8007A858(Unk*);                           /* extern */
-f32 func_8007B5A8(f32);                             /* sinf */
+f32 cosf(f32);                             /* cosf */
+void guMtxIdent(Unk*);                           /* extern */
+f32 sinf(f32);                             /* sinf */
 extern f32 D_80189808;
 
 /*
@@ -19,14 +19,14 @@ extern f32 D_80189808;
  * arg3 = roll  ($ft4/$f16, non-standard register), scaled at entry
  */
 void func_8007B380(Unk *arg0, f32 arg1, f32 arg2, f32 arg3 /*, f32 scale_fv0 */) {
-    f32 sin1 = func_8007B5A8(arg1);
-    f32 cos1 = func_80079DB8(arg1);
-    f32 sin2 = func_8007B5A8(arg2);
-    f32 cos2 = func_80079DB8(arg2);
-    f32 sin3 = func_8007B5A8(arg3);
-    f32 cos3 = func_80079DB8(arg3);
+    f32 sin1 = sinf(arg1);
+    f32 cos1 = cosf(arg1);
+    f32 sin2 = sinf(arg2);
+    f32 cos2 = cosf(arg2);
+    f32 sin3 = sinf(arg3);
+    f32 cos3 = cosf(arg3);
 
-    func_8007A858(arg0);
+    guMtxIdent(arg0);
     arg0->unk8  = (f32) -sin2;
     arg0->unk0  = (f32) (cos2 * cos3);
     arg0->unk4  = (f32) (cos2 * sin3);

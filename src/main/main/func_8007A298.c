@@ -1,6 +1,6 @@
 #include "ultra64.h"
-f32 func_8007A288(f32);                             /* extern */
-void func_8007A858(char *);                         /* extern */
+f32 sqrtfWrap(f32);                             /* extern */
+void guMtxIdent(char *);                         /* extern */
 extern f64 D_8004C858;
 
 void func_8007A298(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10) {
@@ -35,18 +35,18 @@ void func_8007A298(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     f64 var_fv0_5;
     f64 var_fv0_6;
 
-    func_8007A858(arg0);
+    guMtxIdent(arg0);
     temp_fv0 = arg5 - arg2;
     temp_fs1 = arg6 - arg3;
     temp_fs2 = arg7 - arg4;
-    temp_fv1 = (f32) (-1.0 / (f64) func_8007A288((temp_fv0 * temp_fv0) + (temp_fs1 * temp_fs1) + (temp_fs2 * temp_fs2)));
+    temp_fv1 = (f32) (-1.0 / (f64) sqrtfWrap((temp_fv0 * temp_fv0) + (temp_fs1 * temp_fs1) + (temp_fs2 * temp_fs2)));
     temp_fs0 = temp_fv0 * temp_fv1;
     temp_fs1_2 = temp_fs1 * temp_fv1;
     temp_fs2_2 = temp_fs2 * temp_fv1;
     temp_fs3 = (arg9 * temp_fs2_2) - (arg10 * temp_fs1_2);
     temp_fs4 = (arg10 * temp_fs0) - (arg8 * temp_fs2_2);
     temp_fs5 = (arg8 * temp_fs1_2) - (arg9 * temp_fs0);
-    temp_fa1 = (f32) (1.0 / (f64) func_8007A288((temp_fs3 * temp_fs3) + (temp_fs4 * temp_fs4) + (temp_fs5 * temp_fs5)));
+    temp_fa1 = (f32) (1.0 / (f64) sqrtfWrap((temp_fs3 * temp_fs3) + (temp_fs4 * temp_fs4) + (temp_fs5 * temp_fs5)));
     temp_fs3_2 = temp_fs3 * temp_fa1;
     temp_fs4_2 = temp_fs4 * temp_fa1;
     temp_fs5_2 = temp_fs5 * temp_fa1;
@@ -56,7 +56,7 @@ void func_8007A298(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     arg9 = temp_ft4;
     temp_ft5 = (temp_fs0 * temp_fs4_2) - (temp_fs1_2 * temp_fs3_2);
     arg10 = temp_ft5;
-    temp_fa1_2 = (f32) (1.0 / (f64) func_8007A288((temp_fv1_2 * temp_fv1_2) + (temp_ft4 * temp_ft4) + (temp_ft5 * temp_ft5)));
+    temp_fa1_2 = (f32) (1.0 / (f64) sqrtfWrap((temp_fv1_2 * temp_fv1_2) + (temp_ft4 * temp_ft4) + (temp_ft5 * temp_ft5)));
     arg8 *= temp_fa1_2;
     arg9 *= temp_fa1_2;
     temp_fa0 = (f64) temp_fs3_2 * 128.0;

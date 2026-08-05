@@ -1,12 +1,12 @@
 #include "ultra64.h"
-s32 func_8007C5DC();                                  /* extern */
+s32 __osDispatchThread();                                  /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 void func_8007D238(Unk *);                            /* extern */
 extern Unk *__osAllThreadList;
 extern char *__osRunningThread;
 
-void func_8007C848(Unk *arg0) {
+void osDestroyThread(Unk *arg0) {
     s32 temp_s0;
     Unk *var_s1;
     char *var_s2;
@@ -36,7 +36,7 @@ loop_7:
         }
     }
     if ((void*)arg0 == (void*)__osRunningThread) {
-        func_8007C5DC();
+        __osDispatchThread();
     }
     osRestoreInt(temp_s0);
 }

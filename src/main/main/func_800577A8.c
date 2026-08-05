@@ -41,7 +41,7 @@ void func_800577A8(Unk *arg0, Unk *arg1, Unk *arg2) {
     arg2->unk8 = (f32) (sp8 / spC);
 }
 
-void func_80057884(Unk *arg0, Unk *arg1) {
+void guMtxScaleF2L(Unk *arg0, Unk *arg1) {
     s32 temp_ft3;
     s32 temp_ft3_10;
     s32 temp_ft3_11;

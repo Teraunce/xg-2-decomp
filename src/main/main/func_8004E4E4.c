@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
-void func_8007CF98(s32, s32, s32);                         /* extern */
+void osSetEventMesg(s32, s32, s32);                         /* extern */
 s32 func_80088048(char*, s32, s32);                    /* extern */
 extern s32 D_80192820;
 extern s32 D_80192840;
@@ -14,7 +14,7 @@ s32 func_8004E4E4(void) {
     s32 var_a0;
 
     osCreateMesgQueue(&sp10, &sp28, 1);
-    func_8007CF98(5, &sp10, 1);
+    osSetEventMesg(5, &sp10, 1);
     var_s0 = &D_80192820;
     func_80088048(&sp10, &sp2C, &D_80192820);
     var_a0 = 0;

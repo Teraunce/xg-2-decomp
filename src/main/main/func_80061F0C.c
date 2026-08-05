@@ -2,7 +2,7 @@
 #include "audio.h"
 
 /*
- * func_80061F0C / func_80061F34 / func_80061F38 — SFX slot-index resolver
+ * func_80061F0C / sfxSlotResolve / func_80061F38 — SFX slot-index resolver
  *
  * func_80061F38 resolves four magic negative sentinel values into real heap
  * indices before any access to gSfxHeap (gSfxHeap):
@@ -14,24 +14,24 @@
  *   slotSpec == -1  →  gSfxActiveCount
  *   slotSpec >= 0   →  slotSpec        (pass-through)
  *
- * func_80061F34 is the label name for the same function (4-byte-aligned
+ * sfxSlotResolve is the label name for the same function (4-byte-aligned
  * padding precedes the real entry at func_80061F38).
  *
- * func_80061F0C is a thin wrapper around func_80061CF0 that passes
+ * func_80061F0C is a thin wrapper around sfxFormatName that passes
  * a3=0, sp+0x10=0, sp+0x14=1 while forwarding a0–a2 unchanged.
  */
 
 extern s32 gSfxActiveCount;  /* 0x80092CB8  s32 active-heap entry count */
 extern s32 gSfxMaxIndex;     /* 0x80092CBC  s32 highest occupied heap index */
 
-void func_80061CF0(s32 a0, s32 a1, s32 a2, s32 a3, s32 extra1, s32 extra2);
+void sfxFormatName(s32 a0, s32 a1, s32 a2, s32 a3, s32 extra1, s32 extra2);
 
 /* -------------------------------------------------------------------------
- * func_80061F34 / func_80061F38
+ * sfxSlotResolve / func_80061F38
  * Resolve a symbolic slot index to a concrete index into gSfxHeap.
  * Called before every heap access that may use sentinel values.
  * ------------------------------------------------------------------------- */
-s32 func_80061F34(s32 slotSpec) {
+s32 sfxSlotResolve(s32 slotSpec) {
     s32 idx;
 
     if (slotSpec == -4) {
@@ -63,9 +63,9 @@ s32 func_80061F34(s32 slotSpec) {
 
 /* -------------------------------------------------------------------------
  * func_80061F0C
- * Wrapper: call func_80061CF0 with fixed last three args (0, 0, 1).
+ * Wrapper: call sfxFormatName with fixed last three args (0, 0, 1).
  * a0/a1/a2 are forwarded from the caller.
  * ------------------------------------------------------------------------- */
 void func_80061F0C(s32 a0, s32 a1, s32 a2) {
-    func_80061CF0(a0, a1, a2, 0, 0, 1);
+    sfxFormatName(a0, a1, a2, 0, 0, 1);
 }

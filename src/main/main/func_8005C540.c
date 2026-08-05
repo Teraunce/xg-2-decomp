@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_8005C010();                                  /* extern */
 void __osInvalICache_full();                                  /* extern */
-s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osAiRawStartDma(s32, s32);                          /* extern */
 void func_80086A44(void *);                               /* extern */
 void osSpTaskStart(s32);                               /* extern */
@@ -26,7 +26,7 @@ s32 func_8005C540(void) {
         var_s0 = 0;
         if (D_800927D8 > 0) {
             do {
-                func_8007CD08(&D_8017EFC8, 0, 0);
+                osRecvMesg(&D_8017EFC8, 0, 0);
                 var_s0 += 1;
             } while (var_s0 < D_800927D8);
         }

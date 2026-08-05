@@ -1,8 +1,8 @@
 #include "ultra64.h"
 s32 osVirtualToPhysical(u32);                             /* extern */
-void func_8007DA18(Unk*);                               /* extern */
-void func_8007DA48(Unk*, void**);                       /* extern */
-s32 func_8008E518(Unk*, s32, s32, s32, s32, s32, s32);  /* extern */
+void __osTimerUnlink(Unk*);                               /* extern */
+void __osTimerInsert(Unk*, void**);                       /* extern */
+s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);  /* extern */
 extern s32 D_800927D8;
 extern s32 D_8017EFC8;
 extern s32 D_8017F448;
@@ -45,9 +45,9 @@ block_4:
     temp_s1 = D_80181E30.unk8;
     temp_a0 = temp_s1;
     D_80181E30.unk8 = (void *) temp_s1->unk0;
-    func_8007DA18(temp_a0);
+    __osTimerUnlink(temp_a0);
     if (var_s0_2 != NULL) {
-        func_8007DA48(temp_s1, var_s0_2);
+        __osTimerInsert(temp_s1, var_s0_2);
         var_s0 = arg0 & 1;
     } else {
         temp_s0 = D_80181E30.unk4;
@@ -69,6 +69,6 @@ block_4:
     temp_a0_2 = (D_800927D8 * 0x18) + &D_8017F448;
     temp_s1->unkC = (s32) D_801816A8;
     D_800927D8 += 1;
-    func_8008E518(temp_a0_2, 0, 0, temp_s3, temp_s2, 0x300, &D_8017EFC8);
+    spTaskSubmit(temp_a0_2, 0, 0, temp_s3, temp_s2, 0x300, &D_8017EFC8);
     return osVirtualToPhysical(temp_s2) + var_s0;
 }

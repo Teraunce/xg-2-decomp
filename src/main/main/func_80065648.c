@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_80065838 (initial). */
 
-void func_80065618(void *);                            /* extern */
+void copyU16Array(void *);                            /* extern */
 extern f64 D_8004C0E0;
 extern s32 gHexDigits;
 
@@ -12,7 +12,7 @@ void func_80065648(Unk *arg0) {
     do {
         var_a0 += 2;
     } while (*var_a0 != 0);
-    func_80065618(var_a0 - 2);
+    copyU16Array(var_a0 - 2);
 }
 
 s32 func_80065670(Unk *arg0) {

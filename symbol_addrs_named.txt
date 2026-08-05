@@ -45,3 +45,146 @@ gameMainThread = 0x8004E0F8; // type:func // main thread: init VI, load overlay,
 gameMainLoop_setup = 0x8004E21C; // type:func // setup queues, VI retrace, controller, main game loop
 osViSetMode = 0x80087318; // type:func // sets VI mode from D_80095640 mode table
 osViSetYScale = 0x80087388; // type:func // sets VI y-scale value (arg0)
+
+// ---- Message queue / thread / scheduler ----
+osRecvMesg = 0x8007CD08; // type:func // receive from message queue; blocks if empty and arg2==OS_MESG_BLOCK
+osSendMesg = 0x8007CE48; // type:func // send to message queue; blocks if full and arg2==OS_MESG_BLOCK
+osStartThread = 0x8007D0E8; // type:func // make thread runnable; may preempt current thread
+osDestroyThread = 0x8007C848; // type:func // remove thread from all-thread list; dispatch if self
+osGetTime = 0x8007C948; // type:func // read hardware 64-bit timer (Count + base offset)
+__osGetCount = 0x8007C9D8; // type:func // mfc0 $v0, $9 — read COP0 Count register
+osSetEventMesg = 0x8007CF98; // type:func // register message to send on event (event table entry)
+osSetIntMask = 0x8007C7A8; // type:func // set hardware interrupt mask bits (osIntMask + MI + COP0)
+__osEnqueueWait = 0x8007C484; // type:func // save running thread context, block on wait queue (alabel in func_8007C0F4)
+__osEnqueueThread = 0x8007C584; // type:func // insert thread into priority queue by unk4 (alabel in func_8007C0F4)
+__osPopQueue = 0x8007C5CC; // type:func // pop head thread from queue (alabel in func_8007C0F4)
+__osDispatchThread = 0x8007C5DC; // type:func // context-switch to head of run queue (alabel in func_8007C0F4)
+
+// ---- Timer ----
+osSetTimer = 0x8007E734; // type:func // insert OSTimer into sorted timer list with countdown
+osStopTimer = 0x8007E858; // type:func // remove timer from list, return remaining countdown
+__osTimerUnlink = 0x8007DA18; // type:func // unlink node from doubly-linked timer list
+__osTimerInsert = 0x8007DA48; // type:func // insert node into doubly-linked timer list
+
+// ---- Math / graphics ----
+cosf = 0x80079DB8; // type:func // libm cosf (float cosine)
+sinf = 0x8007B5A8; // type:func // libm sinf (float sine)
+guMtxF2L = 0x8007A758; // type:func // pack float 4x4 matrix to N64 fixed-point Mtx (16.16)
+guMtxIdent = 0x8007A858; // type:func // set 4x4 matrix to identity
+vec3Cross = 0x80057B74; // type:func // 3D cross product: arg2 = arg0 × arg1 (Unk*.unk0/4/8)
+vec3CrossEdge = 0x80057AC4; // type:func // cross product of two edge vectors (B-A) × (C-A)
+
+// ---- Audio ----
+sfxQueueCmd = 0x8005CCE0; // type:func // enqueue SFX command into audio ring buffer; returns cmd ID
+sfxFrameTick = 0x80063100; // type:func // increment gSfxFrameState per-frame counter
+
+// ---- Message queue / thread / scheduler ----
+osRecvMesg = 0x8007CD08; // type:func // receive from message queue; blocks if empty and arg2==OS_MESG_BLOCK
+osSendMesg = 0x8007CE48; // type:func // send to message queue; blocks if full and arg2==OS_MESG_BLOCK
+osStartThread = 0x8007D0E8; // type:func // make thread runnable; may preempt current thread
+osDestroyThread = 0x8007C848; // type:func // remove thread from all-thread list; dispatch if self
+osGetTime = 0x8007C948; // type:func // read hardware 64-bit timer (Count + base offset)
+__osGetCount = 0x8007C9D8; // type:func // mfc0 $v0, $9 — read COP0 Count register
+osSetEventMesg = 0x8007CF98; // type:func // register message to send on event (event table entry)
+osSetIntMask = 0x8007C7A8; // type:func // set hardware interrupt mask bits (osIntMask + MI + COP0)
+__osEnqueueWait = 0x8007C484; // type:func // save running thread context, block on wait queue (alabel in func_8007C0F4)
+__osEnqueueThread = 0x8007C584; // type:func // insert thread into priority queue by unk4 (alabel in func_8007C0F4)
+__osPopQueue = 0x8007C5CC; // type:func // pop head thread from queue (alabel in func_8007C0F4)
+__osDispatchThread = 0x8007C5DC; // type:func // context-switch to head of run queue (alabel in func_8007C0F4)
+
+// ---- Timer ----
+osSetTimer = 0x8007E734; // type:func // insert OSTimer into sorted timer list with countdown
+osStopTimer = 0x8007E858; // type:func // remove timer from list, return remaining countdown
+__osTimerUnlink = 0x8007DA18; // type:func // unlink node from doubly-linked timer list
+__osTimerInsert = 0x8007DA48; // type:func // insert node into doubly-linked timer list
+
+// ---- Math / graphics ----
+cosf = 0x80079DB8; // type:func // libm cosf (float cosine)
+sinf = 0x8007B5A8; // type:func // libm sinf (float sine)
+guMtxF2L = 0x8007A758; // type:func // pack float 4x4 matrix to N64 fixed-point Mtx (16.16)
+guMtxIdent = 0x8007A858; // type:func // set 4x4 matrix to identity
+vec3Cross = 0x80057B74; // type:func // 3D cross product: arg2 = arg0 x arg1 (Unk*.unk0/4/8)
+vec3CrossEdge = 0x80057AC4; // type:func // cross product of two edge vectors (B-A) x (C-A)
+
+// ---- Audio ----
+sfxQueueCmd = 0x8005CCE0; // type:func // enqueue SFX command into audio ring buffer; returns cmd ID
+sfxFrameTick = 0x80063100; // type:func // increment gSfxFrameState per-frame counter
+
+// ---- Controller / SI ----
+osContPakRead = 0x80089EF8; // type:func // read 32-byte sector from controller pak via SI DMA (queue, ch, addr, buf)
+osContPakWrite = 0x80088C98; // type:func // write 32-byte sector to controller pak via SI DMA (queue, ch, addr, buf, verify)
+contPakRepairId = 0x80089E84; // type:func // write pad-id byte to pak identification area (addr 0x400)
+__siInit = 0x80087D28; // type:func // init SI message queue, set siInitialized flag
+__siLock = 0x80087D78; // type:func // GETTER_NOJR: load siInitialized, fall through to __siAcquire
+__siAcquire = 0x80087D80; // type:func // init SI if needed, block on SI message queue (acquire bus)
+__siUnlock = 0x80087DBC; // type:func // release SI bus (osSendMesg to SI queue)
+
+// ---- Math / geometry ----
+vec3Normalize = 0x80056788; // type:func // normalize 3D vector (*arg0,*arg1,*arg2) in-place; entry past bltz debug trap
+
+// ---- Audio / SFX ----
+sfxMarkEntityActive = 0x800620CC; // type:func // set SFX_TYPE_ACTIVE + state=3 for all slots matching entity ptr
+sfxEventDequeue = 0x800828C8; // type:func // pop next pending SFX event slot from gPendingFlushFlag->unk2C
+sfxEventEnqueue = 0x800828B0; // type:func // push SFX event slot onto gPendingFlushFlag->unk2C
+sfxFlushTimers = 0x80082850; // type:func // move all expired timers from arg0->unk14 back to timer list
+
+// ---- SRAM ----
+sramStartDma = 0x80075B78; // type:func // start SRAM DMA (writes to 0xB1FFFFxx backup RAM registers)
+
+// ---- SFX / audio subsystem ----
+sfxHasEntity = 0x8006216C; // type:func // returns 1 if any SFX heap slot has matching entity ptr
+sfxGetEntity = 0x800621C0; // type:func // get entity ptr from SFX heap by slot spec; optionally return type
+sfxPlay = 0x80063878; // type:func // trigger SFX by ID: insert into priority queue, assign channel
+sfxGetEntry = 0x800639B0; // type:func // index D_801823D0 SFX definition table by (ID & 0xFFFF)
+sfxMapId = 0x80061894; // type:func // map SFX ID through locale offset table (0x11->0x22, 0x1E->0x23)
+audioStreamReadByte = 0x8007DC58; // type:func // read next byte from compressed audio byte stream (RLE decode)
+
+// ---- RSP / display list ----
+spTaskSubmit = 0x8008E518; // type:func // fill OSTask struct (type 0xB/0xC), send to RSP message queue
+gfxSpTaskWait = 0x8004D138; // type:func // flush DCache, submit GFX RSP task (type 0), recv msg, invalidate
+renderLineStrip = 0x8006114C; // type:func // emit G_LINE3D DL cmd from gLineVtxBuf/gLineVtxIdx
+
+// ---- Overlay / memory ----
+overlayDecompress = 0x8004D7A0; // type:func // decompress overlay binary: lookup, expand, invalidate ICache
+
+// ---- Game / entity handler ----
+gameHandlerSetup = 0x80070BCC; // type:func // init D_801887D0 handler fields, call entityManagerInit
+
+// ---- SFX heap ----
+sfxHeapInsert = 0x80061FB4; // type:func // priority-sorted insert of entity into gSfxHeap; shifts up, increments gSfxActiveCount
+
+// ---- Controller pak ----
+contPakReadNoteDir = 0x80089A68; // type:func // read sector 1 (note dir) from controller pak; repair ID if dirty
+contPakReadNote = 0x8008B088; // type:func // read note data from controller pak by index and address
+
+// ---- Math / matrix ----
+mtxCopyTranslate = 0x80056ADC; // type:func // copy 4x4 float matrix; add (arg2, arg3, arg4) to unk30/34/38
+sqrtfWrap = 0x8007A288; // type:func // thin wrapper: return sqrtf(arg0)
+
+// ---- Controller pak ----
+contPakReadWriteNote = 0x80089B64; // type:func // read or write 8 controller pak sectors (arg2: 0=read, 1=write) with checksum
+
+// ---- Exception handler ----
+__osException = 0x8007BE58; // type:func // N64 exception/interrupt handler (handwritten privileged asm; copied to vectors by osInitialize)
+
+// ---- Audio ----
+audioQueueStop = 0x8005CE14; // type:func // push type-3 (stop) command to audio ring queue
+
+// ---- Math / matrix ----
+guMtxScaleF2L = 0x80057884; // type:func // scale float 4x4 matrix by D_8004BDA8 and pack to N64 Mtx fixed-point layout
+
+// ---- Controller pak ----
+contPakChecksum = 0x800891F4; // type:func // compute controller pak checksum: sum + ~sum over 0x1C bytes
+
+// ---- String / array utils ----
+copyU16Array = 0x80065618; // type:func // copy u16 array from arg1 to arg0 until null terminator
+
+// ---- VI / double-buffer ----
+viSwapBuffers = 0x8005AA98; // type:func // wait for VI retrace, toggle double-buffer, call func_8005A978
+
+// ---- SFX slot ----
+sfxSlotResolve = 0x80061F34; // type:func // resolve slotSpec to heap index (-4=0, -3=maxIdx, -2=allocCount, etc.)
+sfxFormatName = 0x80061CF0; // type:func // build u16 string with format substitutions (0x25=%,0x31-33 tokens)
+
+// ---- Controller pak ----
+contPakWriteNote = 0x8008A994; // type:func // write note entry to controller pak (validates idx, reads dir, writes sectors)

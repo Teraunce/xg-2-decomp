@@ -1,6 +1,6 @@
 #include "ultra64.h"
-void func_8007DA18(Unk*);                            /* extern */
-void func_8007DA48(Unk*, void**);                    /* extern */
+void __osTimerUnlink(Unk*);                            /* extern */
+void __osTimerInsert(Unk*, void**);                    /* extern */
 extern u32 D_801816A8;
 extern Unk D_80181E30;
 
@@ -16,14 +16,14 @@ void func_8005C010(void) {
                 if ((Unk *)D_80181E30.unk4 == var_s0) {
                     D_80181E30.unk4 = temp_s1;
                 }
-                func_8007DA18(var_s0);
+                __osTimerUnlink(var_s0);
                 if (D_80181E30.unk8 == 0) {
                     D_80181E30.unk8 = var_s0;
                     var_s0->unk0 = 0;
                     var_s0->unk4 = 0;
                     goto block_10;
                 }
-                func_8007DA48(var_s0, D_80181E30.unk8);
+                __osTimerInsert(var_s0, D_80181E30.unk8);
                 var_s0 = temp_s1;
             } else {
 block_10:

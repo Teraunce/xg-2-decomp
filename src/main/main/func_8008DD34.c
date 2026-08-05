@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_8007C584(void *, s32);                          /* extern */
-s32 func_8007C5CC(void *);                          /* extern */
+s32 __osEnqueueThread(void *, s32);                          /* extern */
+s32 __osPopQueue(void *);                          /* extern */
 extern s32 __osRunQueue;
 extern Unk D_801899E8;
 
@@ -18,7 +18,7 @@ void func_8008DD34(void) {
         *(s32*)(s32)(sp28->unk14 + (temp_hi * 4)) = (s32)sp2C->unk4;
         sp28->unk8 = (s32) (sp28->unk8 + 1);
         if (((Unk*)(s32)sp28->unk0)->unk0 != 0) {
-            func_8007C584(&__osRunQueue, func_8007C5CC(sp28));
+            __osEnqueueThread(&__osRunQueue, __osPopQueue(sp28));
         }
     }
 }

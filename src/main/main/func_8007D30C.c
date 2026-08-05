@@ -10,8 +10,8 @@ typedef struct {
     /* 0x1C */ s32 unk1C;
 } UnkStruct_sp24;
 
-s32 func_8007C9D8();                                /* extern */
-s32 func_8007CE48(Unk*, s32, s32);                       /* extern */
+s32 __osGetCount();                                /* extern */
+s32 osSendMesg(Unk*, s32, s32);                       /* extern */
 void func_8007D47C(s32, u32);                          /* extern */
 u32 func_8007D4F0(void*);                            /* extern */
 void func_8007D678();                              /* extern */
@@ -40,7 +40,7 @@ loop_1:
             D_80189A98 = 0;
             return;
         }
-        sp20 = func_8007C9D8();
+        sp20 = __osGetCount();
         sp1C = sp20 - D_80189A98;
         D_80189A98 = sp20;
         temp_t6 = sp24->unk10;
@@ -58,7 +58,7 @@ loop_1:
         sp24->unk4 = 0;
         temp_t6_2 = sp24->unk18;
         if (temp_t6_2 != 0) {
-            func_8007CE48(temp_t6_2, sp24->unk1C, 0);
+            osSendMesg(temp_t6_2, sp24->unk1C, 0);
         }
         temp_t8 = sp24->unk8;
         temp_t9_2 = sp24->unkC;

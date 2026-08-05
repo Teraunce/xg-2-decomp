@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80082850(Unk*);                            /* extern */
+void sfxFlushTimers(Unk*);                            /* extern */
 extern f64 D_8004CEB0;
 extern char *gPendingFlushFlag;
 
@@ -84,6 +84,6 @@ char *func_80082900(char *arg0, s32 *arg1, s32 arg2, s32 arg3) {
         } while (var_s3 > 0);
     }
     *arg1 = (s32) (((char*)var_s4) - arg0) >> 3;
-    func_80082850(temp_s1);
+    sfxFlushTimers(temp_s1);
     return var_s4;
 }

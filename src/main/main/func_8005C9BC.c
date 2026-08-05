@@ -40,7 +40,7 @@ extern s32 D_80181580;
  */
 void func_8005C9BC(void) { /* nonmatching — see asm stub */ }
 
-s32 func_8005CCE0(s16 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
+s32 sfxQueueCmd(s16 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     s32 temp_a0;
     s32 temp_v0;
     s32 var_t0;
@@ -91,7 +91,7 @@ void func_8005CD90(s32 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     }
 }
 
-void func_8005CE14(s32 arg0) {
+void audioQueueStop(s32 arg0) {
     s32 var_a2;
     Unk *temp_v1;
 

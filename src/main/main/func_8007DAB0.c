@@ -204,7 +204,7 @@ void func_8007DBB8(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     } while (var_v0 != 0x10);
 }
 
-u8 func_8007DC58(s32 arg0, s32 arg1) {
+u8 audioStreamReadByte(s32 arg0, s32 arg1) {
     u8 *temp_a3;
     u8 *temp_a3_3;
     u8 temp_a0;

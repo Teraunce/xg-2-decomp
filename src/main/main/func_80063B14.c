@@ -2,8 +2,8 @@
 /* Warning: missing "jr $ra" in last block of func_80063B94 (initial). */
 
 u16 func_80063730(s32);                             /* extern */
-void func_80063878(u16);                               /* extern */
-s32 func_800639B0(s32);                             /* extern */
+void sfxPlay(u16);                               /* extern */
+s32 sfxGetEntry(s32);                             /* extern */
 s32 func_80063A3C(s32, s32);                        /* extern */
 extern s32 gSfxDefTable;
 extern s32 D_801823E0;
@@ -17,8 +17,8 @@ s32 func_80063B14(u32 arg0) {
         var_v0 = 0;
         if (temp_s0 != 0) {
             var_v0 = temp_s0;
-            if (func_80063A3C(arg0, func_800639B0(temp_s0)) == 0) {
-                func_80063878(temp_s0);
+            if (func_80063A3C(arg0, sfxGetEntry(temp_s0)) == 0) {
+                sfxPlay(temp_s0);
                 goto block_4;
             }
         }

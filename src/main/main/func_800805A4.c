@@ -34,7 +34,7 @@ extern void *func_80080438(void *node, u8 b, u8 c, u8 d);
 extern void *func_800803C4(void *node, u8 b, u8 c);
 extern void  func_80090AE8(void *a0, void *a1, void *stk);
 extern f32   func_80086698(s16 cents);
-extern void  func_8007E734(void *a, void *cmd_stk, s32 c);
+extern void  osSetTimer(void *a, void *cmd_stk, s32 c);
 extern s32   func_8007FF5C(void *node, void *ctx);
 extern void  func_8007FFE4(void *a, void *b, s32 c);
 extern void  func_80086418(void *a, void *b, s32 c, s32 d);
@@ -159,7 +159,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
                     stk_cmd = 0x16;
                     stk_ptr = s0;
                     stk_val = stk84;
-                    func_8007E734(s5, &stk_cmd, jalr_ret);
+                    osSetTimer(s5, &stk_cmd, jalr_ret);
                     *(u8 *)((u8 *)s0 + 0x37) |= 1;
                 }
             }
@@ -189,7 +189,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
                     stk_ptr = s0;
                     stk_ch  = cmd_low;
                     stk_val = stk84;
-                    func_8007E734(s5, &stk_cmd, jalr_ret);
+                    osSetTimer(s5, &stk_cmd, jalr_ret);
                     *(u8 *)((u8 *)s0 + 0x37) |= 2;
                 }
             }
@@ -223,7 +223,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
             stk_ptr = (u8 *)s0 + 4;
             stk_ch  = *(u8  *)((u8 *)inner0 + 0xD);
             stk_val = *(s32 *)((u8 *)inner0 + 4);
-            func_8007E734(s5, &stk_cmd, *(s32 *)inner0);
+            osSetTimer(s5, &stk_cmd, *(s32 *)inner0);
         }
         return;
     }

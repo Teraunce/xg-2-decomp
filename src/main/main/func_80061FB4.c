@@ -6,7 +6,7 @@
  *
  * The SFX subsystem maintains a fixed-stride array of SfxSortEntry structs
  * at gSfxHeap (gSfxHeap, overlay segment, 0x0C bytes each).  Entries are
- * kept in insertion-priority order: func_80061FB4 shifts existing entries up
+ * kept in insertion-priority order: sfxHeapInsert shifts existing entries up
  * to open a slot at the requested position, then writes the new entry.
  *
  * Globals (main BSS):
@@ -21,25 +21,25 @@ extern s32 gSfxMaxIndex;        /* 0x80092CBC */
 extern s32 gSfxAllocCount;      /* 0x80092CC0 */
 extern SfxSortEntry gSfxHeap[]; /* 0x80182348 */
 
-s32 func_80061F34(s32);  /* slot-index resolver (func_80061F0C.c) */
+s32 sfxSlotResolve(s32);  /* slot-index resolver (func_80061F0C.c) */
 
 /* -------------------------------------------------------------------------
- * func_80061FB4
+ * sfxHeapInsert
  * Priority-sorted insert of a new entity into gSfxHeap.
  *
  *   entity     — the sound-source entity pointer stored at heap[slot].entity
- *   slotSpec   — requested heap position (resolved via func_80061F34)
+ *   slotSpec   — requested heap position (resolved via sfxSlotResolve)
  *   flags      — bit 0: if set, update gSfxAllocCount = slot after insert
  *
  * The function shifts all entries from [slot .. gSfxActiveCount-1] up by one
  * to make room, writes the new entry, then increments gSfxActiveCount.
  * gSfxAllocCount and gSfxMaxIndex are also bumped if they would overlap.
  * ------------------------------------------------------------------------- */
-void func_80061FB4(void *entity, s32 slotSpec, s32 flags) {
+void sfxHeapInsert(void *entity, s32 slotSpec, s32 flags) {
     s32 slot;
     s32 i;
 
-    slot = func_80061F34(slotSpec);
+    slot = sfxSlotResolve(slotSpec);
 
     /* Keep gSfxAllocCount and gSfxMaxIndex above the insertion point. */
     if (gSfxAllocCount >= slot) {
@@ -69,13 +69,13 @@ void func_80061FB4(void *entity, s32 slotSpec, s32 flags) {
 }
 
 /* -------------------------------------------------------------------------
- * func_800620CC
+ * sfxMarkEntityActive
  * Mark all heap entries that match 'entity' as active:
  *   type  |= SFX_TYPE_ACTIVE  (bit 2)
  *   state  = 3
  * Multiple entries can share the same entity pointer; all are marked.
  * ------------------------------------------------------------------------- */
-void func_800620CC(void *entity) {
+void sfxMarkEntityActive(void *entity) {
     s32 i;
     s32 count = gSfxActiveCount;
 
@@ -116,10 +116,10 @@ void func_8006211C(void *entity) {
 }
 
 /* -------------------------------------------------------------------------
- * func_8006216C
+ * sfxHasEntity
  * Return 1 if any heap entry matches 'entity', 0 if not found.
  * ------------------------------------------------------------------------- */
-s32 func_8006216C(void *entity) {
+s32 sfxHasEntity(void *entity) {
     s32 i;
     s32 count = gSfxActiveCount;
 

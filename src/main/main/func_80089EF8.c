@@ -1,15 +1,15 @@
 #include "ultra64.h"
-s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
-s32 func_80087D78();                                  /* extern */
-void func_80087DBC();                                  /* extern */
+s32 __siLock();                                  /* extern */
+void __siUnlock();                                  /* extern */
 u8 func_800890C8(u8*);                           /* extern */
 void func_8008A114(s32, u16);                          /* extern */
 s32 func_8008C788(s32, s32);                        /* extern */
 extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
 
-s32 func_80089EF8(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
+s32 osContPakRead(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
     Unk *sp = NULL; /* $sp base — used as Unk byte-ptr into local stack (nonmatching) */
     s32 sp2E = 0; /* sp+0x2E — stack slot read before write (nonmatching) */
     s32 sp52 = 0; /* sp+0x52 — stack slot read before write (nonmatching) */
@@ -30,14 +30,14 @@ s32 func_80089EF8(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
     sp5C = 0;
     sp54 = &D_8018ADB8;
     sp28 = 2;
-    func_80087D78();
+    __siLock();
     D_8018AD68 = 2;
     func_8008A114(arg1, arg2);
     sp5C = osSiRawStartDma(1, &D_8018ADB8);
-    func_8007CD08(arg0, 0, 1);
+    osRecvMesg(arg0, 0, 1);
 loop_1:
     sp5C = osSiRawStartDma(0, &D_8018ADB8);
-    func_8007CD08(arg0, 0, 1);
+    osRecvMesg(arg0, 0, 1);
     sp54 = &D_8018ADB8;
     if (arg1 != 0) {
         sp58 = 0;
@@ -68,7 +68,7 @@ loop_1:
         if (sp27 != sp52) {
             sp5C = func_8008C788(arg0, arg1);
             if (sp5C != 0) {
-                func_80087DBC();
+                __siUnlock();
             } else {
                 sp5C = 4;
                 goto block_15;
@@ -87,7 +87,7 @@ loop_1:
         sp5C = 1;
 block_15:
         if ((sp5C != 4) || (sp28 -= 1, ((sp28 >= 0) == 0))) {
-            func_80087DBC();
+            __siUnlock();
         } else {
             goto loop_1;
         }

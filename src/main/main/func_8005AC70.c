@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void func_8005AA64(Unk*, s32, s32);                       /* extern */
-void func_8005AA98(Unk*);                               /* extern */
+void viSwapBuffers(Unk*);                               /* extern */
 s32 func_8005AB28();                                  /* extern */
 extern s32 D_8017CE08;
 extern s16 D_8017D2EE;
@@ -52,7 +52,7 @@ void func_8005AC70(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
             var_v0_2 = var_s4 & 1;
             if (!(var_s4 & 0x100)) {
                 if (sp1034 >= sp1038) {
-                    func_8005AA98(&sp1028);
+                    viSwapBuffers(&sp1028);
                 }
                 temp_v0 = *(sp1034 + (sp1030 << 0xA) + &D_80190000);
                 sp1034 += 1;
@@ -62,7 +62,7 @@ void func_8005AC70(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
             if (var_v0_2 != 0) {
                 var_a0 = &sp10 + var_s0;
                 if (sp1034 >= sp1038) {
-                    func_8005AA98(&sp1028);
+                    viSwapBuffers(&sp1028);
                     var_a0 = &sp10 + var_s0;
                 }
                 var_s0 = (var_s0 + 1) & 0xFFF;
@@ -74,13 +74,13 @@ void func_8005AC70(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
                 var_s2 += 1;
             } else {
                 if (sp1034 >= sp1038) {
-                    func_8005AA98(&sp1028);
+                    viSwapBuffers(&sp1028);
                 }
                 temp_a0 = *(sp1034 + (sp1030 << 0xA) + &D_80190000);
                 temp_v1 = sp1034 + 1;
                 sp1034 = temp_v1;
                 if (temp_v1 >= sp1038) {
-                    func_8005AA98(&sp1028);
+                    viSwapBuffers(&sp1028);
                 }
                 var_a1 = 0;
                 temp_v0_3 = *(sp1034 + (sp1030 << 0xA) + &D_80190000);

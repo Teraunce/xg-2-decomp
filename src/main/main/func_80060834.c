@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);        /* extern */
-void func_8007D0E8(Unk*);                               /* extern */
+void osStartThread(Unk*);                               /* extern */
 extern s32 gLineTexPtr;
 extern s32 D_80092CAC;
 extern s32 D_80174730;
@@ -17,7 +17,7 @@ void func_80060834(s32 arg0) {
     D_80181E40.unk0 = arg0;
     D_80181E40.unk4 = &D_80174730;
     osCreateThread(&D_80178458, 5, &func_800602A0, &D_80181E40, &D_80178450, 8);
-    func_8007D0E8(&D_80178458);
+    osStartThread(&D_80178458);
 }
 
 void func_800608C8(s32 arg1, s8 arg2, s8 arg3, u16 arg4, u16 arg5, u16 arg6) {

@@ -4,7 +4,7 @@ s32 func_80071108(s32, s32);                          /* extern */
 void func_800716E4(s32, s32);                       /* extern */
 s32 func_80072340(s32, s32, s32);                     /* extern */
 s32 func_8008AD98(void *, s32, void *);              /* extern */
-s32 func_8008B088(void *, u16, s32, s32, s32, s32*); /* extern */
+s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 s32 func_8008B5B8(void *, s32*);                   /* extern */
 s32 func_8008B708(void *, s32*, s32*);              /* extern */
 extern u16 gContPakNoteCode;
@@ -48,7 +48,7 @@ loop_2:
     var_s1 = 0;
     if (D_801887D0.unk168 != 0) {
         temp_s0_3 = (arg1 * 0x68) + (&D_801887D0 + 0x17C);
-        if ((func_8008B088(temp_s0_3, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp4C) == 0) && (func_8008AD98(temp_s0_3, sp4C, &sp20) == 0)) {
+        if ((contPakReadNote(temp_s0_3, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp4C) == 0) && (func_8008AD98(temp_s0_3, sp4C, &sp20) == 0)) {
             var_s1 = sp20;
             sp48 -= 1;
         }

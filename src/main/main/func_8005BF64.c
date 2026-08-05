@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 heap_alloc_default(s32);                               /* extern */
-void func_8007DA48(Unk*, void**);                       /* extern */
+void __osTimerInsert(Unk*, void**);                       /* extern */
 extern s32 D_801816B0;
 extern Unk D_80181E30;
 extern s32 func_8005BDF0;
@@ -16,7 +16,7 @@ char *func_8005BF64(void **arg0) {
         var_s0 = &D_801816B0;
         var_s1 = &D_801816B0 + 0x14;
         do {
-            func_8007DA48(var_s1, var_s0);
+            __osTimerInsert(var_s1, var_s0);
             var_s0->unk10 = heap_alloc_default(0x300);
             var_s0 += 0x14;
             var_s2 += 1;

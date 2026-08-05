@@ -6,10 +6,10 @@ typedef struct {
     /* 0x38 */ f32 unk38;
 } UnkStruct_arg0;
 
-void func_8007A858(char *);                         /* extern */
+void guMtxIdent(char *);                         /* extern */
 
 void func_8007B7D8(UnkStruct_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3) {
-    func_8007A858(arg0);
+    guMtxIdent(arg0);
     arg0->unk30 = arg1;
     arg0->unk34 = arg2;
     arg0->unk38 = arg3;

@@ -1,15 +1,15 @@
 #include "ultra64.h"
-s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
-s32 func_80087D78();                                  /* extern */
-void func_80087DBC();                                  /* extern */
+s32 __siLock();                                  /* extern */
+void __siUnlock();                                  /* extern */
 void func_80088E9C(s32, u16, u8*);                     /* extern */
 u8 func_800890C8(u8*);                             /* extern */
 s32 func_8008C788(s32, s32);                        /* extern */
 extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
 
-s32 func_80088C98(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
+s32 osContPakWrite(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
     s32 sp5C;
     s32 sp58;
     char *sp54;
@@ -29,14 +29,14 @@ s32 func_80088C98(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
     if ((arg4 != 1) && ((s32) arg2 < 7) && (arg2 != 0)) {
         return 0;
     }
-    func_80087D78();
+    __siLock();
     D_8018AD68 = 3;
     func_80088E9C(arg1, arg2, arg3);
     sp5C = osSiRawStartDma(1, &D_8018ADB8);
-    func_8007CD08(arg0, 0, 1);
+    osRecvMesg(arg0, 0, 1);
 loop_5:
     sp5C = osSiRawStartDma(0, &D_8018ADB8);
-    func_8007CD08(arg0, 0, 1);
+    osRecvMesg(arg0, 0, 1);
     sp54 = &D_8018ADB8;
     if (arg1 != 0) {
         sp58 = 0;
@@ -66,7 +66,7 @@ loop_5:
         if (func_800890C8(arg3) != sp52) {
             sp5C = func_8008C788(arg0, arg1);
             if (sp5C != 0) {
-                func_80087DBC();
+                __siUnlock();
             } else {
                 sp5C = 4;
                 goto block_16;
@@ -78,7 +78,7 @@ loop_5:
         sp5C = 1;
 block_16:
         if ((sp5C != 4) || (sp28 -= 1, ((sp28 >= 0) == 0))) {
-            func_80087DBC();
+            __siUnlock();
         } else {
             goto loop_5;
         }

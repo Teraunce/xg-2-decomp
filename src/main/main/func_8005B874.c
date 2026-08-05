@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8005AA98(Unk*);                            /* extern */
+void viSwapBuffers(Unk*);                            /* extern */
 void func_8005AFC4();                                  /* extern */
 extern s32 D_800925D0;
 extern s32 D_800926D0;
@@ -63,7 +63,7 @@ s16 func_8005B874(s32 arg0) {
                 if (D_8017DF4C == 0) {
                     temp_s0 = D_8017DF44;
                     if ((u32) temp_s0->unkC >= (u32) temp_s0->unk10) {
-                        func_8005AA98(temp_s0);
+                        viSwapBuffers(temp_s0);
                     }
                     temp_v1 = temp_s0->unkC;
                     temp_s0->unkC = (s32) (temp_v1 + 4);
@@ -133,7 +133,7 @@ s16 func_8005B874(s32 arg0) {
                 temp_s0_3 = D_8017DF44;
                 temp_s4 = ~(-1U >> temp_s1);
                 if ((u32) temp_s0_3->unkC >= (u32) temp_s0_3->unk10) {
-                    func_8005AA98(temp_s0_3);
+                    viSwapBuffers(temp_s0_3);
                 }
                 temp_v1_4 = temp_s0_3->unkC;
                 temp_a0_3 = *((temp_s0_3->unk8 << 0xA) + temp_v1_4 + &D_80190000);
@@ -155,7 +155,7 @@ s16 func_8005B874(s32 arg0) {
                     if (D_8017DF4C == 0) {
                         temp_s0_4 = D_8017DF44;
                         if ((u32) temp_s0_4->unkC >= (u32) temp_s0_4->unk10) {
-                            func_8005AA98(temp_s0_4);
+                            viSwapBuffers(temp_s0_4);
                         }
                         temp_v1_6 = temp_s0_4->unkC;
                         temp_s0_4->unkC = (s32) (temp_v1_6 + 4);

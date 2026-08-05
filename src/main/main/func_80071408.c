@@ -3,8 +3,8 @@ void func_80061A9C(s8*, s8, s32);                        /* extern */
 s32 func_80061AEC(u8 *, u8 *, s32);                   /* extern */
 s32 func_800884E8(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
 s32 func_8008A288(Unk*, u16, s32, s32, s32);       /* extern */
-s32 func_8008A994(Unk*, s32, u8, s32, s32, char*);    /* extern */
-s32 func_8008B088(void *, u16, s32, s32, s32, s32*); /* extern */
+s32 contPakWriteNote(Unk*, s32, u8, s32, s32, char*);    /* extern */
+s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
 extern s8 D_80093EC8;
@@ -46,8 +46,8 @@ s32 func_80071408(s32 arg0) {
             goto block_8;
         }
         var_v0 = 1;
-        if (func_8008B088(temp_s1, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp68) == 0) {
-            temp_v0_2 = func_8008A994(temp_s1, sp68, 0, 0, 0x20, &sp20);
+        if (contPakReadNote(temp_s1, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp68) == 0) {
+            temp_v0_2 = contPakWriteNote(temp_s1, sp68, 0, 0, 0x20, &sp20);
             var_v0 = 1;
             if (temp_v0_2 != 6) {
                 var_v0 = 0;
@@ -63,13 +63,13 @@ s32 func_80071408(s32 arg0) {
                         var_v0_2 = &(&sp20)[var_a0];
                     } while (var_a0 < 0x20);
                     temp_s0 = (arg0 * 0x68) + &D_8018894C;
-                    if (func_8008A994(temp_s0, sp68, 1, 0, 0x20, &sp40) != 0) {
+                    if (contPakWriteNote(temp_s0, sp68, 1, 0, 0x20, &sp40) != 0) {
                         var_s5 = 0;
                     }
-                    if (func_8008A994(temp_s0, sp68, 0, 0, 0x20, &sp40) != 0) {
+                    if (contPakWriteNote(temp_s0, sp68, 0, 0, 0x20, &sp40) != 0) {
                         var_s5 = 0;
                     }
-                    if (func_8008A994(temp_s0, sp68, 1, 0, 0x20, &sp20) != 0) {
+                    if (contPakWriteNote(temp_s0, sp68, 1, 0, 0x20, &sp20) != 0) {
                         var_s5 = 0;
                     }
                     var_a0_2 = 0;
@@ -95,7 +95,7 @@ s32 func_80071408(s32 arg0) {
     var_s0 = arg0 * 2;
 block_8:
     temp_s0_2 = ((((var_s0 + arg0) * 4) + arg0) * 8) + &D_8018894C;
-    temp_s5 = func_8008B088(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, &sp68);
+    temp_s5 = contPakReadNote(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, &sp68);
     func_8008A288(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60);
     return temp_s5 == 0;
 }

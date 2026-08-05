@@ -7,13 +7,13 @@
  * Case 0 has a nested inner switch using jtbl_8004CBBC (20 entries);
  *   the sub-index comes from func_8007DD7C writing to stk58 (sp+0x58).
  *
- * Epilogue: result = func_8007E858(obj+0x48, &obj->0x38).
+ * Epilogue: result = osStopTimer(obj+0x48, &obj->0x38).
  *   obj->0x28 = result always; if 0 loop; else obj->0x1C += result.
  *
  * Register map:
  *   s2  = obj
- *   s5  = obj + 0x48   (pkt base; a0 for func_8007E858)
- *   sp+0x50 = &obj->0x38  (a1 for func_8007E858)
+ *   s5  = obj + 0x48   (pkt base; a0 for osStopTimer)
+ *   sp+0x50 = &obj->0x38  (a1 for osStopTimer)
  *
  * jtbl_8004CB5C active entries (24 total):
  *   [0]=0x8007F628  [2,15]=0x8007F958  [5]=0x8007F714  [6]=0x8007F760
@@ -42,8 +42,8 @@ s32   func_80080110(void *a, void *b, s32 c);
 void  func_8007FFE4(void *a, void *b, s32 c);
 void  func_800801B8(void *a, void *b);
 void  func_800813E8(void *a, void *b);
-void  func_8007E734(void *a, void *b, s32 c);
-s32   func_8007E858(void *a, void *b);
+void  osSetTimer(void *a, void *b, s32 c);
+s32   osStopTimer(void *a, void *b);
 void  func_80086188(void *a, void *b);
 void  func_800860D8(void *a, void *b);
 void  func_80086418(void *a, void *b, s32 c, s32 d);
@@ -112,7 +112,7 @@ lbl_loop:
         case 3:
             *(s32 *)((u8 *)obj + 0x2C) = 2;
             stk58 = 0x10;
-            func_8007E734(s5, &stk58, 0x7FFFFFFF);
+            osSetTimer(s5, &stk58, 0x7FFFFFFF);
             goto lbl_epilogue;
 
         /* Sub-cases 17/18/19: func_8007EB18(obj) */
@@ -174,7 +174,7 @@ lbl_loop:
     /* ------------------------------------------------------------------ */
     case 9:
         stk8C = 9;
-        func_8007E734(s5, &stk8C, *(s32 *)((u8 *)obj + 0x5C));
+        osSetTimer(s5, &stk8C, *(s32 *)((u8 *)obj + 0x5C));
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -275,7 +275,7 @@ lbl_loop:
         }
         *(s32 *)((u8 *)obj + 0x2C) = 2;
         stk8C = 0x10;
-        func_8007E734(s5, &stk8C, 0x7FFFFFFF);
+        osSetTimer(s5, &stk8C, 0x7FFFFFFF);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -311,12 +311,12 @@ lbl_loop:
         stk8C = 0x16;
         stk90 = s1;
         stk94 = s4;
-        func_8007E734(s5, &stk8C, fn_ret);
+        osSetTimer(s5, &stk8C, fn_ret);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
     /* Case 0x17: jalr obj->0x74(s4, &stk78); f32 multiply chain;       */
-    /*   func_80086388, func_8007E734.                                    */
+    /*   func_80086388, osSetTimer.                                    */
     /* ------------------------------------------------------------------ */
     case 0x17:
         s4    = *(Unk **)((u8 *)obj + 0x40);
@@ -341,7 +341,7 @@ lbl_loop:
         stk90 = s1;
         stk94 = s4;
         stk98 = *(u8 *)((u8 *)obj + 0x44);
-        func_8007E734(s5, &stk8C, fn_ret);
+        osSetTimer(s5, &stk8C, fn_ret);
         goto lbl_epilogue;
 
     default:
@@ -350,7 +350,7 @@ lbl_loop:
 
 lbl_default:
 lbl_epilogue:
-    result = func_8007E858(s5, sp50);
+    result = osStopTimer(s5, sp50);
     *(s32 *)((u8 *)obj + 0x28) = result;  /* delay slot: stored unconditionally */
     if (result == 0) goto lbl_loop;
     *(s32 *)((u8 *)obj + 0x1C) += result;

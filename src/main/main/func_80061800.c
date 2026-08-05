@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80063878(u16);                               /* extern */
+void sfxPlay(u16);                               /* extern */
 u16 func_80063B0C(s32);                               /* extern */
 extern s32 gLocale;
 extern u16 gLocaleIdx;
@@ -14,7 +14,7 @@ s32 func_80061800(s32 arg0) {
     }
     gLocale = 0;
     if (gLocaleIdx != 0) {
-        func_80063878(gLocaleIdx);
+        sfxPlay(gLocaleIdx);
     }
     temp_v0 = func_80063B0C(0x4E);
     gLocaleIdx = temp_v0;

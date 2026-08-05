@@ -1,9 +1,9 @@
 #include "ultra64.h"
 s32 func_8008896C(void *, s32, s32, s32*, u8, s32*, s32*); /* extern */
-s32 func_80088C98(s32, s32, u16, s32, s32);       /* extern */
-s32 func_80089A68(void *);                          /* extern */
-s32 func_80089B64(Unk*, Unk*, u8, u8);              /* extern */
-s32 func_8008B088(void *, u16, s32, s32, s32, s32*); /* extern */
+s32 osContPakWrite(s32, s32, u16, s32, s32);       /* extern */
+s32 contPakReadNoteDir(void *);                          /* extern */
+s32 contPakReadWriteNote(Unk*, Unk*, u8, u8);              /* extern */
+s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 s32 func_8008B5B8(void *, s32*);                   /* extern */
 
 s32 func_800884E8(Unk *arg0, u16 arg1, s32 arg2, u8 *arg3, u8 *arg4, s32 arg5, s32 *arg6) {
@@ -44,10 +44,10 @@ s32 func_800884E8(Unk *arg0, u16 arg1, s32 arg2, u8 *arg3, u8 *arg4, s32 arg5, s
     if (!(arg0->unk0 & 1)) {
         goto block_48;
     }
-    if (func_80089A68(arg0) == 2) {
+    if (contPakReadNoteDir(arg0) == 2) {
         return 2;
     }
-    sp260 = func_8008B088(arg0, arg1, arg2, arg3, arg4, arg6);
+    sp260 = contPakReadNote(arg0, arg1, arg2, arg3, arg4, arg6);
     if ((sp260 != 0) && (sp260 != 5)) {
         return sp260;
     }
@@ -59,7 +59,7 @@ s32 func_800884E8(Unk *arg0, u16 arg1, s32 arg2, u8 *arg3, u8 *arg4, s32 arg5, s
         return 7;
     }
     if (sp25C != 0) {
-        sp260 = func_8008B088(arg0, 0U, 0, 0, 0, arg6);
+        sp260 = contPakReadNote(arg0, 0U, 0, 0, 0, arg6);
         if ((sp260 != 0) && (sp260 != 5)) {
             return sp260;
         }
@@ -69,7 +69,7 @@ s32 func_800884E8(Unk *arg0, u16 arg1, s32 arg2, u8 *arg3, u8 *arg4, s32 arg5, s
         sp3B = 0;
         if ((s32) arg0->unk64 > 0) {
 loop_21:
-            sp260 = func_80089B64(arg0, &sp15C, 0, sp3B);
+            sp260 = contPakReadWriteNote(arg0, &sp15C, 0, sp3B);
             if (sp260 != 0) {
                 return sp260;
             }
@@ -85,7 +85,7 @@ loop_21:
                 }
                 (sp + (sp268 * 2))->unk5C = sp3B;
                 (sp + (sp268 * 2))->unk5D = (s8) sp274;
-                sp260 = func_80089B64(arg0, &sp5C, 1, sp3A);
+                sp260 = contPakReadWriteNote(arg0, &sp5C, 1, sp3A);
                 if (sp260 != 0) {
                     return sp260;
                 }
@@ -121,7 +121,7 @@ block_36:
         }
         (sp + (sp268 * 2))->unk5C = sp3B;
         (sp + (sp268 * 2))->unk5D = (s8) sp274;
-        sp260 = func_80089B64(arg0, &sp5C, 1, sp3A);
+        sp260 = contPakReadWriteNote(arg0, &sp5C, 1, sp3A);
         if (sp260 != 0) {
             return sp260;
         }
@@ -143,7 +143,7 @@ block_36:
             sp264 = temp_t2;
             arg4 += 1;
         } while (temp_t2 < 4);
-        sp260 = func_80088C98(arg0->unk4, arg0->unk8, *arg6 + arg0->unk5C, &sp3C, 0);
+        sp260 = osContPakWrite(arg0->unk4, arg0->unk8, *arg6 + arg0->unk5C, &sp3C, 0);
         if (sp260 != 0) {
             return sp260;
         }

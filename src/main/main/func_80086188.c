@@ -17,14 +17,14 @@ typedef struct {
     /* 0x08 */ s32 unk8;
 } UnkStruct_temp_v0;
 
-char *func_800828C8();                              /* extern */
+char *sfxEventDequeue();                              /* extern */
 
 void func_80086188(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     UnkStruct_temp_a0 *temp_a0;
     UnkStruct_temp_v0 *temp_v0;
 
     if (arg1->unk8 != 0) {
-        temp_v0 = func_800828C8();
+        temp_v0 = sfxEventDequeue();
         if (temp_v0 != NULL) {
             temp_v0->unk8 = 0xF;
             temp_v0->unk0 = 0;

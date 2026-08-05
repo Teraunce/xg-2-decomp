@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_80056788(f32, f32 *, f32 *);                 /* extern */
-void func_80057B74(Unk*, Unk*, Unk*);               /* extern */
+s32 vec3Normalize(f32, f32 *, f32 *);                 /* extern */
+void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 extern f32 D_8004BDC4;
 extern f32 D_8004BDC8;
 extern f32 D_8004BDCC;
@@ -48,27 +48,27 @@ void func_80058294(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
 block_8:
         var_a0 = &sp70;
     }
-    func_80057B74(var_a0, &sp60, &sp50);
+    vec3Cross(var_a0, &sp60, &sp50);
     var_ft0 = sqrtf((sp50 * sp50) + (sp54 * sp54) + (sp58 * sp58));
     if (var_ft0 == 0.0f) {
         sp68 += D_8004BDCC;
-        func_80057B74(&sp60, &sp50, &sp54);
+        vec3Cross(&sp60, &sp50, &sp54);
         var_ft0 = sqrtf((sp50 * sp50) + (sp54 * sp54) + (sp58 * sp58));
     }
     sp50 /= var_ft0;
     sp58 /= var_ft0;
     sp54 /= var_ft0;
-    func_80057B74(&sp50, &sp60, &sp64);
+    vec3Cross(&sp50, &sp60, &sp64);
     var_ft0_2 = sqrtf((sp60 * sp60) + (sp64 * sp64) + (sp68 * sp68));
     if (var_ft0_2 == 0.0f) {
         sp74 += D_8004BDD0;
-        func_80057B74(&sp50, &sp60, &sp64);
+        vec3Cross(&sp50, &sp60, &sp64);
         var_ft0_2 = sqrtf((sp60 * sp60) + (sp64 * sp64) + (sp68 * sp68));
     }
     sp60 /= var_ft0_2;
     sp68 /= var_ft0_2;
     sp64 /= var_ft0_2;
-    func_80056788(sp70, &sp74, &sp78);
+    vec3Normalize(sp70, &sp74, &sp78);
     arg0->unk0 = sp50;
     arg0->unk4 = sp54;
     arg0->unkC = 0.0f;

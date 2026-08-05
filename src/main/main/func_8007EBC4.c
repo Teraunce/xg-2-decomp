@@ -30,9 +30,9 @@ typedef struct {
     /* 0x08 */ s32 unk8;
 } UnkStruct_var_s1_2;
 
-s32 func_8007C7A8(s32);                             /* extern */
-void func_8007DA18(Unk*);                               /* extern */
-void func_8007DA48(Unk*, void**);                        /* extern */
+s32 osSetIntMask(s32);                             /* extern */
+void __osTimerUnlink(Unk*);                               /* extern */
+void __osTimerInsert(Unk*, void**);                        /* extern */
 void func_8007EB88(void*);                           /* extern */
 
 void func_8007EBC4(UnkStruct_arg1 *arg1) {
@@ -67,9 +67,9 @@ void func_8007EBC4(UnkStruct_arg1 *arg1) {
                     temp_s2 = var_s1->unk0;
                     var_s0 += var_s1->unk8;
                     if (var_s1->unkC == 0x15) {
-                        func_8007DA18(var_s1);
+                        __osTimerUnlink(var_s1);
                         if (var_s3 != NULL) {
-                            func_8007DA48(var_s1, var_s3);
+                            __osTimerInsert(var_s1, var_s3);
                         } else {
                             var_s1->unk0 = NULL;
                             var_s1->unk4 = 0;
@@ -93,18 +93,18 @@ void func_8007EBC4(UnkStruct_arg1 *arg1) {
                     temp_s2_2 = var_s1_2->unk0;
                     var_s0_2 = temp_s4 + 8;
                     var_s1_2->unk8 = (s32) (saved_reg_s7->unk24 * ((s32) var_s1_2->unk8 / temp_fp));
-                    temp_s3 = func_8007C7A8(1);
+                    temp_s3 = osSetIntMask(1);
                     if (temp_s4 != (void *)-8) {
 loop_15:
                         temp_a0 = *var_s0_2;
                         if (temp_a0 == NULL) {
-                            func_8007DA48(var_s1_2, var_s0_2);
+                            __osTimerInsert(var_s1_2, var_s0_2);
                         } else {
                             temp_v0_3 = var_s1_2->unk8;
                             temp_v1_2 = temp_a0->unk8;
                             if (temp_v0_3 < temp_v1_2) {
                                 temp_a0->unk8 = (s32) (temp_v1_2 - temp_v0_3);
-                                func_8007DA48(var_s1_2, var_s0_2);
+                                __osTimerInsert(var_s1_2, var_s0_2);
                             } else {
                                 var_s1_2->unk8 = (s32) (temp_v0_3 - temp_v1_2);
                                 var_s0_2 = *var_s0_2;
@@ -114,7 +114,7 @@ loop_15:
                             }
                         }
                     }
-                    func_8007C7A8(temp_s3);
+                    osSetIntMask(temp_s3);
                     var_s1_2 = temp_s2_2;
                 } while (temp_s2_2 != NULL);
             }

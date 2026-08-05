@@ -1,10 +1,10 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8007B30C (initial). */
 
-f32 func_80079DB8(f32);                             /* extern */
-void func_8007A858(char*);                            /* extern */
+f32 cosf(f32);                             /* extern */
+void guMtxIdent(char*);                            /* extern */
 void func_8007AC98(f32 *, f32 *, f32 *);               /* extern */
-f32 func_8007B5A8(f32);                             /* extern */
+f32 sinf(f32);                             /* extern */
 extern f32 D_8004C878;
 extern f32 D_801897F8;
 
@@ -27,8 +27,8 @@ void func_8007B178(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     func_8007AC98(&arg2, &arg3, &arg4);
     temp_fa0 = arg1 * D_801897F8;
     arg1 = temp_fa0;
-    sp34 = func_8007B5A8(temp_fa0);
-    temp_fv0 = func_80079DB8(arg1);
+    sp34 = sinf(temp_fa0);
+    temp_fv0 = cosf(arg1);
     temp_fv1 = 1.0f - temp_fv0;
     sp30 = temp_fv0;
     temp_ft4 = arg2 * arg3 * temp_fv1;
@@ -36,7 +36,7 @@ void func_8007B178(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     temp_ft5 = arg3 * arg4 * temp_fv1;
     sp28 = temp_ft5;
     sp24 = arg4 * arg2 * temp_fv1;
-    func_8007A858(arg0);
+    guMtxIdent(arg0);
     temp_fv0_2 = arg2 * arg2;
     arg0->unk0 = (f32) (((1.0f - temp_fv0_2) * sp30) + temp_fv0_2);
     arg0->unk24 = (f32) (temp_ft5 - (arg2 * sp34));

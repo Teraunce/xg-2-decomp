@@ -1,5 +1,5 @@
 #include "ultra64.h"
-u8 func_8007DC58(s32, s32);                         /* extern */
+u8 audioStreamReadByte(s32, s32);                         /* extern */
 s32 func_8007DD1C();                                /* extern */
 
 void func_8007DD7C(Unk *arg0, Unk *arg1) {
@@ -40,17 +40,17 @@ void func_8007DD7C(Unk *arg0, Unk *arg1) {
         }
         var_v0 += 1;
     } while (var_v0 != 0x10);
-    temp_v0 = func_8007DC58(arg0, var_t3);
+    temp_v0 = audioStreamReadByte(arg0, var_t3);
     if (temp_v0 == 0xFF) {
-        temp_v0_2 = func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+        temp_v0_2 = audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
         temp_a2_2 = temp_v0_2 & 0xFF;
         if (temp_v0_2 == 0x51) {
             arg1->unk0 = 3;
             arg1->unk8 = (u8)(s32)0 /* implicit $t2 from caller */;
             arg1->unk9 = temp_a2_2;
-            arg1->unkB = func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
-            arg1->unkC = func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
-            arg1->unkD = func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+            arg1->unkB = audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+            arg1->unkC = audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+            arg1->unkD = audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
             ((Unk*)((s32)0 /* implicit $t4 from caller */ + (s32)0 /* implicit $t3 from caller */))->unkA8 = 0;
         } else if (temp_v0_2 == 0x2F) {
             temp_t6 = ((Unk*)0 /* implicit $t4 */)->unk4 ^ (1 << (s32)0 /* implicit $t3 from caller */);
@@ -61,8 +61,8 @@ void func_8007DD7C(Unk *arg0, Unk *arg1) {
                 arg1->unk0 = 4;
             }
         } else if (temp_v0_2 == 0x2E) {
-            func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
-            func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+            audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+            audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
             ((Unk*)((s32)0 /* implicit $t4 from caller */ + (s32)0 /* implicit $t3 from caller */))->unkA8 = 0;
             arg1->unk0 = 0x13;
         } else if (temp_v0_2 == 0x2D) {
@@ -87,7 +87,7 @@ void func_8007DD7C(Unk *arg0, Unk *arg1) {
         arg1->unk0 = 1;
         if (temp_v0 & 0x80) {
             arg1->unk8 = (u8) (temp_v0 & 0xFF);
-            arg1->unk9 = func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+            arg1->unk9 = audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
             ((Unk*)((s32)0 /* implicit $t4 from caller */ + (s32)0 /* implicit $t3 from caller */))->unkA8 = (s8) (s32)0 /* implicit $t2 from caller */;
         } else {
             arg1->unk9 = temp_v0;
@@ -95,7 +95,7 @@ void func_8007DD7C(Unk *arg0, Unk *arg1) {
         }
         temp_t9 = arg1->unk8 & 0xF0;
         if ((temp_t9 != 0xC0) && (temp_t9 != 0xD0)) {
-            arg1->unkA = func_8007DC58((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
+            arg1->unkA = audioStreamReadByte((s32)0 /* implicit $t4 from caller */, (s32)0 /* implicit $t3 from caller */);
             if ((arg1->unk8 & 0xF0) == 0x90) {
                 sp28 = (s32)0 /* implicit $t1 from caller */;
                 sp24 = (s32)0 /* implicit $t3 from caller */;

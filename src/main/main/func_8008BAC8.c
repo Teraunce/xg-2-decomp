@@ -1,10 +1,10 @@
 #include "ultra64.h"
-s32 func_80088C98(s32, s32, u16, s32, s32);       /* extern */
+s32 osContPakWrite(s32, s32, u16, s32, s32);       /* extern */
 s32 func_8008980C(void *);                          /* extern */
-s32 func_80089A68(void *);                          /* extern */
-s32 func_80089B64(void *, u16 (*)[], s32, u8);        /* extern */
-s32 func_80089E84(Unk*);                          /* extern */
-s32 func_80089EF8(s32, s32, u16, u8*);            /* extern */
+s32 contPakReadNoteDir(void *);                          /* extern */
+s32 contPakReadWriteNote(void *, u16 (*)[], s32, u8);        /* extern */
+s32 contPakRepairId(Unk*);                          /* extern */
+s32 osContPakRead(s32, s32, u16, u8*);            /* extern */
 s32 func_8008C18C(void *, void *);                     /* extern */
 s32 func_8008C340(void *, u8, void *);                /* extern */
 
@@ -43,7 +43,7 @@ s32 func_8008BAC8(Unk *arg0) {
     u16 sp37C[256];
     s32 subroutine_arg1 = 0;
     sp34 = 0;
-    sp480 = func_80089A68(arg0);
+    sp480 = contPakReadNoteDir(arg0);
     if (sp480 == 2) {
         sp480 = func_8008980C(arg0);
     }
@@ -57,7 +57,7 @@ s32 func_8008BAC8(Unk *arg0) {
     sp484 = 0;
     if (arg0->unk50 > 0) {
 loop_7:
-        sp480 = func_80089EF8(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C);
+        sp480 = osContPakRead(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C);
         if (sp480 != 0) {
             return sp480;
         }
@@ -70,7 +70,7 @@ loop_7:
 loop_15:
                 if (sp33 != (u8) sp47C) {
                     sp33 = (u8) sp47C;
-                    sp480 = func_80089B64(arg0, (u16 (*)[]) &sp27C[0], 0, (u8) sp47C);
+                    sp480 = contPakReadWriteNote(arg0, (u16 (*)[]) &sp27C[0], 0, (u8) sp47C);
                     if ((sp480 != 0) && (sp480 != 3)) {
                         return sp480;
                     }
@@ -90,12 +90,12 @@ block_24:
                 sp266 = 0;
                 if (arg0->unk65 != 0) {
                     arg0->unk65 = 0U;
-                    sp480 = func_80089E84(arg0);
+                    sp480 = contPakRepairId(arg0);
                     if (sp480 != 0) {
                         return sp480;
                     }
                 }
-                sp480 = func_80088C98(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C, 0);
+                sp480 = osContPakWrite(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C, 0);
                 if (sp480 != 0) {
                     return sp480;
                 }
@@ -112,12 +112,12 @@ block_24:
             sp266 = 0;
             if (arg0->unk65 != 0) {
                 arg0->unk65 = 0U;
-                sp480 = func_80089E84(arg0);
+                sp480 = contPakRepairId(arg0);
                 if (sp480 != 0) {
                     return sp480;
                 }
             }
-            sp480 = func_80088C98(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C, 0);
+            sp480 = osContPakWrite(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C, 0);
             if (sp480 != 0) {
                 return sp480;
             }
@@ -136,7 +136,7 @@ block_41:
     sp484 = 0;
     if (arg0->unk50 > 0) {
 loop_42:
-        sp480 = func_80089EF8(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C);
+        sp480 = osContPakRead(arg0->unk4, arg0->unk8, arg0->unk5C + sp484, &sp25C);
         if (sp480 != 0) {
             return sp480;
         }
@@ -156,7 +156,7 @@ block_50:
     sp33 = 0;
     if ((s32) arg0->unk64 > 0) {
 loop_51:
-        sp480 = func_80089B64(arg0, (u16 (*)[]) &sp27C[0], 0, sp33);
+        sp480 = contPakReadWriteNote(arg0, (u16 (*)[]) &sp27C[0], 0, sp33);
         if ((sp480 != 0) && (sp480 != 3)) {
             return sp480;
         }
@@ -203,7 +203,7 @@ loop_64:
                 sp484 = temp_t0_2;
             } while (temp_t0_2 < arg0->unk50);
         }
-        sp480 = func_80089B64(arg0, (u16 (*)[]) &sp37C[0], 1, sp33);
+        sp480 = contPakReadWriteNote(arg0, (u16 (*)[]) &sp37C[0], 1, sp33);
         if (sp480 != 0) {
             return sp480;
         }

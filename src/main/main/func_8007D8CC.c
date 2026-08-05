@@ -64,7 +64,7 @@ void func_8007D9D0(Unk *arg0, s32 arg1) {
     }
 }
 
-void func_8007DA18(Unk *arg0) {
+void __osTimerUnlink(Unk *arg0) {
     void **temp_v0_2;
     Unk *temp_v0;
 
@@ -78,7 +78,7 @@ void func_8007DA18(Unk *arg0) {
     }
 }
 
-void func_8007DA48(Unk *arg0, void **arg1) {
+void __osTimerInsert(Unk *arg0, void **arg1) {
     Unk *temp_v0;
 
     arg0->unk4 = arg1;

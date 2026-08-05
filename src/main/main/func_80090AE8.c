@@ -1,5 +1,5 @@
 #include "ultra64.h"
-char *func_800828C8(void *);                        /* extern */
+char *sfxEventDequeue(void *);                        /* extern */
 s32 func_80090C38(Unk*, void**, s16);            /* extern */
 
 s32 func_80090AE8(Unk *arg0, Unk *arg1, Unk *arg2) {
@@ -21,13 +21,13 @@ s32 func_80090AE8(Unk *arg0, Unk *arg1, Unk *arg2) {
         if (temp_v0_2 != 0) {
             sp10->unkD8 = 0x200;
             ((Unk *)sp10->unk8)->unk8 = 0;
-            temp_v0_3 = func_800828C8(sp10);
+            temp_v0_3 = sfxEventDequeue(sp10);
             temp_v0_3->unk8 = 0xB;
             temp_v0_3->unkC = 0;
             temp_v0_3->unk4 = (s32) arg0->unk1C;
             temp_v0_3->unk10 = (s32) (sp10->unkD8 - 0x40);
             ((s32(*)())(s32)temp_s1->unk8)(temp_s1, 3, temp_v0_3);
-            temp_v0_4 = func_800828C8(NULL);
+            temp_v0_4 = sfxEventDequeue(NULL);
             if (temp_v0_4 != NULL) {
                 temp_v0_4->unk8 = 0xF;
                 temp_v0_4->unk0 = 0;

@@ -20,13 +20,13 @@ typedef struct {
     /* 0x1B */ s32 unk1B;
 } UnkStruct_sp38;
 
-s32 func_80087D78();                                  /* extern */
-void func_80087DBC();                                  /* extern */
-s32 func_800891F4(s32, u16*, u16*);                 /* extern */
+s32 __siLock();                                  /* extern */
+void __siUnlock();                                  /* extern */
+s32 contPakChecksum(s32, u16*, u16*);                 /* extern */
 s32 func_8008925C(Unk*, Unk*, Unk*);                /* extern */
 s32 func_80089674(Unk*, Unk*);                     /* extern */
-s32 func_80089E84(Unk*);                          /* extern */
-s32 func_80089EF8(s32, s32, u16, u8*);             /* extern */
+s32 contPakRepairId(Unk*);                          /* extern */
+s32 osContPakRead(s32, s32, u16, u8*);             /* extern */
 s32 func_8008BAC8(Unk*);                          /* extern */
 s32 func_8008C788(s32, s32);                        /* extern */
 
@@ -42,9 +42,9 @@ s32 func_8008B858(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     s32 temp_v0;
 
     sp60 = 0;
-    func_80087D78();
+    __siLock();
     sp60 = func_8008C788(arg0, arg2);
-    func_80087DBC();
+    __siUnlock();
     if (sp60 != 0) {
         return sp60;
     }
@@ -52,11 +52,11 @@ s32 func_8008B858(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     arg1->unk8 = arg2;
     arg1->unk0 = 0;
     arg1->unk65 = 0;
-    sp60 = func_80089E84(arg1);
+    sp60 = contPakRepairId(arg1);
     if (sp60 != 0) {
         return sp60;
     }
-    func_800891F4(&sp3C, &sp5E, &sp5C);
+    contPakChecksum(&sp3C, &sp5E, &sp5C);
     sp38 = &sp3C;
     if ((((Unk*)&sp3C)->unk1C != sp5E) || (((Unk*)&sp3C)->unk1E != sp5C)) {
         sp60 = func_80089674(arg1, sp38);
@@ -94,7 +94,7 @@ block_15:
     arg1->unk54 = 8;
     arg1->unk58 = (s32) ((arg1->unk64 * 8) + 8);
     arg1->unk5C = (s32) (arg1->unk58 + (arg1->unk64 * 8));
-    sp60 = func_80089EF8(arg1->unk4, arg1->unk8, 7, arg1 + 0x2C);
+    sp60 = osContPakRead(arg1->unk4, arg1->unk8, 7, arg1 + 0x2C);
     if (sp60 != 0) {
         return sp60;
     }

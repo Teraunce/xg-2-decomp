@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8007A758(char*, char*);                          /* extern */
+void guMtxF2L(char*, char*);                          /* extern */
 void func_8007B878(f32, s32, s32);                       /* extern */
 extern s32 gRunQueueSentinel;
 
@@ -7,7 +7,7 @@ void func_8007BA28(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, f
     s32 sp28;
 
     func_8007B878(arg1, arg2, arg3);
-    func_8007A758(&sp28, arg0);
+    guMtxF2L(&sp28, arg0);
 }
 
 void osWritebackInvalDCache(u32 arg0, s32 arg1) {

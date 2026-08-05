@@ -11,9 +11,9 @@ typedef struct {
     /* 0x65 */ s32 unk65;
 } UnkStruct_arg0;
 
-s32 func_80089A68(UnkStruct_arg0*);                          /* extern */
-s32 func_80089E84(Unk*);                          /* extern */
-s32 func_80089EF8(s32, s32, u16, u8*);            /* extern */
+s32 contPakReadNoteDir(UnkStruct_arg0*);                          /* extern */
+s32 contPakRepairId(Unk*);                          /* extern */
+s32 osContPakRead(s32, s32, u16, u8*);            /* extern */
 
 s32 func_8008B708(UnkStruct_arg0 *arg0, s32 *arg1, s32 *arg2) {
     s32 sp44;
@@ -27,12 +27,12 @@ s32 func_8008B708(UnkStruct_arg0 *arg0, s32 *arg1, s32 *arg2) {
     if (!(arg0->unk0 & 1)) {
         return 5;
     }
-    if (func_80089A68(arg0) == 2) {
+    if (contPakReadNoteDir(arg0) == 2) {
         return 2;
     }
     if (arg0->unk65 != 0) {
         arg0->unk65 = 0U;
-        sp40 = func_80089E84(arg0);
+        sp40 = contPakRepairId(arg0);
         if (sp40 != 0) {
             return sp40;
         }
@@ -40,7 +40,7 @@ s32 func_8008B708(UnkStruct_arg0 *arg0, s32 *arg1, s32 *arg2) {
     sp44 = 0;
     if ((s32)arg0->unk50 > 0) {
 loop_8:
-        sp40 = func_80089EF8(arg0->unk4, arg0->unk8, arg0->unk5C + sp44, &sp20);
+        sp40 = osContPakRead(arg0->unk4, arg0->unk8, arg0->unk5C + sp44, &sp20);
         if (sp40 != 0) {
             return sp40;
         }

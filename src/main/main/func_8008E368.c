@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8008E3B8 (initial). */
 
-s32 func_8007C484(void *);                               /* extern */
+s32 __osEnqueueWait(void *);                               /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 extern s32 __osRunQueue;
@@ -13,7 +13,7 @@ void func_8008E368(void) {
 
     temp_s0 = osDisableInt();
     __osRunningThread->unk10 = 2;
-    func_8007C484(&__osRunQueue);
+    __osEnqueueWait(&__osRunQueue);
     osRestoreInt(temp_s0);
 }
 

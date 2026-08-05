@@ -2,7 +2,7 @@
 void func_8005A978(Unk*);                               /* extern */
 void func_8005AA64(Unk*, s32, s32);                       /* extern */
 void func_800619B0(u32, u32, u32);                  /* extern */
-s32 func_8007CD08(Unk*, s32*, s32);                       /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 extern s32 D_8016DF70;
 extern s32 D_8017CDF8;
 extern s32 D_80190000;
@@ -22,7 +22,7 @@ void func_8005AB80(s32 arg0, s32 arg1, s32 arg2) {
     if (sp24 != 0) {
         do {
             if (D_8017CDF8 != 0) {
-                func_8007CD08(&D_8016DF70, &sp28, 1);
+                osRecvMesg(&D_8016DF70, &sp28, 1);
                 D_8017CDF8 -= 1;
             }
             sp1C = 0;

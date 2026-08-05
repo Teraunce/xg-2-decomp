@@ -1,10 +1,10 @@
 #include "ultra64.h"
-s32 func_8007CE48(Unk*, s32, s32);                  /* extern */
+s32 osSendMesg(Unk*, s32, s32);                  /* extern */
 s32 func_8008E628(Unk*, s32, s32);                  /* extern */
 s32 func_8008E778();                                /* extern */
 extern s32 D_80096480;
 
-s32 func_8008E518(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+s32 spTaskSubmit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     s32 var_v0;
 
     if (D_80096480 == 0) {
@@ -24,7 +24,7 @@ s32 func_8008E518(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
     if (arg1 == 1) {
         var_v0 = func_8008E628(func_8008E778(), arg0, 0);
     } else {
-        var_v0 = func_8007CE48(func_8008E778(), arg0, 0);
+        var_v0 = osSendMesg(func_8008E778(), arg0, 0);
     }
     return var_v0;
 }

@@ -9,7 +9,7 @@ void func_8005CF9C(s32);                               /* extern */
 void osWritebackInvalDCache(u32, s32);                        /* extern */
 void __osInvalICache_full();                                  /* extern */
 void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
-s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 void func_8007D8CC(Unk*, s32);                        /* extern */
 void func_8007DAA4(void *, void *, s32 *, void *);              /* extern */
 void func_8007DAD8(void *, s32, s32);                     /* extern */
@@ -18,7 +18,7 @@ void func_8007EA18(s32, s8, s8);                     /* extern */
 void func_8007FBD8(Unk*, Unk*);                          /* extern */
 void func_800822DC(Unk*, Unk*);                          /* extern */
 s32 func_800866E8(s32);                               /* extern */
-s32 func_8008E518(Unk*, s32, s32, s32, s32, s32, s32);   /* extern */
+s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);   /* extern */
 extern s32 D_8004B660;
 extern s32 D_8004B664;
 extern s32 D_8004B668;
@@ -86,13 +86,13 @@ void func_8005C0BC(void) {
     D_8017F438.unk8 = heap_alloc_default(0x800);
     D_801808F0 = heap_alloc_default(temp_s3);
     __osInvalICache_full();
-    func_8008E518(&D_8017F338, 0, 0, D_8004B670, D_801808F0, temp_s3, &D_8017EFC8);
-    func_8007CD08(&D_8017EFC8, 0, 1);
+    spTaskSubmit(&D_8017F338, 0, 0, D_8004B670, D_801808F0, temp_s3, &D_8017EFC8);
+    osRecvMesg(&D_8017EFC8, 0, 1);
     temp_s3_2 = D_8004B664;
     D_801808F4 = heap_alloc_default(temp_s3_2);
     __osInvalICache_full();
-    func_8008E518(&D_8017F338, 0, 0, D_8004B660, D_801808F4, temp_s3_2, &D_8017EFC8);
-    func_8007CD08(&D_8017EFC8, 0, 1);
+    spTaskSubmit(&D_8017F338, 0, 0, D_8004B660, D_801808F4, temp_s3_2, &D_8017EFC8);
+    osRecvMesg(&D_8017EFC8, 0, 1);
     temp_v0 = func_800866E8(0x5622);
     temp_fv1 = (f32) temp_v0 * D_8004BDE8;
     D_8017F3D8.unk18 = temp_v0;
@@ -142,14 +142,14 @@ void func_8005C0BC(void) {
     D_801808DC = temp_v1->unkC;
     D_801808EC = heap_alloc_default(0x3800);
     __osInvalICache_full();
-    func_8008E518(&D_8017F338, 0, 0, D_8004B680, D_801808EC, 4, &D_8017EFC8);
-    func_8007CD08(&D_8017EFC8, 0, 1);
+    spTaskSubmit(&D_8017F338, 0, 0, D_8004B680, D_801808EC, 4, &D_8017EFC8);
+    osRecvMesg(&D_8017EFC8, 0, 1);
     osWritebackInvalDCache(D_801808EC, 4);
     temp_s1 = *D_801808EC * 0x10;
     temp_v0_2 = heap_alloc_default(temp_s1);
     D_801808F8 = temp_v0_2;
-    func_8008E518(&D_8017F338, 0, 0, D_8004B680 + 8, temp_v0_2, temp_s1, &D_8017EFC8);
-    func_8007CD08(&D_8017EFC8, 0, 1);
+    spTaskSubmit(&D_8017F338, 0, 0, D_8004B680 + 8, temp_v0_2, temp_s1, &D_8017EFC8);
+    osRecvMesg(&D_8017EFC8, 0, 1);
     osWritebackInvalDCache(D_801808F8, temp_s1);
     var_s4_2 = 0;
     func_8005C8D4(D_801839A8);

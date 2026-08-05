@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8007A758(char*, char*);                          /* extern */
+void guMtxF2L(char*, char*);                          /* extern */
 void func_8007B508(void *, f32, f32, s32);                  /* extern */
 extern f32 D_8004C848;
 extern Unk D_8004C898;
@@ -18,10 +18,10 @@ void func_8007B568(f32 arg1, s32 arg0, f32 arg2_ft4) {
     s32 sp18[16];
 
     func_8007B508(&sp18, arg0, arg1, (s32) arg2_ft4);
-    func_8007A758(&sp18, arg0);
+    guMtxF2L(&sp18, arg0);
 }
 
-f32 func_8007B5A8(f32 arg0) {
+f32 sinf(f32 arg0) {
     f64 temp_fa0;
     f64 temp_fa0_2;
     f64 temp_fa1;

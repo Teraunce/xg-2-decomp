@@ -1,8 +1,8 @@
 #include "ultra64.h"
 void func_80061AC8(s32, s32, u32);                       /* extern */
 u16 func_80063730(s32);                             /* extern */
-void func_80063878(u16);                               /* extern */
-s32 func_800639B0(s32);                             /* extern */
+void sfxPlay(u16);                               /* extern */
+s32 sfxGetEntry(s32);                             /* extern */
 s32 func_80070560(u8*, s32);                        /* extern */
 s32 func_800705D0(s32);                               /* extern */
 s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);       /* extern */
@@ -10,9 +10,9 @@ void func_800716E4(s32, s32);                       /* extern */
 s32 func_80072340(s32, s32, s32);                   /* extern */
 s32 func_800884E8(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
 s32 func_8008A288(Unk*, u16, s32, s32, s32);      /* extern */
-s32 func_8008A994(Unk*, s32, u8, s32, s32, char*);     /* extern */
+s32 contPakWriteNote(Unk*, s32, u8, s32, s32, char*);     /* extern */
 s32 func_8008AD98(void *, s32, void *);              /* extern */
-s32 func_8008B088(void *, u16, s32, s32, s32, s32*); /* extern */
+s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
 extern s32 D_80093EC8;
@@ -38,9 +38,9 @@ void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     temp_v0_2 = func_80063730(temp_v0);
     sp44 = temp_v0_2;
     temp_s0 = temp_v0_2 & 0xFFFF;
-    func_80061AC8(func_800639B0(temp_s0), 0xDEADBEEF, temp_v0 >> 2);
-    temp_s0_2 = func_800639B0(temp_s0);
-    temp_s1 = func_800639B0(temp_s0) + temp_v0;
+    func_80061AC8(sfxGetEntry(temp_s0), 0xDEADBEEF, temp_v0 >> 2);
+    temp_s0_2 = sfxGetEntry(temp_s0);
+    temp_s1 = sfxGetEntry(temp_s0) + temp_v0;
     arg3(temp_s0_2);
     *(s32*)((char*)temp_s1 - 4)= func_80070560(temp_s0_2, temp_v0 - 4);
     D_80188940 = 0;
@@ -55,7 +55,7 @@ loop_1:
     }
     if (D_801887D0.unk168 != 0) {
         temp_s0_4 = (arg1 * 0x68) + (&D_801887D0 + 0x17C);
-        temp_v0_3 = func_8008B088(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp40);
+        temp_v0_3 = contPakReadNote(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp40);
         switch (temp_v0_3) {                        /* irregular */
         case 0:
             if (func_80072340(func_8008AD98(temp_s0_4, sp40, &sp20), arg1, temp_v0) == 0) {
@@ -76,7 +76,7 @@ loop_1:
 block_19:
 block_20:
                     if (D_801887D0.unk168 != 0) {
-                        if (func_80072340(func_8008A994((arg1 * 0x68) + (&D_801887D0 + 0x17C), sp40, 1, 0, temp_v0, func_800639B0(sp44)), arg1, temp_v0) == 0) {
+                        if (func_80072340(contPakWriteNote((arg1 * 0x68) + (&D_801887D0 + 0x17C), sp40, 1, 0, temp_v0, sfxGetEntry(sp44)), arg1, temp_v0) == 0) {
                             if (D_801887D0.unk168 == 0) {
                                 goto block_23;
                             }
@@ -105,6 +105,6 @@ block_23:
 block_24:
         func_80070F50(0x56, arg1, 0, 0, 0, 0, 0);
     }
-    func_80063878(sp44);
+    sfxPlay(sp44);
     D_801887D0.unk160 = (s32) (D_801887D0.unk160 - 1);
 }

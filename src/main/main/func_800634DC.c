@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8006364C (initial). */
 
-s32 func_80061894(s32);                               /* extern */
+s32 sfxMapId(s32);                               /* extern */
 void func_80065224(void**);                               /* extern */
 void func_80065274(void**);                               /* extern */
 void func_80065370(void**, s32);                            /* extern */
@@ -20,11 +20,11 @@ void func_800634DC(void) {
     func_80065224(&D_80173CC0);
     if (D_801823C4 != 0) {
         func_80065370(&D_80173CC0, 0);
-        func_80061894(0x48);
+        sfxMapId(0x48);
         var_a1 = &D_8004C050;
         var_a3 = 0x10;
     } else {
-        temp_t2 = func_80061894(0x69);
+        temp_t2 = sfxMapId(0x69);
         var_a1 = &D_8004C058;
         if ((D_801823C8 * 3) < 0) {
 

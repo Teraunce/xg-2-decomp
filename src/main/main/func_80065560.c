@@ -35,7 +35,7 @@ loop_2:
     return var_v0;
 }
 
-void func_80065618(u16 *arg0, u16 *arg1) {
+void copyU16Array(u16 *arg0, u16 *arg1) {
     u16 *var_a0;
     u16 *var_a1;
     u16 var_v0;

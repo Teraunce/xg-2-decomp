@@ -5,7 +5,7 @@ extern u32 gLineTexPtr;
 extern char *D_80173CC0;
 extern s32 *D_801821E8;
 
-void func_8006114C(void **arg0) {
+void renderLineStrip(void **arg0) {
     s32 *var_v1_8;
     s32 temp_v0_10;
     s32 temp_v0_12;

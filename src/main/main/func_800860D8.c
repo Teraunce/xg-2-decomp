@@ -23,7 +23,7 @@ typedef struct {
 } UnkStruct_temp_v0;
 
 void func_80082818(s32, s32);                    /* extern */
-char *func_800828C8(void *, void *);                /* extern */
+char *sfxEventDequeue(void *, void *);                /* extern */
 
 void func_800860D8(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     UnkStruct_temp_a0 *temp_a0;
@@ -33,7 +33,7 @@ void func_800860D8(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     temp_a2 = arg1->unk8;
     if (temp_a2 != NULL) {
         if (temp_a2->unkD8 != 0) {
-            temp_v0 = func_800828C8(temp_a2, arg1);
+            temp_v0 = sfxEventDequeue(temp_a2, arg1);
             if (temp_v0 != NULL) {
                 temp_v0->unk8 = 0;
                 temp_v0->unk4 = (s32) (arg0->unk1C + ((Unk *)arg1->unk8)->unkD8);

@@ -1,10 +1,10 @@
 #include "ultra64.h"
-void func_80056ADC(Unk*, Unk*, f32, f32, f32);           /* extern */
+void mtxCopyTranslate(Unk*, Unk*, f32, f32, f32);           /* extern */
 void func_80056E5C(void *, f32, f32, f32);                /* extern */
 void func_80056EA8(s32, s32, s32);                     /* extern */
-void func_80057884(Unk*, Unk*);                          /* extern */
+void guMtxScaleF2L(Unk*, Unk*);                          /* extern */
 void func_80058294(Unk*, f32, f32, f32, f32, f32, f32); /* extern */
-f32 func_8007B5A8(f32);                             /* extern */
+f32 sinf(f32);                             /* extern */
 extern f32 D_8004C394;
 extern f32 D_8004C398;
 extern f32 D_8004C39C;
@@ -93,8 +93,8 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
             func_80056E5C(&sp20, temp_fv1, temp_fv1, temp_fv0 * (temp_ft1_2 * D_8004C3B0));
             func_80058294(&sp60, arg1->unkC - arg1->unk0, arg1->unk10 - arg1->unk4, arg1->unk14 - arg1->unk8, arg1->unk18, arg1->unk1C, arg1->unk20);
             func_80056EA8(&sp20, &sp60, &spA0);
-            func_80056ADC(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
-            func_80057884(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
+            mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
+            guMtxScaleF2L(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
             temp_a0 = D_80173CC0 + 8;
             D_80173CC0->unk0 = 0xDA380003;
             D_80173CC0->unk4 = (void *) (D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
@@ -131,8 +131,8 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
         func_80056E5C(&sp20, D_8004C3B4, D_8004C3B4, 2.0f);
         func_80058294(&sp60, arg0->unk340, arg0->unk344, arg0->unk348, arg1->unk18, arg1->unk1C, arg1->unk20);
         func_80056EA8(&sp20, &sp60, &spA0);
-        func_80056ADC(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
-        func_80057884(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
+        mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
+        guMtxScaleF2L(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
         temp_a3 = D_80173CC0;
         temp_a0_2 = D_80173CC0 + 8;
         temp_a2 = D_8017C118 << 7;
@@ -144,7 +144,7 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
         temp_a3->unk4 = (s32) (temp_v1_3 + (gPlayerList << 6));
         D_80173CC0 = temp_a0_2 + 8;
         D_80173CC0->unk8 = 0xFA000000;
-        temp_fv0_3 = arg0->unk648 * (((func_8007B5A8((f32) gPlayerList2 * D_8004C3B8) + D_8004C3BC) * D_8004C3C0) + D_8004C3C0);
+        temp_fv0_3 = arg0->unk648 * (((sinf((f32) gPlayerList2 * D_8004C3B8) + D_8004C3BC) * D_8004C3C0) + D_8004C3C0);
         if (D_8004C3C4 <= temp_fv0_3) {
             var_t0 = (s32) (temp_fv0_3 - D_8004C3C4) | 0x80000000;
         } else {

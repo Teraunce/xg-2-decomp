@@ -11,9 +11,9 @@ typedef struct {
     /* 0x10 */ s32 unk10;
 } UnkStruct_var_s0;
 
-s32 func_8007C7A8(s32);                             /* extern */
-void func_8007DA18(Unk*);                            /* extern */
-void func_8007DA48(Unk*, void**);                    /* extern */
+s32 osSetIntMask(s32);                             /* extern */
+void __osTimerUnlink(Unk*);                            /* extern */
+void __osTimerInsert(Unk*, void**);                    /* extern */
 
 void func_80081D08(void) {
     Unk *saved_reg_s2 = NULL; /* implicit $s2 set by caller — not saved/restored here */
@@ -23,7 +23,7 @@ void func_80081D08(void) {
     UnkStruct_var_s0 *var_s0;
 
     var_s0 = saved_reg_s2->unk8;
-    temp_s4 = func_8007C7A8(1);
+    temp_s4 = osSetIntMask(1);
     if (var_s0 != NULL) {
         do {
             temp_s1 = var_s0->unk0;
@@ -31,11 +31,11 @@ void func_80081D08(void) {
                 if (temp_s1 != NULL) {
                     temp_s1->unk8 = (s32) (temp_s1->unk8 + var_s0->unk8);
                 }
-                func_8007DA18(var_s0);
-                func_8007DA48(var_s0, saved_reg_s2);
+                __osTimerUnlink(var_s0);
+                __osTimerInsert(var_s0, saved_reg_s2);
             }
             var_s0 = temp_s1;
         } while (temp_s1 != NULL);
     }
-    func_8007C7A8(temp_s4);
+    osSetIntMask(temp_s4);
 }

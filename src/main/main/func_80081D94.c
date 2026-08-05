@@ -2,9 +2,9 @@
 
 /*
  * func_80081D94 — per-frame update dispatcher for an audio/animation node.
- *   Loops calling func_8007E858 until it returns nonzero.
+ *   Loops calling osStopTimer until it returns nonzero.
  *   Dispatches on s16 type field (obj+0x28) via jtbl_8004CE70 (9 entries).
- *   type==5 is caught before table lookup; type>=9 skips func_8007E858.
+ *   type==5 is caught before table lookup; type>=9 skips osStopTimer.
  *
  * Jump table: jtbl_8004CE70
  *   [0]=0x80081E30  [1]=0x80081F98  [2]=0x80082064  [3]=0x80082148
@@ -12,7 +12,7 @@
  *   [7]=0x80082258  [8]=0x80082120
  *
  * Object offsets used:
- *   +0x14 s7 = sub-ptr A (a0 for func_8007E858 / func_8007E734)
+ *   +0x14 s7 = sub-ptr A (a0 for osStopTimer / osSetTimer)
  *   +0x28 s4 = s16 type / also base for s4 sub-pointer
  *   +0x2C s5 = sub-object pointer
  *   +0x38    = sub-ptr B (a0 for engine helpers)
@@ -36,11 +36,11 @@ void  func_80086558(void *a, void *b, s32 vol);
 void  func_80086418(void *a, void *b, s32 pitch, s32 c);
 void  func_80086388(void *a, void *b, f32 rate);
 void  func_800864B8(void *a, void *b, s32 fine);
-void  func_8007E734(void *node, void *pkt, s32 param);
+void  osSetTimer(void *node, void *pkt, s32 param);
 void  func_80086188(void *a, void *b);
 void  func_800860D8(void *a, void *b);
 void  func_80081D08(void);
-s32   func_8007E858(void *a, void *b);
+s32   osStopTimer(void *a, void *b);
 
 extern f64 D_8004CE68;
 extern f64 D_8004CE98;
@@ -75,7 +75,7 @@ next_frame:
     /* type==5: send hard-coded "5" packet */
     if (type == 5) {
         pkt2_cmd = 5;
-        func_8007E734(s7, &pkt2_cmd, *(s32 *)((u8 *)obj + 0x48));
+        osSetTimer(s7, &pkt2_cmd, *(s32 *)((u8 *)obj + 0x48));
         goto lbl_epilogue;
     }
 
@@ -124,7 +124,7 @@ next_frame:
         a2   = (fv0 < D_8004CE68) ? (s32)fv0 : 0x7FFFFFFF;
         pkt_cmd = 6;
         pkt_sub = s5;
-        func_8007E734(s7, &pkt_cmd, a2);
+        osSetTimer(s7, &pkt_cmd, a2);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -143,7 +143,7 @@ next_frame:
         if (s0 != 0) {
             pkt_cmd = 7;
             pkt_sub = s5;
-            func_8007E734(s7, &pkt_cmd, s0);
+            osSetTimer(s7, &pkt_cmd, s0);
             *(s32 *)((u8 *)s5 + 0x28) = 2;
             goto lbl_done;
         }
@@ -216,7 +216,7 @@ next_frame:
         func_80086418(*(void **)((u8 *)obj + 0x38), s5, a2, s0);
         pkt_cmd = (s16)fp;
         pkt_sub = s5;
-        func_8007E734(s7, &pkt_cmd, s0);
+        osSetTimer(s7, &pkt_cmd, s0);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -245,7 +245,7 @@ lbl_done:
     /* a0=s7, falls through to lbl_epilogue */
 
 lbl_epilogue:
-    result = func_8007E858(s7, s4);
+    result = osStopTimer(s7, s4);
     if (result == 0) goto next_frame;
     *(s32 *)((u8 *)obj + 0x4C) = result;
     *(s32 *)((u8 *)obj + 0x50) += result;

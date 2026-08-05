@@ -2,8 +2,8 @@
 s32 func_80061924();                                /* extern */
 void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
-s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
-void func_8007CF98(s32, s32, s32);                      /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
+void osSetEventMesg(s32, s32, s32);                      /* extern */
 s32 func_80087BC8(s32);                               /* extern */
 void func_80087C4C(s32);                               /* extern */
 s32 func_8008C898(void *);                             /* extern */
@@ -47,7 +47,7 @@ void func_80072E00(s32 arg0) {
     u32 var_v0;
 
     var_fp = 0;
-    func_8007CF98(5, &D_801887A0, &D_8017C890);
+    osSetEventMesg(5, &D_801887A0, &D_8017C890);
     if (arg0 != 0) {
         gInitStateFlags = 1;
     }
@@ -107,7 +107,7 @@ block_32:
                             osWritebackDCache(&D_80192860, 0x10);
                             var_fp = 1;
                             func_80087BC8(&D_801887A0);
-                            func_8007CD08(&D_801887A0, 0, 1);
+                            osRecvMesg(&D_801887A0, 0, 1);
                             osWritebackInvalDCache(&D_8018AD28, 0x40);
                             func_80087C4C(&D_80192860);
                         }
@@ -148,7 +148,7 @@ block_32:
                     osWritebackDCache(&D_80192860, 0x10);
                     var_fp = 1;
                     func_80087BC8(&D_801887A0);
-                    func_8007CD08(&D_801887A0, 0, 1);
+                    osRecvMesg(&D_801887A0, 0, 1);
                     osWritebackInvalDCache(&D_8018AD28, 0x40);
                     func_80087C4C(&D_80192860);
                 }
@@ -212,7 +212,7 @@ block_72:
         var_a3 = 1;
     }
     D_80093F08 = var_a3;
-    func_8007CF98(5, D_80188770, &D_8017C890);
+    osSetEventMesg(5, D_80188770, &D_8017C890);
 }
 
 void func_800732D8(Unk *arg0, s32 arg1, s32 arg2) {

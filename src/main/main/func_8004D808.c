@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8004D138(s32, s32, s32);                     /* extern */
+void gfxSpTaskWait(s32, s32, s32);                     /* extern */
 void func_8004D65C(Unk*, Unk*, s32);                /* extern */
 void __osInvalICache_full();                                  /* extern */
 extern f32 D_8004BB00;
@@ -22,7 +22,7 @@ s32 *func_8004D808(Unk *arg0) {
 
     temp_a2 = arg0->unk4;
     if ((s32) &D_803DA400 >= (gDLWritePtr + temp_a2)) {
-        func_8004D138(arg0->unk0, gDLWritePtr, temp_a2);
+        gfxSpTaskWait(arg0->unk0, gDLWritePtr, temp_a2);
         temp_s0 = gDLWritePtr + (arg0->unk8 & 0xFFFFFF);
         func_8004D65C(temp_s0, arg0, gDLWritePtr);
         *temp_s0 = gDLWritePtr + (*temp_s0 & 0xFFFFFF);

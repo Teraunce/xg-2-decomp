@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8007DA48(Unk*, void**);                       /* extern */
+void __osTimerInsert(Unk*, void**);                       /* extern */
 
 void func_8007E8E4(Unk *arg0, s32 arg1, s32 arg2) {
     s32 var_s0;
@@ -14,7 +14,7 @@ void func_8007E8E4(Unk *arg0, s32 arg1, s32 arg2) {
     if (arg2 > 0) {
         var_s1 = arg1;
         do {
-            func_8007DA48(var_s1, arg0);
+            __osTimerInsert(var_s1, arg0);
             var_s0 += 1;
             var_s1 += 0x1C;
         } while (var_s0 != arg2);

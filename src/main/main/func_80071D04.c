@@ -2,7 +2,7 @@
 void func_800716E4(s32, s32);                       /* extern */
 void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
-s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 func_80087BC8(s32);                               /* extern */
 void func_80087C4C(s32);                               /* extern */
 s32 func_8008B248(s32, u8*);                       /* extern */
@@ -23,7 +23,7 @@ void func_80071D04(s32 *arg0) {
 
     osWritebackDCache(&D_80192860, 0x10);
     func_80087BC8(&D_801887A0);
-    func_8007CD08(&D_801887A0, 0, 1);
+    osRecvMesg(&D_801887A0, 0, 1);
     osWritebackInvalDCache(&D_8018AD28, 0x40);
     func_80087C4C(&D_80192860);
     if (func_8008B248(&D_801887A0, &sp10) == 0) {

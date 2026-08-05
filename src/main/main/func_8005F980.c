@@ -5,7 +5,7 @@ s32 heap_alloc_default(s32);                               /* extern */
 void func_8005C88C(s32);                                 /* extern */
 void func_8005C8D4(s32);                               /* extern */
 void func_8005C8EC(s32, s32);                              /* extern */
-s32 func_8005CCE0(s32, s32, s32, s32, s32);                   /* extern */
+s32 sfxQueueCmd(s32, s32, s32, s32, s32);                   /* extern */
 void func_8005F838();                                  /* extern */
 void func_8005FF44(s32);                                 /* extern */
 s32 func_80061800(s32);                               /* extern */
@@ -99,7 +99,7 @@ void func_8005F980(s32 arg0) {
                     func_8005C88C(0x15);
                     D_80092B64 = 1;
 block_14:
-                    func_8005CCE0(0xE, 0x3F800000, 0x10000, 0x40, 0);
+                    sfxQueueCmd(0xE, 0x3F800000, 0x10000, 0x40, 0);
                     func_800C9138(&D_800E3848, 0);
                     var_v1 = (s32 *)0x80090000;
                 } else {
@@ -114,7 +114,7 @@ block_16:
                 func_8005FF44(0);
                 var_v1 = (s32 *)0x80090000;
             } else {
-                func_8005CCE0(0xE, 0x3F800000, 0x10000, 0x40, 0);
+                sfxQueueCmd(0xE, 0x3F800000, 0x10000, 0x40, 0);
                 func_800CD200();
                 var_v1 = &gSfxSavedState;
             }

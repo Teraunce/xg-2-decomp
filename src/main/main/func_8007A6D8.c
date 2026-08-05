@@ -1,15 +1,15 @@
 #include "ultra64.h"
 void func_8007A298(Unk *, Unk *, f32, f32, f32, f32, f32, f32, f32, f32, f32); /* extern */
-void func_8007A758(char *arg0, char *arg1);            /* static */
+void guMtxF2L(char *arg0, char *arg1);            /* static */
 
 void func_8007A6D8(char *arg0, s32 arg2, s32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10) {
     s32 sp38;
 
     func_8007A298(arg3, &sp38, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
-    func_8007A758(&sp38, arg0);
+    guMtxF2L(&sp38, arg0);
 }
 
-void func_8007A758(char *arg0, char *arg1) {
+void guMtxF2L(char *arg0, char *arg1) {
     char *var_a3;
     Unk *var_t0;
     f32 var_ft4;
@@ -57,7 +57,7 @@ void func_8007A758(char *arg0, char *arg1) {
     } while (var_a2 != 4);
 }
 
-void func_8007A858(char *arg0) {
+void guMtxIdent(char *arg0) {
     s32 var_v0;
     Unk *var_v1;
 

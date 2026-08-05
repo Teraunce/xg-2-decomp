@@ -1,6 +1,6 @@
 #include "ultra64.h"
-f32 func_80079DB8(f32);                             /* cosf */
-f32 func_8007B5A8(f32);                             /* sinf */
+f32 cosf(f32);                             /* cosf */
+f32 sinf(f32);                             /* sinf */
 extern f32 D_80189818;
 
 /*
@@ -25,12 +25,12 @@ void func_8007B890(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     f32 temp_fv0;
 
     /* arg2 *= scale_fv0; arg3 *= scale_fv0; D_80189818 = scale_fv0; (at entry) */
-    temp_fs0 = func_8007B5A8(arg1);
-    temp_fs1 = func_80079DB8(arg1);
-    sp40 = func_8007B5A8(arg2);
-    sp34 = func_80079DB8(arg2);
-    sp3C = func_8007B5A8(arg3);
-    temp_fv0 = func_80079DB8(arg3);
+    temp_fs0 = sinf(arg1);
+    temp_fs1 = cosf(arg1);
+    sp40 = sinf(arg2);
+    sp34 = cosf(arg2);
+    sp3C = sinf(arg3);
+    temp_fv0 = cosf(arg3);
     arg0->unk0 = (f32) (sp34 * temp_fv0 * arg4);
     arg0->unk4 = (f32) (sp34 * sp3C * arg4);
     arg0->unkC = 0.0f;

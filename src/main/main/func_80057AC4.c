@@ -2,13 +2,13 @@
 extern f32 D_8004BDAC;
 
 /*
- * func_80057AC4 — compute cross product of two edge vectors (nonmatching).
+ * vec3CrossEdge — compute cross product of two edge vectors (nonmatching).
  *
  * Caller pre-computes arg1->unk0 - arg0->unk0 and passes it in $fv0/$f0.
  * sp0 captures that value from the stack save at function entry.
  * Written to be self-contained (computes unk0 delta here for readability).
  */
-void func_80057AC4(Unk *arg0, Unk *arg1, Unk *arg2, Unk *arg3) {
+void vec3CrossEdge(Unk *arg0, Unk *arg1, Unk *arg2, Unk *arg3) {
     /* B = arg1 - arg0 */
     f32 sp0 = arg1->unk0 - arg0->unk0;   /* caller passed this in $fv0 */
     f32 sp4 = arg1->unk4 - arg0->unk4;
@@ -23,7 +23,7 @@ void func_80057AC4(Unk *arg0, Unk *arg1, Unk *arg2, Unk *arg3) {
     arg3->unk8 = (f32) ((sp0 * sp14) - (sp4 * sp10));
 }
 
-void func_80057B74(Unk *arg0, Unk *arg1, Unk *arg2) {
+void vec3Cross(Unk *arg0, Unk *arg1, Unk *arg2) {
     f32 temp_ft0;
 
     arg2->unk0 = (f32) ((arg0->unk4 * arg1->unk8) - (arg0->unk8 * arg1->unk4));

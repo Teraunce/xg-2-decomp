@@ -1,10 +1,10 @@
 #include "ultra64.h"
-s32 func_80088C98(s32, s32, u16, s32, s32);      /* extern */
+s32 osContPakWrite(s32, s32, u16, s32, s32);      /* extern */
 u16 func_80089198(u8*, s32);                      /* extern */
-s32 func_80089E84(Unk*);                          /* extern */
-s32 func_80089EF8(s32, s32, u16, u8*);           /* extern */
+s32 contPakRepairId(Unk*);                          /* extern */
+s32 osContPakRead(s32, s32, u16, u8*);           /* extern */
 
-s32 func_80089B64(Unk *arg0, Unk *arg1, u8 arg2, u8 arg3) {
+s32 contPakReadWriteNote(Unk *arg0, Unk *arg1, u8 arg2, u8 arg3) {
     u8 sp37;
     s32 sp30;
     s32 sp2C;
@@ -22,7 +22,7 @@ s32 func_80089B64(Unk *arg0, Unk *arg1, u8 arg2, u8 arg3) {
 
     if (arg0->unk65 != 0) {
         arg0->unk65 = 0U;
-        sp2C = func_80089E84(arg0);
+        sp2C = contPakRepairId(arg0);
         if (sp2C != 0) {
             return sp2C;
         }
@@ -40,10 +40,10 @@ loop_9:
     temp_t2 = arg1 + (sp30 << 5);
     sp24 = temp_t2;
     if (arg2 == 1) {
-        sp2C = func_80088C98(arg0->unk4, arg0->unk8, arg0->unk54 + (arg3 * 8) + sp30, temp_t2, 0);
-        var_v0 = func_80088C98(arg0->unk4, arg0->unk8, arg0->unk58 + (arg3 * 8) + sp30, sp24, 0);
+        sp2C = osContPakWrite(arg0->unk4, arg0->unk8, arg0->unk54 + (arg3 * 8) + sp30, temp_t2, 0);
+        var_v0 = osContPakWrite(arg0->unk4, arg0->unk8, arg0->unk58 + (arg3 * 8) + sp30, sp24, 0);
     } else {
-        var_v0 = func_80089EF8(arg0->unk4, arg0->unk8, arg0->unk54 + (arg3 * 8) + sp30, sp24);
+        var_v0 = osContPakRead(arg0->unk4, arg0->unk8, arg0->unk54 + (arg3 * 8) + sp30, sp24);
     }
     sp2C = var_v0;
     if (sp2C != 0) {
@@ -59,7 +59,7 @@ loop_9:
                 do {
                     temp_t6 = arg1 + (sp30 << 5);
                     sp24 = temp_t6;
-                    sp2C = func_80089EF8(arg0->unk4, arg0->unk8, arg0->unk58 + (arg3 * 8) + sp30, temp_t6);
+                    sp2C = osContPakRead(arg0->unk4, arg0->unk8, arg0->unk58 + (arg3 * 8) + sp30, temp_t6);
                     temp_t4 = sp30 + 1;
                     sp30 = temp_t4;
                 } while (temp_t4 < 8);
@@ -70,7 +70,7 @@ loop_9:
                 do {
                     temp_t5_2 = arg1 + (sp30 << 5);
                     sp24 = temp_t5_2;
-                    sp2C = func_80088C98(arg0->unk4, arg0->unk8, arg0->unk54 + (arg3 * 8) + sp30, temp_t5_2, 0);
+                    sp2C = osContPakWrite(arg0->unk4, arg0->unk8, arg0->unk54 + (arg3 * 8) + sp30, temp_t5_2, 0);
                     temp_t0 = sp30 + 1;
                     sp30 = temp_t0;
                 } while (temp_t0 < 8);
@@ -80,7 +80,7 @@ loop_9:
             do {
                 temp_t1 = arg1 + (sp30 << 5);
                 sp24 = temp_t1;
-                sp2C = func_80088C98(arg0->unk4, arg0->unk8, arg0->unk58 + (arg3 * 8) + sp30, temp_t1, 0);
+                sp2C = osContPakWrite(arg0->unk4, arg0->unk8, arg0->unk58 + (arg3 * 8) + sp30, temp_t1, 0);
                 temp_t3 = sp30 + 1;
                 sp30 = temp_t3;
             } while (temp_t3 < 8);

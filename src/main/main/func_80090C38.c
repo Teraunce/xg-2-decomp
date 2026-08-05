@@ -1,6 +1,6 @@
 #include "ultra64.h"
-void func_8007DA18(Unk*);                            /* extern */
-void func_8007DA48(Unk*, void**);                    /* extern */
+void __osTimerUnlink(Unk*);                            /* extern */
+void __osTimerInsert(Unk*, void**);                    /* extern */
 
 s32 func_80090C38(Unk *arg0, void **arg1, s16 arg2) {
     s16 var_a2;
@@ -14,8 +14,8 @@ s32 func_80090C38(Unk *arg0, void **arg1, s16 arg2) {
     var_s2 = 0;
     if ((var_s0 != NULL) || (var_s0 = arg0->unk4, (var_s0 != NULL))) {
         *arg1 = var_s0;
-        func_8007DA18(var_s0);
-        func_8007DA48(var_s0, arg0 + 0xC);
+        __osTimerUnlink(var_s0);
+        __osTimerInsert(var_s0, arg0 + 0xC);
         return 0;
     }
     var_s0_2 = arg0->unkC;

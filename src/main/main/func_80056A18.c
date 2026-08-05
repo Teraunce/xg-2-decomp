@@ -38,7 +38,7 @@ void func_80056A90(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk3C = (f32) D_8004BD90;
 }
 
-void func_80056ADC(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4) {
+void mtxCopyTranslate(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4) {
     if (arg0 != arg1) {
         arg1->unk0 = (f32) arg0->unk0;
         arg1->unk4 = (f32) arg0->unk4;

@@ -7,10 +7,10 @@ typedef struct {
     /* 0x65 */ s32 unk65;
 } UnkStruct_arg0;
 
-s32 func_80089E84(Unk*);                          /* extern */
-s32 func_80089EF8(s32, s32, u16, u8*);                /* extern */
+s32 contPakRepairId(Unk*);                          /* extern */
+s32 osContPakRead(s32, s32, u16, u8*);                /* extern */
 
-s32 func_80089A68(UnkStruct_arg0 *arg0) {
+s32 contPakReadNoteDir(UnkStruct_arg0 *arg0) {
     Unk *sp = (Unk*)0;
     s32 sp3C;
     s32 sp1C[9];
@@ -19,15 +19,15 @@ s32 func_80089A68(UnkStruct_arg0 *arg0) {
 
     if (arg0->unk65 != 0) {
         arg0->unk65 = 0U;
-        sp18 = func_80089E84(arg0);
+        sp18 = contPakRepairId(arg0);
         if (sp18 != 0) {
             return sp18;
         }
     }
-    sp18 = func_80089EF8(arg0->unk4, arg0->unk8, 1, &sp1C);
+    sp18 = osContPakRead(arg0->unk4, arg0->unk8, 1, &sp1C);
     switch (sp18) {                                 /* irregular */
     case 2:
-        sp18 = func_80089EF8(arg0->unk4, arg0->unk8, 1, &sp1C);
+        sp18 = osContPakRead(arg0->unk4, arg0->unk8, 1, &sp1C);
         if (sp18 != 0) {
             return sp18;
         }

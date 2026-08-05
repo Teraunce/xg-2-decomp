@@ -3,9 +3,9 @@ void osCreateMesgQueue(Unk*, s32, s32);                     /* extern */
 void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);    /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
-void func_8007CF98(s32, s32, s32);                         /* extern */
+void osSetEventMesg(s32, s32, s32);                         /* extern */
 void func_8007D008(Unk*, s32);                            /* extern */
-void func_8007D0E8(Unk*);                               /* extern */
+void osStartThread(Unk*);                               /* extern */
 s32 func_80087138(char*);                               /* extern */
 void func_8008E458();                                  /* extern */
 extern char *D_80096480;
@@ -32,7 +32,7 @@ void osEPiLoad(s32 arg0, char *arg1, char *arg2, s32 arg3) {
         if (D_800964B0 == 0) {
             func_8008E458();
         }
-        func_8007CF98(8, &D_8018C1E8, 0x22222222);
+        osSetEventMesg(8, &D_8018C1E8, 0x22222222);
         sp28 = -1;
         sp24 = func_80087138(0);
         if (sp24 < arg0) {
@@ -49,7 +49,7 @@ void osEPiLoad(s32 arg0, char *arg1, char *arg2, s32 arg3) {
         D_80096490 = &osEPiStartDma_simple;
         D_80096490 = &osEPiStartDma;
         osCreateThread(&D_8018B038, 0, &func_8008DE28, &D_80096480, &D_8018B1E8 + 0x1000, arg0);
-        func_8007D0E8(&D_8018B038);
+        osStartThread(&D_8018B038);
         osRestoreInt(sp2C);
         if (sp28 != -1) {
             func_8007D008(0, sp28);

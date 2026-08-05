@@ -19,7 +19,7 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Files compiling with zero errors (IDO 7.1) | **453** |
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
-| Named functions (proper identifiers) | **47** |
+| Named functions (proper identifiers) | **134** |
 | Named data globals applied | **97** |
 | ROM byte-exact match | ✅ yes |
 
@@ -319,3 +319,20 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
     descriptive names (e.g. `gGameState`, `gEntityPool`, `gSfxActiveCount`,
     `gTrackNodeCount`, `gPlayerList`, `osMemSize`, etc.) across 118 source files
     (771 replacements total).
+19. **Named 48 additional functions** — second batch of identifications: N64 OS
+    scheduler (`osRecvMesg`, `osSendMesg`, `osStartThread`, `osDestroyThread`,
+    `osGetTime`, `osSetTimer`, `osSetEventMesg`, `osSetIntMask`, `__osEnqueueWait`,
+    `__osEnqueueThread`, `__osPopQueue`, `__osDispatchThread`, `__osTimerUnlink`,
+    `__osTimerInsert`, etc.), math/graphics (`cosf`, `sinf`, `guMtxF2L`,
+    `guMtxIdent`, `vec3Cross`, `vec3CrossEdge`), and audio (`sfxQueueCmd`,
+    `sfxFrameTick`). Applied 515 replacements across 139 files.
+20. **Named 13 additional functions** — third batch: SI/controller pak
+    (`osContPakRead`, `osContPakWrite`, `contPakRepairId`, `__siInit`, `__siLock`,
+    `__siAcquire`, `__siUnlock`), geometry (`vec3Normalize`), SFX events
+    (`sfxMarkEntityActive`, `sfxEventDequeue`, `sfxEventEnqueue`, `sfxFlushTimers`),
+    SRAM DMA (`sramStartDma`). Applied 224 replacements across 61 files.
+21. **Named 11 additional functions** — fourth batch: SFX subsystem (`sfxHasEntity`,
+    `sfxGetEntity`, `sfxPlay`, `sfxGetEntry`, `sfxMapId`, `audioStreamReadByte`),
+    RSP/display list (`spTaskSubmit`, `gfxSpTaskWait`, `renderLineStrip`), overlay
+    memory (`overlayDecompress`), game (`gameHandlerSetup`). Applied 177
+    replacements across 53 files.

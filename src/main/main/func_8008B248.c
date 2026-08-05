@@ -1,8 +1,8 @@
 #include "ultra64.h"
-s32 func_8007CD08(Unk*, s32*, s32);                       /* extern */
+s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
-s32 func_80087D78();                                  /* extern */
-void func_80087DBC();                                  /* extern */
+s32 __siLock();                                  /* extern */
+void __siUnlock();                                  /* extern */
 void func_8008B3E8(s32);                                 /* extern */
 s32 func_8008B4E4(void *, s32 (*)[]);                    /* extern */
 extern u8 D_8018AD69;
@@ -24,13 +24,13 @@ s32 func_8008B248(s32 arg0, u8 *arg1) {
     sp3C = 0;
     sp1F = 0;
     sp18 = 3;
-    func_80087D78();
+    __siLock();
     do {
         func_8008B3E8(0);
         sp3C = osSiRawStartDma(1, &D_8018ADB8);
-        func_8007CD08(arg0, &sp38, 1);
+        osRecvMesg(arg0, &sp38, 1);
         sp3C = osSiRawStartDma(0, &D_8018ADB8);
-        func_8007CD08(arg0, &sp38, 1);
+        osRecvMesg(arg0, &sp38, 1);
         func_8008B4E4(&sp37, (s32 (*)[]) (void*) &sp24[0]);
         sp20 = 0;
         if ((s32) D_8018AD69 > 0) {
@@ -60,7 +60,7 @@ loop_2:
             sp20 = temp_t5_2;
         } while (temp_t5_2 < (s32) D_8018AD69);
     }
-    func_80087DBC();
+    __siUnlock();
     *arg1 = sp1F;
     return sp3C;
 }

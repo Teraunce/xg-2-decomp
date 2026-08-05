@@ -1,6 +1,6 @@
 #include "ultra64.h"
-void func_8007E734(void**, s32, s32);                /* extern */
-s32 func_8007E858(Unk*, s16*);                  /* extern */
+void osSetTimer(void**, s32, s32);                /* extern */
+s32 osStopTimer(Unk*, s16*);                  /* extern */
 void func_8007E8E4(Unk*, s32, s32);               /* extern */
 char *func_8007FD48(s32, s32, s32, s32, s32);             /* extern */
 void func_80086088(void *, void *);                       /* extern */
@@ -40,8 +40,8 @@ void func_800822DC(Unk *arg0, Unk *arg1) {
     arg0->unk38 = (s32) gPendingFlushFlag;
     func_80086088(gPendingFlushFlag, arg0);
     sp34 = 5;
-    func_8007E734(temp_a0, &sp34, arg0->unk48);
-    arg0->unk4C = func_8007E858(sp28, arg0 + 0x28);
+    osSetTimer(temp_a0, &sp34, arg0->unk48);
+    arg0->unk4C = osStopTimer(sp28, arg0 + 0x28);
 }
 
 s16 func_80082418(Unk *arg0, Unk *arg1) {

@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_800608C8(s32, s8, s8, u16, u16, u16); /* extern */
 void func_80060960(s32, s16, s16, s32, s32, s32, s32, s32, u32, u32, u32, u32); /* extern */
-void func_8006114C(void**);                            /* extern */
+void renderLineStrip(void**);                            /* extern */
 extern f32 D_8004C788;
 extern f32 D_8004C78C;
 extern f64 D_8004C790;
@@ -934,6 +934,6 @@ block_189:
         }
     }
     if (*var_v0_9 != 0) {
-        func_8006114C(arg0);
+        renderLineStrip(arg0);
     }
 }

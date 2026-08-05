@@ -6,8 +6,8 @@ typedef struct {
     /* 0x64 */ s32 unk64;
 } UnkStruct_arg0;
 
-s32 func_80089A68(UnkStruct_arg0*);                          /* extern */
-s32 func_80089B64(Unk*, Unk*, u8, u8);              /* extern */
+s32 contPakReadNoteDir(UnkStruct_arg0*);                          /* extern */
+s32 contPakReadWriteNote(Unk*, Unk*, u8, u8);              /* extern */
 
 s32 func_8008B5B8(UnkStruct_arg0 *arg0, s32 *arg1) {
     s32 sp12C;
@@ -24,13 +24,13 @@ s32 func_8008B5B8(UnkStruct_arg0 *arg0, s32 *arg1) {
     if (!(arg0->unk0 & 1)) {
         return 5;
     }
-    if (func_80089A68(arg0) == 2) {
+    if (contPakReadNoteDir(arg0) == 2) {
         return 2;
     }
     sp23 = 0;
     if ((s32) arg0->unk64 > 0) {
 loop_5:
-        sp24 = func_80089B64(arg0, &sp28, 0, sp23);
+        sp24 = contPakReadWriteNote(arg0, &sp28, 0, sp23);
         if (sp24 != 0) {
             return sp24;
         }

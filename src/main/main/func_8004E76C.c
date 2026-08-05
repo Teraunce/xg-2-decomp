@@ -4,9 +4,9 @@ typedef struct {
     /* 0x0C */ s32 unkC;
 } UnkStruct_arg1;
 
-s32 *func_8004D7A0(void *);                         /* extern */
+s32 *overlayDecompress(void *);                         /* extern */
 extern s32 D_8004B7B0;
 
 void func_8004E76C(s32 arg0, UnkStruct_arg1 *arg1) {
-    arg1->unkC = (s32) *func_8004D7A0((arg0 * 0x10) + &D_8004B7B0);
+    arg1->unkC = (s32) *overlayDecompress((arg0 * 0x10) + &D_8004B7B0);
 }

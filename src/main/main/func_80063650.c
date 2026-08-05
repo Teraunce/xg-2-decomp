@@ -127,7 +127,7 @@ loop_1:
     return NULL;
 }
 
-void func_80063878(u16 arg0) {
+void sfxPlay(u16 arg0) {
     s32 temp_a2;
     s32 var_v0;
     u16 temp_a0;
@@ -205,7 +205,7 @@ void func_80063954(s32 *arg0, u32 *arg1, s32 *arg2) {
     }
 }
 
-s32 func_800639B0(s32 arg0) {
+s32 sfxGetEntry(s32 arg0) {
     return *(s32*)((char*)D_801823D0 + (arg0 & 0xFFFF) * 8);
 }
 

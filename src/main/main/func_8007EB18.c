@@ -13,7 +13,7 @@ typedef struct {
 } UnkStruct_temp_v0;
 
 s32 func_8007E464(Unk*, Unk*);                      /* extern */
-void func_8007E734(void **, s32, s32);           /* extern */
+void osSetTimer(void **, s32, s32);           /* extern */
 
 void func_8007EB18(UnkStruct_arg0 *arg0) {
     s16 sp20;
@@ -24,7 +24,7 @@ void func_8007EB18(UnkStruct_arg0 *arg0) {
         temp_a0 = arg0->unk18;
         if ((temp_a0 != 0) && (func_8007E464(temp_a0, &sp1C) != 0)) {
             sp20 = 0;
-            func_8007E734((void **)(arg0 + 0x48), &sp20, arg0->unk24 * sp1C);
+            osSetTimer((void **)(arg0 + 0x48), &sp20, arg0->unk24 * sp1C);
         }
     }
 }

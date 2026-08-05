@@ -17,10 +17,10 @@ typedef struct {
     /* 0x08 */ s32 unk8;
 } UnkStruct_arg2;
 
-s32 func_80089A68(UnkStruct_arg0*);                          /* extern */
-s32 func_80089B64(void *, u16 (*)[], s32, u8);        /* extern */
-s32 func_80089E84(Unk*);                          /* extern */
-s32 func_80089EF8(s32, s32, u16, u8*);            /* extern */
+s32 contPakReadNoteDir(UnkStruct_arg0*);                          /* extern */
+s32 contPakReadWriteNote(void *, u16 (*)[], s32, u8);        /* extern */
+s32 contPakRepairId(Unk*);                          /* extern */
+s32 osContPakRead(s32, s32, u16, u8*);            /* extern */
 
 s32 func_8008AD98(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
     Unk *sp = (Unk*)0;
@@ -45,17 +45,17 @@ s32 func_8008AD98(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
     if (!(arg0->unk0 & 1)) {
         return 5;
     }
-    if (func_80089A68(arg0) == 2) {
+    if (contPakReadNoteDir(arg0) == 2) {
         return 2;
     }
     if (arg0->unk65 != 0) {
         arg0->unk65 = 0U;
-        sp14C = func_80089E84(arg0);
+        sp14C = contPakRepairId(arg0);
         if (sp14C != 0) {
             return sp14C;
         }
     }
-    sp14C = func_80089EF8(arg0->unk4, arg0->unk8, arg0->unk5C + arg1, &sp28);
+    sp14C = osContPakRead(arg0->unk4, arg0->unk8, arg0->unk5C + arg1, &sp28);
     if (sp14C != 0) {
         return sp14C;
     }
@@ -70,7 +70,7 @@ s32 func_8008AD98(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
     sp1F = (u8) sp2E;
     if ((s32) (u8) sp2E < (s32) arg0->unk64) {
 loop_18:
-        sp14C = func_80089B64(arg0, (u16 (*)[]) &sp48[0], 0, sp1F);
+        sp14C = contPakReadWriteNote(arg0, (u16 (*)[]) &sp48[0], 0, sp1F);
         if (sp14C != 0) {
             return sp14C;
         }

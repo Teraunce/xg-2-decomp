@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_8004FC94(void);                              /* extern */
-s32 func_80056788(f32 *, f32 *, f32 *);               /* extern */
-void func_80057B74(Unk*, Unk*, Unk*);               /* extern */
+s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
+void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 s32 func_800FDD50(f32 *, f32 *, f32 *, f32 *, s32, f32 *); /* extern */
 extern f32 D_8004BBFC;
 extern f32 D_8004BC00;
@@ -82,9 +82,9 @@ loop_1:
             sp10 = (f32) (s16) temp_s2->unkC;
             sp14 = (f32) temp_s2->unkE;
             sp18 = (f32) temp_s2->unk10;
-            func_80057B74(&sp30, &sp10, &sp20);
-            func_80057B74(&sp30, &sp20, &sp10);
-            func_80056788(&sp10, &sp14, &sp18);
+            vec3Cross(&sp30, &sp10, &sp20);
+            vec3Cross(&sp30, &sp20, &sp10);
+            vec3Normalize(&sp10, &sp14, &sp18);
             sp40 = (f32) temp_s2->unk0;
             sp44 = (f32) temp_s2->unk4;
             sp48 = (f32) temp_s2->unk8;

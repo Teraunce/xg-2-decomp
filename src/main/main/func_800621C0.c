@@ -4,7 +4,7 @@
 /*
  * SFX heap accessors and per-channel state update.
  *
- * func_800621C0 — look up an entity pointer from the heap by resolved index,
+ * sfxGetEntity — look up an entity pointer from the heap by resolved index,
  *                  optionally returning the slot's type field.
  * func_80062240 — return the entity at gSfxMaxIndex (highest occupied slot).
  * func_80062278 — return the entity at gSfxAllocCount (allocation cursor).
@@ -42,22 +42,22 @@ extern SfxChannelState gSfxChannelState[4];    /* 0x801820D8 */
 extern f32 D_8004C028;   /* rodata: volume multiplier for active-channel fade */
 extern f32 D_8004C02C;   /* rodata: volume multiplier for counter-expired fade */
 
-s32 func_80061F34(s32);  /* slot resolver (func_80061F0C.c) */
+s32 sfxSlotResolve(s32);  /* slot resolver (func_80061F0C.c) */
 
 /* -------------------------------------------------------------------------
- * func_800621C0
+ * sfxGetEntity
  * Look up the entity pointer for a resolved heap slot.
  *
  *   slotSpec  — heap index or sentinel value (-4 to -1), resolved by
- *               func_80061F34 before the array access.
+ *               sfxSlotResolve before the array access.
  *   outType   — if non-NULL, receives heap[slot].type
  *
  * Returns NULL (0) if the resolved slot is out of range.
  * Callers compare the return value against special sentinel pointers such as
  * gSfxSlotEnd (gSfxSlotEnd) to detect end-of-heap conditions.
  * ------------------------------------------------------------------------- */
-void *func_800621C0(s32 slotSpec, s32 *outType) {
-    s32 slot = func_80061F34(slotSpec);
+void *sfxGetEntity(s32 slotSpec, s32 *outType) {
+    s32 slot = sfxSlotResolve(slotSpec);
 
     if (slot < 0) {
         if (!((u32)slot < (u32)gSfxActiveCount)) {
