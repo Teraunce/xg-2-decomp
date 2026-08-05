@@ -3,7 +3,7 @@
 
 s16 func_80082418(Unk*, Unk*);                        /* extern */
 void func_800824B8(Unk*, s16);                          /* extern */
-void func_80082508(Unk*, s16);                          /* extern */
+void midiSetNote(Unk*, s16);                          /* extern */
 void func_80082528(void *);                               /* extern */
 void func_80082598(char*);                               /* extern */
 s32 func_800825E8(char*);                             /* extern */
@@ -116,7 +116,7 @@ void func_8005D178(void) {
             }
         } else {
 block_7:
-            func_80082508(D_800927F0, var_s0->unk12);
+            midiSetNote(D_800927F0, var_s0->unk12);
             var_s3_2 += 1;
             if (func_800825E8(D_800927F0) == 0) {
                 func_800824B8(D_800927F0, var_s0->unk12);
@@ -149,7 +149,7 @@ loop_59:
                             } else if (var_v1->unk4 == 1) {
                                 temp_s1_2 = &(&sp10)[var_s2];
                                 if (!(*temp_s1_2 & 1)) {
-                                    func_80082508(D_800927F0, var_v1->unk12);
+                                    midiSetNote(D_800927F0, var_v1->unk12);
                                     func_80082598(D_800927F0);
                                 }
                                 *temp_s1_2 = 0;
@@ -271,7 +271,7 @@ block_67:
             if (var_s0_2->unk4 == 1) {
                 temp_s1_3 = &(&sp10)[var_s3_4];
                 if (!(*temp_s1_3 & 1)) {
-                    func_80082508(D_800927F0, var_s0_2->unk12);
+                    midiSetNote(D_800927F0, var_s0_2->unk12);
                     func_80082598(D_800927F0);
                 }
                 *temp_s1_3 = 0;
@@ -297,7 +297,7 @@ block_67:
         } else if (temp_s2 == 0) {
             var_s3_5 += 1;
         } else {
-            func_80082508(D_800927F0, var_s0_3->unk12);
+            midiSetNote(D_800927F0, var_s0_3->unk12);
             var_v0_4 = temp_s2 & 5;
             if (temp_s2 & 3) {
                 temp_fv1_2 = var_s0_3->unk8 * (f32) *(((var_s0_3->unk6 + 1) * 2) + &D_800928DC);
@@ -398,6 +398,7 @@ block_108:
     } while (var_s3_5 < 0x1C);
 }
 
+s32 func_8005D9C0(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8005D9BC(s32 arg2) {
-
+    return func_8005D9C0();
 }

@@ -125,5 +125,6 @@ block_14:
 }
 
 s32 func_8005E8AC(void) {
+    func_8005E8B4();
     return D_80181648;
 }

@@ -57,6 +57,7 @@ s32 contPakBuildMap(s32 arg0, Unk *arg1, s32 arg2) {
     return 0;
 }
 
+void func_8008CEC0(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8008CEB8(void) {
-
+    func_8008CEC0();
 }

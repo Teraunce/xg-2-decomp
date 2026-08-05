@@ -16,7 +16,7 @@ extern u8 D_80182E9C;
 extern s32 D_80182EA0;
 extern s32 D_80182EA4;
 
-void func_80065BDC(s32 arg0, u8 **arg1, s32 arg2) {
+void rdpTextLayout(s32 arg0, u8 **arg1, s32 arg2) {
     s16 *var_v1_2;
     s32 temp_s1;
     s32 temp_s1_2;

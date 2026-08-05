@@ -329,7 +329,7 @@ void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2) {
 }
 
 void func_8005A2FC(void) {
-
+    return func_8005A33C();
 }
 
 /* nonmatching func_8005A33C: Cannot find branch target .L8005A700 */

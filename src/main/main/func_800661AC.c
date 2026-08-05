@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 trackComputeLen(s32, s16, s16);                     /* extern */
-void func_80065BDC(s32, u8**, s32);                       /* extern */
+void rdpTextLayout(s32, u8**, s32);                       /* extern */
 extern s16 D_80182E68;
 extern u16 D_80182E74;
 extern s16 D_80182E76;
@@ -69,7 +69,7 @@ block_17:
                 var_s1 = (u16) D_80182E68;
                 D_80182E68 = var_s0_2;
             }
-            func_80065BDC(arg0, arg1, 1);
+            rdpTextLayout(arg0, arg1, 1);
             D_80182E74 = D_80182E94;
             if ((D_80182E76 + D_80182E8C.unk0) >= 0x100) {
                 var_v0 = 0xFF;

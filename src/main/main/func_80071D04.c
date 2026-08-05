@@ -5,7 +5,7 @@ void osWritebackDCache(u32, s32);                            /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 func_80087BC8(s32);                               /* extern */
 void func_80087C4C(s32);                               /* extern */
-s32 func_8008B248(s32, u8*);                       /* extern */
+s32 siQueryControllers(s32, u8*);                       /* extern */
 s32 contPakBuildMap(s32, Unk*, s32);                /* extern */
 extern s32 D_801887A0;
 extern Unk D_801887D0;
@@ -26,7 +26,7 @@ void func_80071D04(s32 *arg0) {
     osRecvMesg(&D_801887A0, 0, 1);
     osWritebackInvalDCache(&D_8018AD28, 0x40);
     func_80087C4C(&D_80192860);
-    if (func_8008B248(&D_801887A0, &sp10) == 0) {
+    if (siQueryControllers(&D_801887A0, &sp10) == 0) {
         var_s1 = 0;
         var_s0 = &D_801887D0;
         var_s4 = &D_801887D0 + 0x17C;

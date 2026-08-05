@@ -14,6 +14,7 @@ s32 func_8008E3C0(Unk *arg0, s32 arg1, s32 *arg2, s32 arg3) {
     return 0;
 }
 
+s32 func_8008E410(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8008E408(void) {
-
+    return func_8008E410();
 }

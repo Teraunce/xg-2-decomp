@@ -26,11 +26,11 @@
  *   [17,18,19]=0x8007F6E4  rest→default
  *
  * PERMANENTLY NONMATCHING: sub-case 0 and cases 2/0x15 invoke
- *   func_8007ED94 via $t0 (non-standard ABI), not representable in C.
+ *   audioRspDispatchNode via $t0 (non-standard ABI), not representable in C.
  */
 
 void  audioStreamSchedule(void *a, s16 *b);
-void  func_8007ED94(void);      /* nonmatching: reads $t0, not $a0/$a1 */
+void  audioRspDispatchNode(void);      /* nonmatching: reads $t0, not $a0/$a1 */
 void  audioStartTimer(void *a);
 void func_8007EBC4(void *);
 void func_8007EB88(void *);                           /* extern */
@@ -51,7 +51,7 @@ void  sfxPlayLoopAtEntity(void *a, void *b, f32 c);
 
 extern f32 D_8004CC0C;
 
-/* nonmatching: jtbl_8004CB5C/CBBC switch + func_8007ED94 non-std ABI */
+/* nonmatching: jtbl_8004CB5C/CBBC switch + audioRspDispatchNode non-std ABI */
 void func_8007F5C4(Unk *obj) {
     /* Permanent */
     Unk  *s5   = (Unk *)((u8 *)obj + 0x48);
@@ -96,9 +96,9 @@ lbl_loop:
         if ((u32)(s32)inner_idx >= 20u) goto lbl_default;
         switch ((s32)inner_idx) {
 
-        /* Sub-case 0: func_8007ED94 ($t0=&stk58, non-std) + EB18 */
+        /* Sub-case 0: audioRspDispatchNode ($t0=&stk58, non-std) + EB18 */
         case 0:
-            func_8007ED94(); /* nonmatching: $t0 = &stk58 */
+            audioRspDispatchNode(); /* nonmatching: $t0 = &stk58 */
             audioStartTimer(obj);
             goto lbl_epilogue;
 
@@ -128,11 +128,11 @@ lbl_loop:
         /* NOTREACHED */
 
     /* ------------------------------------------------------------------ */
-    /* Cases 2 / 0x15: func_8007ED94 ($t0=sp50=&obj->0x38, non-std)    */
+    /* Cases 2 / 0x15: audioRspDispatchNode ($t0=sp50=&obj->0x38, non-std)    */
     /* ------------------------------------------------------------------ */
     case 2:
     case 0x15:
-        func_8007ED94(); /* nonmatching: $t0 = &obj->0x38 */
+        audioRspDispatchNode(); /* nonmatching: $t0 = &obj->0x38 */
         goto lbl_default;
 
     /* ------------------------------------------------------------------ */

@@ -43,6 +43,7 @@ void func_8007D278(void) {
     gOSMsgQueuePtr->unk1C = 0;
 }
 
+void func_8007D30C(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8007D304(void) {
-
+    func_8007D30C();
 }

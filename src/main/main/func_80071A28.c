@@ -2,7 +2,7 @@
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 s32 handlerPostSfxCmd(s32, s32);                            /* extern */
 void entityClearSlots(s32, s32);                       /* extern */
-s32 func_8008B248(s32, u8*);                       /* extern */
+s32 siQueryControllers(s32, u8*);                       /* extern */
 extern s32 gSfxChannelMute;
 extern s32 D_80174724;
 extern s32 D_801887A0;
@@ -50,7 +50,7 @@ void func_80071A28(s32 *arg0) {
 loop_4:
     var_a0 = &D_801887A0;
 loop_5:
-    if (func_8008B248(var_a0, &sp20) == 0) {
+    if (siQueryControllers(var_a0, &sp20) == 0) {
         var_s0_2 = 0;
         var_s1 = &D_801887D0;
         var_s2 = arg0;

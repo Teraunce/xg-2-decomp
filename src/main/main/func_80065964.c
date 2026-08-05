@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void copyU16Array(u16*, u16*);                        /* extern */
-void func_80065694(Unk*, s32);                        /* extern */
+void intToAsciiStr(Unk*, s32);                        /* extern */
 void func_80065764(Unk*, s32);                        /* extern */
 void func_80065838(u16 *, u8, s32, s32);               /* extern */
 extern s32 D_80182E88;
@@ -31,7 +31,7 @@ void func_80065964(u16 *arg0, Unk *arg1, s32 arg2) {
                             if ((s32) temp_v1 >= 0x62) {
                                 if (temp_v1 == 0x64) {
                                     var_s1 += 4;
-                                    func_80065694(var_s0, *(s32*)((char*)var_s1 - 4);
+                                    intToAsciiStr(var_s0, *(s32*)((char*)var_s1 - 4);
                                     if (*var_s0 != 0) {
                                         do {
                                             var_s0 += 2;

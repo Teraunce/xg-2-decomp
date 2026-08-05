@@ -48,7 +48,7 @@ loop_4:
     }
 }
 
-s32 func_80070560(u8 *arg0, s32 arg1) {
+s32 calcHash(u8 *arg0, s32 arg1) {
     s32 temp_a0_2;
     s32 temp_v1;
     s32 var_a2;
@@ -81,7 +81,7 @@ s32 func_80070560(u8 *arg0, s32 arg1) {
     return var_t2;
 }
 
-s32 func_800705D0(s32 arg0) {
+s32 alignUp256(s32 arg0) {
     return (arg0 + 0x103) & ~0xFF;
 }
 

@@ -36,5 +36,6 @@ void func_8005B7D8(s32 arg0) {
 }
 
 s16 func_8005B864(void) {
+    func_8005B874(0);
     return D_8017DF52;
 }

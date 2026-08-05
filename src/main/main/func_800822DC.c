@@ -88,6 +88,6 @@ void func_800824B8(Unk *arg0, s16 arg1) {
     }
 }
 
-void func_80082508(Unk *arg0, s16 arg1) {
+void midiSetNote(Unk *arg0, s16 arg1) {
     arg0->unk3C = (s32) arg1;
 }

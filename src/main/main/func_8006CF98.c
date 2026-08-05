@@ -88,6 +88,7 @@ void func_8006CF98(Unk *arg0) {
     temp_s0_3->unk4 = osVirtualToPhysical(arg0->unk1F540);
 }
 
+void func_8006D1FC(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8006D1EC(void) {
-
+    func_8006D1FC();
 }

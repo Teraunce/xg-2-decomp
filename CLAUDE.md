@@ -19,7 +19,7 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Files compiling with zero errors (IDO 7.1) | **453** |
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
-| Named functions (proper identifiers) | **236** |
+| Named functions (proper identifiers) | **286** |
 | Named data globals applied | **97** |
 | ROM byte-exact match | ✅ yes |
 
@@ -369,3 +369,24 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
     timer queue (`timerQueueInit`), flush list (`pendingFlushEnqueue`), controller pak
     (`crc5Calc`, `contPakLoadSave`, `contPakCountNotes`, `contPakProbe`).
     Applied replacements across 55 files. Total named: **236**.
+29. **Named 16 additional functions** — twelfth batch: frame alloc (`dlResetPtr`),
+    PRNG (`randRange`), memory (`memsetBytes`), sfx (`sfxFindEntity`, `sfxSetState`),
+    GFX DL (`rdpRunSetupDL`, `gfxAddSyncCmd`, `rdpStateInit`), handler (`gameHandlerInit`),
+    audio (`audioSetCallback`, `guPerspectiveF`, `guPerspective`, `siReadBlocking`,
+    `audioLoopDmaCmd`, `audioInitDecodeTable`, `audioInitFreqTable`).
+    Applied replacements across 36 files. Total named: **271**.
+28. **Named 19 additional functions** — eleventh batch: controller pak (`contPakVerifyNote`),
+    audio rate (`audioSetRates`), audio stream (`audioStreamReadVarInt`, `audioDecodeLZSS`,
+    `audioBootDecode`), RSP counter (`audioGetRspCount`), note slot (`audioDefaultNoteSlot`),
+    audio node (`audioNodeUpdate`, `audioCalcPeriod`, `audioRspDispatch`, `timerRelink`),
+    matrix game-local (`mtxCatF`, `mtxXfmPoint3`, `mtxIdentInit`), entity init
+    (`entitySlotReset`, `sfxEntryReset`), COP0 (`setCOP0Compare`), locale (`localeCheck`),
+    audio timing (`audioSetBeatPos`). Applied replacements across 41 files. Total named: **255**.
+30. **Named 15 additional functions** — thirteenth batch: matrix (`guMtxL2FFixed`),
+    OS PI (`__osPiIsBusy`), MIDI/audio (`midiSetNote`, `audioNodeSetValue`,
+    `audioRspDispatchNode`), utility (`calcHash`, `alignUp256`, `intToAsciiStr`),
+    SRAM (`sramDmaStep`, `sramStartDmaSafe`), controller pak (`contPakScanNotes`,
+    `contPakAllocNote`, `siQueryControllers`), exception handler (`exceptionVectors`),
+    HUD renderer (`rdpTextLayout`). Applied 94 replacements across 34 files.
+    Total named: **286**.
+    Also fixed all 33 GETTER_NOJR stubs — each now calls its fall-through successor.

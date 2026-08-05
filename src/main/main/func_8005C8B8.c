@@ -53,6 +53,7 @@ void func_8005C8EC(s32 arg0, s32 arg1) {
     }
 }
 
+void func_8005C9BC(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8005C9B4(void) {
-
+    func_8005C9BC();
 }

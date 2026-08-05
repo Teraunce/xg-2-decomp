@@ -44,5 +44,5 @@ void func_8007B380(Unk *arg0, f32 arg1, f32 arg2, f32 arg3 /*, f32 scale_fv0 */)
  * then falls through to func_8007B380. Cannot be expressed in standard C.
  */
 void func_8007B4B4(s32 arg1, s32 arg2, s32 arg3) {
-    (void)arg1; (void)arg2; (void)arg3;
+    func_8007B4C0((f32)arg1, arg2);
 }

@@ -52,6 +52,7 @@ void func_8008B3E8(s32 arg0) {
     spC->unk0 = 0xFE;
 }
 
+void func_8008B4EC(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8008B4E4(void) {
-
+    func_8008B4EC();
 }

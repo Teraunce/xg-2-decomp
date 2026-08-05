@@ -28,5 +28,5 @@ void func_8007B318(f32 arg1, s32 arg0, f32 arg2_fa1, f32 arg3_ft4, f32 arg4) {
  * Cannot be expressed in standard C.
  */
 void func_8007B368(s32 arg1, s32 arg2, s32 arg3) {
-    (void)arg1; (void)arg2; (void)arg3;
+    func_8007B380(NULL, (f32)arg1, (f32)arg2, (f32)arg3);
 }

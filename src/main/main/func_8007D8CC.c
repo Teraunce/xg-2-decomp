@@ -90,6 +90,7 @@ void __osTimerInsert(Unk *arg0, void **arg1) {
     *arg1 = arg0;
 }
 
+void func_8007DA74(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8007DA6C(void) {
-
+    func_8007DA74();
 }

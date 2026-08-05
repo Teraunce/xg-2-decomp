@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_80061A9C(s8*, s8, s32);                        /* extern */
 s32 func_80061AEC(u8 *, u8 *, s32);                   /* extern */
-s32 func_800884E8(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
+s32 contPakAllocNote(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
 s32 contPakLoadSave(Unk*, u16, s32, s32, s32);       /* extern */
 s32 contPakWriteNote(Unk*, s32, u8, s32, s32, char*);    /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
@@ -36,7 +36,7 @@ s32 func_80071408(s32 arg0) {
     func_80061A9C(&sp60, 0, 4);
     temp_s1 = (arg0 * 0x68) + &D_8018894C;
     sp60 = 0x33;
-    temp_v0 = func_800884E8(temp_s1, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, 0x100, &sp68);
+    temp_v0 = contPakAllocNote(temp_s1, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, 0x100, &sp68);
     if (temp_v0 < 9) {
         if (temp_v0 < 7) {
             var_s0 = arg0 * 2;

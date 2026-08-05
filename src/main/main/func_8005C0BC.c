@@ -166,5 +166,6 @@ void func_8005C0BC(void) {
 }
 
 s32 func_8005C538(void) {
+    func_8005C540();
     return gAudioFrameLock;
 }

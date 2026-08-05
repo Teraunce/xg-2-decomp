@@ -8,7 +8,7 @@ s32 func_8008B4E4(void *, s32 (*)[]);                    /* extern */
 extern u8 D_8018AD69;
 extern s32 D_8018ADB8;
 
-s32 func_8008B248(s32 arg0, u8 *arg1) {
+s32 siQueryControllers(s32 arg0, u8 *arg1) {
     Unk *sp = (Unk*)0;
     s32 sp3C;
     s32 sp38[2];

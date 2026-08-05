@@ -6,7 +6,7 @@ s32 contPakReadWriteNote(Unk*, Unk*, u8, u8);              /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 s32 contPakCountNotes(void *, s32*);                   /* extern */
 
-s32 func_800884E8(Unk *arg0, u16 arg1, s32 arg2, u8 *arg3, u8 *arg4, s32 arg5, s32 *arg6) {
+s32 contPakAllocNote(Unk *arg0, u16 arg1, s32 arg2, u8 *arg3, u8 *arg4, s32 arg5, s32 *arg6) {
     Unk *sp = (Unk*)0;
     s32 sp274;
     s32 sp270;

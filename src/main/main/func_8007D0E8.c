@@ -42,6 +42,7 @@ void osStartThread(Unk *arg0) {
     osRestoreInt(temp_s0);
 }
 
+void func_8007D240(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8007D238(Unk *arg0) {
-
+    func_8007D240();
 }

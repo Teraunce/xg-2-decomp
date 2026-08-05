@@ -123,4 +123,5 @@ void func_80056C2C(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3) {
     arg1->unk14 = (s32) ((temp_fa0_11 & 0xFFFF0000) | ((u32) temp_fa0_12 >> 0x10));
     arg1->unk30 = (s32) ((temp_fa0_9 << 0x10) | (temp_fa0_10 & 0xFFFF));
     arg1->unk34 = (s32) ((temp_fa0_11 << 0x10) | (temp_fa0_12 & 0xFFFF));
+    func_80056DE0(arg0, arg1, arg2);
 }

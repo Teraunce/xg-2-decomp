@@ -3,12 +3,12 @@ void func_80061AC8(s32, s32, u32);                       /* extern */
 u16 sfxAllocBlock(s32);                             /* extern */
 void sfxPlay(u16);                               /* extern */
 s32 sfxGetEntry(s32);                             /* extern */
-s32 func_80070560(u8*, s32);                        /* extern */
-s32 func_800705D0(s32);                               /* extern */
+s32 calcHash(u8*, s32);                        /* extern */
+s32 alignUp256(s32);                               /* extern */
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);       /* extern */
 void entityClearSlots(s32, s32);                       /* extern */
 s32 entityStepState(s32, s32, s32);                   /* extern */
-s32 func_800884E8(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
+s32 contPakAllocNote(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
 s32 contPakLoadSave(Unk*, u16, s32, s32, s32);      /* extern */
 s32 contPakWriteNote(Unk*, s32, u8, s32, s32, char*);     /* extern */
 s32 contPakFetchNote(void *, s32, void *);              /* extern */
@@ -34,7 +34,7 @@ void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     char *temp_s0_4;
     Unk *temp_s1;
 
-    temp_v0 = func_800705D0(arg2);
+    temp_v0 = alignUp256(arg2);
     temp_v0_2 = sfxAllocBlock(temp_v0);
     sp44 = temp_v0_2;
     temp_s0 = temp_v0_2 & 0xFFFF;
@@ -42,7 +42,7 @@ void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     temp_s0_2 = sfxGetEntry(temp_s0);
     temp_s1 = sfxGetEntry(temp_s0) + temp_v0;
     arg3(temp_s0_2);
-    *(s32*)((char*)temp_s1 - 4)= func_80070560(temp_s0_2, temp_v0 - 4);
+    *(s32*)((char*)temp_s1 - 4)= calcHash(temp_s0_2, temp_v0 - 4);
     D_80188940 = 0;
 loop_1:
     D_801887D0.unk168 = 1;
@@ -64,7 +64,7 @@ loop_1:
                         if (entityStepState(contPakLoadSave(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8), arg1, temp_v0) == 0) {
                             if (D_801887D0.unk168 != 0) {
                             case 5:
-                                if (entityStepState(func_800884E8(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, temp_v0, &sp40), arg1, temp_v0) == 0) {
+                                if (entityStepState(contPakAllocNote(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, temp_v0, &sp40), arg1, temp_v0) == 0) {
                                     goto block_20;
                                 }
                                 goto loop_1;

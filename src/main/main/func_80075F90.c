@@ -2,7 +2,7 @@
 s32 intDisable();                                /* extern */
 void intRestore(s32);                               /* extern */
 s32 sramStartDma(s32, s32, s32);                    /* extern */
-static void func_80076000(void);                      /* static, forward decl */
+static void exceptionVectors(void);                      /* static, forward decl */
 void func_8007611C();                               /* static */
 void func_80076138();                               /* static */
 extern s32 D_80000000;
@@ -10,7 +10,7 @@ extern s32 D_80001FF0;
 extern s32 D_80003FE0;
 extern s32 D_80189180;
 
-s32 func_80075F90(s32 arg0, s32 arg1, s32 arg2) {
+s32 sramStartDmaSafe(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
     s32 temp_s0_2;
 
@@ -21,7 +21,7 @@ s32 func_80075F90(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80076000 — exception vector stubs (0x70 bytes, static/handwritten).
+ * exceptionVectors — exception vector stubs (0x70 bytes, static/handwritten).
  *
  * Contains two MIPS exception vector stubs copied to 0x80000180 and
  * 0x80000000 by func_80076070.  Each stub saves $k0 via mtc0 and jumps
@@ -29,7 +29,7 @@ s32 func_80075F90(s32 arg0, s32 arg1, s32 arg2) {
  * be expressed in C.  The .L80076014 block (NOPs + redirect to 0x80000194)
  * caused m2c to fail (jump table false positive).
  * ------------------------------------------------------------------------- */
-static void func_80076000(void) {
+static void exceptionVectors(void) {
     /* handwritten: mtc0 $k0,$30; lui/addiu $k0, func_8007616C; jr $k0 */
 }
 
@@ -43,8 +43,8 @@ void func_80076070(void) {
     s32 temp_t5;
     s32 temp_t5_2;
 
-    var_t0 = (char*)func_80076000;
-    var_t1 = (s32*)((char*)func_80076000 + 0x14);
+    var_t0 = (char*)exceptionVectors;
+    var_t1 = (s32*)((char*)exceptionVectors + 0x14);
     var_t2 = (s32 *)0x80000180;
     do {
         temp_t5 = *(s32*)var_t0;
@@ -53,9 +53,9 @@ void func_80076070(void) {
         var_t1 += 4;
         *var_t2 = temp_t5;
         var_t2 += 4;
-    } while (var_t0 != (char*)func_80076000 + 0x14);
-    var_t0_2 = (char*)func_80076000 + 0x38;
-    var_t1_2 = (s32*)((char*)func_80076000 + 0x4C);
+    } while (var_t0 != (char*)exceptionVectors + 0x14);
+    var_t0_2 = (char*)exceptionVectors + 0x38;
+    var_t1_2 = (s32*)((char*)exceptionVectors + 0x4C);
     var_t2_2 = &D_80000000;
     do {
         temp_t5_2 = *(s32*)var_t0_2;
@@ -63,7 +63,7 @@ void func_80076070(void) {
         *var_t1_2 = *var_t2_2;
         var_t1_2 += 4;
         *var_t2_2 = temp_t5_2;
-    } while (var_t0_2 != (char*)func_80076000 + 0x4C);
+    } while (var_t0_2 != (char*)exceptionVectors + 0x4C);
     func_8007611C();
     func_80076138();
     D_80189180 = -0x802;
@@ -109,7 +109,7 @@ void setCOP0Status(void) {
  *   - If other interrupt: reads EPC (mfc0 $v0, $14), checks for
  *     syscall-in-ROM (breakpoint address < 0x8004_0000), logs cause.
  *   - Returns via `bgez $zero, .L80076014` (unconditional backward
- *     branch to the NOP sled in func_80076000 that restores state).
+ *     branch to the NOP sled in exceptionVectors that restores state).
  * Uses sd/ld (64-bit), mfc0/mtc0, kernel regs — not expressible in C.
  * m2c failed: "Cannot find branch target .L80076014" (cross-function).
  * ------------------------------------------------------------------------- */

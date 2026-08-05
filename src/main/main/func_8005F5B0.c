@@ -46,4 +46,5 @@ void func_8005F5B0(f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
 
 void func_8005F6B4(Unk *arg0) {
     arg0->unk7C83;
+    func_8005F6B8();
 }

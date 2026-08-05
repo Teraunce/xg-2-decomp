@@ -1,9 +1,9 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8008DC4C (initial). */
+/* Warning: missing "jr $ra" in last block of sramDmaStep (initial). */
 
 s32 osEPiStartDma(Unk*, s32, s32, s32, s32);               /* extern */
 void piDmaNotify();                                  /* extern */
-void func_8008DC4C();                               /* static */
+void sramDmaStep();                               /* static */
 extern s32 osIntMask;
 extern s32 D_8018C2FC;
 extern s32 D_A4600010;
@@ -74,7 +74,7 @@ s32 func_8008D5B0(void) {
         if (!(sp3C & 0x40000000)) {
             if ((sp30->unk8 + 1) != (sp30->unk4 * 0x55)) {
                 sp2C->unk0 = 0x18;
-                func_8008DC4C();
+                sramDmaStep();
             } else {
                 D_A4600010 = 2;
                 osIntMask |= 0x100401;
@@ -92,12 +92,12 @@ s32 func_8008D5B0(void) {
         if (sp30->unk4 == 3) {
             if ((sp2C->unk10 + 0x11) < sp30->unk8) {
                 sp2C->unk0 = 0;
-                func_8008DC4C();
+                sramDmaStep();
                 goto block_59;
             }
             if (!(sp3C & 0x40000000)) {
                 sp2C->unk0 = 0x17;
-                func_8008DC4C();
+                sramDmaStep();
                 goto block_59;
             }
             goto block_27;
@@ -109,7 +109,7 @@ block_27:
             if ((u32) sp2C->unk10 >= 4U) {
                 if ((sp30->unk4 != 3) || (sp30->unk8 >= 0x53)) {
                     sp2C->unk0 = 0x17;
-                    func_8008DC4C();
+                    sramDmaStep();
                     goto block_59;
                 }
                 goto block_35;
@@ -125,7 +125,7 @@ block_36:
         if (sp3C & 0x10000000) {
             if (sp30->unk8 != 0x57) {
                 sp2C->unk0 = 0x18;
-                func_8008DC4C();
+                sramDmaStep();
             }
             if ((sp30->unk4 == 2) && (sp30->unk6 == 0)) {
                 sp30->unk6 = 1U;
@@ -147,7 +147,7 @@ block_36:
                 temp_t3 = sp30->unk20;
                 if ((temp_t3->unkC | (temp_t3->unk0 | temp_t3->unk4 | temp_t3->unk8)) != 0) {
                     sp30->unk18 = 0x18;
-                    func_8008DC4C();
+                    sramDmaStep();
                     goto block_59;
                 }
             }
@@ -160,7 +160,7 @@ block_51:
         if (sp3C & 0x40000000) {
             if (sp30->unk8 >= 0x55) {
                 sp2C->unk0 = 0x18;
-                func_8008DC4C();
+                sramDmaStep();
                 goto block_59;
             }
             osEPiStartDma(D_8018C2FC, 0, 0x05000400, sp2C->unk4, sp2C->unkC);
@@ -169,16 +169,17 @@ block_51:
         }
         if (sp30->unk8 < 0x55) {
             sp2C->unk0 = 0x18;
-            func_8008DC4C();
+            sramDmaStep();
         }
         goto block_59;
     }
     sp2C->unk0 = 4;
-    func_8008DC4C();
+    sramDmaStep();
 block_59:
     return 1;
 }
 
-void func_8008DC4C(void) {
-
+void func_8008DC54(void);  /* forward: GETTER_NOJR fallthrough */
+void sramDmaStep(void) {
+    func_8008DC54();
 }

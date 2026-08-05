@@ -398,3 +398,101 @@ crc5Calc = 0x80089018; // type:func // compute CRC-5 over 16-bit arg0 (10-iterat
 contPakLoadSave = 0x8008A288; // type:func // read/verify game save note from pak (note code, game ID, data ptrs)
 contPakCountNotes = 0x8008B5B8; // type:func // count note entries with status=3 in pak note directory
 contPakProbe = 0x8008C788; // type:func // SI DMA read + probe controller pak via osSiRawStartDma + sense
+contPakVerifyNote = 0x80089674; // type:func // read + verify pak note via osContPakRead + contPakChecksum
+
+// ---- Audio rate / tempo ----
+audioSetRates = 0x8005C8EC; // type:func // set D_80092818=0x10000/arg0 and D_8009281C=0x10000/arg1 (pitch rate divisors)
+
+// ---- Audio stream decoder ----
+audioStreamReadVarInt = 0x8007DD1C; // type:func // 7-bit variable-length int from audio stream (MSB=more bytes)
+audioDecodeLZSS = 0x8005AC70; // type:func // LZSS decoder using audioSetupCopySample + RSP double-buffer
+audioBootDecode = 0x8005F838; // type:func // cache flush + audioDecodeHufh from ROM boot block, call func_8009F528
+
+// ---- Audio RSP counter ----
+audioGetRspCount = 0x8005AB28; // type:func // return D_8017CDF8 (RSP audio submit counter)
+
+// ---- Audio note slot ----
+audioDefaultNoteSlot = 0x8007FDFC; // type:func // write default params to arg0->unk60[arg1*0x10] note slot
+
+// ---- Audio node update ----
+audioNodeUpdate = 0x8007F5C4; // type:func // per-frame audio node dispatch (jtbl_8004CB5C, 24 cases, osStopTimer epilogue)
+audioCalcPeriod = 0x8007EB88; // type:func // set node->unk24 = node * timer->unk8 (or 0x1E8 if no timer)
+audioRspDispatch = 0x800805A4; // type:func // audio RSP command dispatch (case 0x90 voice setup, cmd bytes 8-A)
+timerRelink = 0x8007EBC4; // type:func // relink timer node in OS timer list via __osTimerUnlink + __osTimerInsert
+
+// ---- Matrix (game-local float format) ----
+mtxCatF = 0x80056EAC; // type:func // 4x4 float matrix multiply arg0*arg1->arg2, in-place safe (game MtxF format)
+mtxXfmPoint3 = 0x800576FC; // type:func // transform 3D point arg1->xyz by game 4x4 matrix arg0 + translation, result->arg2
+mtxIdentInit = 0x80056A90; // type:func // init game MtxF: zero all, set diagonal from D_8004BD90, pos from arg1/2/3
+
+// ---- Entity / slot init ----
+entitySlotReset = 0x8004EF78; // type:func // init entity slot struct: sentinels unk6=-1 unk0=-1, zero fields, set floats
+sfxEntryReset = 0x8004F2F0; // type:func // init sfx entry struct: zero unk0-14, unk18=-1, unk1C=0, unk20=-1
+
+// ---- COP0 Compare ----
+setCOP0Compare = 0x8007D678; // type:func // mtc0 $a0, $11 — write COP0 Compare (timer interrupt threshold)
+
+// ---- Locale ----
+localeCheck = 0x80061800; // type:func // detect locale via sfxGetFrameOutput(0x4E), set gLocale if gLocaleIdx
+
+// ---- Audio beat/bar ----
+audioSetBeatPos = 0x80066A60; // type:func // compute beat/bar position from arg1 and store remainder to struct->unk8
+
+// ---- Frame/DL allocator reset ----
+dlResetPtr = 0x8004D358; // type:func // reset gDLWritePtr to gDLBase (or D_801A3000 if NULL)
+
+// ---- PRNG ----
+randRange = 0x80058940; // type:func // PRNG using gViewportTimestamp XOR/shift; return value in [0, arg0)
+
+// ---- Memory fill ----
+memsetBytes = 0x80061A9C; // type:func // fill arg2 bytes at arg0 with byte value arg1
+
+// ---- SFX entity lookup ----
+sfxFindEntity = 0x8006211C; // type:func // search gSfxHeap[0..gSfxActiveCount] for matching entity, set gSfxAllocCount
+
+// ---- SFX state setter ----
+sfxSetState = 0x80063F18; // type:func // set D_80182EA0 = arg0 (sfx active state flag; paired with sfxGetState)
+
+// ---- GFX display list commands ----
+rdpRunSetupDL = 0x80065224; // type:func // emit G_DL(D_800930A8) GBI cmd, run func_80063C08 RDP state init
+gfxAddSyncCmd = 0x80065274; // type:func // emit G_RDPFULLSYNC + G_SETSCISSOR GBI opcodes into DL ptr
+
+// ---- Handler init ----
+gameHandlerInit = 0x80070C3C; // type:func // call gameHandlerSetup(1,arg1) if sfxHasEntity(&gHandlerTable)==0
+
+// ---- Audio callback ----
+audioSetCallback = 0x8005C88C; // type:func // set gAudioCallback=arg0, set gAudioStatus=3 if status not 0 or 4
+
+// ---- Perspective matrix ----
+guPerspectiveF = 0x8007AEE8; // type:func // build float perspective matrix from fov+near+far via cosf/sinf
+guPerspective = 0x8007B118; // type:func // guPerspectiveF + guMtxF2L (fixed-point perspective matrix)
+
+// ---- SI / controller read ----
+siReadBlocking = 0x80087BC8; // type:func // __siLock + osSiRawStartDma read D_8018AD28 + osRecvMesg + __siUnlock
+
+// ---- Audio loop DMA ----
+audioLoopDmaCmd = 0x80085650; // type:func // build looping audio DMA GBI commands (0x08/0x04000000) with osVirtualToPhysical
+
+// ---- Audio decode tables ----
+audioInitDecodeTable = 0x8005AEB4; // type:func // init HUFH decode mapping tables (D_8017CE08 / D_8017DA58)
+audioInitFreqTable = 0x8005AFC4; // type:func // init frequency/note table for HUFH decoder
+
+// ---- RDP state reset ----
+rdpStateInit = 0x80063C08; // type:func // reset all RDP state globals to defaults (fill color, scissor, fog, etc.)
+
+// Batch 13: matrix/OS/audio/controller-pak/HUD names
+guMtxL2FFixed = 0x8007A910; // type:func // GETTER_NOJR: loads 65536.0f scale, falls through to guMtxL2F
+__osPiIsBusy = 0x80087B48; // type:func // static: returns nonzero if PI DMA is busy
+midiSetNote = 0x80082508; // type:func // sets audio-device obj->unk3C = note slot
+audioNodeSetValue = 0x80085C5C; // type:func // audio node callback: if arg1==1 sets *arg0=arg2; return 0
+calcHash = 0x80070560; // type:func // iterative byte hash via multiply-add
+alignUp256 = 0x800705D0; // type:func // round arg0 up to next 256-byte boundary
+intToAsciiStr = 0x80065694; // type:func // convert int to ASCII decimal digits into u16 array (HUD)
+sramDmaStep = 0x8008DC4C; // type:func // GETTER_NOJR: falls through to func_8008DC54 to poke SRAM regs
+audioRspDispatchNode = 0x8007ED94; // type:func // audio RSP GBI cmd dispatcher variant; cmd ptr arrives in $t0
+contPakScanNotes = 0x80071EA4; // type:func // scan controller pak note slots via contPakFetchNote/contPakCountNotes
+contPakAllocNote = 0x800884E8; // type:func // find free space for new controller pak note
+siQueryControllers = 0x8008B248; // type:func // SI raw DMA read/write loop to poll controller state
+exceptionVectors = 0x80076000; // type:func // static: handwritten exception vector stubs copied to 0x80000000/0x80000180
+rdpTextLayout = 0x80065BDC; // type:func // text layout/positioning for HUD renderer using trackComputeLen
+sramStartDmaSafe = 0x80075F90; // type:func // wrapper: intDisable + sramStartDma(0x707,...) + intRestore

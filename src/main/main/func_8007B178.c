@@ -51,6 +51,7 @@ void func_8007B178(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     arg0->unk4 = (f32) ((arg4 * sp34) + temp_ft4);
 }
 
+void func_8007B318(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8007B30C(s32 arg1, s32 arg2, s32 arg3) {
-
+    func_8007B318();
 }

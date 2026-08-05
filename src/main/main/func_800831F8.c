@@ -32,8 +32,8 @@ extern s32 D_800953D0[];   /* geometry table: selector 5 */
 extern s32 D_80095448[];   /* geometry table: default */
 extern f64 D_8004CED0;     /* double constant (scale factor, ldc1 in asm) */
 
-/* func_80085C5C — mesh element setter (nonmatching, in func_80085A04.c) */
-s32 func_80085C5C(s32 *arg0, s32 arg1, s32 arg2);
+/* audioNodeSetValue — mesh element setter (nonmatching, in func_80085A04.c) */
+s32 audioNodeSetValue(s32 *arg0, s32 arg1, s32 arg2);
 /* func_80085C74, func_80085A00 — installed as callbacks into dest->unk4/unk28 */
 extern void func_80085C74(void);
 extern void func_80085A00(void);
@@ -46,7 +46,7 @@ void func_800831F8(Unk *arg0, Unk *arg1, void *arg2) {
     /* Install callbacks and init dest object */
     arg0->unk4  = (s32)func_80085C74;
     arg0->unk28 = (s32)func_80085A00;
-    audioNodeInit(arg0, (void *)0, (void *)func_80085C5C, 5);
+    audioNodeInit(arg0, (void *)0, (void *)audioNodeSetValue, 5);
 
     /* Select geometry data table from arg1->unk1C (1-6) */
     sel = *(u8 *)((char *)arg1 + 0x1C);

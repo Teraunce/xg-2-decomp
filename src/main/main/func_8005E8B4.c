@@ -29,5 +29,6 @@ extern s32 D_80181648;
 void func_8005E8B4(void) { /* nonmatching — see asm stub */ }
 
 s32 func_8005F528(void) {
+    func_8005F530();
     return D_80181648;
 }

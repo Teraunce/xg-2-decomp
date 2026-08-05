@@ -61,5 +61,6 @@ block_4:
 }
 
 char *func_8004EE5C(void) {
+    func_8004EE64(0.0f, 0.0f, 0.0f);
     return D_8017CCB8;
 }

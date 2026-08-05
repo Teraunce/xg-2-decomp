@@ -3,7 +3,7 @@
 
 void func_800831F8(Unk*, Unk*, void*);                         /* extern */
 s32 audioNoteWrite(Unk*, s32, s32);                       /* extern */
-s32 func_80085C5C(s32*, s32, s32);                       /* extern */
+s32 audioNodeSetValue(s32*, s32, s32);                       /* extern */
 extern f32 D_8004CFA8;
 extern f32 D_8004CFAC;
 extern s32 gAiClock;
@@ -15,7 +15,7 @@ s32 func_800865F8(Unk *arg0, s16 arg1, s32 arg2, s32 arg3) {
     temp_s1 = arg1 * 0x4C;
     func_800831F8(arg0->unk34 + temp_s1 + 0x20, arg2, arg3);
     temp_a2 = arg0->unk34 + temp_s1;
-    func_80085C5C(temp_a2 + 0x20, 1, temp_a2);
+    audioNodeSetValue(temp_a2 + 0x20, 1, temp_a2);
     audioNoteWrite(arg0->unk30, 2, arg0->unk34 + temp_s1 + 0x20);
     return arg0->unk34 + temp_s1 + 0x20;
 }

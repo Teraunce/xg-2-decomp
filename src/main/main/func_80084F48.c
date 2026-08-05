@@ -35,6 +35,7 @@ char *func_80084F48(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
     return var_s3;
 }
 
+s32 func_8008506C(void);  /* forward: GETTER_NOJR fallthrough */
 void func_80085068(s32 arg1) {
-
+    return func_8008506C();
 }

@@ -9,6 +9,6 @@ void func_8007A8E0(s32 arg0) {
     guMtxF2L(&sp18, arg0);
 }
 
-f32 func_8007A910(void) {
+f32 guMtxL2FFixed(void) {
     return 65536.0f;
 }

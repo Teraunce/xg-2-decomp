@@ -17,6 +17,7 @@ void func_8008E368(void) {
     osRestoreInt(temp_s0);
 }
 
+s32 func_8008E3C0(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8008E3B8(void) {
-
+    return func_8008E3C0();
 }

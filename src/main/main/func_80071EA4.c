@@ -10,7 +10,7 @@ extern s32 D_80093ECC;
 extern Unk D_801887D0;
 extern s32 D_80188940;
 
-void func_80071EA4(s32 arg0, s32 arg1) {
+void contPakScanNotes(s32 arg0, s32 arg1) {
     Unk *var_s1;
     s32 temp_v0;
     s32 temp_v0_2;

@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_8007ED94 — GBI audio command dispatcher variant (nonmatching).
+ * audioRspDispatchNode — GBI audio command dispatcher variant (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -25,4 +25,4 @@
  * $t0 set up (e.g. from inside another dispatcher via jalr or a tail call
  * with non-standard register passing).
  */
-void func_8007ED94(void) { /* nonmatching — see asm stub */ }
+void audioRspDispatchNode(void) { /* nonmatching — see asm stub */ }

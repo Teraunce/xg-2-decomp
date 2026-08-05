@@ -3,7 +3,7 @@ void func_80061A9C(s8*, s8, s32);                       /* extern */
 u16 sfxAllocBlock(s32);                             /* extern */
 void sfxPlay(u16);                               /* extern */
 s32 sfxGetEntry(s32);                             /* extern */
-s32 func_80070560(u8*, s32);                        /* extern */
+s32 calcHash(u8*, s32);                        /* extern */
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 void entityClearSlots(s32, s32);                       /* extern */
 s32 entityStepState(s32, s32, s32);                     /* extern */
@@ -74,7 +74,7 @@ block_12:
                         func_80061A9C(sfxGetEntry(temp_s2), 0, sp20);
                         temp_v0_3 = sfxGetEntry(temp_s2);
                         if (entityStepState(contPakWriteNote(temp_s0_2, sp40, 0, 0, sp20, temp_v0_3), arg1, -1) == 0) {
-                            if ((D_801887D0.unk168 != 0) && ((void *)((temp_s1 = sp20 - 4, *(f32*)((char*)((s32)(temp_v0_3 + sp20)) - 4)!= func_80070560(temp_v0_3, temp_s1))) || (arg2(temp_v0_3, temp_s1) == 0))) {
+                            if ((D_801887D0.unk168 != 0) && ((void *)((temp_s1 = sp20 - 4, *(f32*)((char*)((s32)(temp_v0_3 + sp20)) - 4)!= calcHash(temp_v0_3, temp_s1))) || (arg2(temp_v0_3, temp_s1) == 0))) {
                                 if (handlerPostCmd(0x35, arg1, 0x52, 0x65, 0, 0, 0) != 0) {
                                     D_801887D0.unk168 = 0;
                                     goto block_27;

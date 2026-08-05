@@ -2,7 +2,7 @@
 /* Warning: missing "jr $ra" in last block of func_80066574 (initial). */
 
 s32 fontGetCharWidth(u16, s32 *, s32 *);               /* extern */
-void func_80065BDC(s32, u8**, s32);                     /* extern */
+void rdpTextLayout(s32, u8**, s32);                     /* extern */
 s32 sfxGetVolLevel(s32, s32);                          /* extern */
 extern u16 D_80182E68;
 extern u16 D_80182E74;
@@ -28,7 +28,7 @@ void func_80066400(s32 arg0, s32 arg1, u16 *arg2) {
         do {
             if ((var_v1 == 0xA) || (var_v1 == 0xD)) {
                 sfxGetVolLevel(arg0, arg1);
-                func_80065BDC(arg0, arg1, *var_s1 != 0xA);
+                rdpTextLayout(arg0, arg1, *var_s1 != 0xA);
                 D_80182E74 = D_80182E94;
                 if ((D_80182E76 + D_80182E8C.unk0) >= 0x100) {
                     D_80182E76 = 0xFF;
@@ -55,6 +55,7 @@ void func_80066400(s32 arg0, s32 arg1, u16 *arg2) {
     sfxGetVolLevel(arg0, arg1);
 }
 
+void func_80066580(void);  /* forward: GETTER_NOJR fallthrough */
 void func_80066574(s32 arg1, s32 arg2, s32 arg3) {
-
+    func_80066580();
 }

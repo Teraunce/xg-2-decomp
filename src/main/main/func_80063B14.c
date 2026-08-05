@@ -30,5 +30,6 @@ block_4:
 }
 
 s32 func_80063B94(void) {
+    func_80063B9C(0);
     return D_801823E0;
 }

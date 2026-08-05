@@ -74,6 +74,7 @@ s32 func_80088048(char *arg0, s32 arg1, s32 arg2) {
     return sp78;
 }
 
+void func_80088248(void);  /* forward: GETTER_NOJR fallthrough */
 void func_80088240(s32 arg1, s32 arg2) {
-
+    func_80088248();
 }

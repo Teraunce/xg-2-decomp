@@ -23,7 +23,7 @@
 
 void func_80071A28(s32 *arg0);
 void func_80071D04(s32 *arg0);
-void func_80071EA4(s32 arg0, s32 arg1);
+void contPakScanNotes(s32 arg0, s32 arg1);
 void func_800721A8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_80072550(s32 arg0, s32 arg1, s32 arg2);
 void func_800727EC(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32));
@@ -83,7 +83,7 @@ void func_800707B0(void *arg0) {
                     func_80071D04(&gSfxChannelState);
                     break;
                 case 3:
-                    func_80071EA4((s32)&gSfxChannelState,
+                    contPakScanNotes((s32)&gSfxChannelState,
                                   *(s32 *)((char *)entry + 0x04));
                     break;
                 case 4:

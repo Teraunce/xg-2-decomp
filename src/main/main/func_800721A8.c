@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_80070454(s32, Unk*);                       /* extern */
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
-void func_80071EA4(s32, s32);                          /* extern */
+void contPakScanNotes(s32, s32);                          /* extern */
 s32 contPakLoadSave(Unk*, u16, s32, s32, s32); /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern s32 D_8018894C;
@@ -55,6 +55,6 @@ block_8:
     }
     handlerPostCmd(0x3A, arg1, 0xB9, 0, 0, 0, 0);
 block_10:
-    func_80071EA4(arg0, arg1);
+    contPakScanNotes(arg0, arg1);
     return;
 }

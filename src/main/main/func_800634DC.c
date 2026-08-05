@@ -37,4 +37,5 @@ void func_800634DC(void) {
 
 void func_8006364C(Unk *arg0) {
     arg0->unkC00;
+    func_80063650();
 }
