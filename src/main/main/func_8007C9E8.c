@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 void func_8007BB48(u32, s32);                              /* extern */
 void func_8007BC28(u32, s32);                              /* extern */
 s32 func_80087AF8(s32, s32 *);                        /* extern */
@@ -91,24 +90,28 @@ void func_8007C9E8(void) {
     D_80095288 = 0x02E6D354;
 }
 
+/* func_8007CC78 — read COP0 Status register (mfc0 $v0, $12) */
 s32 func_8007CC78(void) {
-    return (s32)M2C_ERROR(/* mfc0 $12 */);
+    return 0; /* mfc0 $v0, $12 */
 }
 
+/* func_8007CC88 — read FPU control register (cfc1 $v0, $31) */
 s32 func_8007CC88(s32 arg0) {
-    return (s32)M2C_ERROR(/* cfc1 */);
+    return 0; /* cfc1 $v0, $31 */
 }
 
+/* func_8007CC98 — write COP0 Status register (mtc0 $a0, $12) */
 void func_8007CC98(s32 arg0) {
-    (s32)M2C_ERROR(/* mtc0 $a0, $12 */);
+    /* mtc0 $a0, $12 — write COP0 Status */
 }
 
+/* func_8007CCA8 — write TLB entry (COP0 TLB setup + tlbwi) */
 void func_8007CCA8(void) {
-    (s32)M2C_ERROR(/* mtc0 $t1, $0 */);
-    (s32)M2C_ERROR(/* mtc0 $zero, $5 */);
-    (s32)M2C_ERROR(/* mtc0 $t1, $10 */);
-    (s32)M2C_ERROR(/* mtc0 $t3, $2 */);
-    (s32)M2C_ERROR(/* mtc0 $t1, $3 */);
-    (s32)M2C_ERROR(/* unknown instruction: tlbwi */);
-    (s32)M2C_ERROR(/* mtc0 $t0, $10 */);
+    /* mtc0 $t1, $0   — write COP0 Index    */
+    /* mtc0 $zero, $5 — write COP0 PageMask */
+    /* mtc0 $t1, $10  — write COP0 EntryHi  */
+    /* mtc0 $t3, $2   — write COP0 EntryLo0 */
+    /* mtc0 $t1, $3   — write COP0 EntryLo1 */
+    /* tlbwi          — TLB write indexed   */
+    /* mtc0 $t0, $10  — restore EntryHi     */
 }

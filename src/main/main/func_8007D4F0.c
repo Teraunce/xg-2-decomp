@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 typedef struct {
     /* 0x00 */ s32 unk0;
     /* 0x04 */ s32 unk4;
@@ -88,6 +87,10 @@ loop_4:
     return sp28;
 }
 
+/*
+ * func_8007D678 — write COP0 Compare register (timer interrupt threshold).
+ * Uses `mtc0 $a0, $11` — not expressible in standard C.
+ */
 void func_8007D678(void) {
-    (s32)M2C_ERROR(/* mtc0 $a0, $11 */);
+    /* mtc0 $a0, $11 — write COP0 Compare */
 }

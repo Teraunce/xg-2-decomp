@@ -10,9 +10,9 @@ extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
 
 s32 func_80089EF8(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
-    Unk *sp = M2C_ERROR(/* sp register */);
-    s32 sp2E = (s32)M2C_ERROR(/* sp2E */);
-    s32 sp52 = (s32)M2C_ERROR(/* sp52 */);
+    Unk *sp = NULL; /* $sp base — used as Unk byte-ptr into local stack (nonmatching) */
+    s32 sp2E = 0; /* sp+0x2E — stack slot read before write (nonmatching) */
+    s32 sp52 = 0; /* sp+0x52 — stack slot read before write (nonmatching) */
     s32 sp5C;
     s32 sp58;
     char *sp54;

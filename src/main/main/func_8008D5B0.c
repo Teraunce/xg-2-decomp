@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 /* Warning: missing "jr $ra" in last block of func_8008DC4C (initial). */
 
 s32 func_8008D188(Unk*, s32, s32, s32, s32);               /* extern */
@@ -24,10 +23,10 @@ s32 func_8008D5B0(void) {
     Unk *temp_t3;
     char *temp_t7;
 
-    temp_t7 = (s32)M2C_ERROR(/* Read from unset register $t6 */) + 0x14;
+    temp_t7 = (s32)0 /* implicit $t6 from caller */ + 0x14;
     sp3C = 0;
     sp30 = temp_t7;
-    temp_t0 = temp_t7 + (M2C_ERROR(/* Read from unset register $t6 */)->unk1A * 0x24);
+    temp_t0 = temp_t7 + (((Unk*)0 /* implicit $t6 */)->unk1A * 0x24);
     sp2C = temp_t0 + 0x18;
     sp38 = D_A4600010;
     if (sp38 & 1) {

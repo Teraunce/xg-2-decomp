@@ -1,15 +1,14 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 s32 func_8007D688(u32);             /* extern */
 s16 func_8008448C(f64, s32);                             /* extern */
 extern s32 D_80095470;
 extern s32 D_8009556E;
 
 char *func_8008465C(void) {
-    s16 *saved_reg_s0 = (s16*)M2C_ERROR(/* saved s0 */);
-    Unk *saved_reg_s3 = M2C_ERROR(/* saved s3 */);
-    s32 saved_reg_s5 = (s32)M2C_ERROR(/* saved s5 */);
-    s16 *saved_reg_s6 = (s16*)M2C_ERROR(/* saved s6 */);
+    s16 *saved_reg_s0 = NULL; /* implicit $s0 set by caller */
+    Unk *saved_reg_s3 = NULL; /* implicit $s3 set by caller */
+    s32 saved_reg_s5 = 0; /* implicit $s5 set by caller */
+    s16 *saved_reg_s6 = NULL; /* implicit $s6 set by caller */
     s16 temp_v1;
     s32 temp_s7;
     s32 var_v0;
@@ -26,9 +25,9 @@ char *func_8008465C(void) {
 
     temp_a0 = saved_reg_s3->unk0;
     if ((saved_reg_s3->unk48 != 1) || (saved_reg_s5 == 0)) {
-        return (s32)M2C_ERROR(/* Read from unset register $t0 */);
+        return (s32)0 /* implicit $t0 from caller */;
     }
-    temp_v0 = ((s32(*)())(s32)temp_a0->unk4)(temp_a0, saved_reg_s6, saved_reg_s5, (s32)M2C_ERROR(/* Read from unset register $t0 */));
+    temp_v0 = ((s32(*)())(s32)temp_a0->unk4)(temp_a0, saved_reg_s6, saved_reg_s5, (s32)0 /* implicit $t0 from caller */);
     temp_s7 = saved_reg_s5 * 2;
     temp_v0->unk0 = (s32) ((*saved_reg_s6 & 0xFFFF) | 0x08000000);
     temp_s4 = temp_v0 + 0x10;

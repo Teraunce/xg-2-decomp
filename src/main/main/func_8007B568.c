@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 void func_8007A758(char*, char*);                          /* extern */
 void func_8007B508(void *, f32, f32, s32);                  /* extern */
 extern f32 D_8004C848;
@@ -11,10 +10,14 @@ extern f32 D_8004C8D8;
 extern s32 D_80094A60;
 extern s32 D_8009525E;
 
-void func_8007B568(f32 arg1, s32 arg0) {
+/*
+ * func_8007B568 — nonmatching.
+ * arg2_ft4 is a float passed in non-standard register $f16 (SN64 quirk).
+ */
+void func_8007B568(f32 arg1, s32 arg0, f32 arg2_ft4) {
     s32 sp18[16];
 
-    func_8007B508(&sp18, arg0, arg1, (s32)M2C_ERROR(/* Read from unset register $f16 */));
+    func_8007B508(&sp18, arg0, arg1, (s32) arg2_ft4);
     func_8007A758(&sp18, arg0);
 }
 

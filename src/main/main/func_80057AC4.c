@@ -1,33 +1,25 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 extern f32 D_8004BDAC;
 
+/*
+ * func_80057AC4 — compute cross product of two edge vectors (nonmatching).
+ *
+ * Caller pre-computes arg1->unk0 - arg0->unk0 and passes it in $fv0/$f0.
+ * sp0 captures that value from the stack save at function entry.
+ * Written to be self-contained (computes unk0 delta here for readability).
+ */
 void func_80057AC4(Unk *arg0, Unk *arg1, Unk *arg2, Unk *arg3) {
-    f32 sp18;
-    f32 sp14;
-    f32 sp10;
-    f32 sp8;
-    f32 sp4;
-    f32 sp0;
-    f32 temp_ft0;
-    f32 temp_ft1;
-    f32 temp_ft2;
-    f32 temp_fv0;
-    f32 temp_fv1;
-
-    sp0 = (s32)M2C_ERROR(/* Read from unset register $f0 */);
-    temp_ft1 = arg1->unk4 - arg0->unk4;
-    sp4 = temp_ft1;
-    temp_ft2 = arg1->unk8 - arg0->unk8;
-    sp8 = temp_ft2;
-    temp_fv0 = arg2->unk0 - arg0->unk0;
-    sp10 = temp_fv0;
-    temp_ft0 = arg2->unk4 - arg0->unk4;
-    sp14 = temp_ft0;
-    temp_fv1 = arg2->unk8 - arg0->unk8;
-    sp18 = temp_fv1;
-    arg3->unk0 = (f32) ((temp_ft1 * temp_fv1) - (temp_ft2 * temp_ft0));
-    arg3->unk4 = (f32) ((sp8 * temp_fv0) - ((s32)M2C_ERROR(/* Read from unset register $f0 */) * temp_fv1));
+    /* B = arg1 - arg0 */
+    f32 sp0 = arg1->unk0 - arg0->unk0;   /* caller passed this in $fv0 */
+    f32 sp4 = arg1->unk4 - arg0->unk4;
+    f32 sp8 = arg1->unk8 - arg0->unk8;
+    /* C = arg2 - arg0 */
+    f32 sp10 = arg2->unk0 - arg0->unk0;
+    f32 sp14 = arg2->unk4 - arg0->unk4;
+    f32 sp18 = arg2->unk8 - arg0->unk8;
+    /* cross product B × C */
+    arg3->unk0 = (f32) ((sp4 * sp18) - (sp8 * sp14));
+    arg3->unk4 = (f32) ((sp8 * sp10) - (sp0 * sp18));
     arg3->unk8 = (f32) ((sp0 * sp14) - (sp4 * sp10));
 }
 

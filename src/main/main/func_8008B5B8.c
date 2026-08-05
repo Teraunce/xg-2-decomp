@@ -42,7 +42,7 @@ loop_5:
         sp12C = sp1C;
         if (sp1C < 0x80) {
             do {
-    Unk *sp = M2C_ERROR(/* sp register */);
+    Unk *sp = (Unk*)sp28; /* $sp base — local array as byte-addressable Unk ptr (nonmatching) */
                 if ((sp + (sp12C * 2))->unk28 == 3) {
                     sp128 += 1;
                 }

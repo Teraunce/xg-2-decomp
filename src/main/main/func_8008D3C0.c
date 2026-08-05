@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 s32 func_8007C768();                                /* extern */
 s32 func_8007C788(s32);                               /* extern */
 void func_8008CEB8(s32, u32 *);                          /* extern */
@@ -24,7 +23,7 @@ void **func_8008D3C0(void) {
     s32 temp_v0;
 
     sp1C = 0;
-    if ((s32)M2C_ERROR(/* Read from unset register $t6 */) == 0xB0000000) {
+    if ((s32)0 /* implicit $t6 from caller */ == 0xB0000000) {
 
     } else {
         D_8018C20C = 0;

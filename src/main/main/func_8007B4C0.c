@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 void func_8007A758(char*, char*);                          /* extern */
 void func_8007B368(void *, f32, f32);                       /* extern */
 

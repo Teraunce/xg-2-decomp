@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 s32 func_8007DD1C();                                /* extern */
 
 void func_8007E074(Unk *arg0, char *arg1) {
@@ -28,14 +27,14 @@ void func_8007E074(Unk *arg0, char *arg1) {
         if (temp_v0 != 0) {
             arg0->unk4 = (s32) (arg0->unk4 | (1 << var_t5));
             var_t4->unk18 = (s32) (arg1 + temp_v0);
-            M2C_ERROR(/* Read from unset register $t4 */)->unkB8 = func_8007DD1C();
+            var_t4 /* loop feedback: previous var_t4 value in $t4 */->unkB8 = func_8007DD1C();
         } else {
             var_t4->unk18 = 0;
         }
-        var_t5 = (s32)M2C_ERROR(/* Read from unset register $t5 */) + 1;
+        var_t5 = (s32)var_t5 /* loop feedback: previous var_t5 value in $t5 */ + 1;
         var_s1 += 1;
         var_s2 += 4;
-        var_t4 = (s32)M2C_ERROR(/* Read from unset register $t4 */) + 4;
+        var_t4 = (s32)var_t4 /* loop feedback: previous var_t4 value in $t4 */ + 4;
     } while (var_t5 != 0x10);
     temp_t7 = ((Unk *)arg0->unk0)->unk40;
     var_ft2 = (f32) temp_t7;

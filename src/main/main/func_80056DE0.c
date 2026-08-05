@@ -1,20 +1,28 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 extern f32 D_8004BD9C;
 
+/*
+ * func_80056DE0 — pack RDP command words from truncated float values (nonmatching).
+ *
+ * Heavily non-standard SN64 calling convention: six values from implicit registers:
+ *   $fv1/$f2  — truncated integer (temp_fa0)
+ *   $ft2/$f4  — truncated integer (temp_fa0_3)
+ *   $ft3/$f6  — scale factor for arg0->unk38+arg4 (used in multiply)
+ *   $ft4/$f8  — truncated integer (temp_fa0_2)
+ *   $ft5/$f10 — scale factor for arg0->unk38+arg4 (temp_fa0_4)
+ *   $t0       — integer mask (likely 0xFFFF0000)
+ * All replaced with 0 as placeholder values below.
+ */
 void func_80056DE0(Unk *arg0, Unk *arg1, f32 arg4) {
-    s32 temp_fa0;
-    s32 temp_fa0_2;
-    s32 temp_fa0_3;
-    s32 temp_fa0_4;
+    s32 temp_fa0   = 0 /* $fv1/$f2 implicit */;
+    s32 temp_fa0_2 = 0 /* $ft4/$f8 implicit */;
+    s32 temp_fa0_3 = 0 /* $ft2/$f4 implicit */;
+    s32 temp_fa0_4 = (s32) ((arg0->unk38 + arg4) * 0 /* $ft5/$f10 implicit */);
+    s32 mask_t0    = 0 /* $t0 implicit, likely 0xFFFF0000 */;
 
-    temp_fa0 = (s32) M2C_ERROR(/* Read from unset register $f2 */);
-    temp_fa0_2 = (s32) M2C_ERROR(/* Read from unset register $f8 */);
-    temp_fa0_3 = (s32) M2C_ERROR(/* Read from unset register $f4 */);
-    temp_fa0_4 = (s32) ((arg0->unk38 + arg4) * (s32)M2C_ERROR(/* Read from unset register $f10 */));
-    arg1->unk18 = (s32) ((temp_fa0_2 & (s32)M2C_ERROR(/* Read from unset register $t0 */)) | ((u32) temp_fa0_3 >> 0x10));
+    arg1->unk18 = (s32) ((temp_fa0_2 & mask_t0) | ((u32) temp_fa0_3 >> 0x10));
     arg1->unk38 = (s32) ((temp_fa0_2 << 0x10) | (temp_fa0_3 & 0xFFFF));
-    arg1->unk1C = (s32) ((temp_fa0_4 & (s32)M2C_ERROR(/* Read from unset register $t0 */)) | ((u32) temp_fa0 >> 0x10));
+    arg1->unk1C = (s32) ((temp_fa0_4 & mask_t0) | ((u32) temp_fa0 >> 0x10));
     arg1->unk3C = (s32) ((temp_fa0_4 << 0x10) | (temp_fa0 & 0xFFFF));
 }
 

@@ -8,8 +8,8 @@ s32 func_8008A568(void *, s32, u8, s32, u8, u16*, s32); /* extern */
 s32 func_8008B088(void *, u16, s32, s32, s32, s32*); /* extern */
 
 s32 func_8008A288(Unk *arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    Unk *sp = M2C_ERROR(/* sp register */);
-    s32 sp3B = (s32)M2C_ERROR(/* sp3B */);
+    Unk *sp = NULL; /* $sp base — used as Unk byte-ptr into local stack (nonmatching) */
+    s32 sp3B = 0; /* sp+0x3B — stack slot read before write (nonmatching) */
     s32 sp15C;
     s32 sp158;
     s32 sp154;

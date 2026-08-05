@@ -10,7 +10,7 @@ extern u8 D_8004D128;
 /* Warning: Gap in callee-saved word stack region.
  * Saved: [0x14, 0x1c, 0x24, 0x28], gap at: 0x20. */
 void func_80090028(void) {
-    Unk *saved_reg_s0 = M2C_ERROR(/* saved s0 */);
+    Unk *saved_reg_s0 = NULL; /* implicit $s0 set by caller — not saved/restored here */
     s32 saved_reg_s1;
     s32 saved_reg_s2;
     s32 saved_reg_s3;

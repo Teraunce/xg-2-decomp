@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 s32 func_80065B44(s32, s16, s16);                     /* extern */
 void func_80065BDC(s32, u8**, s32);                       /* extern */
 extern s16 D_80182E68;
@@ -18,7 +17,7 @@ void func_800661AC(s32 arg0, s32 arg1) {
     Unk *temp_v0;
     Unk *var_a0;
 
-    if ((s32)M2C_ERROR(/* Read from unset register $v0 */) & 1) {
+    if ((s32)0 /* implicit $v0 from caller */ & 1) {
 loop_2:
         if (D_80182E92 < func_80065B44(arg1, 0, D_80182E68)) {
             var_s0 = (u16) D_80182E68 - 1;

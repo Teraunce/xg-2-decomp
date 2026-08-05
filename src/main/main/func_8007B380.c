@@ -1,48 +1,48 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 /* Warning: missing "jr $ra" in last block of func_8007B4B4 (initial). */
 
-f32 func_80079DB8(f32);                             /* extern */
-void func_8007A858(char*);                            /* extern */
-f32 func_8007B5A8(f32);                             /* extern */
+f32 func_80079DB8(f32);                             /* cosf */
+void func_8007A858(Unk*);                           /* extern */
+f32 func_8007B5A8(f32);                             /* sinf */
 extern f32 D_80189808;
 
-void func_8007B380(f32 arg1, Unk *arg0, f32 arg2, f32 arg3) {
-    f32 sp40;
-    f32 sp3C;
-    f32 sp34;
-    f32 sp30;
-    f32 temp_fa1;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
+/*
+ * func_8007B380 — build Euler-angle (YXZ) rotation matrix (nonmatching).
+ *
+ * Called via GETTER preamble (func_8007B4B4) which loads a scale factor into
+ * $fv0/$f0. At function entry, arg2 and arg3 are pre-multiplied by scale_fv0
+ * (via `mul.s $fa1,$fa1,$fv0` and `mul.s $ft4,$ft4,$fv0`), and scale_fv0 is
+ * stored to D_80189808. scale_fv0 is not expressible as a standard C parameter.
+ *
+ * arg1 = yaw   ($fa0/$f12), unscaled
+ * arg2 = pitch ($fa1/$f14), scaled at entry
+ * arg3 = roll  ($ft4/$f16, non-standard register), scaled at entry
+ */
+void func_8007B380(Unk *arg0, f32 arg1, f32 arg2, f32 arg3 /*, f32 scale_fv0 */) {
+    f32 sin1 = func_8007B5A8(arg1);
+    f32 cos1 = func_80079DB8(arg1);
+    f32 sin2 = func_8007B5A8(arg2);
+    f32 cos2 = func_80079DB8(arg2);
+    f32 sin3 = func_8007B5A8(arg3);
+    f32 cos3 = func_80079DB8(arg3);
 
-    temp_fa1 = arg1 * (s32)M2C_ERROR(/* Read from unset register $f0 */);
-    arg2 = temp_fa1;
-    arg1 = (f32)(s32)arg0;
-    D_80189808 = (s32)M2C_ERROR(/* Read from unset register $f0 */);
-    arg3 = (s32)M2C_ERROR(/* Read from unset register $f16 */) * (s32)M2C_ERROR(/* Read from unset register $f0 */);
-    temp_fs0 = func_8007B5A8(temp_fa1);
-    temp_fs1 = func_80079DB8(arg1);
-    sp40 = func_8007B5A8(arg2);
-    sp34 = func_80079DB8(arg2);
-    sp3C = func_8007B5A8(arg3);
-    sp30 = func_80079DB8(arg3);
     func_8007A858(arg0);
-    arg0->unk8 = (f32) -sp40;
-    temp_fv0 = temp_fs0 * sp40;
-    arg0->unk0 = (f32) (sp34 * sp30);
-    arg0->unk4 = (f32) (sp34 * sp3C);
-    temp_fv0_2 = temp_fs1 * sp40;
-    arg0->unk10 = (f32) ((temp_fv0 * sp30) - (temp_fs1 * sp3C));
-    arg0->unk18 = (f32) (temp_fs0 * sp34);
-    arg0->unk14 = (f32) ((temp_fv0 * sp3C) + (temp_fs1 * sp30));
-    arg0->unk20 = (f32) ((temp_fv0_2 * sp30) + (temp_fs0 * sp3C));
-    arg0->unk28 = (f32) (temp_fs1 * sp34);
-    arg0->unk24 = (f32) ((temp_fv0_2 * sp3C) - (temp_fs0 * sp30));
+    arg0->unk8  = (f32) -sin2;
+    arg0->unk0  = (f32) (cos2 * cos3);
+    arg0->unk4  = (f32) (cos2 * sin3);
+    arg0->unk10 = (f32) (((sin1 * sin2) * cos3) - (cos1 * sin3));
+    arg0->unk18 = (f32) (sin1 * cos2);
+    arg0->unk14 = (f32) (((sin1 * sin2) * sin3) + (cos1 * cos3));
+    arg0->unk20 = (f32) (((cos1 * sin2) * cos3) + (sin1 * sin3));
+    arg0->unk28 = (f32) (cos1 * cos2);
+    arg0->unk24 = (f32) (((cos1 * sin2) * sin3) - (sin1 * cos3));
 }
 
+/*
+ * func_8007B4B4 — GETTER_NOJR preamble for func_8007B380.
+ * Loads scale factor into $fv0, moves $a1/$a2/$a3 into float registers,
+ * then falls through to func_8007B380. Cannot be expressed in standard C.
+ */
 void func_8007B4B4(s32 arg1, s32 arg2, s32 arg3) {
-
+    (void)arg1; (void)arg2; (void)arg3;
 }

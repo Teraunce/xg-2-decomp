@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 s32 func_8007C768();                                /* extern */
 s32 func_8007C788(s32);                               /* extern */
 s32 func_8007C9D8();                                /* static */
@@ -23,6 +22,11 @@ s32 func_8007C948(void) {
     return ((u32) (sp30 + sp2C) < sp2C) + sp28;
 }
 
+/*
+ * func_8007C9D8 — read COP0 Count register (hardware cycle counter).
+ * Uses `mfc0 $v0, $9` — not expressible in standard C.
+ */
 s32 func_8007C9D8(void) {
-    return (s32)M2C_ERROR(/* mfc0 $9 */);
+    /* mfc0 $v0, $9 — read COP0 Count */
+    return 0;
 }

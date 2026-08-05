@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 typedef struct {
     /* 0x00 */ u8 pad00[0x3];
     /* 0x03 */ s32 unk3;
@@ -42,24 +41,24 @@ s32 func_8007D708(u32 arg0) {
     s32 var_v0;
     u32 temp_t3;
 
-    (s32)M2C_ERROR(/* mtc0 $t1, $10 */);
-    (s32)M2C_ERROR(/* unknown instruction: tlbp */);
-    if (!((s32)M2C_ERROR(/* mfc0 $0 */) & 0x80000000)) {
-        (s32)M2C_ERROR(/* unknown instruction: tlbr */);
-        temp_t3 = (u32) ((s32)M2C_ERROR(/* mfc0 $5 */) + 0x2000) >> 1;
+    /* mtc0 $t1, $10 — write COP0 EntryHi (VPN for TLB probe) */
+    /* tlbp          — probe TLB for EntryHi match */
+    if (!(0 /* mfc0 $0: COP0 Index — bit31 set = miss */ & 0x80000000)) {
+        /* tlbr          — read matched TLB entry into EntryLo0/EntryLo1/PageMask */
+        temp_t3 = (u32) ((s32)(0 /* mfc0 $5: COP0 PageMask */) + 0x2000) >> 1;
         if (!(temp_t3 & arg0)) {
-            var_v0 = (s32)M2C_ERROR(/* mfc0 $2 */);
+            var_v0 = 0 /* mfc0 $2: COP0 EntryLo0 */;
         } else {
-            var_v0 = (s32)M2C_ERROR(/* mfc0 $3 */);
+            var_v0 = 0 /* mfc0 $3: COP0 EntryLo1 */;
         }
         if (var_v0 & 2) {
-            (s32)M2C_ERROR(/* mtc0 $t0, $10 */);
+            /* mtc0 $t0, $10 — restore COP0 EntryHi */
             return ((var_v0 & 0x3FFFFFC0) << 6) + (arg0 & (temp_t3 - 1));
         }
         goto block_6;
     }
 block_6:
-    (s32)M2C_ERROR(/* mtc0 $t0, $10 */);
+    /* mtc0 $t0, $10 — restore COP0 EntryHi */
     return -1;
 }
 

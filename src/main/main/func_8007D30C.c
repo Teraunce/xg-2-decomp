@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 typedef struct {
     /* 0x00 */ s32 unk0;
     /* 0x04 */ s32 unk4;
@@ -31,7 +30,8 @@ void func_8007D30C(void) {
     u32 temp_t9_2;
     char *temp_t9;
 
-    if ((s32)M2C_ERROR(/* Read from unset register $t6 */) != (s32)M2C_ERROR(/* Read from unset register $t6 */)) {
+    /* implicit $t6: linked-list head ptr from caller; beq *$t6,$t6 = list-empty sentinel */
+    if ((s32)0 /* *implicit_t6 */ != (s32)0 /* implicit_t6 */) {
 loop_1:
         temp_t9 = *D_800952C0;
         sp24 = temp_t9;

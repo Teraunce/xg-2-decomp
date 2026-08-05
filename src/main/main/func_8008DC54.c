@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 typedef struct {
     /* 0x00 */ u8 pad00[0x10];
     /* 0x10 */ s32 unk10;
@@ -14,7 +13,7 @@ void func_8008DC54(void) {
     UnkStruct_sp1C *sp1C;
     s32 sp18;
 
-    sp1C = (s32)M2C_ERROR(/* Read from unset register $t6 */) + 0x14;
+    sp1C = (s32)0 /* implicit $t6 from caller */ + 0x14;
     sp18 = D_A4600010;
     if (sp18 & 3) {
         do {

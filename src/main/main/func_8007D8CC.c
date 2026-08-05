@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 /* Warning: missing "jr $ra" in last block of func_8007DA6C (initial). */
 
 void func_8007D7D8(void *, s32, s32);              /* extern */
@@ -29,16 +28,16 @@ void func_8007D8CC(Unk *arg0, s32 arg1) {
                         temp_t9->unk8 = temp_a0;
                         func_8007D7D8(temp_a0, arg0, arg1);
                     }
-                    var_t3 = (s32)M2C_ERROR(/* Read from unset register $t5 */);
-                    if ((s32)M2C_ERROR(/* Read from unset register $t5 */) > 0) {
+                    var_t3 = (s32)0 /* implicit $t5 count from caller */;
+                    if ((s32)0 /* implicit $t5 count from caller */ > 0) {
                         do {
                             temp_a0_2 = var_t3->unkC + arg0;
                             var_t3->unkC = temp_a0_2;
                             if (temp_a0_2 != NULL) {
                                 func_8007D7D8(temp_a0_2, arg0, arg1);
                             }
-                            var_t3 = (s32)M2C_ERROR(/* Read from unset register $t3 */) + 4;
-                        } while (((s32)M2C_ERROR(/* Read from unset register $t4 */) + 1) < (s32)M2C_ERROR(/* Read from unset register $t5 */));
+                            var_t3 = (Unk*)((s32)var_t3 + 4); /* $t3 loop feedback: var_t3 + 4 */
+                        } while (((s32)0 /* $t4 loop counter */ + 1) < (s32)0 /* implicit $t5 count from caller */);
                     }
                 }
                 var_s3 += 1;

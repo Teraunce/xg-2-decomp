@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 typedef struct {
     /* 0x00 */ s32 unk0;
     /* 0x04 */ s32 unk4;
@@ -109,8 +108,8 @@ typedef struct {
 void func_80082B98();                                  /* extern */
 
 void func_8007DAB0(s32 arg0) {
-    if ((s32)M2C_ERROR(/* Read from unset register $t6 */) == 0) {
-        *(s32*)(s32)M2C_ERROR(/* Read from unset register $v0 */) = arg0;
+    if ((s32)0 /* implicit $t6 from caller */ == 0) {
+        *(s32*)(s32)0 /* implicit $v0 from caller */ = arg0;
         func_80082B98();
     }
 }

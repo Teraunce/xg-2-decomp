@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 void func_8007DD7C(Unk*, Unk*);                        /* extern */
 void func_8007E074(Unk*, char*);                         /* extern */
 extern f64 D_8004C9C8;
@@ -81,8 +80,8 @@ s32 func_8007E2FC(Unk *arg0, f32 arg1, s32 arg2) {
     }
     temp_ft2 = ((f64) arg1 * D_8004C9C8 * var_ft4) / var_ft3;
     temp_ft4 = (s32) temp_ft2;
-    if ((s32)M2C_ERROR(/* cfc1 */) & 0x78) {
-        if (!((s32)M2C_ERROR(/* cfc1 */) & 0x78)) {
+    if (0 /* cfc1 $v0, $31: FCR31 FPU status */ & 0x78) {
+        if (!(0 /* cfc1 $v0, $31: FCR31 FPU status */ & 0x78)) {
             return (s32) (temp_ft2 - 2147483648.0) | 0x80000000;
         }
         /* Duplicate return node #7. Try simplifying control flow for better match */

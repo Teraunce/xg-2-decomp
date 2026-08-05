@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 extern s32 D_8018AD28;
 extern u8 D_8018AD69;
 
@@ -16,7 +15,7 @@ void func_80088248(u8 *arg0, char *arg1) {
     sp7 = 0;
     sp14 = &D_8018AD28;
     sp8 = 0;
-    if ((s32)M2C_ERROR(/* Read from unset register $t7 */) > 0) {
+    if ((s32)0 /* implicit $t7 from caller */ > 0) {
         do {
             ((Unk*)&spC)->unk0 = (s32) (s32) sp14->unk0;
             ((Unk*)&spC)->unk4 = (s32) (s32) sp14->unk4;

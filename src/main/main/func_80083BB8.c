@@ -16,13 +16,13 @@ typedef struct {
 } UnkStruct_var_s0;
 
 char *func_80083BB8(void) {
-    Unk *saved_reg_s0 = M2C_ERROR(/* saved s0 */);
-    s32 saved_reg_s1 = (s32)M2C_ERROR(/* saved s1 */);
-    Unk *saved_reg_s2 = M2C_ERROR(/* saved s2 */);
-    s32 saved_reg_s3 = (s32)M2C_ERROR(/* saved s3 */);
-    s32 saved_reg_s4 = (s32)M2C_ERROR(/* saved s4 */);
-    s32 saved_reg_s5 = (s32)M2C_ERROR(/* saved s5 */);
-    s32 saved_reg_s6 = (s32)M2C_ERROR(/* saved s6 */);
+    Unk *saved_reg_s0 = NULL; /* implicit $s0 set by caller */
+    s32 saved_reg_s1 = 0; /* implicit $s1 set by caller */
+    Unk *saved_reg_s2 = NULL; /* implicit $s2 set by caller */
+    s32 saved_reg_s3 = 0; /* implicit $s3 set by caller */
+    s32 saved_reg_s4 = 0; /* implicit $s4 set by caller */
+    s32 saved_reg_s5 = 0; /* implicit $s5 set by caller */
+    s32 saved_reg_s6 = 0; /* implicit $s6 set by caller */
     s32 temp_s1;
     s32 temp_v0;
     s32 var_a2;

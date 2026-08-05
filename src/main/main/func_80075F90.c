@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 s32 func_80074EA0();                                /* extern */
 void func_80074ED8(s32);                               /* extern */
 s32 func_80075B78(s32, s32, s32);                    /* extern */
@@ -75,7 +74,7 @@ void func_8007611C(void) {
 
     var_t0 = &D_80001FF0;
     do {
-        (s32)M2C_ERROR(/* unknown instruction: cache 0x1, ($t0) */);
+        /* cache 0x1, ($t0) — D-cache invalidate index */
         var_t0 += 0x10;
     } while (var_t0 != (char*)&D_80001FF0);
 }
@@ -85,17 +84,17 @@ void func_80076138(void) {
 
     var_t0 = &D_80003FE0;
     do {
-        (s32)M2C_ERROR(/* unknown instruction: cache 0x0, ($t0) */);
+        /* cache 0x0, ($t0) — I-cache invalidate index */
         var_t0 += 0x20;
     } while (var_t0 != (char*)&D_80003FE0);
 }
 
 s32 func_80076154(void) {
-    return (s32)M2C_ERROR(/* mfc0 $12 */);
+    return 0; /* mfc0 $v0, $12 — read COP0 Status */
 }
 
 void func_80076160(void) {
-    (s32)M2C_ERROR(/* mtc0 $a0, $12 */);
+    /* mtc0 $a0, $12 — write COP0 Status */
 }
 
 /* -------------------------------------------------------------------------

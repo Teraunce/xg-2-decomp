@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 s32 func_800567DC(f32 *, f32 *, f32 *);               /* extern */
 void func_80057B74(Unk*, Unk*, Unk*);               /* extern */
 extern f32 D_8004BE4C;
@@ -78,11 +77,11 @@ s32 func_8005D9C0(f32 arg0, f32 arg1, f32 arg3, f32 arg4, f32 arg5, f32 *arg6, s
         if (temp_v0 != NULL) {
             sp10 = temp_v0->unk0 - arg0;
             sp14 = ((Unk *)var_s1->unkD0)->unk4 - arg1;
-            var_fv0 = ((Unk *)var_s1->unkD0)->unk8 - (s32)M2C_ERROR(/* Read from unset register $f18 */);
+            var_fv0 = ((Unk *)var_s1->unkD0)->unk8 - arg3;
         } else {
             sp10 = var_s1->unkC - arg0;
             sp14 = var_s1->unk10 - arg1;
-            var_fv0 = var_s1->unk14 - (s32)M2C_ERROR(/* Read from unset register $f18 */);
+            var_fv0 = var_s1->unk14 - arg3;
         }
         sp18 = var_fv0;
         temp_fv1 = fabsf(sp10) + fabsf(sp14) + fabsf(var_fv0);
@@ -101,7 +100,7 @@ block_12:
             sp10 = temp_fv0;
             temp_fv0_2 = var_s1->unk4 - arg1;
             sp14 = temp_fv0_2;
-            temp_fv0_3 = var_s1->unk8 - (s32)M2C_ERROR(/* Read from unset register $f18 */);
+            temp_fv0_3 = var_s1->unk8 - arg3;
             sp18 = temp_fv0_3;
             var_ft4 = sqrtf((temp_fv0 * temp_fv0) + (temp_fv0_2 * temp_fv0_2) + (temp_fv0_3 * temp_fv0_3));
         }
@@ -112,7 +111,7 @@ block_12:
             do {
                 temp_ft3 = var_v1->unkC - arg0;
                 temp_ft2 = var_v1->unk10 - arg1;
-                temp_ft1 = var_v1->unk14 - (s32)M2C_ERROR(/* Read from unset register $f18 */);
+                temp_ft1 = var_v1->unk14 - arg3;
                 temp_fv1_2 = sqrtf((temp_ft3 * temp_ft3) + (temp_ft2 * temp_ft2) + (temp_ft1 * temp_ft1));
                 if (temp_fv1_2 < var_ft4) {
                     var_s1 = var_v1;

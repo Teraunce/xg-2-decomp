@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 /* Warning: missing "jr $ra" in last block of func_8005A2FC (initial). */
 
 s32 func_80056788(f32 *, f32 *, f32 *);               /* extern */
@@ -153,10 +152,10 @@ s32 func_80059774(f32 arg_fa0_unused, f32 arg_fa1_unused) {
     s32 temp_a1;
     s32 temp_a3;
 
-    temp_a0 = M2C_ERROR(/* Read from unset register $t5 */)->unk4;
-    temp_a1 = M2C_ERROR(/* Read from unset register $t5 */)->unk8;
-    temp_a3 = M2C_ERROR(/* Read from unset register $t5 */)->unkC;
-    if (M2C_ERROR(/* Read from unset register $t4 */)->unk3 & 0x80) {
+    temp_a0 = ((Unk*)0 /* implicit $t5 */)->unk4;
+    temp_a1 = ((Unk*)0 /* implicit $t5 */)->unk8;
+    temp_a3 = ((Unk*)0 /* implicit $t5 */)->unkC;
+    if (((Unk*)0 /* implicit $t4 */)->unk3 & 0x80) {
         var_fv1 = (f32) (saved_reg_s0->unk2 + temp_a1) - saved_reg_f28;
         var_ft0 = (f32) (saved_reg_s1->unk2 + temp_a1) - saved_reg_f28;
         var_ft1 = (f32) (saved_reg_s2->unk2 + temp_a1) - saved_reg_f28;
@@ -165,7 +164,7 @@ s32 func_80059774(f32 arg_fa0_unused, f32 arg_fa1_unused) {
         var_ft0 = (f32) (saved_reg_s1->unk0 + temp_a0) - saved_reg_f26;
         var_ft1 = (f32) (saved_reg_s2->unk0 + temp_a0) - saved_reg_f26;
     }
-    if (M2C_ERROR(/* Read from unset register $t4 */)->unk3 & 0x40) {
+    if (((Unk*)0 /* implicit $t4 */)->unk3 & 0x40) {
         var_ft2 = (f32) (saved_reg_s0->unk2 + temp_a1) - saved_reg_f28;
         var_ft3 = (f32) (saved_reg_s1->unk2 + temp_a1) - saved_reg_f28;
         var_fa0 = (f32) (saved_reg_s2->unk2 + temp_a1) - saved_reg_f28;
@@ -190,7 +189,7 @@ s32 func_80059774(f32 arg_fa0_unused, f32 arg_fa1_unused) {
 
 f32 func_80059948(Unk *arg0, Unk *arg2) {
     Unk *saved_reg_s0;
-    return ((arg0->unk0 - (f32) ((Unk *)(s32)(saved_reg_s0->unk0 + (s32)M2C_ERROR(/* Read from unset register $t5 */)))->unk4) * arg2->unk0) + ((arg0->unk4 - (f32) ((Unk *)(s32)(saved_reg_s0->unk2 + (s32)M2C_ERROR(/* Read from unset register $t5 */)))->unk8) * arg2->unk4) + ((arg0->unk8 - (f32) ((Unk *)(s32)(saved_reg_s0->unk4 + (s32)M2C_ERROR(/* Read from unset register $t5 */)))->unkC) * arg2->unk8);
+    return ((arg0->unk0 - (f32) ((Unk *)(s32)(saved_reg_s0->unk0 + (s32)((Unk*)0 /* implicit $t5 */)))->unk4) * arg2->unk0) + ((arg0->unk4 - (f32) ((Unk *)(s32)(saved_reg_s0->unk2 + (s32)((Unk*)0 /* implicit $t5 */)))->unk8) * arg2->unk4) + ((arg0->unk8 - (f32) ((Unk *)(s32)(saved_reg_s0->unk4 + (s32)((Unk*)0 /* implicit $t5 */)))->unkC) * arg2->unk8);
 }
 
 /* nonmatching func_800599C0: Unable to determine jump table for jr instruction at func_80 */
@@ -220,7 +219,7 @@ s32 func_80059CFC(Unk *arg0, Unk *arg1) {
         do {
             temp_t4 = *var_t0;
             if (temp_t4 >= 0) {
-                if (*(s32*)((char*)(s32)M2C_ERROR(/* Read from unset register $t3 */) + ((Unk*)((char*)(s32)M2C_ERROR(/* Read from unset register $t2 */) + temp_t4 * 0xC))->unk4 * 0x10) <= 0) {
+                if (*(s32*)((char*)(s32)0 /* implicit $t3 */ + ((Unk*)((char*)(s32)0 /* implicit $t2 */ + temp_t4 * 0xC))->unk4 * 0x10) <= 0) {
 
                 }
                 temp_fv0 = func_80059948(arg0->unk0, NULL);
@@ -242,16 +241,16 @@ s32 func_80059CFC(Unk *arg0, Unk *arg1) {
                             temp_v0_2->unk4 = temp_fs4;
                             temp_v0_2->unk8 = (f32) (temp_fa0 - temp_fa1);
                             temp_v0_3 = arg0->unkC;
-                            temp_v0_3->unk0 = (f32) (temp_v0_3->unk0 + (s32)M2C_ERROR(/* Read from unset register $a2 */));
-                            temp_v0_3->unk4 = (f32) ((Unk *)(s32)(temp_v0_3->unk4 + (s32)M2C_ERROR(/* Read from unset register $a2 */)))->unk4;
-                            temp_v0_3->unk8 = (f32) ((Unk *)(s32)(temp_v0_3->unk8 + (s32)M2C_ERROR(/* Read from unset register $a2 */)))->unk8;
+                            temp_v0_3->unk0 = (f32) (temp_v0_3->unk0 + (s32)0 /* implicit $a2 from caller */);
+                            temp_v0_3->unk4 = (f32) ((Unk *)(s32)(temp_v0_3->unk4 + (s32)0 /* implicit $a2 from caller */))->unk4;
+                            temp_v0_3->unk8 = (f32) ((Unk *)(s32)(temp_v0_3->unk8 + (s32)0 /* implicit $a2 from caller */))->unk8;
                             var_s3 |= 1;
                         }
                     }
                 }
             }
-            var_t0 = (s32)M2C_ERROR(/* Read from unset register $t0 */) + 2;
-        } while (((s32)M2C_ERROR(/* Read from unset register $t1 */) - 1) != 0);
+            var_t0 = (s32)0 /* implicit $t0 */ + 2;
+        } while (((s32)0 /* implicit $t1 */ - 1) != 0);
     }
     return var_s3;
 }
@@ -271,7 +270,7 @@ s32 func_80059F34(Unk *arg0, Unk *arg1) {
         do {
             temp_t4 = *var_t0;
             if (temp_t4 >= 0) {
-                if (*(s32*)((char*)(s32)M2C_ERROR(/* Read from unset register $t3 */) + ((Unk*)((char*)(s32)M2C_ERROR(/* Read from unset register $t2 */) + temp_t4 * 0xC))->unk4 * 0x10) <= 0) {
+                if (*(s32*)((char*)(s32)0 /* implicit $t3 */ + ((Unk*)((char*)(s32)0 /* implicit $t2 */ + temp_t4 * 0xC))->unk4 * 0x10) <= 0) {
 
                 }
                 temp_fs1 = func_80059948(arg0->unk0, NULL);
@@ -285,22 +284,22 @@ block_9:
                     temp_fa0 = ((Unk *)arg0->unk0)->unk8;
                     temp_v0 = arg0->unkC;
                     if (func_80059774(temp_fa0, (temp_fa0 - ((Unk *)arg0->unk4)->unk8) * (temp_fs1 / (temp_fs1 - temp_fv0))) != 0) {
-                        temp_v0->unk0 = (f32) (temp_v0->unk0 + (s32)M2C_ERROR(/* Read from unset register $a2 */));
-                        temp_v0->unk4 = (f32) ((Unk *)(s32)(temp_v0->unk4 + (s32)M2C_ERROR(/* Read from unset register $a2 */)))->unk4;
-                        temp_v0->unk8 = (f32) ((Unk *)(s32)(temp_v0->unk8 + (s32)M2C_ERROR(/* Read from unset register $a2 */)))->unk8;
+                        temp_v0->unk0 = (f32) (temp_v0->unk0 + (s32)0 /* implicit $a2 from caller */);
+                        temp_v0->unk4 = (f32) ((Unk *)(s32)(temp_v0->unk4 + (s32)0 /* implicit $a2 from caller */))->unk4;
+                        temp_v0->unk8 = (f32) ((Unk *)(s32)(temp_v0->unk8 + (s32)0 /* implicit $a2 from caller */))->unk8;
                         var_s3 |= 1;
                     }
                 }
             }
-            var_t0 = (s32)M2C_ERROR(/* Read from unset register $t0 */) + 2;
-        } while (((s32)M2C_ERROR(/* Read from unset register $t1 */) - 1) != 0);
+            var_t0 = (s32)0 /* implicit $t0 */ + 2;
+        } while (((s32)0 /* implicit $t1 */ - 1) != 0);
     }
     return var_s3;
 }
 
 s32 func_8005A170(Unk *arg0) {
     func_8005A214(NULL, NULL, 0);
-    return (s32)M2C_ERROR(/* Read from unset register $a3 */);
+    return (s32)0 /* implicit $a3 from caller */;
 }
 
 void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2) {
@@ -310,7 +309,7 @@ void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2) {
     f32 saved_reg_f30;
     s32 var_s0;
 
-    var_s0 = (s32)M2C_ERROR(/* Read from unset register $t0 */) - 0xFE00;
+    var_s0 = (s32)0 /* implicit $t0 */ - 0xFE00;
     if (var_s0 >= 0) {
         if (var_s0 != 0) {
             do {
@@ -320,7 +319,7 @@ void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2) {
         }
         return;
     }
-    func_8005A47C(arg0->unk44 + ((s32)M2C_ERROR(/* Read from unset register $t0 */) * 2));
+    func_8005A47C(arg0->unk44 + ((s32)0 /* implicit $t0 */ * 2));
     if ((saved_reg_f24 < saved_reg_f28) || (saved_reg_f24 < saved_reg_f30)) {
         func_8005A214(NULL, NULL, 0);
     }
@@ -357,25 +356,25 @@ void func_8005A70C(void) {
     temp_t0 = saved_reg_s1->unk3;
     if (temp_t0 & 0x80) {
         temp_t1 = saved_reg_s3->unk8;
-        var_ft2 = (f32) (M2C_ERROR(/* Read from unset register $t7 */)->unk2 + temp_t1) - (s32)M2C_ERROR(/* Read from unset register $f4 */);
-        var_ft3 = (f32) (M2C_ERROR(/* Read from unset register $t8 */)->unk2 + temp_t1) - (s32)M2C_ERROR(/* Read from unset register $f4 */);
-        var_fa0 = (f32) (M2C_ERROR(/* Read from unset register $t9 */)->unk2 + temp_t1) - (s32)M2C_ERROR(/* Read from unset register $f4 */);
+        var_ft2 = (f32) (((Unk*)0 /* implicit $t7 */)->unk2 + temp_t1) - (s32)0.0 /* implicit $ft4/$f4 float */;
+        var_ft3 = (f32) (((Unk*)0 /* implicit $t8 */)->unk2 + temp_t1) - (s32)0.0 /* implicit $ft4/$f4 float */;
+        var_fa0 = (f32) (((Unk*)0 /* implicit $t9 */)->unk2 + temp_t1) - (s32)0.0 /* implicit $ft4/$f4 float */;
     } else {
         temp_t1_2 = saved_reg_s3->unk4;
-        var_ft2 = (f32) ((s32)M2C_ERROR(/* Read from unset register $t7 */) + temp_t1_2) - (s32)M2C_ERROR(/* Read from unset register $f2 */);
-        var_ft3 = (f32) ((s32)M2C_ERROR(/* Read from unset register $t8 */) + temp_t1_2) - (s32)M2C_ERROR(/* Read from unset register $f2 */);
-        var_fa0 = (f32) ((s32)M2C_ERROR(/* Read from unset register $t9 */) + temp_t1_2) - (s32)M2C_ERROR(/* Read from unset register $f2 */);
+        var_ft2 = (f32) ((s32)((Unk*)0 /* implicit $t7 */) + temp_t1_2) - (s32)0.0 /* implicit $fv1/$f2 float */;
+        var_ft3 = (f32) ((s32)((Unk*)0 /* implicit $t8 */) + temp_t1_2) - (s32)0.0 /* implicit $fv1/$f2 float */;
+        var_fa0 = (f32) ((s32)((Unk*)0 /* implicit $t9 */) + temp_t1_2) - (s32)0.0 /* implicit $fv1/$f2 float */;
     }
     if (temp_t0 & 0x40) {
         temp_t1_3 = saved_reg_s3->unk8;
-        var_fa1 = (f32) (M2C_ERROR(/* Read from unset register $t7 */)->unk2 + temp_t1_3) - (s32)M2C_ERROR(/* Read from unset register $f4 */);
-        var_ft4 = (f32) (M2C_ERROR(/* Read from unset register $t8 */)->unk2 + temp_t1_3) - (s32)M2C_ERROR(/* Read from unset register $f4 */);
-        var_ft5 = (f32) (M2C_ERROR(/* Read from unset register $t9 */)->unk2 + temp_t1_3) - (s32)M2C_ERROR(/* Read from unset register $f4 */);
+        var_fa1 = (f32) (((Unk*)0 /* implicit $t7 */)->unk2 + temp_t1_3) - (s32)0.0 /* implicit $ft4/$f4 float */;
+        var_ft4 = (f32) (((Unk*)0 /* implicit $t8 */)->unk2 + temp_t1_3) - (s32)0.0 /* implicit $ft4/$f4 float */;
+        var_ft5 = (f32) (((Unk*)0 /* implicit $t9 */)->unk2 + temp_t1_3) - (s32)0.0 /* implicit $ft4/$f4 float */;
     } else {
         temp_t1_4 = saved_reg_s3->unkC;
-        var_fa1 = (f32) (M2C_ERROR(/* Read from unset register $t7 */)->unk4 + temp_t1_4) - (s32)M2C_ERROR(/* Read from unset register $f6 */);
-        var_ft4 = (f32) (M2C_ERROR(/* Read from unset register $t8 */)->unk4 + temp_t1_4) - (s32)M2C_ERROR(/* Read from unset register $f6 */);
-        var_ft5 = (f32) (M2C_ERROR(/* Read from unset register $t9 */)->unk4 + temp_t1_4) - (s32)M2C_ERROR(/* Read from unset register $f6 */);
+        var_fa1 = (f32) (((Unk*)0 /* implicit $t7 */)->unk4 + temp_t1_4) - (s32)0.0 /* implicit $ft3/$f6 float */;
+        var_ft4 = (f32) (((Unk*)0 /* implicit $t8 */)->unk4 + temp_t1_4) - (s32)0.0 /* implicit $ft3/$f6 float */;
+        var_ft5 = (f32) (((Unk*)0 /* implicit $t9 */)->unk4 + temp_t1_4) - (s32)0.0 /* implicit $ft3/$f6 float */;
     }
     if (!(temp_t0 & 0x20)) {
         if (!(((var_ft4 - var_fa1) * var_ft2) < ((var_ft3 - var_ft2) * var_fa1)) && !(((var_ft5 - var_ft4) * var_ft3) < ((var_fa0 - var_ft3) * var_ft4)) && !(((var_fa1 - var_ft5) * var_fa0) < ((var_ft2 - var_fa0) * var_ft5))) {

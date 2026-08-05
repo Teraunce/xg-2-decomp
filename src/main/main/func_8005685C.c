@@ -1,55 +1,74 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
+
+/* 4×4 float matrix (column-major), 0x40 bytes */
 typedef struct {
     /* 0x00 */ f32 unk0;
-    /* 0x04 */ s32 unk4;
-    /* 0x08 */ s32 unk8;
-    /* 0x0C */ s32 unkC;
-    /* 0x10 */ s32 unk10;
-    /* 0x14 */ s32 unk14;
+    /* 0x04 */ f32 unk4;
+    /* 0x08 */ f32 unk8;
+    /* 0x0C */ f32 unkC;
+    /* 0x10 */ f32 unk10;
+    /* 0x14 */ f32 unk14;
     /* 0x18 */ f32 unk18;
-    /* 0x1C */ s32 unk1C;
-    /* 0x20 */ s32 unk20;
-    /* 0x24 */ s32 unk24;
-    /* 0x28 */ s32 unk28;
-    /* 0x2C */ s32 unk2C;
-    /* 0x30 */ s32 unk30;
-    /* 0x34 */ s32 unk34;
-    /* 0x38 */ s32 unk38;
+    /* 0x1C */ f32 unk1C;
+    /* 0x20 */ f32 unk20;
+    /* 0x24 */ f32 unk24;
+    /* 0x28 */ f32 unk28;
+    /* 0x2C */ f32 unk2C;
+    /* 0x30 */ f32 unk30;
+    /* 0x34 */ f32 unk34;
+    /* 0x38 */ f32 unk38;
     /* 0x3C */ f32 unk3C;
-} UnkStruct_arg0;
+} Matrix4x4;
 
-f32 func_80079DB8(f32);                             /* extern */
-f32 func_8007B5A8(f32);                             /* extern */
+f32 func_80079DB8(f32);                             /* cosf */
+f32 func_8007B5A8(f32);                             /* sinf */
 extern f32 D_8004BD7C;
 extern f32 D_8004BD80;
 
-void func_8005685C(UnkStruct_arg0 *arg0) {
-    f32 temp_fs0;
-    f32 temp_fs0_2;
-    f32 temp_fv0;
+/*
+ * func_8005685C — init X-axis rotation matrix (nonmatching).
+ *
+ * arg_ft1 and arg_fv0 are passed in non-standard float registers ($f7/$f0)
+ * by the SN64 compiler; they are not expressible as normal C parameters.
+ * Typically called via the getter func_800568E8 which loads D_8004BD80
+ * into $fv0 and moves $a1 into $ft0 for the caller.
+ *
+ * The matrix written is a rotation around the X axis by angle (arg_ft1 * arg_fv0):
+ *   [ D  0     0    0 ]
+ *   [ 0  cos  -sin  0 ]
+ *   [ 0  sin   cos  0 ]
+ *   [ 0  0     0    D ]
+ * where D = D_8004BD7C (likely 1.0f).
+ */
+void func_8005685C(Matrix4x4 *arg0 /*, f32 arg_ft1, f32 arg_fv0 */) {
+    /* angle = arg_ft1 * arg_fv0  (mul.s $fs0, $ft1, $fv0) */
+    f32 sin_val = func_8007B5A8(0.0f /* angle */);
+    f32 cos_val = func_80079DB8(0.0f /* angle */);
 
-    temp_fs0 = (s32)M2C_ERROR(/* Read from unset register $f6 */) * (s32)M2C_ERROR(/* Read from unset register $f0 */);
-    temp_fs0_2 = func_8007B5A8(temp_fs0);
-    temp_fv0 = func_80079DB8(temp_fs0);
-    arg0->unk4 = 0;
-    arg0->unk8 = 0;
-    arg0->unkC = 0;
-    arg0->unk10 = 0;
-    arg0->unk14 = temp_fv0;
-    arg0->unk18 = (f32) -temp_fs0_2;
-    arg0->unk1C = 0;
-    arg0->unk20 = 0;
-    arg0->unk24 = temp_fs0_2;
-    arg0->unk28 = temp_fv0;
-    arg0->unk2C = 0;
-    arg0->unk30 = 0;
-    arg0->unk34 = 0;
-    arg0->unk38 = 0;
-    arg0->unk0 = (f32) D_8004BD7C;
-    arg0->unk3C = (f32) D_8004BD7C;
+    arg0->unk0  = D_8004BD7C;
+    arg0->unk4  = 0.0f;
+    arg0->unk8  = 0.0f;
+    arg0->unkC  = 0.0f;
+    arg0->unk10 = 0.0f;
+    arg0->unk14 = cos_val;
+    arg0->unk18 = -sin_val;
+    arg0->unk1C = 0.0f;
+    arg0->unk20 = 0.0f;
+    arg0->unk24 = sin_val;
+    arg0->unk28 = cos_val;
+    arg0->unk2C = 0.0f;
+    arg0->unk30 = 0.0f;
+    arg0->unk34 = 0.0f;
+    arg0->unk38 = 0.0f;
+    arg0->unk3C = D_8004BD7C;
 }
 
+/*
+ * func_800568E8 — GETTER_NOJR preamble for func_800568F4.
+ * Loads D_8004BD80 into $fv0 and moves $a1 into $ft0, then falls through.
+ * Cannot be expressed in standard C.
+ */
 f32 func_800568E8(s32 arg1) {
+    (void)arg1;
     return D_8004BD80;
 }

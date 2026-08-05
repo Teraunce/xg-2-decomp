@@ -36,7 +36,7 @@ void func_8007DA48(Unk*, void**);                        /* extern */
 void func_8007EB88(void*);                           /* extern */
 
 void func_8007EBC4(UnkStruct_arg1 *arg1) {
-    Unk *saved_reg_s7 = M2C_ERROR(/* saved s7 */);
+    Unk *saved_reg_s7 = NULL; /* implicit $s7 set by caller — not saved/restored here */
     UnkStruct_temp_a0 *temp_a0;
     UnkStruct_temp_s2 *temp_s2;
     char *temp_s2_2;

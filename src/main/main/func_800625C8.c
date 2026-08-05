@@ -1,5 +1,4 @@
 #include "ultra64.h"
-#define M2C_ERROR(x) ((Unk *)0)
 void func_800622C0();                                  /* extern */
 extern u32 D_80092CB8;
 extern u32 D_80092CBC;
@@ -30,8 +29,8 @@ s32 func_800625C8(char *arg1) {
 
     var_a1 = arg1;
     var_s1 = 0;
-    if (M2C_ERROR(/* Read from unset register $v0 */)->unk0 != 0) {
-        temp_s3 = (s32)M2C_ERROR(/* Read from unset register $v1 */);
+    if (((Unk*)0 /* implicit $v0 from caller */)->unk0 != 0) {
+        temp_s3 = (s32)0 /* implicit $v1 from caller */;
         var_v0 = 0 * 2;
         do {
             temp_v1 = ((var_v0 + var_s1) * 4) + &D_80182348;
@@ -73,7 +72,7 @@ s32 func_800625C8(char *arg1) {
         } while (var_s1 < (u32) temp_s3->unk2CB8);
     }
     var_s1_2 = 0;
-    if ((s32)M2C_ERROR(/* Read from unset register $v1 */)->unk0 != 0) {
+    if ((s32)((Unk*)0 /* implicit $v1 */)->unk0 != 0) {
         var_v0_2 = 0 * 2;
         do {
             temp_s0 = ((var_v0_2 + var_s1_2) * 4) + &D_80182348;
@@ -94,7 +93,7 @@ s32 func_800625C8(char *arg1) {
             }
             var_s1_2 += 1;
             var_v0_2 = var_s1_2 * 2;
-        } while (var_s1_2 < (u32) (s32)M2C_ERROR(/* Read from unset register $v1 */)->unk0);
+        } while (var_s1_2 < (u32) (s32)((Unk*)0 /* implicit $v1 */)->unk0);
     }
     var_s1_3 = 0;
     if (D_80092CB8 != 0) {
