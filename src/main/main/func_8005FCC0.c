@@ -5,14 +5,14 @@ char *func_800639B0(s32);                           /* extern */
 s32 func_80063B0C(s32);                             /* extern */
 s32 func_80066FD0(s32, s32, void *, s32);              /* extern */
 s32 func_80070C88(void *, s32 (*)(void *, s32));                /* extern */
-extern s32 D_80092B80;
-extern s32 D_80092B88;
+extern s32 gRaceCtrl;
+extern s32 gGameFlags;
 extern s32 D_80092B8C;
 extern s32 D_80092B90;
 extern s32 D_8009334C;
 extern s32 *D_80093350;
 extern s32 D_80173D08;
-extern s32 D_801820D8;
+extern s32 gSfxChannelState;
 extern Unk D_80182EA8;
 
 void func_8005FCC0(s32 arg3) {
@@ -34,11 +34,11 @@ void func_8005FCC0(s32 arg3) {
 
     var_a3 = arg3;
     if ((s32)0 /* implicit $v0 from caller */ != 0) {
-        D_80092B88 = 0;
+        gGameFlags = 0;
     } else {
-        D_80092B88 = D_80092B8C;
+        gGameFlags = D_80092B8C;
     }
-    if (D_80092B88 & 0x200) {
+    if (gGameFlags & 0x200) {
         var_a2 = 0;
         if (D_80182EA8.unk16DC >= 0xD) {
             D_80182EA8.unk16E0 = 0;
@@ -86,11 +86,11 @@ loop_8:
             func_80063878(temp_s0);
         }
     }
-    if (D_80092B80 != 0) {
+    if (gRaceCtrl != 0) {
         func_8005FC3C();
         return;
     }
-    func_80070C88(&D_801820D8, func_8005FC3C);
+    func_80070C88(&gSfxChannelState, func_8005FC3C);
 }
 
 void func_8005FF2C(void) {

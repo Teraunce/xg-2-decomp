@@ -2,7 +2,7 @@
 #include "os.h"
 
 /*
- * func_8007BD08 — initialise a thread control block (osCreateThread equivalent).
+ * osCreateThread — initialise a thread control block (osCreateThread equivalent).
  *
  * Arguments
  *   arg0  thread   — OSThread* to initialise
@@ -12,7 +12,7 @@
  *   arg4  stack    — initial stack pointer (sp = arg4 - 0x10, sign-extended to 64-bit)
  *   arg5  pri      — OSPri scheduler priority
  *
- * The thread is pushed onto the head of the D_800952AC creation-order list via
+ * The thread is pushed onto the head of the __osAllThreadList creation-order list via
  * unk_0C before being handed to the scheduler.
  *
  * func_8007BE58 and func_8007C0F4 (same splat-merged asm file) are the N64
@@ -22,8 +22,8 @@
  * asm/main/main/func_8007BD08_merged.s.
  */
 
-s32  func_8007C768(void);
-void func_8007C788(s32);
+s32  osDisableInt(void);
+void osRestoreInt(s32);
 
 /*
  * D_8007C758 — default thread return address.  When the thread entry function
@@ -32,12 +32,12 @@ void func_8007C788(s32);
 extern s32 D_8007C758;
 
 /*
- * D_800952AC — creation-order all-threads list head (address 0x800952AC,
+ * __osAllThreadList — creation-order all-threads list head (address 0x800952AC,
  * 4 bytes after __osRunQueue).  Threads are singly-linked through unk_0C.
  */
-extern OSThread *D_800952AC;
+extern OSThread *__osAllThreadList;
 
-void func_8007BD08(OSThread *arg0, OSId arg1, u32 arg2, s32 arg3, u32 arg4, OSPri arg5) {
+void osCreateThread(OSThread *arg0, OSId arg1, u32 arg2, s32 arg3, u32 arg4, OSPri arg5) {
     s32 temp_s0;
 
     /* --- Thread header fields --- */
@@ -70,8 +70,8 @@ void func_8007BD08(OSThread *arg0, OSId arg1, u32 arg2, s32 arg3, u32 arg4, OSPr
     arg0->flags  = 0;
 
     /* --- Link into creation-order all-threads list via unk_0C --- */
-    temp_s0    = func_8007C768();
-    arg0->unk_0C = (void *)D_800952AC;
-    D_800952AC  = arg0;
-    func_8007C788(temp_s0);
+    temp_s0    = osDisableInt();
+    arg0->unk_0C = (void *)__osAllThreadList;
+    __osAllThreadList  = arg0;
+    osRestoreInt(temp_s0);
 }

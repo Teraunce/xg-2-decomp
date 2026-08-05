@@ -14,7 +14,7 @@
  *    used to pass arguments.  No C declaration can express this.
  *
  * 2. Dispatches via jr through jtbl_8004C488 (7 entries, 0x8006D30C) based
- *    on a0 value loaded from D_80091E5C.  m2c marks any function containing
+ *    on a0 value loaded from gGameState.  m2c marks any function containing
  *    jr-from-table as nonmatching.
  *
  * This is the largest function in the project: 0x2FCC bytes (12,236 bytes,

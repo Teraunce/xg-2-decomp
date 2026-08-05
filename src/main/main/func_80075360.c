@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80074F08(s32 *, s32);                       /* extern */
+void __osPiRawWriteIo(s32 *, s32);                       /* extern */
 void func_80075270(s32, s32);                           /* extern */
 
 void func_80075360(s32 arg0, u8 *arg1, u32 arg2) {
@@ -49,7 +49,7 @@ loop_2:
             temp_a1_2 = *var_s2;
             var_s2 += 4;
             var_s0 -= 4;
-            func_80074F08(var_a0, (temp_a1_2 << 0x18) | (temp_v0 << 0x10) | (temp_v1 << 8) | temp_a2);
+            __osPiRawWriteIo(var_a0, (temp_a1_2 << 0x18) | (temp_v0 << 0x10) | (temp_v1 << 8) | temp_a2);
             var_a0 = var_s1;
         } while (var_s0 >= 4U);
     }

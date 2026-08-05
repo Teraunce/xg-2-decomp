@@ -16,7 +16,7 @@ extern f32 D_8004BBE8;
 extern f32 D_8004BBEC;
 extern f32 D_8004BBF0;
 extern f32 D_8004BBF4;
-extern s32 D_80092B88;
+extern s32 gGameFlags;
 extern s32 D_80093334;
 extern Unk D_80182EA8;
 
@@ -97,7 +97,7 @@ block_14:
     } else {
         temp_fv1 = ((Unk*)((Unk*)((arg1->unk560 * 4) + &D_80182EA8)->unk16F8))->unk54;
         arg0->unk1F8 = temp_fv1;
-        if (D_80092B88 & 8) {
+        if (gGameFlags & 8) {
             var_v0 = 5;
         } else {
             var_v0 = 1;

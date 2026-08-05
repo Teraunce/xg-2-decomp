@@ -1,8 +1,8 @@
 #include "ultra64.h"
 void func_8006114C(void **);                   /* extern */
-extern s32 D_80092B68;
-extern Unk D_80092B6C;
-extern u32 D_80092B70;
+extern s32 gLineVtxBuf;
+extern Unk gLineVtxIdx;
+extern u32 gLineTexPtr;
 extern s32 D_80178690;
 extern Unk *D_801821E8;
 
@@ -22,12 +22,12 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
     Unk *temp_v1_7;
     Unk *temp_v1_8;
 
-    if (D_80092B68 == 0) {
-        D_80092B6C.unk0 = 0U;
-        D_80092B68 = D_80178690;
+    if (gLineVtxBuf == 0) {
+        gLineVtxIdx.unk0 = 0U;
+        gLineVtxBuf = D_80178690;
     }
     if (arg14 != 0) {
-        temp_v1 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1->unk3D = (s8) (arg10 >> 8);
         temp_v1->unk3E = (s8) (arg10 >> 0x10);
         temp_v1->unk3C = (s8) arg10;
@@ -38,7 +38,7 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1->unk36 = 0;
         temp_v1->unk38 = (s16) arg6;
         temp_v1->unk3A = (s16) arg7;
-        temp_v1_2 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1_2 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1_2->unkD = (s8) (arg11 >> 8);
         temp_v1_2->unkE = (s8) (arg11 >> 0x10);
         temp_v1_2->unkC = (s8) arg11;
@@ -50,7 +50,7 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1_2->unk6 = 0;
         temp_v1_2->unk8 = (s16) arg8;
         temp_v1_2->unkA = (s16) arg7;
-        temp_v1_3 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1_3 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1_3->unk10 = temp_a1;
         temp_a1_2 = arg2 + arg4;
         temp_v1_3->unk12 = temp_a1_2;
@@ -62,7 +62,7 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1_3->unk1D = (s8) (arg12 >> 8);
         temp_v1_3->unk1E = (s8) (arg12 >> 0x10);
         temp_v1_3->unk1F = (s8) (arg12 >> 0x18);
-        temp_v1_4 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1_4 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1_4->unk2D = (s8) (arg13 >> 8);
         temp_v1_4->unk2E = (s8) (arg13 >> 0x10);
         temp_v1_4->unk20 = arg1;
@@ -74,7 +74,7 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1_4->unk2C = (s8) arg13;
         temp_v1_4->unk2F = (s8) (arg13 >> 0x18);
     } else {
-        temp_v1_5 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1_5 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1_5->unkD = (s8) (arg10 >> 8);
         temp_v1_5->unkE = (s8) (arg10 >> 0x10);
         temp_v1_5->unkC = (s8) arg10;
@@ -85,7 +85,7 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1_5->unk6 = 0;
         temp_v1_5->unk8 = (s16) arg6;
         temp_v1_5->unkA = (s16) arg7;
-        temp_v1_6 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1_6 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1_6->unk1D = (s8) (arg11 >> 8);
         temp_v1_6->unk1E = (s8) (arg11 >> 0x10);
         temp_v1_6->unk1C = (s8) arg11;
@@ -97,7 +97,7 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1_6->unk16 = 0;
         temp_v1_6->unk18 = (s16) arg8;
         temp_v1_6->unk1A = (s16) arg7;
-        temp_v1_7 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1_7 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1_7->unk20 = temp_a1_3;
         temp_a1_4 = arg2 + arg4;
         temp_v1_7->unk22 = temp_a1_4;
@@ -109,7 +109,7 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1_7->unk2D = (s8) (arg12 >> 8);
         temp_v1_7->unk2E = (s8) (arg12 >> 0x10);
         temp_v1_7->unk2F = (s8) (arg12 >> 0x18);
-        temp_v1_8 = D_80092B68 + (D_80092B6C.unk0 * 0x10);
+        temp_v1_8 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
         temp_v1_8->unk3D = (s8) (arg13 >> 8);
         temp_v1_8->unk3E = (s8) (arg13 >> 0x10);
         temp_v1_8->unk30 = arg1;
@@ -121,14 +121,14 @@ void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s
         temp_v1_8->unk3C = (s8) arg13;
         temp_v1_8->unk3F = (s8) (arg13 >> 0x18);
     }
-    ((Unk*)((char*)D_801821E8 + D_80092B70 * 0x10))->unkC = (s8) (D_80092B6C.unk3 + 3);
-    ((Unk*)((char*)D_801821E8 + D_80092B70 * 0x10))->unkD = (s8) (D_80092B6C.unk3 + 2);
-    ((Unk*)((char*)D_801821E8 + D_80092B70 * 0x10))->unkE = (s8) (D_80092B6C.unk3 + 1);
-    ((Unk*)((char*)D_801821E8 + D_80092B70 * 0x10))->unkF = (u8) D_80092B6C.unk3;
-    temp_v1_9 = D_80092B70 + 1;
-    temp_a0 = D_80092B6C.unk0 + 4;
-    D_80092B70 = temp_v1_9;
-    D_80092B6C.unk0 = temp_a0;
+    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkC = (s8) (gLineVtxIdx.unk3 + 3);
+    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkD = (s8) (gLineVtxIdx.unk3 + 2);
+    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkE = (s8) (gLineVtxIdx.unk3 + 1);
+    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkF = (u8) gLineVtxIdx.unk3;
+    temp_v1_9 = gLineTexPtr + 1;
+    temp_a0 = gLineVtxIdx.unk0 + 4;
+    gLineTexPtr = temp_v1_9;
+    gLineVtxIdx.unk0 = temp_a0;
     D_80178690 += 0x40;
     if ((temp_v1_9 >= 0x20U) || (temp_a0 >= 0x1DU)) {
         func_8006114C((void **)arg0);

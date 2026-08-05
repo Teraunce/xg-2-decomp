@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8007D304 (initial). */
 
-extern Unk *D_800952C0;
+extern Unk *gOSMsgQueuePtr;
 extern s32 D_80189A8C;
 extern s32 D_80189A90;
 extern s32 D_80189A94;
@@ -33,14 +33,14 @@ void func_8007D278(void) {
     D_80189A8C = 0;
     D_80189A90 = 0;
     D_80189A94 = 0;
-    D_800952C0->unk4 = (void *) D_800952C0;
-    D_800952C0->unk0 = (void *) D_800952C0->unk4;
-    D_800952C0->unk10 = 0;
-    D_800952C0->unk14 = 0;
-    D_800952C0->unk8 = (s32) D_800952C0->unk10;
-    D_800952C0->unkC = (s32) D_800952C0->unk14;
-    D_800952C0->unk18 = 0;
-    D_800952C0->unk1C = 0;
+    gOSMsgQueuePtr->unk4 = (void *) gOSMsgQueuePtr;
+    gOSMsgQueuePtr->unk0 = (void *) gOSMsgQueuePtr->unk4;
+    gOSMsgQueuePtr->unk10 = 0;
+    gOSMsgQueuePtr->unk14 = 0;
+    gOSMsgQueuePtr->unk8 = (s32) gOSMsgQueuePtr->unk10;
+    gOSMsgQueuePtr->unkC = (s32) gOSMsgQueuePtr->unk14;
+    gOSMsgQueuePtr->unk18 = 0;
+    gOSMsgQueuePtr->unk1C = 0;
 }
 
 void func_8007D304(void) {

@@ -3,7 +3,7 @@ s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 s32 func_80071108(s32, s32);                            /* extern */
 void func_800716E4(s32, s32);                       /* extern */
 s32 func_8008B248(s32, u8*);                       /* extern */
-extern s32 D_80092CD0;
+extern s32 gSfxChannelMute;
 extern s32 D_80174724;
 extern s32 D_801887A0;
 extern Unk D_801887D0;
@@ -56,7 +56,7 @@ loop_5:
         var_s2 = arg0;
         do {
             if ((((s32) sp20 >> var_s0_2) & 1) && (*var_s2 != 0)) {
-                if ((var_s1->unk31C != 2) && (func_800716E4(var_s0_2, 0), (var_s1->unk31C == 2)) && (*(var_s0_2 + &D_80092CD0) != 0)) {
+                if ((var_s1->unk31C != 2) && (func_800716E4(var_s0_2, 0), (var_s1->unk31C == 2)) && (*(var_s0_2 + &gSfxChannelMute) != 0)) {
                     func_80071108(var_s0_2, -1);
                     var_s1 += 4;
                 } else {
@@ -75,7 +75,7 @@ block_15:
         var_s0_3 = 0;
         var_v1_2 = &D_801887D0;
 loop_18:
-        if (*(var_s0_3 + &D_80092CD0) == 0) {
+        if (*(var_s0_3 + &gSfxChannelMute) == 0) {
             var_s0_3 += 1;
             goto block_28;
         }
@@ -106,7 +106,7 @@ block_34:
                 }
                 if ((var_v0 == 0) && (func_80070F50(0x4D, 0, 0x52, 0x36, 0, 0, 0) == 0)) {
                     var_s0_5 = 3;
-                    var_v0_2 = &D_80092CD0 + 3;
+                    var_v0_2 = &gSfxChannelMute + 3;
                     do {
                         *var_v0_2 = 0;
                         var_s0_5 -= 1;

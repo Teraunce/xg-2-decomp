@@ -54,7 +54,7 @@ s32 func_80061F34(s32);  /* slot resolver (func_80061F0C.c) */
  *
  * Returns NULL (0) if the resolved slot is out of range.
  * Callers compare the return value against special sentinel pointers such as
- * gSfxSlotEnd (D_80092CE0) to detect end-of-heap conditions.
+ * gSfxSlotEnd (gSfxSlotEnd) to detect end-of-heap conditions.
  * ------------------------------------------------------------------------- */
 void *func_800621C0(s32 slotSpec, s32 *outType) {
     s32 slot = func_80061F34(slotSpec);

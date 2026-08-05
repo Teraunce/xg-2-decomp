@@ -10,7 +10,7 @@
  * looking for entries whose type does NOT have bits 0x2 or 0x4 set
  * (i.e. entries that have been inserted but not yet assigned a channel).
  * For each such entry it:
- *   1. Selects a channel function from D_80181EF0[] indexed by D_80091E70.
+ *   1. Selects a channel function from D_80181EF0[] indexed by gPlayerList.
  *   2. Saves gSfxMaxIndex, writes a display-list command pair into the
  *      RSP DL buffer (D_80173CC0).
  *   3. Calls the selected channel function (indirect) with the entry's
@@ -36,12 +36,12 @@
  *   D_80092CB4       0x80092CB4  s32  init value B for D_801823BC
  *   D_801823B8       0x801823B8  s32  SFX parameter B
  *   D_801823BC       0x801823BC  s32  SFX parameter C
- *   D_80091E70       0x80091E70  s32  channel selector index
+ *   gPlayerList       0x80091E70  s32  channel selector index
  *   D_80173CC0       0x80173CC0  u32* RSP display-list write pointer
  *   D_80178690       0x80178690  s32  saved channel pointer
  *   D_80181EF0       0x80181EF0  void*[] channel function table
  *   D_80182078       0x80182078  void* channel state base (passed to DL cmd)
- *   D_801820D8       0x801820D8  SfxChannelState[]  (gSfxChannelState)
+ *   gSfxChannelState       0x801820D8  SfxChannelState[]  (gSfxChannelState)
  *   D_800E412C       0x800E412C  void* effect table A
  *   D_800E4220       0x800E4220  void* effect table B
  */
@@ -55,15 +55,15 @@ extern s32           D_80092CB0;        /* init value A */
 extern s32           D_80092CB4;        /* init value B */
 extern s32           D_801823B8;        /* SFX param B */
 extern s32           D_801823BC;        /* SFX param C */
-extern s32           D_80091E70;        /* channel selector */
+extern s32           gPlayerList;        /* channel selector */
 extern u32          *D_80173CC0;        /* RSP DL write ptr */
 extern s32           D_80178690;        /* saved channel ptr */
 extern void        **D_80181EF0;        /* channel fn table */
 extern void         *D_80182078;        /* channel state base */
-extern SfxChannelState D_801820D8[];    /* gSfxChannelState */
+extern SfxChannelState gSfxChannelState[];    /* gSfxChannelState */
 extern void         *D_800E412C;        /* effect table A sentinel */
 extern void         *D_800E4220;        /* effect table B sentinel */
-extern void         *D_80093EE4;        /* handler table base */
+extern void         *gHandlerTable;        /* handler table base */
 
 void func_80052C88(s32 a0, s32 a1, s32 a2);   /* audio volume set */
 
@@ -98,7 +98,7 @@ void func_80062878(s32 arg0) {
 
         /* First unassigned entry encountered — select channel function. */
         if (!anyActive) {
-            s32 chanIdx = D_80091E70;
+            s32 chanIdx = gPlayerList;
             void (*chanFn)(void) = (void (*)(void))D_80181EF0[chanIdx];
             savedChannel = D_80178690;
 

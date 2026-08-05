@@ -1,6 +1,6 @@
 #include "ultra64.h"
-void func_8007BCA8(void);                             /* extern */
-extern s32 D_80091E70;
+void __osInvalICache_full(void);                             /* extern */
+extern s32 gPlayerList;
 extern s32 D_80093358;
 extern s32 D_80173BC4;
 extern Unk *D_80173CC0;
@@ -25,9 +25,9 @@ void func_800701C8(void) {
     temp_a1->unk4 = 0;
     D_80173CC0->unk8 = 0xDF000000;
     temp_v0->unk4 = 0;
-    func_8007BCA8();
+    __osInvalICache_full();
     D_8017C118 = 0;
-    D_80091E70 ^= 1;
+    gPlayerList ^= 1;
 }
 
 /* D_80070264: rodata — defined in entry.s */

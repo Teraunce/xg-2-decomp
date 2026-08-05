@@ -1,7 +1,7 @@
 #include "ultra64.h"
-extern s32 D_80092B68;
-extern s32 D_80092B6C;
-extern u32 D_80092B70;
+extern s32 gLineVtxBuf;
+extern s32 gLineVtxIdx;
+extern u32 gLineTexPtr;
 extern char *D_80173CC0;
 extern s32 *D_801821E8;
 
@@ -71,13 +71,13 @@ void func_8006114C(void **arg0) {
     Unk *temp_v1_3;
     Unk *temp_v1_4;
 
-    if (D_80092B6C != 0) {
+    if (gLineVtxIdx != 0) {
         var_t3 = 0;
         temp_v0 = *arg0;
         *arg0 = temp_v0 + 8;
-        temp_v0->unk0 = (s32) (((D_80092B6C & 0xFF) << 0xC) | (((D_80092B6C & 0x7F) * 2) | 0x01000000));
-        temp_v0->unk4 = (s32) D_80092B68;
-        if (D_80092B70 != 0) {
+        temp_v0->unk0 = (s32) (((gLineVtxIdx & 0xFF) << 0xC) | (((gLineVtxIdx & 0x7F) * 2) | 0x01000000));
+        temp_v0->unk4 = (s32) gLineVtxBuf;
+        if (gLineTexPtr != 0) {
             var_t0 = 0;
             do {
                 temp_v1 = var_t0 + D_801821E8;
@@ -266,11 +266,11 @@ block_50:
                 var_t0 += 0x10;
                 temp_v0_21->unk0 = (s32) ((((temp_a1_8->unkC * 2) & 0xFF) << 0x10) | ((temp_a1_8->unkD << 9) & 0xFE00) | ((temp_a1_8->unkE * 2) & 0xFF) | 0x06000000);
                 temp_v0_21->unk4 = (s32) ((((temp_a1_8->unkE * 2) & 0xFF) << 0x10) | ((temp_a1_8->unkF << 9) & 0xFE00) | ((temp_a1_8->unkC * 2) & 0xFF));
-            } while (var_t3 < (u32) D_80092B70);
+            } while (var_t3 < (u32) gLineTexPtr);
         }
-        D_80092B68 = 0;
-        D_80092B6C = 0;
-        D_80092B70 = 0;
+        gLineVtxBuf = 0;
+        gLineVtxIdx = 0;
+        gLineTexPtr = 0;
     }
     var_t3_2 = 0;
     var_v1_8 = D_801821E8;

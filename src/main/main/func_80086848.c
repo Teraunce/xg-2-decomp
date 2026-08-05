@@ -1,12 +1,12 @@
 #include "ultra64.h"
 s32 func_800868F8(void);
-s32 func_8007D688(u32);                             /* extern */
+s32 osVirtualToPhysical(u32);                             /* extern */
 extern u8 D_800955B0;
 extern s32 D_A4500000;
 extern s32 D_A4500004;
 extern s32 D_A450000C;
 
-s32 func_80086848(s32 arg0, s32 arg1) {
+s32 osAiRawStartDma(s32 arg0, s32 arg1) {
     s32 sp1C;
 
     sp1C = arg0;
@@ -21,7 +21,7 @@ s32 func_80086848(s32 arg0, s32 arg1) {
     if (func_800868F8() != 0) {
         return -1;
     }
-    D_A4500000 = func_8007D688(sp1C);
+    D_A4500000 = osVirtualToPhysical(sp1C);
     D_A4500004 = arg1;
     return 0;
 }

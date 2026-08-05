@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8007D688(u32);                             /* extern */
+s32 osVirtualToPhysical(u32);                             /* extern */
 void func_8007DA18(Unk*);                               /* extern */
 void func_8007DA48(Unk*, void**);                       /* extern */
 s32 func_8008E518(Unk*, s32, s32, s32, s32, s32, s32);  /* extern */
@@ -37,7 +37,7 @@ loop_1:
                 goto loop_1;
             }
             var_s1->unkC = (s32) D_801816A8;
-            return func_8007D688((var_s1->unk10 + arg0) - var_s1->unk8);
+            return osVirtualToPhysical((var_s1->unk10 + arg0) - var_s1->unk8);
         }
         goto block_4;
     }
@@ -70,5 +70,5 @@ block_4:
     temp_s1->unkC = (s32) D_801816A8;
     D_800927D8 += 1;
     func_8008E518(temp_a0_2, 0, 0, temp_s3, temp_s2, 0x300, &D_8017EFC8);
-    return func_8007D688(temp_s2) + var_s0;
+    return osVirtualToPhysical(temp_s2) + var_s0;
 }

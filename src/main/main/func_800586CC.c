@@ -11,7 +11,7 @@ s32 func_8005A47C(s32);                               /* static */
 extern f32 D_8004BDDC;
 extern f32 D_8004BDE0;
 extern f32 D_8004BDE4;
-extern Unk D_80091F7C;
+extern Unk gViewportTimestamp;
 
 void func_800586CC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     s32 saved_reg_f24;
@@ -108,18 +108,18 @@ s16 func_80058940(s16 arg0) {
     u16 temp_t2;
     u32 temp_v1;
 
-    temp_a1 = (D_80091F7C.unk0 ^ D_80091F7C.unk2) + 7;
+    temp_a1 = (gViewportTimestamp.unk0 ^ gViewportTimestamp.unk2) + 7;
     temp_t2 = temp_a1 * 2;
     temp_a3 = temp_t2 | ((u32) (temp_a1 & 0xFFFF) >> 0xF);
     temp_v0 = (s32) (temp_a3 & 0x7FFF) % arg0;
-    temp_a2 = (D_80091F7C.unk2 - 0x5347) ^ 0x7C9F;
+    temp_a2 = (gViewportTimestamp.unk2 - 0x5347) ^ 0x7C9F;
     temp_v1 = (u32) (temp_a2 & 0xFFFF) >> 1;
-    D_80091F7C.unk2 = temp_a2;
-    D_80091F7C.unk2 = (u16) temp_v1;
-    D_80091F7C.unk0 = temp_a1;
-    D_80091F7C.unk0 = temp_t2;
-    D_80091F7C.unk0 = temp_a3;
-    D_80091F7C.unk2 = (u16) (temp_v1 | (temp_a2 << 0xF));
+    gViewportTimestamp.unk2 = temp_a2;
+    gViewportTimestamp.unk2 = (u16) temp_v1;
+    gViewportTimestamp.unk0 = temp_a1;
+    gViewportTimestamp.unk0 = temp_t2;
+    gViewportTimestamp.unk0 = temp_a3;
+    gViewportTimestamp.unk2 = (u16) (temp_v1 | (temp_a2 << 0xF));
     return (s16) temp_v0;
 }
 

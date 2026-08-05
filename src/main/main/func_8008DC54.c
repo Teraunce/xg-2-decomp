@@ -5,7 +5,7 @@ typedef struct {
 } UnkStruct_sp1C;
 
 void func_8008DD34();                                  /* extern */
-extern s32 D_80095290;
+extern s32 osIntMask;
 extern s32 D_A4600010;
 extern s32 D_A5000510;
 
@@ -30,5 +30,5 @@ void func_8008DC54(void) {
     D_A5000510 = sp1C->unk10;
     func_8008DD34();
     D_A4600010 = 2;
-    D_80095290 |= 0x100401;
+    osIntMask |= 0x100401;
 }

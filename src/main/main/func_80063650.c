@@ -1,9 +1,9 @@
 #include "ultra64.h"
-char *func_8004D4A8(s32);                             /* extern */
+char *heap_alloc_default(s32);                             /* extern */
 void func_8005AB80(s32, s32, s32);                     /* extern */
 u32 *func_80063800(s32 arg0);                       /* static */
 extern s32 D_8004B658;
-extern u32 *D_80092D38;
+extern u32 *gSfxDefTable;
 extern Unk D_800E6E40;
 extern Unk *D_801823D0;
 extern u16 D_801823D4;
@@ -20,7 +20,7 @@ void func_80063650(void) {
     Unk *temp_v0;
     Unk *temp_v0_2;
 
-    temp_v0 = func_8004D4A8(0x200);
+    temp_v0 = heap_alloc_default(0x200);
     D_801823D0 = temp_v0;
     var_v1 = 0;
     var_v0 = 0 * 8;
@@ -40,7 +40,7 @@ void func_80063650(void) {
     func_8005AB80(D_8004B658, 4, &D_801823E0);
     temp_s0 = D_801823E0 * 0x10;
     temp_v0_3 = func_80063800(temp_s0);
-    D_80092D38 = temp_v0_3;
+    gSfxDefTable = temp_v0_3;
     func_8005AB80(D_8004B658 + 8, temp_s0, temp_v0_3);
 }
 
@@ -222,9 +222,9 @@ s32 func_800639D0(s32 arg0) {
 }
 
 s32 func_800639FC(s32 arg0) {
-    return D_8004B658 + *((arg0 * 0x10) + D_80092D38);
+    return D_8004B658 + *((arg0 * 0x10) + gSfxDefTable);
 }
 
 s32 func_80063A20(s32 arg0) {
-    return ((Unk*)((char*)D_80092D38 + arg0 * 0x10))->unk8;
+    return ((Unk*)((char*)gSfxDefTable + arg0 * 0x10))->unk8;
 }

@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
 void func_8008EAB8(s32, s32);                           /* extern */
 extern char *D_8009649C;
 extern char *D_8018C288;
@@ -24,12 +24,12 @@ void **func_8008D4EC(void) {
     D_A460002C = (s32) D_8018C28E;
     D_A4600030 = (s32) D_8018C28F;
     func_8008EAB8(&D_8018C288 + 0x14, 0x60);
-    temp_v0 = func_8007C768();
+    temp_v0 = osDisableInt();
     D_8018C288 = D_8009649C;
     D_8009649C = &D_8018C288;
     sp1C = temp_v0;
     D_8018C2FC = &D_8018C288;
-    func_8007C788(sp1C);
+    osRestoreInt(sp1C);
     return &D_8018C288;
 }
 

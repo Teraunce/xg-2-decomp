@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80074F40(s32*);                               /* extern */
+s32 __osPiRawReadIo(s32*);                               /* extern */
 void func_80075044(s32, s8*, u32);                     /* extern */
 void func_8007515C(s32, s32, u32);                     /* extern */
 void func_80075360(s32, u8*, u32);                     /* extern */
@@ -22,8 +22,8 @@ void func_8007558C(s32 arg0) {
     u32 var_s3;
 
     var_s2 = 0xB1FE0000;
-    var_s1 = func_80074F40(0xB1FFFFF4);
-    var_s3 = func_80074F40(0xB1FFFFF8);
+    var_s1 = __osPiRawReadIo(0xB1FFFFF4);
+    var_s3 = __osPiRawReadIo(0xB1FFFFF8);
     if (var_s1 > 0xEFFFFFFFU) {
         var_s1 = (u32) (var_s1 + &D_8F188E48);
     }

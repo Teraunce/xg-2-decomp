@@ -17,7 +17,7 @@
  *      optionally marks it active (func_800620CC), then saves the current
  *      audio engine parameters, writes new ones
  *      [6, 4, 2, 4, 0xFFFFFF] into D_80092D08–D_80092D18, stores gSfxEntity
- *      (D_801823AC) = soundId, searches the heap for 'entity' via
+ *      (gSfxEntity) = soundId, searches the heap for 'entity' via
  *      func_800621C0, and inserts soundId at the found position via
  *      func_80061FB4.
  *
@@ -32,9 +32,9 @@
  *   D_80092BA0       0x80092BA0  void*  Probe mode function table (see symbol_addrs)
  *   D_80092B60       0x80092B60  s32    sound-active flag
  *   D_80092CF4       0x80092CF4  s32    saved audio param 0 (step/tick)
- *   D_80092CF8       0x80092CF8  s32    saved audio param 1 (ramp step)
+ *   gSfxRampStep       0x80092CF8  s32    saved audio param 1 (ramp step)
  *   D_80092CFC       0x80092CFC  s32    saved audio param 2
- *   D_80092D00       0x80092D00  s32    saved audio param 3 (decay step)
+ *   gSfxDecayStep       0x80092D00  s32    saved audio param 3 (decay step)
  *   D_80092D04       0x80092D04  s32    saved audio param 4
  *   D_80092D08       0x80092D08  s32    audio engine param 0  (set to 6)
  *   D_80092D0C       0x80092D0C  s32    audio engine param 1  (set to 4)
@@ -50,9 +50,9 @@ extern s32   D_800E1F74;    /* effect-list state flag */
 extern void *D_80092BA0;    /* Probe mode function table */
 extern s32   D_80092B60;    /* sound-active flag */
 extern s32   D_80092CF4;    /* saved param 0 */
-extern s32   D_80092CF8;    /* saved param 1 / gSfxRampStep */
+extern s32   gSfxRampStep;    /* saved param 1 / gSfxRampStep */
 extern s32   D_80092CFC;    /* saved param 2 */
-extern s32   D_80092D00;    /* saved param 3 / gSfxDecayStep */
+extern s32   gSfxDecayStep;    /* saved param 3 / gSfxDecayStep */
 extern s32   D_80092D04;    /* saved param 4 */
 extern s32   D_80092D08;    /* engine param 0 */
 extern s32   D_80092D0C;    /* engine param 1 */
@@ -141,9 +141,9 @@ void func_80062D98(void *entity, void *soundId) {
 
     /* Archive the old params into the "saved" slots. */
     D_80092CF4 = D_80092D08;   /* saved before overwrite above */
-    D_80092CF8 = savedP1;
+    gSfxRampStep = savedP1;
     D_80092CFC = savedP2;
-    D_80092D00 = savedP3;
+    gSfxDecayStep = savedP3;
     D_80092D04 = savedP4;
 
     /* Store soundId as the entity to re-insert during phase 1. */

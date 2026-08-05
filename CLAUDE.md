@@ -10,7 +10,7 @@ Byte-matching every function is **not** the goal — the ROM is always byte-exac
 because it embeds the original `compressed_main.bin` blob.  C files are compiled
 for readability, correctness, and as many IDO byte-matches as possible.
 
-## Current Status (as of 2026-08-04)
+## Current Status (as of 2026-08-04)  <!-- update date when status changes -->
 
 | Metric | Count |
 |---|---|
@@ -19,6 +19,8 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Files compiling with zero errors (IDO 7.1) | **453** |
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
+| Named functions (proper identifiers) | **47** |
+| Named data globals applied | **97** |
 | ROM byte-exact match | ✅ yes |
 
 The 14 IDO-matched functions (all leaf functions — no `sw $ra`):
@@ -309,3 +311,11 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
 16. **Eliminated all FIXME annotations** — 48 "type unknown" comments stripped,
     127 negative-offset pointer FIXMEs rewritten as `*(CAST*)((char*)ptr - N)`
     explicit byte-offset expressions; 0 FIXMEs remain.
+17. **Applied 47 named function identifiers** — OS primitives and game entry
+    points renamed from `func_XXXXXXXX` to proper names (e.g. `osDisableInt`,
+    `osRestoreInt`, `osVirtualToPhysical`, `osCreateThread`, etc.) across 116
+    source files (510 replacements total).
+18. **Applied 97 named data globals** — `D_XXXXXXXX` references replaced with
+    descriptive names (e.g. `gGameState`, `gEntityPool`, `gSfxActiveCount`,
+    `gTrackNodeCount`, `gPlayerList`, `osMemSize`, etc.) across 118 source files
+    (771 replacements total).

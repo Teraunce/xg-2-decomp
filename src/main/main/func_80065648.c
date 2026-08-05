@@ -3,7 +3,7 @@
 
 void func_80065618(void *);                            /* extern */
 extern f64 D_8004C0E0;
-extern s32 D_80093110;
+extern s32 gHexDigits;
 
 void func_80065648(Unk *arg0) {
     u16 *var_a0;
@@ -106,7 +106,7 @@ void func_800657A8(Unk *arg0, u32 arg1) {
     var_v1 = temp_a3;
     do {
         var_t0 += 1;
-        temp_v0 = *((var_a1 & 0xF) + &D_80093110);
+        temp_v0 = *((var_a1 & 0xF) + &gHexDigits);
         var_a1 = var_a1 >> 4;
         *var_v1 = (u16) temp_v0;
         var_v1 += 2;

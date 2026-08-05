@@ -4,15 +4,15 @@ typedef struct {
     /* 0x04 */ s32 unk4;
 } UnkStruct_arg0;
 
-s32 func_80086DC8();                                /* static */
+s32 osSpGetStatus();                                /* static */
 extern s32 D_800955C0;
 extern s32 D_A4040010;
 
-s32 func_80086D48(UnkStruct_arg0 *arg0) {
+s32 osSpTaskYield(UnkStruct_arg0 *arg0) {
     s32 sp1C;
     s32 sp18;
 
-    sp1C = func_80086DC8();
+    sp1C = osSpGetStatus();
     if (sp1C & 0x100) {
         sp18 = 1;
     } else {
@@ -25,7 +25,7 @@ s32 func_80086D48(UnkStruct_arg0 *arg0) {
     return sp18;
 }
 
-s32 func_80086DC8(void) {
+s32 osSpGetStatus(void) {
     return D_A4040010;
 }
 

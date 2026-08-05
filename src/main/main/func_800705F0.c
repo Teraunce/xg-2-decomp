@@ -10,7 +10,7 @@ s32 func_80062278();                                /* extern */
 s32 func_8007CE48(Unk*, s32, s32);                       /* extern */
 extern s32 D_80093EDC;
 extern s32 D_80093EE0;
-extern s32 D_80093EE4;
+extern s32 gHandlerTable;
 extern s32 D_80093EF8;
 extern s32 D_800E412C;
 extern s32 D_800E4220;
@@ -41,7 +41,7 @@ void func_800705F0(s32 arg0) {
         }
     } else {
         temp_v0 = func_80062278();
-        if ((temp_v0 == (s32)&D_80093EE4) || (temp_v0 == (s32)&D_800E412C) || (temp_v0 == (s32)&D_800E4220)) {
+        if ((temp_v0 == (s32)&gHandlerTable) || (temp_v0 == (s32)&D_800E412C) || (temp_v0 == (s32)&D_800E4220)) {
             temp_v1 = *(s32*)((char*)&D_801887D0 + (D_801887D0.unk160 * 0x2C));
             switch (temp_v1) {                      /* irregular */
             case 10:

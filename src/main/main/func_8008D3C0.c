@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
 void func_8008CEB8(s32, u32 *);                          /* extern */
 void func_8008EAB8(s32, s32);                           /* extern */
 extern char *D_8009649C;
@@ -17,7 +17,7 @@ extern s8 D_8018C28E;
 extern s8 D_8018C290;
 extern s32 D_8018C294;
 
-void **func_8008D3C0(void) {
+void **osEPiGetDomainInfo(void) {
     u32 sp1C;
     s32 sp18;
     s32 temp_v0;
@@ -35,11 +35,11 @@ void **func_8008D3C0(void) {
         D_8018C20E = (sp1C >> 0x14) & 0xF;
         D_8018C211 = 0;
         func_8008EAB8(&D_8018C208 + 0x14, 0x60);
-        temp_v0 = func_8007C768();
+        temp_v0 = osDisableInt();
         D_8018C208 = D_8009649C;
         sp18 = temp_v0;
         D_8009649C = &D_8018C208;
-        func_8007C788(sp18);
+        osRestoreInt(sp18);
     }
     return &D_8018C208;
 }

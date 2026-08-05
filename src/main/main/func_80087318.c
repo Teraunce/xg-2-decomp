@@ -1,14 +1,14 @@
 #include "ultra64.h"
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
-extern Unk *D_80095644;
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
+extern Unk *gVIConfig;
 
-void func_80087318(char *arg0) {
+void osViSetMode(char *arg0) {
     s32 temp_v0;
 
-    temp_v0 = func_8007C768();
-    D_80095644->unk8 = arg0;
-    D_80095644->unk0 = 1;
-    D_80095644->unkC = (s32) ((Unk *)D_80095644->unk8)->unk4;
-    func_8007C788(temp_v0);
+    temp_v0 = osDisableInt();
+    gVIConfig->unk8 = arg0;
+    gVIConfig->unk0 = 1;
+    gVIConfig->unkC = (s32) ((Unk *)gVIConfig->unk8)->unk4;
+    osRestoreInt(temp_v0);
 }

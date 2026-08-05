@@ -47,12 +47,12 @@ typedef struct {
     /* 0x588 */ s32 unk588;
 } UnkStruct_var_a0;
 
-s32 func_8004D4A8(s32);                               /* extern */
+s32 heap_alloc_default(s32);                               /* extern */
 extern f32 D_8004BC70;
 extern f32 D_8004BC74;
 extern f32 D_8004BC78;
-extern s32 D_80091968;
-extern s32 D_80093578;
+extern s32 gTrackNodeCount;
+extern s32 gSetupDisplayList;
 extern s32 D_80170390;
 extern s32 D_80170880;
 extern s32 D_80173C18;
@@ -62,7 +62,7 @@ extern s32 D_8017CA44;
 extern s32 D_80184580;
 
 void func_80052BB0(void) {
-    D_80170390 = func_8004D4A8(0x3EA90);
+    D_80170390 = heap_alloc_default(0x3EA90);
 }
 
 void func_80052BE0(void) {
@@ -81,13 +81,13 @@ s32 func_80052C04(UnkStruct_arg0 *arg0) {
     }
     if (D_80184580 == 0xB) {
         var_v1 = 0;
-        if (D_80091968 > 0) {
+        if (gTrackNodeCount > 0) {
             var_a0 = &D_80170880;
 loop_7:
             var_v1 += 1;
             if ((u32) (var_a0->unk588 - 4) >= 2U) {
                 var_a0 += 0x668;
-                if (var_v1 >= D_80091968) {
+                if (var_v1 >= gTrackNodeCount) {
                     /* Duplicate return node #9. Try simplifying control flow for better match */
                     return 1;
                 }
@@ -160,7 +160,7 @@ void func_80052D84(f32 arg0) {
     D_80173CC0 = temp_a0;
     D_80173CC0 = temp_a0 + 8;
     D_80173CC0->unk8 = 0xDE000000;
-    temp_a0->unk4 = &D_80093578;
+    temp_a0->unk4 = &gSetupDisplayList;
     D_80173CC0 = temp_a0 + 0x10;
     temp_a0->unkC = 0x300000;
     D_80173CC0 = temp_a0 + 0x18;

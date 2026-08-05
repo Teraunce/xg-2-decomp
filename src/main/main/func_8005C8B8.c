@@ -2,7 +2,7 @@
 /* Warning: missing "jr $ra" in last block of func_8005C9B4 (initial). */
 
 void func_8005C88C(s32);                                 /* extern */
-extern s32 D_80092800;
+extern s32 gAudioStatus;
 extern s32 D_80092804;
 extern s32 D_80092818;
 extern s32 D_8009281C;

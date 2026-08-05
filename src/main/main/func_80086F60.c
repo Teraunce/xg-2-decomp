@@ -3,9 +3,9 @@ s32 func_8007C9D8();                                /* extern */
 s32 func_8007CD08(Unk*, s32*, s32);                    /* extern */
 s32 func_8007CE48(Unk*, s32, s32);                       /* extern */
 void func_8007D304();                                  /* extern */
-char *func_80087298();                              /* extern */
-void func_80087728();                                  /* extern */
-extern char *D_800952B0;
+char *osViGetCurrentFramebuffer();                              /* extern */
+void osViSwapBuffer();                                  /* extern */
+extern char *__osRunningThread;
 extern s32 D_80189A88;
 extern u32 D_80189A8C;
 extern u32 D_80189A90;
@@ -27,7 +27,7 @@ void func_80086F60(char *arg0) {
 
     sp2C = NULL;
     sp28 = 0;
-    sp34 = func_80087298();
+    sp34 = osViGetCurrentFramebuffer();
     temp_t7 = sp34->unk2;
     D_8018ACF8 = temp_t7;
     if (temp_t7 == 0) {
@@ -38,11 +38,11 @@ loop_3:
     func_8007CD08(sp30->unkC, &sp2C, 1);
     temp_s0 = *sp2C;
     if (temp_s0 == 0xD) {
-        func_80087728();
+        osViSwapBuffer();
         temp_t3 = D_8018ACF8 - 1;
         D_8018ACF8 = temp_t3;
         if (!(temp_t3 & 0xFFFF)) {
-            sp34 = func_80087298();
+            sp34 = osViGetCurrentFramebuffer();
             temp_t6 = sp34->unk10;
             if (temp_t6 != 0) {
                 func_8007CE48(temp_t6, sp34->unk14, 0);
@@ -77,7 +77,7 @@ s32 func_80087138(char *arg0) {
 
     var_a0 = arg0;
     if (var_a0 == NULL) {
-        var_a0 = D_800952B0;
+        var_a0 = __osRunningThread;
     }
     return var_a0->unk4;
 }

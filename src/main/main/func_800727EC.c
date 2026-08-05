@@ -10,8 +10,8 @@ s32 func_80072340(s32, s32, s32);                     /* extern */
 s32 func_8008A994(Unk*, s32, u8, s32, s32, char*);     /* extern */
 s32 func_8008AD98(void *, s32, void *);              /* extern */
 s32 func_8008B088(void *, u16, s32, s32, s32, s32*); /* extern */
-extern u16 D_80093EC0;
-extern s32 D_80093EC4;
+extern u16 gContPakNoteCode;
+extern s32 gGameID;
 extern s32 D_80093EC8;
 extern s32 D_80093ECC;
 extern Unk D_801887D0;
@@ -42,7 +42,7 @@ loop_1:
         }
     }
     if (D_801887D0.unk168 != 0) {
-        temp_v0 = func_8008B088((arg1 * 0x68) + (&D_801887D0 + 0x17C), D_80093EC0, D_80093EC4, &D_80093ECC, &D_80093EC8, &sp40);
+        temp_v0 = func_8008B088((arg1 * 0x68) + (&D_801887D0 + 0x17C), gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp40);
         if (temp_v0 != 0) {
             if (temp_v0 == 5) {
                 sp40 = -1;

@@ -15,7 +15,7 @@ s32 func_8007CE48(Unk*, s32, s32);                       /* extern */
 void func_8007D47C(s32, u32);                          /* extern */
 u32 func_8007D4F0(void*);                            /* extern */
 void func_8007D678();                              /* extern */
-extern void **D_800952C0;
+extern void **gOSMsgQueuePtr;
 extern s32 D_80189A98;
 
 void func_8007D30C(void) {
@@ -33,9 +33,9 @@ void func_8007D30C(void) {
     /* implicit $t6: linked-list head ptr from caller; beq *$t6,$t6 = list-empty sentinel */
     if ((s32)0 /* *implicit_t6 */ != (s32)0 /* implicit_t6 */) {
 loop_1:
-        temp_t9 = *D_800952C0;
+        temp_t9 = *gOSMsgQueuePtr;
         sp24 = temp_t9;
-        if ((void*)temp_t9 == (void*)D_800952C0) {
+        if ((void*)temp_t9 == (void*)gOSMsgQueuePtr) {
             func_8007D678();
             D_80189A98 = 0;
             return;

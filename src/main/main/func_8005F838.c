@@ -3,9 +3,9 @@ s32 func_8004E6C8(s32);                               /* extern */
 s32 func_8004E6F4(s32);                               /* extern */
 void func_8005B224(s32, u8*, u32);                     /* extern */
 void func_800622C0();                                  /* extern */
-void func_8007BA98(u32, s32);                          /* extern */
-void func_8007BB48(u32, s32);                          /* extern */
-void func_8007BCA8();                                  /* extern */
+void osWritebackInvalDCache(u32, s32);                          /* extern */
+void osInvalICache(u32, s32);                          /* extern */
+void __osInvalICache_full();                                  /* extern */
 s32 func_8009F528(s32);                                 /* extern */
 s32 func_800AE1C8();                                  /* extern */
 s32 func_800AE368(s32);                                 /* extern */
@@ -27,13 +27,13 @@ void func_8005F838(void) {
     s8 *temp_v0;
     s8 *temp_v1;
 
-    func_8007BCA8();
-    func_8007BA98(&D_800B55C0, &D_31880);
-    func_8007BB48(&D_800B55C0, &D_31880);
+    __osInvalICache_full();
+    osWritebackInvalDCache(&D_800B55C0, &D_31880);
+    osInvalICache(&D_800B55C0, &D_31880);
     func_8005B224(D_8004BA18 + 0x18, &D_800B55C0, &D_31880);
-    func_8007BCA8();
-    func_8007BA98(&D_800B55C0, &D_31880);
-    func_8007BB48(&D_800B55C0, &D_31880);
+    __osInvalICache_full();
+    osWritebackInvalDCache(&D_800B55C0, &D_31880);
+    osInvalICache(&D_800B55C0, &D_31880);
     func_8009F528(0x13);
     func_800AE1C8();
     var_a0 = 0;

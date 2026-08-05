@@ -20,11 +20,11 @@ typedef struct {
 } UnkStruct_arg0;
 
 void func_80086A44(UnkStruct_arg0*);                   /* extern */
-void func_80086BD4(s32);                            /* extern */
+void osSpTaskStart(s32);                            /* extern */
 extern s32 D_800777C8;
 extern s32 D_80077898;
 extern s32 D_80078A28;
-extern s32 D_80092B88;
+extern s32 gGameFlags;
 extern s32 D_80094250;
 extern s32 D_80094640;
 extern s32 D_8016C5D0;
@@ -43,7 +43,7 @@ char *func_8006CD8C(UnkStruct_arg0 *arg0) {
     temp_a2 = arg0 + 0x58;
     arg0->unk14 = 0;
     arg0->unk18 = &D_800777C8;
-    if (D_80092B88 & 4) {
+    if (gGameFlags & 4) {
         arg0->unk20 = &D_80077898;
         var_v0 = &D_80094250;
     } else {
@@ -63,6 +63,6 @@ char *func_8006CD8C(UnkStruct_arg0 *arg0) {
     arg0->unk4C = 0xC00;
     arg0->unk44 = (s32) (((s32) ((char*)(s32)D_80173CC0 - temp_a2) >> 3) * 8);
     func_80086A44(temp_s0);
-    func_80086BD4(temp_s0);
+    osSpTaskStart(temp_s0);
     return temp_s0;
 }

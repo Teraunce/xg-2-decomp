@@ -2,8 +2,8 @@
 void func_8004D358();                                  /* extern */
 s32 func_8004E4E4();                                /* extern */
 void func_8005566C(void);                              /* extern */
-void func_8007BCD8(Unk*, s32, s32);                       /* extern */
-void func_8007BD08(OSThread*, OSId, u32, s32, u32, OSPri);          /* extern */
+void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
+void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);          /* extern */
 void func_8007CF98(s32, s32, s32);                     /* extern */
 void func_8007D0E8(Unk*);                               /* extern */
 void func_800872A8(s32, s32, s32);                     /* extern */
@@ -42,10 +42,10 @@ extern s32 D_8017CA48;
 extern s32 D_8017CC50;
 extern s32 func_8004E1B8;
 
-void func_8004E21C(s32 arg0) {
+void gameMainLoop_setup(s32 arg0) {
     s32 temp_v0;
 
-    func_8007BCD8(&D_8016DF70, &D_8016E290, 0x20);
+    osCreateMesgQueue(&D_8016DF70, &D_8016E290, 0x20);
     func_8004D358();
     temp_v0 = func_8004E4E4();
     D_8017C890 = 1;
@@ -70,15 +70,15 @@ void func_8004E21C(s32 arg0) {
     D_8017CC50 = 3;
     D_8017CA30 = 2;
     D_80174C30 = 0x18;
-    func_8007BCD8(&D_80174708, &D_8017C128, 0x20);
+    osCreateMesgQueue(&D_80174708, &D_8017C128, 0x20);
     func_8007CF98(4, &D_80174708, &D_8017CC50);
     func_8007CF98(9, &D_80174708, &D_8017CA28);
     func_8007CF98(6, &D_80174708, &D_8017CA38);
     func_8007CF98(0xE, &D_80174708, &D_801786B0);
     func_800872A8(&D_80174708, &D_8017CA30, 1);
-    func_8007BCD8(&D_80173C48, &D_80178610, 0x20);
+    osCreateMesgQueue(&D_80173C48, &D_80178610, 0x20);
     func_8007CF98(5, &D_80173C48, &D_8017C890);
-    func_8007BD08(&D_80174558, 9, &func_8004E1B8, 0, &D_80174550, 0xE);
+    osCreateThread(&D_80174558, 9, &func_8004E1B8, 0, &D_80174550, 0xE);
     func_8007D0E8(&D_80174558);
     D_80173C88.unk0 = 0;
     D_80173C88.unk4 = 1;

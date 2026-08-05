@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 func_8013AB6C(s32, s32, void *, void *, s32);     /* extern */
-extern s32 D_80090EA0;
-extern s32 D_80091E70;
+extern s32 gEntityPool;
+extern s32 gPlayerList;
 extern s32 D_800939B8;
 extern s32 D_80093A28;
 extern s32 D_80093B10;
@@ -76,7 +76,7 @@ void func_80068D2C(s32 arg0, f32 arg1) {
     D_80173CC0->unk4 = &D_80093B98;
     temp_a0 = D_80173CC0 + 8;
     D_80173CC0 = temp_a0;
-    if (((Unk*)((char*)&D_80090EA0 + (var_t2 * 0x228)))->unk1E4 != 0) {
+    if (((Unk*)((char*)&gEntityPool + (var_t2 * 0x228)))->unk1E4 != 0) {
         D_80173CC0 = temp_a0 + 8;
         var_v0 = &D_80093A28;
     } else {
@@ -87,7 +87,7 @@ void func_80068D2C(s32 arg0, f32 arg1) {
     temp_a0->unk4 = var_v0;
     D_80173CC0->unk0 = 0xDE000000;
     D_80173CC0->unk4 = &D_80093B10;
-    temp_v0 = (var_t2 * 0x228) + &D_80090EA0;
+    temp_v0 = (var_t2 * 0x228) + &gEntityPool;
     temp_v1 = temp_v0->unkB4;
     temp_a1 = D_80173CC0 + 8;
     var_t4 = (s32) ((f32) temp_v0->unkB0 * arg1);
@@ -122,7 +122,7 @@ void func_80068D2C(s32 arg0, f32 arg1) {
         temp_a1->unk8 = 0xE200001C;
         temp_a1->unkC = var_v1_2;
     }
-    temp_v0_2 = (var_t2 * 0x228) + &D_80090EA0;
+    temp_v0_2 = (var_t2 * 0x228) + &gEntityPool;
     var_s7 = D_80174BF8;
     sp40 = temp_v0_2->unkC - temp_v0_2->unk0;
     temp_v1_3 = D_80173CC0;
@@ -139,7 +139,7 @@ void func_80068D2C(s32 arg0, f32 arg1) {
     temp_a0_2->unk8 = 0xE7000000;
     temp_a0_2->unkC = 0;
     if (var_s7 != NULL) {
-        var_t3 = &D_80090EA0;
+        var_t3 = &gEntityPool;
         sp50 = var_t2 * 0x44;
         do {
             temp_s4 = var_s7->unk84;
@@ -150,7 +150,7 @@ void func_80068D2C(s32 arg0, f32 arg1) {
                 temp_s1 = temp_s6 + var_t3;
                 temp_fs0 = (f32) var_t4;
                 var_t1 = &D_8017C7F0;
-                var_t0 = &D_80091E70;
+                var_t0 = &gPlayerList;
                 var_s0 = var_s5 + 0x24;
                 do {
                     temp_fv1 = temp_s1->unk0;

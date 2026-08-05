@@ -1,38 +1,38 @@
 #include "ultra64.h"
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
-extern Unk *D_80095644;
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
+extern Unk *gVIConfig;
 
-void func_80087388(s32 arg0) {
+void osViSetYScale(s32 arg0) {
     s32 temp_s0;
 
-    temp_s0 = func_8007C768();
+    temp_s0 = osDisableInt();
     if (arg0 & 1) {
-        D_80095644->unkC = (s32) (D_80095644->unkC | 8);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC | 8);
     }
     if (arg0 & 2) {
-        D_80095644->unkC = (s32) (D_80095644->unkC & ~8);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC & ~8);
     }
     if (arg0 & 4) {
-        D_80095644->unkC = (s32) (D_80095644->unkC | 4);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC | 4);
     }
     if (arg0 & 8) {
-        D_80095644->unkC = (s32) (D_80095644->unkC & ~4);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC & ~4);
     }
     if (arg0 & 0x10) {
-        D_80095644->unkC = (s32) (D_80095644->unkC | 0x10);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC | 0x10);
     }
     if (arg0 & 0x20) {
-        D_80095644->unkC = (s32) (D_80095644->unkC & ~0x10);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC & ~0x10);
     }
     if (arg0 & 0x40) {
-        D_80095644->unkC = (s32) (D_80095644->unkC | 0x10000);
-        D_80095644->unkC = (s32) (D_80095644->unkC & ~0x300);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC | 0x10000);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC & ~0x300);
     }
     if (arg0 & 0x80) {
-        D_80095644->unkC = (s32) (D_80095644->unkC & 0xFFFEFFFF);
-        D_80095644->unkC = (s32) (D_80095644->unkC | (((Unk *)D_80095644->unk8)->unk4 & 0x300));
+        gVIConfig->unkC = (s32) (gVIConfig->unkC & 0xFFFEFFFF);
+        gVIConfig->unkC = (s32) (gVIConfig->unkC | (((Unk *)gVIConfig->unk8)->unk4 & 0x300));
     }
-    D_80095644->unk0 = (u16) (D_80095644->unk0 | 8);
-    func_8007C788(temp_s0);
+    gVIConfig->unk0 = (u16) (gVIConfig->unk0 | 8);
+    osRestoreInt(temp_s0);
 }

@@ -4,8 +4,8 @@
 /*
  * func_80062CE8 — Build and submit an RSP audio colour/mixer command.
  *
- * Reads phase / timer from gSfxPhase (D_801823A8) and gSfxFadeTimer
- * (D_801823B0) to derive volume/pan byte arguments, then calls
+ * Reads phase / timer from gSfxPhase (gSfxPhase) and gSfxFadeTimer
+ * (gSfxFadeTimer) to derive volume/pan byte arguments, then calls
  * func_80062F4C which writes the RSP display-list words for an audio
  * mix/colour command.
  *

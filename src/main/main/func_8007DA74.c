@@ -1,11 +1,11 @@
 #include "ultra64.h"
 void func_80086078();                                  /* extern */
-extern s32 D_800952D0;
+extern s32 gPendingFlushFlag;
 
 void func_8007DA74(void) {
     if ((s32)0 /* implicit $t6 from caller */ != 0) {
         func_80086078();
-        D_800952D0 = 0;
+        gPendingFlushFlag = 0;
     }
 }
 

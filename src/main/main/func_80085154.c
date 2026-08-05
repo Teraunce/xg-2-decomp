@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8007D688(u32);                       /* extern */
+s32 osVirtualToPhysical(u32);                       /* extern */
 extern f64 D_8004CF60;
 extern f32 D_8004CF68;
 
@@ -44,7 +44,7 @@ s32 func_80085154(Unk *arg0, s16 *arg1, s32 arg2, s32 arg4) {
         temp_a1 = temp_v0_2 + 0x10;
         sp48 = temp_a1;
         var_a1 = temp_a1;
-        temp_t8->unk4 = func_8007D688(arg0->unk14);
+        temp_t8->unk4 = osVirtualToPhysical(arg0->unk14);
         arg0->unk24 = 0;
     }
     return (s32) var_a1;

@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_8004D358();                                  /* extern */
 void func_8004D420();                                  /* extern */
-s32 func_8004D4A8(s32);                               /* extern */
+s32 heap_alloc_default(s32);                               /* extern */
 void func_8005C88C(s32);                                 /* extern */
 void func_8005C8D4(s32);                               /* extern */
 void func_8005C8EC(s32, s32);                              /* extern */
@@ -20,14 +20,14 @@ s32 func_800C9138(void *, s32);                            /* extern */
 s32 func_800CD200();                                  /* extern */
 extern f32 D_8004BF74;
 extern f32 D_8004BF78;
-extern s32 D_80091E74;
-extern s32 D_80091FCC;
-extern s32 D_80092B58;
+extern s32 gPlayerList2;
+extern s32 gColorSwapMode;
+extern s32 gSfxSavedState;
 extern s32 D_80092B5C;
 extern s32 D_80092B64;
-extern s32 D_80092B74;
-extern s16 D_80092B78;
-extern s32 D_80092B80;
+extern s32 gLocale;
+extern s16 gLocaleIdx;
+extern s32 gRaceCtrl;
 extern s32 D_80092B8C;
 extern s32 D_80092D20;
 extern s32 D_80093338;
@@ -35,7 +35,7 @@ extern s32 D_8009333C;
 extern s32 D_80093340;
 extern s32 D_80093344;
 extern s32 D_80093348;
-extern s32 D_80093F04;
+extern s32 gInitStateFlags;
 extern s32 D_800E3848;
 extern s32 D_80173C38;
 extern s32 D_80174C28;
@@ -52,13 +52,13 @@ void func_8005F980(s32 arg0) {
     func_8004D420();
     func_8004D358();
     func_80063650();
-    D_80181EF0.unk0 = func_8004D4A8(0x20000);
-    D_80181EF0.unk4 = func_8004D4A8(0x20000);
+    D_80181EF0.unk0 = heap_alloc_default(0x20000);
+    D_80181EF0.unk4 = heap_alloc_default(0x20000);
     D_8017C968.unk0 = 0;
     D_8017C968.unk8 = 0x140;
     D_8017C968.unkC = 0xF0;
     D_8017C950 = 1;
-    D_80091FCC = 0;
+    gColorSwapMode = 0;
     D_8017C968.unk4 = 0;
     D_8017CC58 = 1;
     D_8017C968.unk10 = (f32) D_8004BF74;
@@ -71,8 +71,8 @@ void func_8005F980(s32 arg0) {
     }
     func_80063DF0();
     D_801821E8 = func_80063800(0x200);
-    D_80092B78 = 0;
-    func_80061800(D_80092B74);
+    gLocaleIdx = 0;
+    func_80061800(gLocale);
     if (arg0 != 0) {
         func_80062F1C(0, 0x55, 0, 4, 0);
         func_80062D98(&D_80092D20, 0);
@@ -81,7 +81,7 @@ void func_8005F980(s32 arg0) {
         func_80062F1C(0, 0x100, 2, 4, 0);
         func_8005C8EC(0, 0);
         func_8005C8D4(D_80182EA8.unkB00);
-        if (D_80092B80 != 0) {
+        if (gRaceCtrl != 0) {
             D_80092B64 = 1;
             D_80182EA8.unk16D8 = (s32) D_80093338;
             D_80182EA8.unk16DC = (s32) D_8009333C;
@@ -116,11 +116,11 @@ block_16:
             } else {
                 func_8005CCE0(0xE, 0x3F800000, 0x10000, 0x40, 0);
                 func_800CD200();
-                var_v1 = &D_80092B58;
+                var_v1 = &gSfxSavedState;
             }
         }
     }
     *var_v1 = 1;
-    D_80093F04 = 0;
-    D_80092B5C = D_80091E74;
+    gInitStateFlags = 0;
+    D_80092B5C = gPlayerList2;
 }

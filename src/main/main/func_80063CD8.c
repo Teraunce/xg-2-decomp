@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void func_8004D138(s32, s32, s32);                  /* extern */
-char *func_8004D4A8(s32);                           /* extern */
+char *heap_alloc_default(s32);                           /* extern */
 void func_80063C08(void);                             /* extern */
 extern s32 D_8004B650;
 extern s32 D_8004B654;
@@ -21,7 +21,7 @@ void func_80063CD8(void) {
 
     temp_s1 = D_8004B654;
     temp_s0 = D_8004B650;
-    temp_v0 = func_8004D4A8(temp_s1);
+    temp_v0 = heap_alloc_default(temp_s1);
     D_801823E8 = temp_v0;
     func_8004D138(temp_s0, temp_v0, temp_s1);
     var_a0 = D_801823E8;

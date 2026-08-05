@@ -1,26 +1,26 @@
 #include "ultra64.h"
 s32 func_8007C484(void *);                            /* extern */
 s32 func_8007C5CC(void *);                          /* extern */
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
 void func_8007D0E8(Unk*);                               /* extern */
-extern Unk *D_800952B0;
+extern Unk *__osRunningThread;
 
 s32 func_8007CE48(Unk *arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
 
-    temp_s0 = func_8007C768();
+    temp_s0 = osDisableInt();
     if (arg0->unk8 >= arg0->unk10) {
 loop_1:
         if (arg2 == 1) {
-            D_800952B0->unk10 = 8;
+            __osRunningThread->unk10 = 8;
             func_8007C484(arg0 + 4);
             if (arg0->unk8 < arg0->unk10) {
                 goto block_5;
             }
             goto loop_1;
         }
-        func_8007C788(temp_s0);
+        osRestoreInt(temp_s0);
         return -1;
     }
 block_5:
@@ -29,6 +29,6 @@ block_5:
     if (((Unk*)(s32)arg0->unk0)->unk0 != 0) {
         func_8007D0E8(func_8007C5CC(arg0));
     }
-    func_8007C788(temp_s0);
+    osRestoreInt(temp_s0);
     return 0;
 }

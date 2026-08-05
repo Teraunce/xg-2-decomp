@@ -1,7 +1,7 @@
 #include "ultra64.h"
-extern s32 D_80091E5C;
-extern s32 D_80092828;
-extern s32 D_8009282C;
+extern s32 gGameState;
+extern s32 gAudioQueueReadIdx;
+extern s32 gAudioQueueWriteIdx;
 extern s32 D_80092830;
 extern s32 D_80092834;
 extern s32 D_80092838;
@@ -46,11 +46,11 @@ s32 func_8005CCE0(s16 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     s32 var_t0;
     Unk *temp_v1;
 
-    var_t0 = D_8009282C + 1;
+    var_t0 = gAudioQueueWriteIdx + 1;
     if (var_t0 >= 0x80) {
         var_t0 = 0;
     }
-    if (var_t0 == D_80092828) {
+    if (var_t0 == gAudioQueueReadIdx) {
         return 0;
     }
     temp_a0 = D_80092840;
@@ -59,15 +59,15 @@ s32 func_8005CCE0(s16 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     if (temp_v0 <= 0) {
         D_80092840 = 1;
     }
-    temp_v1 = (D_8009282C * 0x14) + &D_80180B38;
+    temp_v1 = (gAudioQueueWriteIdx * 0x14) + &D_80180B38;
     temp_v1->unk10 = arg3;
     temp_v1->unk0 = temp_a0;
     temp_v1->unk4 = 1;
     temp_v1->unk6 = arg0;
     temp_v1->unk8 = arg1;
     temp_v1->unkC = arg2;
-    ((Unk*)((char*)&D_80180B38 + D_8009282C * 0x14))->unk11 = (s8) arg4;
-    D_8009282C = var_t0;
+    ((Unk*)((char*)&D_80180B38 + gAudioQueueWriteIdx * 0x14))->unk11 = (s8) arg4;
+    gAudioQueueWriteIdx = var_t0;
     return temp_a0;
 }
 
@@ -75,19 +75,19 @@ void func_8005CD90(s32 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     s32 var_t0;
     Unk *temp_v0;
 
-    var_t0 = D_8009282C + 1;
+    var_t0 = gAudioQueueWriteIdx + 1;
     if (var_t0 >= 0x80) {
         var_t0 = 0;
     }
-    if (var_t0 != D_80092828) {
-        temp_v0 = (D_8009282C * 0x14) + &D_80180B38;
+    if (var_t0 != gAudioQueueReadIdx) {
+        temp_v0 = (gAudioQueueWriteIdx * 0x14) + &D_80180B38;
         temp_v0->unk10 = arg3;
         temp_v0->unk0 = arg0;
         temp_v0->unk4 = 2;
         temp_v0->unk8 = arg1;
         temp_v0->unkC = arg2;
-        ((Unk*)((char*)&D_80180B38 + D_8009282C * 0x14))->unk11 = (s8) arg4;
-        D_8009282C = var_t0;
+        ((Unk*)((char*)&D_80180B38 + gAudioQueueWriteIdx * 0x14))->unk11 = (s8) arg4;
+        gAudioQueueWriteIdx = var_t0;
     }
 }
 
@@ -95,15 +95,15 @@ void func_8005CE14(s32 arg0) {
     s32 var_a2;
     Unk *temp_v1;
 
-    var_a2 = D_8009282C + 1;
+    var_a2 = gAudioQueueWriteIdx + 1;
     if (var_a2 >= 0x80) {
         var_a2 = 0;
     }
-    if (var_a2 != D_80092828) {
-        temp_v1 = (D_8009282C * 0x14) + &D_80180B38;
+    if (var_a2 != gAudioQueueReadIdx) {
+        temp_v1 = (gAudioQueueWriteIdx * 0x14) + &D_80180B38;
         temp_v1->unk0 = arg0;
         temp_v1->unk4 = 3;
-        D_8009282C = var_a2;
+        gAudioQueueWriteIdx = var_a2;
     }
 }
 
@@ -125,8 +125,8 @@ loop_1:
 block_14:
         var_v1 += 0x14;
         if (var_t0 >= 0x1C) {
-            var_t0_2 = D_80092828;
-            if (var_t0_2 != D_8009282C) {
+            var_t0_2 = gAudioQueueReadIdx;
+            if (var_t0_2 != gAudioQueueWriteIdx) {
                 var_v1 = (var_t0_2 * 0x14) + &D_80180B38;
 loop_17:
                 if ((var_v1->unk0 != arg0) || (var_v1->unk4 != 1)) {
@@ -136,7 +136,7 @@ loop_17:
                         var_v1 = &D_80180B38;
                         var_t0_2 = 0;
                     }
-                    if (var_t0_2 == D_8009282C) {
+                    if (var_t0_2 == gAudioQueueWriteIdx) {
                         goto block_22;
                     }
                     goto loop_17;
@@ -201,7 +201,7 @@ void func_8005CFE0(s32 arg0, s32 arg1) {
     if ((D_80092834 > 0) && (arg1 < D_80173C28)) {
         if (arg1 >= 0) {
             if (((Unk*)((char*)&D_80170880 + arg1 * 0x668))->unk450 == 0) {
-                var_a2 = ((s32) (*(arg1 + (D_80091E5C * 4) + &D_80092A94) * 3) / 2) + 0x40;
+                var_a2 = ((s32) (*(arg1 + (gGameState * 4) + &D_80092A94) * 3) / 2) + 0x40;
                 goto block_5;
             }
         } else {

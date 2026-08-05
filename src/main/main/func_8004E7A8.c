@@ -36,7 +36,7 @@ void func_8004E7D4(char *arg0) {
 /* -------------------------------------------------------------------------
  * func_8004E830 — video mode configuration dispatch.
  *
- * Reads D_80091E5C (0-6), jumps via jtbl_8004BB20, and fills the
+ * Reads gGameState (0-6), jumps via jtbl_8004BB20, and fills the
  * D_8017C968 VideoModeConfig struct with resolution/FP-scale values.
  * Each of the 7 cases writes different dimensions and float coefficients.
  *
@@ -84,7 +84,7 @@ typedef struct {
     /* +7C */ f32 unk7C;
 } VideoModeConfig;
 
-extern s32 D_80091E5C;          /* current video mode index (0-6) */
+extern s32 gGameState;          /* current video mode index (0-6) */
 extern VideoModeConfig D_8017C968; /* video mode config struct */
 
 /* fp scale constants per mode, stored in rodata (entry.s dlabel section) */
@@ -100,7 +100,7 @@ void func_8004E830(void) {
     VideoModeConfig *p;
     u32 mode;
 
-    mode = (u32) D_80091E5C;
+    mode = (u32) gGameState;
     if (mode >= 7U) {
         return;
     }

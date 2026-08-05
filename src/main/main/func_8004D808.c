@@ -1,14 +1,14 @@
 #include "ultra64.h"
 void func_8004D138(s32, s32, s32);                     /* extern */
 void func_8004D65C(Unk*, Unk*, s32);                /* extern */
-void func_8007BCA8();                                  /* extern */
+void __osInvalICache_full();                                  /* extern */
 extern f32 D_8004BB00;
 extern f32 D_8004BB04;
 extern f32 D_8004BB08;
 extern f32 D_8004BB0C;
 extern f32 D_8004BB10;
-extern s32 D_80090CF8;
-extern s32 D_80090D14;
+extern s32 gDLWritePtr;
+extern s32 gVideoModeTable;
 extern Unk D_800934E0;
 extern s32 D_80173C18;
 extern f32 D_80178694;
@@ -21,13 +21,13 @@ s32 *func_8004D808(Unk *arg0) {
     s32 temp_a2;
 
     temp_a2 = arg0->unk4;
-    if ((s32) &D_803DA400 >= (D_80090CF8 + temp_a2)) {
-        func_8004D138(arg0->unk0, D_80090CF8, temp_a2);
-        temp_s0 = D_80090CF8 + (arg0->unk8 & 0xFFFFFF);
-        func_8004D65C(temp_s0, arg0, D_80090CF8);
-        *temp_s0 = D_80090CF8 + (*temp_s0 & 0xFFFFFF);
-        D_80090CF8 += arg0->unk4;
-        func_8007BCA8();
+    if ((s32) &D_803DA400 >= (gDLWritePtr + temp_a2)) {
+        func_8004D138(arg0->unk0, gDLWritePtr, temp_a2);
+        temp_s0 = gDLWritePtr + (arg0->unk8 & 0xFFFFFF);
+        func_8004D65C(temp_s0, arg0, gDLWritePtr);
+        *temp_s0 = gDLWritePtr + (*temp_s0 & 0xFFFFFF);
+        gDLWritePtr += arg0->unk4;
+        __osInvalICache_full();
         return temp_s0;
     }
     M2C_BREAK(0);
@@ -45,7 +45,7 @@ void func_8004D8C0(s32 arg0, s32 arg1) {
     Unk *temp_v1;
 
     var_t0 = 0;
-    var_a2 = &D_80090D14;
+    var_a2 = &gVideoModeTable;
     temp_ft0 = (f32) arg0 * D_8004BB00;
     D_8017CA44 = arg0;
     temp_fv0 = (f32) arg1 * D_8004BB04;

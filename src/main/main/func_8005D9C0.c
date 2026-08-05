@@ -14,8 +14,8 @@ extern f32 D_8004BE70;
 extern f32 D_8004BE74;
 extern f32 D_8004BE78;
 extern f32 D_8004BE7C;
-extern s32 D_80090EA0;
-extern s32 D_80091E5C;
+extern s32 gEntityPool;
+extern s32 gGameState;
 extern s32 D_80092A94;
 extern s32 D_8017C950;
 
@@ -73,7 +73,7 @@ s32 func_8005D9C0(f32 arg0, f32 arg1, f32 arg3, f32 arg4, f32 arg5, f32 *arg6, s
     var_a2 = 1;
     if (var_s1 != NULL) {
         temp_v0 = var_s1->unkD0;
-        var_s2 = ((char*)var_s1 - (char*)&D_80090EA0) / 552;
+        var_s2 = ((char*)var_s1 - (char*)&gEntityPool) / 552;
         if (temp_v0 != NULL) {
             sp10 = temp_v0->unk0 - arg0;
             sp14 = ((Unk *)var_s1->unkD0)->unk4 - arg1;
@@ -107,7 +107,7 @@ block_12:
     } else {
         var_a0 = 0;
         if ((s32) var_s1 < D_8017C950) {
-            var_v1 = &D_80090EA0;
+            var_v1 = &gEntityPool;
             do {
                 temp_ft3 = var_v1->unkC - arg0;
                 temp_ft2 = var_v1->unk10 - arg1;
@@ -178,7 +178,7 @@ block_12:
     var_ft1 = 0.0f;
 block_38:
     temp_ft2_3 = (f32) *arg8 - (var_ft1 * D_8004BE74);
-    temp_fv1_4 = (f32) *(var_s2 + (D_80091E5C * 4) + &D_80092A94);
+    temp_fv1_4 = (f32) *(var_s2 + (gGameState * 4) + &D_80092A94);
     var_ft0 = temp_ft2_3 + temp_fv1_4;
     if (!(var_ft0 <= D_8004BE78)) {
         var_ft0 = D_8004BE78;

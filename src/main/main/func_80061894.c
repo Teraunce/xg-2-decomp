@@ -2,7 +2,7 @@
 s32 func_80061ADC();                                  /* extern */
 s32 func_80061B28();                                  /* extern */
 s32 func_800639B0(s32);                             /* extern */
-extern u16 D_80092B78;
+extern u16 gLocaleIdx;
 extern Unk D_80092CB0;
 extern s32 D_80092CB4;
 
@@ -19,10 +19,10 @@ s32 func_80061894(s32 arg0) {
     if (var_s0 < 0) {
         return var_s0;
     }
-    if (D_80092B78 == 0) {
+    if (gLocaleIdx == 0) {
         return 0;
     }
-    temp_v0 = func_800639B0(D_80092B78);
+    temp_v0 = func_800639B0(gLocaleIdx);
     return temp_v0 + *(s32 *)((char *)(s32)temp_v0 + var_s0 * 4);
 }
 

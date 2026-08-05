@@ -19,12 +19,12 @@ typedef struct {
     /* 0x3C */ s32 unk3C;
 } UnkStruct_sp1C;
 
-void func_8007BC28(u32, s32);                         /* extern */
+void osWritebackDCache(u32, s32);                         /* extern */
 char *func_80086928(void *);                        /* extern */
 s32 func_80086C18();                                /* extern */
-void func_80086C48(s32);                                 /* extern */
+void osSpSetStatus(s32);                                 /* extern */
 s32 func_80086C58(s32);                               /* extern */
-s32 func_80086C98(s32, s32, s32, s32);               /* extern */
+s32 osSpRawStartDma(s32, s32, s32, s32);               /* extern */
 extern s32 D_A0000000;
 
 void func_80086A44(UnkStruct_arg0 *arg0) {
@@ -39,26 +39,26 @@ void func_80086A44(UnkStruct_arg0 *arg0) {
             sp1C->unk10 = (s32) *(s32*)(s32)((arg0->unk38 + 0xBFC) | (s32) &D_A0000000);
         }
     }
-    func_8007BC28(sp1C, 0x40);
-    func_80086C48(0x2B00);
+    osWritebackDCache(sp1C, 0x40);
+    osSpSetStatus(0x2B00);
     if (func_80086C58(0x04001000) == -1) {
         do {
 
         } while (func_80086C58(0x04001000) == -1);
     }
-    if (func_80086C98(1, 0x04000FC0, sp1C, 0x40) == -1) {
+    if (osSpRawStartDma(1, 0x04000FC0, sp1C, 0x40) == -1) {
         do {
 
-        } while (func_80086C98(1, 0x04000FC0, sp1C, 0x40) == -1);
+        } while (osSpRawStartDma(1, 0x04000FC0, sp1C, 0x40) == -1);
     }
     if (func_80086C18() != 0) {
         do {
 
         } while (func_80086C18() != 0);
     }
-    if (func_80086C98(1, 0x04001000, sp1C->unk8, sp1C->unkC) == -1) {
+    if (osSpRawStartDma(1, 0x04001000, sp1C->unk8, sp1C->unkC) == -1) {
         do {
 
-        } while (func_80086C98(1, 0x04001000, sp1C->unk8, sp1C->unkC) == -1);
+        } while (osSpRawStartDma(1, 0x04001000, sp1C->unk8, sp1C->unkC) == -1);
     }
 }

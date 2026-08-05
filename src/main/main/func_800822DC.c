@@ -4,7 +4,7 @@ s32 func_8007E858(Unk*, s16*);                  /* extern */
 void func_8007E8E4(Unk*, s32, s32);               /* extern */
 char *func_8007FD48(s32, s32, s32, s32, s32);             /* extern */
 void func_80086088(void *, void *);                       /* extern */
-extern s32 D_800952D0;
+extern s32 gPendingFlushFlag;
 extern s32 func_80081D94;
 
 void func_800822DC(Unk *arg0, Unk *arg1) {
@@ -37,8 +37,8 @@ void func_800822DC(Unk *arg0, Unk *arg1) {
     arg0->unk0 = 0;
     arg0->unk8 = &func_80081D94;
     arg0->unk4 = arg0;
-    arg0->unk38 = (s32) D_800952D0;
-    func_80086088(D_800952D0, arg0);
+    arg0->unk38 = (s32) gPendingFlushFlag;
+    func_80086088(gPendingFlushFlag, arg0);
     sp34 = 5;
     func_8007E734(temp_a0, &sp34, arg0->unk48);
     arg0->unk4C = func_8007E858(sp28, arg0 + 0x28);

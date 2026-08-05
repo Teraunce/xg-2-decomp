@@ -4,8 +4,8 @@ s32 func_80070F50(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 void func_800716E4(s32, s32);                       /* extern */
 s32 func_8008AD98(void *, s32, void *);              /* extern */
 s32 func_8008B5B8(void *, s32*);                  /* extern */
-extern u16 D_80093EC0;
-extern s32 D_80093EC4;
+extern u16 gContPakNoteCode;
+extern s32 gGameID;
 extern s32 D_80093ECC;
 extern Unk D_801887D0;
 extern s32 D_80188940;
@@ -73,8 +73,8 @@ loop_17:
         switch (temp_v0_2) {                        /* irregular */
         case 0:
             var_a0 = 0;
-            if (var_s1->unk3A0 == D_80093EC0) {
-                if ((var_s1->unk39C == D_80093EC4) && (var_s1->unk3A2 == 0)) {
+            if (var_s1->unk3A0 == gContPakNoteCode) {
+                if ((var_s1->unk39C == gGameID) && (var_s1->unk3A2 == 0)) {
                     var_a0 = func_80061AEC(temp_s3 + 0xE, &D_80093ECC, 0x10) == 0;
                 }
             }

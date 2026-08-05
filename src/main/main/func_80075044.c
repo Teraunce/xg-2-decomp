@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80074F40(s32*);                              /* extern */
+s32 __osPiRawReadIo(s32*);                              /* extern */
 s32 func_80074FC4(s32);                              /* extern */
 
 void func_80075044(s32 arg0, s8 *arg1, u32 arg2) {
@@ -36,7 +36,7 @@ loop_1:
     var_v0 = var_s1 < 4U;
     goto block_6;
 block_4:
-    temp_v0 = func_80074F40(var_s2);
+    temp_v0 = __osPiRawReadIo(var_s2);
     var_s0->unk0 = (s8) (temp_v0 >> 0x18);
     temp_s0 = var_s0 + 1;
     var_s0->unk1 = (s8) (temp_v0 >> 0x10);

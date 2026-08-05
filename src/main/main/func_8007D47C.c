@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
 s32 func_8007C9D8();                                /* extern */
 void func_8007D678();                              /* extern */
 extern s32 D_80189A98;
@@ -11,11 +11,11 @@ void func_8007D47C(s32 arg0, u32 arg1) {
     s32 sp1C;
     u32 temp_t3;
 
-    sp1C = func_8007C768();
+    sp1C = osDisableInt();
     D_80189A98 = func_8007C9D8();
     temp_t3 = D_80189A98 + arg1;
     sp20 = (temp_t3 < arg1) + arg0;
     sp24 = temp_t3;
     func_8007D678();
-    func_8007C788(sp1C);
+    osRestoreInt(sp1C);
 }

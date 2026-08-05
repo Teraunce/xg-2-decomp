@@ -27,7 +27,7 @@ typedef struct {
 
 s32 func_8007D708(u32 arg0);                        /* static */
 
-s32 func_8007D688(u32 arg0) {
+s32 osVirtualToPhysical(u32 arg0) {
     if ((arg0 >= 0x80000000U) && (arg0 < 0xA0000000U)) {
         return arg0 & 0x1FFFFFFF;
     }
@@ -62,7 +62,7 @@ block_6:
     return -1;
 }
 
-void func_8007D7C8(void) {
+void __osVirtualToPhysical_noop(void) {
 
 }
 

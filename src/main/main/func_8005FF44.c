@@ -3,7 +3,7 @@ s32 func_80061894(s32);                               /* extern */
 void func_80062D98(void*, void*);                            /* extern */
 void func_80062F1C(s32, s32, s32, s32, s32);                   /* extern */
 void func_80065618(u16*, u16*);                          /* extern */
-extern s32 D_80092B80;
+extern s32 gRaceCtrl;
 extern s32 D_80092BA0;
 extern s32 D_80181E50;
 extern s32 D_80181F10;
@@ -21,7 +21,7 @@ extern s32 D_80182290;
 extern s32 D_801822B0;
 
 void func_8005FF44(s32 arg0) {
-    D_80092B80 = arg0;
+    gRaceCtrl = arg0;
     func_80065618(&D_80182038, func_80061894(0xC6));
     func_80065618(&D_80182188, func_80061894(0xC7));
     func_80065618(&D_80181F90, func_80061894(0xC8));

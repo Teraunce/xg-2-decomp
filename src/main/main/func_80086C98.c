@@ -1,17 +1,17 @@
 #include "ultra64.h"
-s32 func_8007D688(u32);                             /* extern */
+s32 osVirtualToPhysical(u32);                             /* extern */
 s32 func_80086C18();                                /* extern */
 extern s32 D_A4040000;
 extern s32 D_A4040004;
 extern s32 D_A4040008;
 extern s32 D_A404000C;
 
-s32 func_80086C98(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+s32 osSpRawStartDma(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (func_80086C18() != 0) {
         return -1;
     }
     D_A4040000 = arg1;
-    D_A4040004 = func_8007D688(arg2);
+    D_A4040004 = osVirtualToPhysical(arg2);
     if (arg0 == 0) {
         D_A404000C = arg3 - 1;
     } else {

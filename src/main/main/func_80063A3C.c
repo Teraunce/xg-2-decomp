@@ -7,7 +7,7 @@
  *
  * func_80063A3C(defIndex, volume):
  *   Reads gSfxDefTable[defIndex] (16-byte record) from the table whose
- *   base pointer lives at D_80092D38.  Dispatches on the four-CC tag
+ *   base pointer lives at gSfxDefTable.  Dispatches on the four-CC tag
  *   at record[+0x04]:
  *
  *     'LHUF' / 0x4C485546 — full sample (Huffman):
@@ -33,12 +33,12 @@
  *   tag  > 0x4C485546  → check for COPY (0x434F5059 < HUFH? no, 0x43 < 0x4C → less)
  *
  * Globals:
- *   D_80092D38   0x80092D38  void*  pointer to SFX def table base (main BSS)
+ *   gSfxDefTable   0x80092D38  void*  pointer to SFX def table base (main BSS)
  *   D_8004B658   0x8004B658  void*  sample bank base pointer (rodata, word-aligned)
  *   D_801823E0   0x801823E0  s32    current SFX frame output value (overlay BSS)
  */
 
-extern void *D_80092D38;  /* 0x80092D38 — pointer to SFX def table base */
+extern void *gSfxDefTable;  /* 0x80092D38 — pointer to SFX def table base */
 extern void *D_8004B658;  /* 0x8004B658 — sample bank base pointer */
 extern s32   D_801823E0;  /* 0x801823E0 — current SFX frame output value */
 
@@ -60,7 +60,7 @@ s32 func_8005B224(void *ptr, s32 volume, s32 length);
  * ------------------------------------------------------------------------- */
 s32 func_80063A3C(s32 defIndex, s32 volume) {
     /* Record pointer: *(base_ptr) + defIndex * 16 */
-    s32  *rec    = (s32 *)((u8 *)D_80092D38 + (defIndex << 4));
+    s32  *rec    = (s32 *)((u8 *)gSfxDefTable + (defIndex << 4));
     void *bank   = D_8004B658;
     void *sample = (u8 *)bank + rec[0];   /* D_8004B658 + rec[0x0] */
     u32   tag    = (u32)rec[1];            /* four-CC at rec[0x4]  */

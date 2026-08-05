@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_80085A00 (initial). */
 
-s32 func_8007D688(u32);                             /* extern */
+s32 osVirtualToPhysical(u32);                             /* extern */
 f32 func_80085368(Unk*, s32);                     /* extern */
 char *func_80085650(f32, s32, void *, s32, s32, s32, s32); /* extern */
 
@@ -46,7 +46,7 @@ char *func_800857DC(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
         temp_v0_2->unk8 = (s32) (((((Unk *)arg1->unk24)->unk24 & 0xFF) << 0x10) | 0x05000000 | ((s32) (sp44 * 32768.0f) & 0xFFFF));
         sp5C = temp_v1;
         var_v1 = temp_v1;
-        temp_t6->unk4 = func_8007D688(((Unk *)arg1->unk24)->unk14);
+        temp_t6->unk4 = osVirtualToPhysical(((Unk *)arg1->unk24)->unk14);
         ((Unk *)arg1->unk24)->unk24 = 0;
         arg1->unk18 = (s32) ((arg1->unk18 + temp_ft4) - arg3);
     } else {

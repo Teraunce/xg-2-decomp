@@ -1,12 +1,12 @@
 #include "ultra64.h"
 extern f32 D_8004BD70;
-extern f32 D_80091E74;
-extern s32 D_80091968;
+extern f32 gPlayerList2;
+extern s32 gTrackNodeCount;
 
 /* -------------------------------------------------------------------------
  * func_80056424 — particle/animation update loop (0x360 bytes, nonmatching).
  *
- * Reads count from D_80091968, float scale from D_80091E74, iterates over
+ * Reads count from gTrackNodeCount, float scale from gPlayerList2, iterates over
  * D_80182EA8 array performing per-entry updates.  No arguments — all state
  * via globals.  m2c failed: "Failed to parse instruction" in func_80056784
  * (bltz to OS address at line 257 of func_80056424.s).

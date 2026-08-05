@@ -4,7 +4,7 @@ void func_80062878(s32);                               /* extern */
 void func_80062A6C();                                  /* extern */
 void func_80062F4C(s32, s32, s32, s32);                      /* extern */
 s32 func_800B1558(s32);                             /* extern */
-extern s32 D_80092B58;
+extern s32 gSfxSavedState;
 extern s32 D_80092BB8;
 extern u32 D_80092CA8;
 extern Unk *D_80173CC0;
@@ -33,7 +33,7 @@ void func_800600D8(s32 arg0, s32 arg1) {
     case 0:
         if (((u32) (arg0 - 5) >= 2U) && (arg0 != 3)) {
             if (arg0 == 4) {
-                if (D_80092B58 != 0) {
+                if (gSfxSavedState != 0) {
                     goto block_12;
                 }
                 goto block_13;

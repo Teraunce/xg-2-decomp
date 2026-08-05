@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 func_80061924();                                /* extern */
-void func_8007BA98(u32, s32);                            /* extern */
-void func_8007BC28(u32, s32);                            /* extern */
+void osWritebackInvalDCache(u32, s32);                            /* extern */
+void osWritebackDCache(u32, s32);                            /* extern */
 s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
 void func_8007CF98(s32, s32, s32);                      /* extern */
 s32 func_80087BC8(s32);                               /* extern */
@@ -12,7 +12,7 @@ s32 func_8008CCE8(s32, Unk*, s32);                   /* extern */
 extern s32 D_800925C8;
 extern s32 D_80093EFC;
 extern s32 D_80093F00;
-extern s32 D_80093F04;
+extern s32 gInitStateFlags;
 extern s32 D_80093F08;
 extern s32 D_80173C28;
 extern s32 D_8017C890;
@@ -49,7 +49,7 @@ void func_80072E00(s32 arg0) {
     var_fp = 0;
     func_8007CF98(5, &D_801887A0, &D_8017C890);
     if (arg0 != 0) {
-        D_80093F04 = 1;
+        gInitStateFlags = 1;
     }
     var_s4 = 0;
     var_s1 = &D_801887D0;
@@ -59,7 +59,7 @@ void func_80072E00(s32 arg0) {
     sp14 = 0;
     do {
         if (var_s1->unk31C == 5) {
-            if ((D_80093F04 != 0) || (D_800925C8 != 0)) {
+            if ((gInitStateFlags != 0) || (D_800925C8 != 0)) {
                 var_s0 = 0;
                 if (D_80093F08 == 0) {
                     if (func_8008CCE8(&D_801887A0, var_s5, var_s4) != 0) {
@@ -104,11 +104,11 @@ block_32:
                 if (var_s1->unk33C != 0) {
                     if ((D_80093EFC >= 0xF) && (D_80093F00 == var_s4)) {
                         if (var_fp == 0) {
-                            func_8007BC28(&D_80192860, 0x10);
+                            osWritebackDCache(&D_80192860, 0x10);
                             var_fp = 1;
                             func_80087BC8(&D_801887A0);
                             func_8007CD08(&D_801887A0, 0, 1);
-                            func_8007BA98(&D_8018AD28, 0x40);
+                            osWritebackInvalDCache(&D_8018AD28, 0x40);
                             func_80087C4C(&D_80192860);
                         }
                         if ((void *)(((Unk*)((char*)&D_80192860 + sp10))->unk2 & 1) && (func_8008CCE8(&D_801887A0, var_s5, var_s4) == 0)) {
@@ -145,11 +145,11 @@ block_32:
         } else {
             if ((D_80093EFC >= 0xF) && (D_80093F00 == var_s4)) {
                 if (var_fp == 0) {
-                    func_8007BC28(&D_80192860, 0x10);
+                    osWritebackDCache(&D_80192860, 0x10);
                     var_fp = 1;
                     func_80087BC8(&D_801887A0);
                     func_8007CD08(&D_801887A0, 0, 1);
-                    func_8007BA98(&D_8018AD28, 0x40);
+                    osWritebackInvalDCache(&D_8018AD28, 0x40);
                     func_80087C4C(&D_80192860);
                 }
                 if (var_s7->unk2 & 2) {
@@ -208,7 +208,7 @@ block_72:
             var_a3 = 0;
         }
     }
-    if ((D_80093F04 != 0) || (D_800925C8 != 0)) {
+    if ((gInitStateFlags != 0) || (D_800925C8 != 0)) {
         var_a3 = 1;
     }
     D_80093F08 = var_a3;

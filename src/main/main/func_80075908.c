@@ -30,9 +30,9 @@
  * -------------------------------------------------------------------------
  */
 
-u32  func_80074F40(u32 addr);
-void func_80074F08(u32 addr, u32 val);
-void func_80074F7C(s32 delay);
+u32  __osPiRawReadIo(u32 addr);
+void __osPiRawWriteIo(u32 addr, u32 val);
+void __osPiResetCount(s32 delay);
 s32  func_80076154(void);
 void func_80076160(s32 arg0);
 void func_8007558C(s32 arg0);
@@ -50,30 +50,30 @@ void func_80075908(void) {
 
 top:
     /* Poll status register until nonzero */
-    while ((s0 = (s32)func_80074F40(0xB1FFFFF0)) == 0) {
-        func_80074F7C(0x3E8);
+    while ((s0 = (s32)__osPiRawReadIo(0xB1FFFFF0)) == 0) {
+        __osPiResetCount(0x3E8);
     }
 
     if (s0 == 2) {
         /* Status == 2: deassert, sleep, retry */
-        func_80074F08(0xB1FFFFFC, 0);
-        func_80074F7C(0x3E8);
+        __osPiRawWriteIo(0xB1FFFFFC, 0);
+        __osPiResetCount(0x3E8);
         goto done_wait;
     }
 
     /* Assert command, then wait for status to change from s0 */
-    func_80074F08(0xB1FFFFFC, 0x101);
-    while ((s32)func_80074F40(0xB1FFFFF0) == s0) {
-        func_80074F7C(0x1F4);
+    __osPiRawWriteIo(0xB1FFFFFC, 0x101);
+    while ((s32)__osPiRawReadIo(0xB1FFFFF0) == s0) {
+        __osPiResetCount(0x1F4);
     }
 
     /* Re-read status and compute jump-table index */
     {
-        s32 new_v = (s32)func_80074F40(0xB1FFFFF0);
+        s32 new_v = (s32)__osPiRawReadIo(0xB1FFFFF0);
         v1 = s0 - 0x10;
 
         if (new_v == 2) {
-            func_80074F08(0xB1FFFFFC, 0);
+            __osPiRawWriteIo(0xB1FFFFFC, 0);
             goto done_wait;
         }
 
@@ -104,7 +104,7 @@ top:
                 D_8018916A = 0;
                 break;
             case 6:
-                func_80074F08(0xB1FE0000,
+                __osPiRawWriteIo(0xB1FE0000,
                     ((u32)D_8018916A << 24) | ((u32)D_80189168 << 16));
                 break;
             case 7:
@@ -121,9 +121,9 @@ top:
     }
 
     /* Deassert control, then wait until status leaves 1 */
-    func_80074F08(0xB1FFFFFC, 0);
-    while ((s32)func_80074F40(0xB1FFFFF0) == 1) {
-        func_80074F7C(0x1F4);
+    __osPiRawWriteIo(0xB1FFFFFC, 0);
+    while ((s32)__osPiRawReadIo(0xB1FFFFF0) == 1) {
+        __osPiResetCount(0x1F4);
     }
 
 done_wait:
@@ -138,7 +138,7 @@ done_wait:
         goto top;
     }
     /* D_8018916A != 0 and s1 == 0: clear status reg and return */
-    func_80074F08(0xB1FFFFF0, 0);
+    __osPiRawWriteIo(0xB1FFFFF0, 0);
 }
 
 s32 func_80075B58(u8 *arg0) {

@@ -12,7 +12,7 @@ typedef struct {
 
 void func_8007D47C(s32, u32);                          /* extern */
 u32 func_8007D4F0(UnkStruct_arg0*);                          /* extern */
-extern s32 *D_800952C0;
+extern s32 *gOSMsgQueuePtr;
 
 s32 func_80088408(UnkStruct_arg0 *arg0, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     u32 sp1C;
@@ -35,7 +35,7 @@ s32 func_80088408(UnkStruct_arg0 *arg0, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     temp_ret = func_8007D4F0(arg0);
     sp18 = temp_ret;
     sp1C = (u32) (u64) temp_ret;
-    if ((void*)(s32)*D_800952C0 == (void*)arg0) {
+    if ((void*)(s32)*gOSMsgQueuePtr == (void*)arg0) {
         func_8007D47C(sp18, sp1C);
     }
     return 0;

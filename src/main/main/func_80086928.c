@@ -14,7 +14,7 @@ typedef struct {
     /* 0x38 */ s32 unk38;
 } UnkStruct_sp1C;
 
-s32 func_8007D688(u32);                             /* extern */
+s32 osVirtualToPhysical(u32);                             /* extern */
 s32 func_8008E7A8(s32, s32, s32);                       /* extern */
 extern s32 D_80189AA8;
 
@@ -32,31 +32,31 @@ char *func_80086928(s32 arg0) {
     func_8008E7A8(arg0, &D_80189AA8, 0x40);
     temp_t8 = sp1C->unk10;
     if (temp_t8 != 0) {
-        sp1C->unk10 = func_8007D688(temp_t8);
+        sp1C->unk10 = osVirtualToPhysical(temp_t8);
     }
     temp_t1 = sp1C->unk18;
     if (temp_t1 != 0) {
-        sp1C->unk18 = func_8007D688(temp_t1);
+        sp1C->unk18 = osVirtualToPhysical(temp_t1);
     }
     temp_t4 = sp1C->unk20;
     if (temp_t4 != 0) {
-        sp1C->unk20 = func_8007D688(temp_t4);
+        sp1C->unk20 = osVirtualToPhysical(temp_t4);
     }
     temp_t7 = sp1C->unk28;
     if (temp_t7 != 0) {
-        sp1C->unk28 = func_8007D688(temp_t7);
+        sp1C->unk28 = osVirtualToPhysical(temp_t7);
     }
     temp_t0 = sp1C->unk2C;
     if (temp_t0 != 0) {
-        sp1C->unk2C = func_8007D688(temp_t0);
+        sp1C->unk2C = osVirtualToPhysical(temp_t0);
     }
     temp_t3 = sp1C->unk30;
     if (temp_t3 != 0) {
-        sp1C->unk30 = func_8007D688(temp_t3);
+        sp1C->unk30 = osVirtualToPhysical(temp_t3);
     }
     temp_t6 = sp1C->unk38;
     if (temp_t6 != 0) {
-        sp1C->unk38 = func_8007D688(temp_t6);
+        sp1C->unk38 = osVirtualToPhysical(temp_t6);
     }
     return sp1C;
 }

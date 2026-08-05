@@ -1,12 +1,12 @@
 #include "ultra64.h"
 u16 *func_8004D380();                               /* extern */
-s32 func_8004D4A8(s32, s32);                        /* extern */
+s32 heap_alloc_default(s32, s32);                        /* extern */
 void func_8004F440(Unk*);                            /* extern */
 void func_80056A90(Unk*, s32, s32, s32);                   /* extern */
 s32 func_80057C20(Unk*, Unk*, Unk*, Unk*);                /* extern */
 s32 func_8013BDF4(s32);                               /* extern */
 extern f32 D_8004BBF8;
-extern s32 D_80091FCC;
+extern s32 gColorSwapMode;
 extern s32 D_80091FD0;
 extern char *D_80174BF8;
 
@@ -217,7 +217,7 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
             var_v1 += 2;
         } while (var_s1_4 < temp_v0_3);
     }
-    arg0->unk4C = func_8004D4A8(var_a1 * 0xC, var_a1);
+    arg0->unk4C = heap_alloc_default(var_a1 * 0xC, var_a1);
     var_a1_2 = 0;
     temp_fp = func_8004D380();
     temp_v0_4 = var_s0 + 1;
@@ -256,7 +256,7 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
                 var_a2 = (temp_v1_17 >> 5) & 0x1F;
                 var_t0 = (temp_v1_17 >> 0xA) & 0x1F;
                 temp_a1 = temp_a0 & 0x1F;
-                if (D_80091FCC != 0) {
+                if (gColorSwapMode != 0) {
                     temp_v1_18 = var_t0 << 5;
                     temp_a0_2 = var_t0;
                     var_t0 = var_a2;
@@ -351,7 +351,7 @@ block_97:
             var_s1_6 += 1;
         } while (var_s1_6 < arg0->unk58);
     }
-    if (D_80091FCC != 0) {
+    if (gColorSwapMode != 0) {
         temp_a1_2 = arg0->unk1C;
         arg0->unk10 = (s32) -(arg0->unk10 + (arg0->unk8 * arg0->unk4));
         if (temp_a1_2 != 0) {
@@ -382,7 +382,7 @@ block_97:
     func_80056A90(arg0 + 0xA0, 0, 0, 0);
     func_80056A90(arg0 + 0xE0, 0, 0, 0);
     func_80056A90(arg0 + 0x120, 0, 0, 0);
-    if (D_80091FCC != 0) {
+    if (gColorSwapMode != 0) {
         func_8013BDF4(arg0->unk5C);
     }
 }

@@ -1,10 +1,10 @@
 #include "ultra64.h"
-extern s32 D_80095288;
+extern s32 gAiClock;
 extern s32 D_A4500008;
 extern s32 D_A4500010;
 extern s32 D_A4500014;
 
-s32 func_800866F4(void) {
+s32 osAiSetFrequency(void) {
     s32 var_a2;
     u32 temp_a1;
 
@@ -20,5 +20,5 @@ s32 func_800866F4(void) {
     D_A4500010 = temp_a1 - 1;
     D_A4500014 = var_a2 - 1;
     D_A4500008 = 1;
-    return (s32) D_80095288 / (s32) temp_a1;
+    return (s32) gAiClock / (s32) temp_a1;
 }

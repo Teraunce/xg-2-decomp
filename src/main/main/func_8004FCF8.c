@@ -8,7 +8,7 @@ extern f32 D_8004BC00;
 extern f32 D_8004BC04;
 extern f32 D_8004BC08;
 extern f32 D_8004BC0C;
-extern s32 D_80091FCC;
+extern s32 gColorSwapMode;
 extern s32 D_80091FD0;
 extern s32 D_800B332C;
 extern s32 D_8017CC80;
@@ -70,7 +70,7 @@ loop_1:
     }
     temp_s2 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
     temp_s2->unk12 = (u16) ((Unk *)((char *)temp_s2 + (D_80182EA8.unk16E0 % 3) * 2))->unk2C;
-    if (D_80091FCC != 0) {
+    if (gColorSwapMode != 0) {
         temp_s2->unk0 = (s32) -temp_s2->unk0;
         temp_s2->unkC = (u16) -(s32) temp_s2->unkC;
     }

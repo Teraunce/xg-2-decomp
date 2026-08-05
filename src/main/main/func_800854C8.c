@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8007D688(u32);                       /* extern */
+s32 osVirtualToPhysical(u32);                       /* extern */
 
 char *func_800854C8(Unk *arg0, u32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
     u32 sp4C;
@@ -45,14 +45,14 @@ char *func_800854C8(Unk *arg0, u32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
         sp28 = temp_a3;
         sp2C = temp_a2;
         temp_s0_3 = temp_s0_2 + 8;
-        temp_s0_2->unk4 = func_8007D688(var_a1);
+        temp_s0_2->unk4 = osVirtualToPhysical(var_a1);
         temp_s0_2->unk8 = 0x08000000;
         temp_s0_4 = temp_s0_3 + 8;
         temp_s0_3->unk4 = (s32) (((temp_t3 + arg2) << 0x10) | ((((s32) (temp_a3 - temp_t1) >> 1) * 2) & 0xFFFF));
         temp_s0_3->unk8 = 0x06000000;
         sp3C = temp_s0_4;
         temp_s0_5 = temp_s0_4 + 8;
-        temp_s0_4->unk4 = func_8007D688(arg0->unk14);
+        temp_s0_4->unk4 = osVirtualToPhysical(arg0->unk14);
         temp_s0_5->unk4 = (s32) (temp_a2 & 0xFFFF);
         temp_s0_4->unk8 = 0x08000000;
         var_s0 = temp_s0_5 + 8;
@@ -62,7 +62,7 @@ char *func_800854C8(Unk *arg0, u32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
         arg4->unk8 = 0x06000000;
         sp30 = temp_s0;
         var_s0 = temp_s0 + 8;
-        temp_s0->unk4 = func_8007D688(var_a1);
+        temp_s0->unk4 = osVirtualToPhysical(var_a1);
     }
     return var_s0;
 }

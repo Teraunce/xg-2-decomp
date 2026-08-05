@@ -1,10 +1,10 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8008DC4C (initial). */
 
-s32 func_8008D188(Unk*, s32, s32, s32, s32);               /* extern */
+s32 osEPiStartDma(Unk*, s32, s32, s32, s32);               /* extern */
 void func_8008DD34();                                  /* extern */
 void func_8008DC4C();                               /* static */
-extern s32 D_80095290;
+extern s32 osIntMask;
 extern s32 D_8018C2FC;
 extern s32 D_A4600010;
 extern s32 D_A5000508;
@@ -30,7 +30,7 @@ s32 func_8008D5B0(void) {
     sp2C = temp_t0 + 0x18;
     sp38 = D_A4600010;
     if (sp38 & 1) {
-        D_80095290 &= ~0x800;
+        osIntMask &= ~0x800;
         temp_t0->unk18 = 0x1D;
         func_8008DD34();
         goto block_59;
@@ -67,7 +67,7 @@ s32 func_8008D5B0(void) {
         sp2C->unk0 = 0x16;
         func_8008DD34();
         D_A4600010 = 2;
-        D_80095290 |= 0x100401;
+        osIntMask |= 0x100401;
         goto block_59;
     }
     if (sp30->unk0 == 1) {
@@ -77,14 +77,14 @@ s32 func_8008D5B0(void) {
                 func_8008DC4C();
             } else {
                 D_A4600010 = 2;
-                D_80095290 |= 0x100401;
+                osIntMask |= 0x100401;
                 sp2C->unk0 = 0;
                 func_8008DD34();
             }
         } else {
             sp2C->unk4 = (s32) (sp2C->unk4 + sp2C->unkC);
             sp30->unk8 = (s32) (sp30->unk8 + 1);
-            func_8008D188(D_8018C2FC, 1, 0x05000400, sp2C->unk4, sp2C->unkC);
+            osEPiStartDma(D_8018C2FC, 1, 0x05000400, sp2C->unk4, sp2C->unkC);
         }
         goto block_59;
     }
@@ -134,11 +134,11 @@ block_36:
                 sp2C->unk0 = 0x16;
             } else {
                 D_A4600010 = 2;
-                D_80095290 |= 0x100401;
+                osIntMask |= 0x100401;
                 sp30->unk0 = 2;
                 sp2C->unk0 = 0;
             }
-            func_8008D188(D_8018C2FC, 0, 0x05000000, sp2C->unk8, sp2C->unkC * 4);
+            osEPiStartDma(D_8018C2FC, 0, 0x05000000, sp2C->unk8, sp2C->unkC * 4);
             goto block_59;
         }
         if ((sp30->unk8 == -1) && (sp30->unk4 == 2) && (sp30->unk6 == 1)) {
@@ -163,7 +163,7 @@ block_51:
                 func_8008DC4C();
                 goto block_59;
             }
-            func_8008D188(D_8018C2FC, 0, 0x05000400, sp2C->unk4, sp2C->unkC);
+            osEPiStartDma(D_8018C2FC, 0, 0x05000400, sp2C->unk4, sp2C->unkC);
             sp2C->unk0 = 0;
             return 1;
         }

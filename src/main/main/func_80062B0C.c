@@ -4,26 +4,26 @@
 /*
  * func_80062B0C — SFX 3-phase playback state machine.
  *
- * Manages three phases stored in gSfxPhase (D_801823A8):
+ * Manages three phases stored in gSfxPhase (gSfxPhase):
  *
  *   Phase 0 — SCAN / RAMP-IN:
- *     Increments gSfxFadeTimer (D_801823B0) by gSfxRampStep (D_80092CF8)
+ *     Increments gSfxFadeTimer (gSfxFadeTimer) by gSfxRampStep (gSfxRampStep)
  *     each call until the timer reaches 0xFF.  Simultaneously walks every
  *     heap entry, stores any "interesting" entity in gSfxCurrentSlot
- *     (D_80092CCC), and marks each entry active via func_800620CC.
+ *     (gSfxCurrentSlot), and marks each entry active via func_800620CC.
  *     Transitions to phase 1 when the scan is complete.
  *
  *   Phase 1 — PLAY / TRIGGER:
  *     Retrieves the first heap slot (slot -4 = index 0) and the last slot
  *     (slot -1 = gSfxAllocCount).  If both resolve to the same entity it
  *     triggers secondary logic (func_8006394C / func_80061884 / func_80061800).
- *     Then either re-inserts gSfxEntity (D_801823AC) at the top of the heap
+ *     Then either re-inserts gSfxEntity (gSfxEntity) at the top of the heap
  *     via func_80061FB4 (priority -3, flags 1), or re-marks the current
  *     highest-priority entity via func_80062240 + func_800620CC.
  *     Sets gSfxFadeTimer = 0xFF and advances to phase 2.
  *
  *   Phase 2 — DECAY / RAMP-OUT:
- *     Decrements gSfxFadeTimer by gSfxDecayStep (D_80092D00) each call.
+ *     Decrements gSfxFadeTimer by gSfxDecayStep (gSfxDecayStep) each call.
  *     When the timer expires (reaches or crosses zero) it triggers
  *     func_800620CC on the top-priority entity to mark it done, then returns.
  *     If gSfxDecayStep == 0 the decay is effectively instantaneous.
@@ -39,8 +39,8 @@
  *   D_80092CD8        0x80092CD8  void* secondary entity ptr (phase 1)
  *   gSfxSlotEnd       0x80092CE0  void* past-end sentinel for the heap iterator
  *   D_800E4118        0x800E4118  void* special handler-table sentinel pointer
- *   D_80093EE4        0x80093EE4  void* handler-table base pointer
- *   D_801823B0        0x801823B0  s32   same as gSfxFadeTimer (overlay alias)
+ *   gHandlerTable        0x80093EE4  void* handler-table base pointer
+ *   gSfxFadeTimer        0x801823B0  s32   same as gSfxFadeTimer (overlay alias)
  */
 
 extern s32   gSfxPhase;        /* 0x801823A8 */
@@ -53,8 +53,8 @@ extern s32   gSfxSavedState;   /* 0x80092B58 */
 extern void *D_80092CD8;       /* secondary entity ptr */
 extern void *gSfxSlotEnd;      /* 0x80092CE0 past-end sentinel */
 extern void *D_800E4118;       /* handler-table sentinel */
-extern void *D_80093EE4;       /* handler-table base */
-extern void *D_801823B0;       /* overlay alias: same storage as gSfxFadeTimer */
+extern void *gHandlerTable;       /* handler-table base */
+extern void *gSfxFadeTimer;       /* overlay alias: same storage as gSfxFadeTimer */
 
 void func_800620CC(void *entity);                    /* mark active (func_80061FB4.c) */
 void func_80061FB4(void *entity, s32 slot, s32 flags); /* heap insert (func_80061FB4.c) */
@@ -92,8 +92,8 @@ void func_80062B0C(void) {
      * ------------------------------------------------------------------ */
 phase0:
     {
-        s32 timer = (s32)D_801823B0 + gSfxRampStep;
-        D_801823B0 = (void *)(intptr_t)timer;
+        s32 timer = (s32)gSfxFadeTimer + gSfxRampStep;
+        gSfxFadeTimer = (void *)(intptr_t)timer;
         if (timer < 0xFF) {
             phase = 0;
             if (gSfxRampStep != 0) {
@@ -105,7 +105,7 @@ phase0:
         {
             void *endSentinel = gSfxSlotEnd;
             void *handlerSentinel = D_800E4118;
-            void *handlerBase = D_80093EE4;
+            void *handlerBase = gHandlerTable;
             s32  *currentSlotPtr = (s32 *)&gSfxCurrentSlot;
 
             for (i = 0; ; i++) {

@@ -1,26 +1,26 @@
 #include "ultra64.h"
 s32 func_8007C5DC();                                  /* extern */
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
 void func_8007D238(Unk *);                            /* extern */
-extern Unk *D_800952AC;
-extern char *D_800952B0;
+extern Unk *__osAllThreadList;
+extern char *__osRunningThread;
 
 void func_8007C848(Unk *arg0) {
     s32 temp_s0;
     Unk *var_s1;
     char *var_s2;
 
-    temp_s0 = func_8007C768();
+    temp_s0 = osDisableInt();
     if (arg0 == NULL) {
-        arg0 = D_800952B0;
+        arg0 = __osRunningThread;
     } else if (arg0->unk10 != 1) {
         func_8007D238(arg0->unk8);
     }
-    if (D_800952AC == arg0) {
-        D_800952AC = D_800952AC->unkC;
+    if (__osAllThreadList == arg0) {
+        __osAllThreadList = __osAllThreadList->unkC;
     } else {
-        var_s1 = D_800952AC;
+        var_s1 = __osAllThreadList;
         var_s2 = var_s1->unkC;
         if (var_s2 != NULL) {
 loop_7:
@@ -35,8 +35,8 @@ loop_7:
             }
         }
     }
-    if ((void*)arg0 == (void*)D_800952B0) {
+    if ((void*)arg0 == (void*)__osRunningThread) {
         func_8007C5DC();
     }
-    func_8007C788(temp_s0);
+    osRestoreInt(temp_s0);
 }

@@ -3,9 +3,9 @@
 
 s32 func_8005CCE0(s16, f32, s32, s8, s32);               /* extern */
 extern f32 D_8004BE94;
-extern s32 D_80091968;
+extern s32 gTrackNodeCount;
 extern s32 D_80092B48;
-extern s32 D_80092B88;
+extern s32 gGameFlags;
 extern s32 D_80173C28;
 extern s32 D_8017C958;
 extern s32 D_80181588;
@@ -64,7 +64,7 @@ void func_8005E5A4(s32 arg0) {
                 var_s0->unk18 = func_8005CCE0(2, temp_fs0, 0, 0x40, 0);
                 var_s0->unk1C = func_8005CCE0(5, temp_fs0, 0, 0x40, 0);
             } else if (((Unk *)var_s2->unk16F8)->unk8 < 0xD) {
-                if (D_80092B88 & 0x400) {
+                if (gGameFlags & 0x400) {
                     if (D_8017C958 == 0) {
                         var_v0 = 0x4B;
                         var_s0->unk24 = 1;
@@ -98,7 +98,7 @@ block_14:
             if (var_a0 < 0) {
                 var_a0 = 0;
             }
-            var_v1 = D_80091968 - D_80181648;
+            var_v1 = gTrackNodeCount - D_80181648;
             if (var_a0 < var_v1) {
                 var_v1 = var_a0;
             }

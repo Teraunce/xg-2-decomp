@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_80082850(Unk*);                            /* extern */
 extern f64 D_8004CEB0;
-extern char *D_800952D0;
+extern char *gPendingFlushFlag;
 
 char *func_80082900(char *arg0, s32 *arg1, s32 arg2, s32 arg3) {
     Unk *spB4;
@@ -21,7 +21,7 @@ char *func_80082900(char *arg0, s32 *arg1, s32 arg2, s32 arg3) {
     Unk *var_v0;
     Unk *var_v1_2;
 
-    temp_s1 = D_800952D0;
+    temp_s1 = gPendingFlushFlag;
     spAA = 0;
     var_s3 = arg3;
     var_s4 = arg0;

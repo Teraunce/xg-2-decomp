@@ -2,7 +2,7 @@
 /* Warning: missing "jr $ra" in last block of func_8007DA6C (initial). */
 
 void func_8007D7D8(void *, s32, s32);              /* extern */
-extern s32 D_800952D0;
+extern s32 gPendingFlushFlag;
 
 void func_8007D8CC(Unk *arg0, s32 arg1) {
     s32 var_s3;

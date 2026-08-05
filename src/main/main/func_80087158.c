@@ -22,8 +22,8 @@ typedef struct {
 
 extern VIBuf D_800955E0;
 extern VIBuf * volatile D_80095640;
-extern VIState * volatile D_80095644;
-extern s32 D_80000300;
+extern VIState * volatile gVIConfig;
+extern s32 osMemSize;
 extern ModeEntry D_800963E0;
 extern ModeEntry D_80096430;
 extern ModeEntry D_80096390;
@@ -31,33 +31,33 @@ extern vu32 D_A4400010;
 extern vu32 D_A4400000;
 
 void func_8008EAB8(VIBuf *, s32);
-void func_80087728(void);
+void osViSwapBuffer(void);
 
-void func_80087158(void) {
+void osViInit(void) {
     func_8008EAB8(&D_800955E0, 0x60);
     D_80095640 = &D_800955E0;
-    D_80095644 = &D_800955E0.sub30;
+    gVIConfig = &D_800955E0.sub30;
     D_800955E0.sub30.unk02 = 1;
     D_80095640->unk02 = 1;
-    D_80095644->unk04 = 0x80000000;
+    gVIConfig->unk04 = 0x80000000;
     D_80095640->unk04 = 0x80000000;
-    if (D_80000300 == 0) {
-        D_80095644->unk08 = &D_800963E0;
-    } else if (D_80000300 == 2) {
-        D_80095644->unk08 = &D_80096430;
+    if (osMemSize == 0) {
+        gVIConfig->unk08 = &D_800963E0;
+    } else if (osMemSize == 2) {
+        gVIConfig->unk08 = &D_80096430;
     } else {
-        D_80095644->unk08 = &D_80096390;
+        gVIConfig->unk08 = &D_80096390;
     }
-    D_80095644->unk00 = 0x20;
-    D_80095644->unk0C = ((Unk *)D_80095644->unk08)->unk04;
+    gVIConfig->unk00 = 0x20;
+    gVIConfig->unk0C = ((Unk *)gVIConfig->unk08)->unk04;
     if ((u32) D_A4400010 >= 0xBU) {
         do {
         } while ((u32) D_A4400010 >= 0xBU);
     }
     D_A4400000 = 0;
-    func_80087728();
+    osViSwapBuffer();
 }
 
-VIBuf *func_80087298(void) {
+VIBuf *osViGetCurrentFramebuffer(void) {
     return D_80095640;
 }

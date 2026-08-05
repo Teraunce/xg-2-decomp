@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 func_8007CD08(Unk*, s32*, s32);                       /* extern */
-s32 func_80087C78(s32, s32);                          /* extern */
+s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 func_80087D78();                                  /* extern */
 void func_80087DBC();                                  /* extern */
 void func_8008B3E8(s32);                                 /* extern */
@@ -27,9 +27,9 @@ s32 func_8008B248(s32 arg0, u8 *arg1) {
     func_80087D78();
     do {
         func_8008B3E8(0);
-        sp3C = func_80087C78(1, &D_8018ADB8);
+        sp3C = osSiRawStartDma(1, &D_8018ADB8);
         func_8007CD08(arg0, &sp38, 1);
-        sp3C = func_80087C78(0, &D_8018ADB8);
+        sp3C = osSiRawStartDma(0, &D_8018ADB8);
         func_8007CD08(arg0, &sp38, 1);
         func_8008B4E4(&sp37, (s32 (*)[]) (void*) &sp24[0]);
         sp20 = 0;

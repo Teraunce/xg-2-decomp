@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_8004D8C0(s32, s32);                          /* extern */
-void func_8007BCA8(void);                             /* extern */
-extern s32 D_80000300;
+void __osInvalICache_full(void);                             /* extern */
+extern s32 osMemSize;
 extern s32 D_80090E94;
 extern s32 D_80095650;
 
@@ -55,15 +55,15 @@ void func_8004DC24(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     if (arg1 >= 0x141) {
         var_a1 |= 1;
     }
-    if (D_80000300 != 1) {
-        if (D_80000300 < 2) {
-            if (D_80000300 == 0) {
+    if (osMemSize != 1) {
+        if (osMemSize < 2) {
+            if (osMemSize == 0) {
                 var_a1 += 4;
                 goto block_12;
             }
             var_a2 = arg0;
         } else {
-            if (D_80000300 == 2) {
+            if (osMemSize == 2) {
                 var_a1 += 8;
                 goto block_12;
             }
@@ -148,5 +148,5 @@ block_12:
     arg0->unk20 = temp_a1_3;
     arg0->unk1C = (s32) var_t6;
     arg0->unk44 = (s32) sp14;
-    func_8007BCA8();
+    __osInvalICache_full();
 }

@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8007D688(u32);             /* extern */
+s32 osVirtualToPhysical(u32);             /* extern */
 s16 func_8008448C(f64, s32);                             /* extern */
 extern s32 D_80095470;
 extern s32 D_8009556E;
@@ -60,11 +60,11 @@ char *func_8008465C(void) {
         temp_s4_5->unk4 = (s32) (saved_reg_s3->unk22 & 0xFFFF);
         temp_s4_5->unk8 = 0x03090000;
         var_s4 = temp_s4_6 + 8;
-        var_v0 = func_8007D688((s32)saved_reg_s3->unk14);
+        var_v0 = osVirtualToPhysical((s32)saved_reg_s3->unk14);
     } else {
         temp_v0->unk10 = 0x03080000;
         var_s4 = temp_s4 + 8;
-        var_v0 = func_8007D688((s32)saved_reg_s3->unk14);
+        var_v0 = osVirtualToPhysical((s32)saved_reg_s3->unk14);
     }
     var_s0->unk4 = var_v0;
     *saved_reg_s6 += temp_s7;

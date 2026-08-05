@@ -5,7 +5,7 @@
  * func_80061F0C / func_80061F34 / func_80061F38 — SFX slot-index resolver
  *
  * func_80061F38 resolves four magic negative sentinel values into real heap
- * indices before any access to gSfxHeap (D_80182348):
+ * indices before any access to gSfxHeap (gSfxHeap):
  *
  *   slotSpec == -4  →  0               (first slot)
  *   slotSpec == -3  →  gSfxMaxIndex    (highest occupied slot; 0 if unset)

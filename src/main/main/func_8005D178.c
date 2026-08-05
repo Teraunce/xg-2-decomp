@@ -21,8 +21,8 @@ extern f64 D_8004BE38;
 extern f64 D_8004BE40;
 extern f32 D_8004BE48;
 extern s32 D_800927F0;
-extern s32 D_80092828;
-extern s32 D_8009282C;
+extern s32 gAudioQueueReadIdx;
+extern s32 gAudioQueueWriteIdx;
 extern s32 D_80092830;
 extern s32 D_80092834;
 extern s32 D_80092838;
@@ -127,8 +127,8 @@ block_7:
         }
         var_s0 += 0x14;
     } while (var_s3_2 < 0x1C);
-    var_s3_3 = D_80092828;
-    if (var_s3_3 != D_8009282C) {
+    var_s3_3 = gAudioQueueReadIdx;
+    if (var_s3_3 != gAudioQueueWriteIdx) {
         var_v0_2 = var_s3_3 * 4;
         do {
             temp_s1 = ((var_v0_2 + var_s3_3) * 4) + &D_80180B38;
@@ -261,9 +261,9 @@ block_67:
                 var_s3_3 = 0;
             }
             var_v0_2 = var_s3_3 * 4;
-        } while (var_s3_3 != D_8009282C);
+        } while (var_s3_3 != gAudioQueueWriteIdx);
     }
-    D_80092828 = var_s3_3;
+    gAudioQueueReadIdx = var_s3_3;
     if (D_8009283C != 0) {
         var_s3_4 = 0;
         var_s0_2 = &D_80180908;

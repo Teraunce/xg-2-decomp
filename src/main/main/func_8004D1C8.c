@@ -1,17 +1,17 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8004D4A8 (initial). */
+/* Warning: missing "jr $ra" in last block of heap_alloc_default (initial). */
 
-void func_8007BA98(u32, s32);                         /* extern */
-void func_8007BCA8(void);                             /* extern */
+void osWritebackInvalDCache(u32, s32);                         /* extern */
+void __osInvalICache_full(void);                             /* extern */
 s32 func_8007CD08(Unk*, s32*, s32);                       /* extern */
 s32 func_8008E518(Unk*, s32, s32, s32, s32, s32, s32);    /* extern */
-extern char *D_80090CF8;
-extern char *D_80090CFC;
-extern s32 D_80090D00;
-extern s32 D_80090D04;
-extern char *D_80090D08;
-extern s32 D_80090D0C;
-extern char *D_80090D10;
+extern char *gDLWritePtr;
+extern char *gDLBase;
+extern s32 gRSPTaskA;
+extern s32 gRSPTaskB;
+extern char *gFrameWait;
+extern s32 gFrameState;
+extern char *gDLSavePtr;
 extern u8 D_8016DBD0;
 extern s32 D_8016DF70;
 extern s32 D_801A3000;
@@ -34,7 +34,7 @@ void func_8004D1C8(s32 arg0, u8 *arg1, s32 arg2) {
     var_s1 = arg1;
     temp_s4 = var_s3 & 0x3F;
     if (temp_s4 != 0) {
-        func_8007BA98(&D_8016DBD0, 0x40);
+        osWritebackInvalDCache(&D_8016DBD0, 0x40);
         func_8008E518(&sp20, 0, 0, var_s3 & ~0x3F, &D_8016DBD0, 0x40, &D_8016DF70);
         func_8007CD08(&D_8016DF70, &sp38, 1);
         temp_a1 = var_s2 + temp_s4;
@@ -59,38 +59,38 @@ void func_8004D1C8(s32 arg0, u8 *arg1, s32 arg2) {
                     var_s1 += 1;
                 } while (var_v1 < 0x40);
             }
-            func_8007BCA8();
+            __osInvalICache_full();
             goto block_8;
         }
     } else {
 block_8:
-        func_8007BA98(var_s1, var_s2);
+        osWritebackInvalDCache(var_s1, var_s2);
         func_8008E518(&sp20, 0, 0, var_s3, var_s1, var_s2, &D_8016DF70);
         func_8007CD08(&D_8016DF70, &sp38, 1);
     }
 }
 
 void func_8004D330(void) {
-    D_80090D10 = D_80090CF8;
+    gDLSavePtr = gDLWritePtr;
 }
 
 void func_8004D344(void) {
-    D_80090CF8 = D_80090D10;
+    gDLWritePtr = gDLSavePtr;
 }
 
 void func_8004D358(void) {
-    if (D_80090CFC != NULL) {
-        D_80090CF8 = D_80090CFC;
+    if (gDLBase != NULL) {
+        gDLWritePtr = gDLBase;
         return;
     }
-    D_80090CF8 = &D_801A3000;
+    gDLWritePtr = &D_801A3000;
 }
 
 char *func_8004D380(void) {
-    if (D_80090D08 == NULL) {
-        return D_80090CF8;
+    if (gFrameWait == NULL) {
+        return gDLWritePtr;
     }
-    return D_80090D08;
+    return gFrameWait;
 }
 
 void func_8004D3A8(s32 arg0, s32 arg1) {
@@ -99,27 +99,27 @@ void func_8004D3A8(s32 arg0, s32 arg1) {
     s8 *temp_v0;
 
     var_v1 = 0;
-    D_80090D00 = arg0;
-    D_80090D04 = arg1;
+    gRSPTaskA = arg0;
+    gRSPTaskB = arg1;
     if (arg1 > 0) {
         do {
-            temp_v0 = D_80090D00 + var_v1;
+            temp_v0 = gRSPTaskA + var_v1;
             var_v1 += 1;
             *temp_v0 = 0;
         } while (var_v1 < arg1);
     }
-    if (D_80090D00 & 0xF) {
+    if (gRSPTaskA & 0xF) {
         do {
-            temp_v0_2 = D_80090D00 + 1;
-            D_80090D00 = temp_v0_2;
-            D_80090D04 -= 1;
+            temp_v0_2 = gRSPTaskA + 1;
+            gRSPTaskA = temp_v0_2;
+            gRSPTaskB -= 1;
         } while (temp_v0_2 & 0xF);
     }
 }
 
 void func_8004D420(void) {
-    D_80090D00 = 0;
-    D_80090D04 = 0;
+    gRSPTaskA = 0;
+    gRSPTaskB = 0;
 }
 
 char *func_8004D434(s32 arg0) {
@@ -129,21 +129,21 @@ char *func_8004D434(s32 arg0) {
     s32 temp_a0;
 
     temp_a0 = (arg0 + 0xF) & ~0xF;
-    if ((D_80090D08 != NULL) && (D_80090D0C >= temp_a0)) {
-        temp_v0_2 = D_80090D08;
-        D_80090D08 = temp_v0_2 + temp_a0;
-        D_80090D0C -= temp_a0;
+    if ((gFrameWait != NULL) && (gFrameState >= temp_a0)) {
+        temp_v0_2 = gFrameWait;
+        gFrameWait = temp_v0_2 + temp_a0;
+        gFrameState -= temp_a0;
         return temp_v0_2;
     }
-    temp_a0_2 = D_80090CF8 + temp_a0;
-    temp_v0 = D_80090CF8;
+    temp_a0_2 = gDLWritePtr + temp_a0;
+    temp_v0 = gDLWritePtr;
     if ((s32) &D_803DA400 >= (s32) temp_a0_2) {
-        D_80090CF8 = temp_a0_2;
+        gDLWritePtr = temp_a0_2;
         return temp_v0;
     }
     return NULL;
 }
 
-void func_8004D4A8(void) {
+void heap_alloc_default(void) {
 
 }

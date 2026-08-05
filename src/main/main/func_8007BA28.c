@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_8007A758(char*, char*);                          /* extern */
 void func_8007B878(f32, s32, s32);                       /* extern */
-extern s32 D_800952A0;
+extern s32 gRunQueueSentinel;
 
 void func_8007BA28(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     s32 sp28;
@@ -10,7 +10,7 @@ void func_8007BA28(s32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, f
     func_8007A758(&sp28, arg0);
 }
 
-void func_8007BA98(u32 arg0, s32 arg1) {
+void osWritebackInvalDCache(u32 arg0, s32 arg1) {
     s32 temp_t2;
     s32 temp_t2_2;
     u32 temp_t0;
@@ -55,7 +55,7 @@ block_6:
     }
 }
 
-void func_8007BB48(u32 arg0, s32 arg1) {
+void osInvalICache(u32 arg0, s32 arg1) {
     u32 temp_t1;
     u32 var_t0;
     u32 var_t0_2;
@@ -80,7 +80,7 @@ void func_8007BB48(u32 arg0, s32 arg1) {
     }
 }
 
-void func_8007BC28(u32 arg0, s32 arg1) {
+void osWritebackDCache(u32 arg0, s32 arg1) {
     u32 temp_t1;
     u32 var_t0;
     u32 var_t0_2;
@@ -105,7 +105,7 @@ void func_8007BC28(u32 arg0, s32 arg1) {
     }
 }
 
-void func_8007BCA8(void) {
+void __osInvalICache_full(void) {
     u32 var_t0;
 
     var_t0 = 0x80000000;
@@ -115,9 +115,9 @@ void func_8007BCA8(void) {
     } while (var_t0 < 0x80001FF0U);
 }
 
-void func_8007BCD8(Unk *arg0, s32 arg1, s32 arg2) {
-    arg0->unk0 = &D_800952A0;
-    arg0->unk4 = &D_800952A0;
+void osCreateMesgQueue(Unk *arg0, s32 arg1, s32 arg2) {
+    arg0->unk0 = &gRunQueueSentinel;
+    arg0->unk4 = &gRunQueueSentinel;
     arg0->unk8 = 0;
     arg0->unkC = 0;
     arg0->unk10 = arg2;

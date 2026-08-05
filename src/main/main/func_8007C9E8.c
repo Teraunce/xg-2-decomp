@@ -1,27 +1,27 @@
 #include "ultra64.h"
-void func_8007BB48(u32, s32);                              /* extern */
-void func_8007BC28(u32, s32);                              /* extern */
-s32 func_80087AF8(s32, s32 *);                        /* extern */
-s32 func_80087B78(s32, s32);                          /* extern */
+void osInvalICache(u32, s32);                              /* extern */
+void osWritebackDCache(u32, s32);                              /* extern */
+s32 osEPiRawReadIo(s32, s32 *);                        /* extern */
+s32 osEPiRawWriteIo(s32, s32);                          /* extern */
 void func_8008CEB8(s32, u32 *);                          /* extern */
 void func_8008EAB8(s32, s32);                            /* extern */
 u32 func_8008EBC0(s32, u32, s32, s32);                  /* extern */
 s32 func_8008ECC0(u32, s32, s32, s32);                  /* extern */
-s32 func_8007CC78();                                /* static */
-s32 func_8007CC88(s32);                               /* static */
-void func_8007CC98(s32);                            /* static */
-void func_8007CCA8();                               /* static */
+s32 __osGetSR();                                /* static */
+s32 __osGetFpcsr(s32);                               /* static */
+void __osSetSR(s32);                            /* static */
+void __osInitTLB();                               /* static */
 extern s32 D_80000000;
-extern s32 D_80000300;
-extern s32 D_8000030C;
-extern s32 D_8000031C;
-extern u32 D_80095280;
-extern s32 D_80095284;
-extern s32 D_80095288;
+extern s32 osMemSize;
+extern s32 osResetType;
+extern s32 osVersion;
+extern u32 gCpuClockHi;
+extern s32 gCpuClock;
+extern s32 gAiClock;
 extern s32 D_80189828;
 extern Unk func_8007BE58;
 
-void func_8007C9E8(void) {
+void osInitialize(void) {
     s32 sp34;
     u32 sp30;
     u32 sp24;
@@ -32,17 +32,17 @@ void func_8007C9E8(void) {
 
     sp30 = 0;
     D_80189828 = 1;
-    func_8007CC98(func_8007CC78() | 0x20000000);
-    func_8007CC88(0x01000800);
-    if (func_80087AF8(0x1FC007FC, &sp34) != 0) {
+    __osSetSR(__osGetSR() | 0x20000000);
+    __osGetFpcsr(0x01000800);
+    if (osEPiRawReadIo(0x1FC007FC, &sp34) != 0) {
         do {
 
-        } while (func_80087AF8(0x1FC007FC, &sp34) != 0);
+        } while (osEPiRawReadIo(0x1FC007FC, &sp34) != 0);
     }
-    if (func_80087B78(0x1FC007FC, sp34 | 8) != 0) {
+    if (osEPiRawWriteIo(0x1FC007FC, sp34 | 8) != 0) {
         do {
 
-        } while (func_80087B78(0x1FC007FC, sp34 | 8) != 0);
+        } while (osEPiRawWriteIo(0x1FC007FC, sp34 | 8) != 0);
     }
     D_80000000 = func_8007BE58.unk0;
     D_80000000 = func_8007BE58.unk4;
@@ -60,53 +60,53 @@ void func_8007C9E8(void) {
     (( Unk*)0x80000180)->unk4 = (s32) func_8007BE58.unk4;
     (( Unk*)0x80000180)->unk8 = (s32) func_8007BE58.unk8;
     (( Unk*)0x80000180)->unkC = (s32) func_8007BE58.unkC;
-    func_8007BC28(0x80000000, 0x190);
-    func_8007BB48(0x80000000, 0x190);
-    func_8007CCA8();
+    osWritebackDCache(0x80000000, 0x190);
+    osInvalICache(0x80000000, 0x190);
+    __osInitTLB();
     func_8008CEB8(4, &sp30);
     temp_t9 = sp30 & ~0xF;
     sp30 = temp_t9;
     if (temp_t9 != 0) {
-        D_80095280 = 0;
-        D_80095280 = temp_t9;
+        gCpuClockHi = 0;
+        gCpuClockHi = temp_t9;
     }
-    temp_ret = func_8008ECC0(D_80095280, D_80095284, 0, 3);
+    temp_ret = func_8008ECC0(gCpuClockHi, gCpuClock, 0, 3);
     sp20 = temp_ret;
     sp24 = (u32) (u64) temp_ret;
     temp_ret_2 = func_8008EBC0(sp20, sp24, 0, 4);
-    D_80095280 = temp_ret_2;
-    D_80095280 = (u32) (u64) temp_ret_2;
-    if (D_8000030C == 0) {
-        func_8008EAB8(&D_8000031C, 0x40);
+    gCpuClockHi = temp_ret_2;
+    gCpuClockHi = (u32) (u64) temp_ret_2;
+    if (osResetType == 0) {
+        func_8008EAB8(&osVersion, 0x40);
     }
-    if (D_80000300 == 0) {
-        D_80095288 = 0x02F5B2D2;
+    if (osMemSize == 0) {
+        gAiClock = 0x02F5B2D2;
         return;
     }
-    if (D_80000300 == 2) {
-        D_80095288 = 0x02E6025C;
+    if (osMemSize == 2) {
+        gAiClock = 0x02E6025C;
         return;
     }
-    D_80095288 = 0x02E6D354;
+    gAiClock = 0x02E6D354;
 }
 
-/* func_8007CC78 — read COP0 Status register (mfc0 $v0, $12) */
-s32 func_8007CC78(void) {
+/* __osGetSR — read COP0 Status register (mfc0 $v0, $12) */
+s32 __osGetSR(void) {
     return 0; /* mfc0 $v0, $12 */
 }
 
-/* func_8007CC88 — read FPU control register (cfc1 $v0, $31) */
-s32 func_8007CC88(s32 arg0) {
+/* __osGetFpcsr — read FPU control register (cfc1 $v0, $31) */
+s32 __osGetFpcsr(s32 arg0) {
     return 0; /* cfc1 $v0, $31 */
 }
 
-/* func_8007CC98 — write COP0 Status register (mtc0 $a0, $12) */
-void func_8007CC98(s32 arg0) {
+/* __osSetSR — write COP0 Status register (mtc0 $a0, $12) */
+void __osSetSR(s32 arg0) {
     /* mtc0 $a0, $12 — write COP0 Status */
 }
 
-/* func_8007CCA8 — write TLB entry (COP0 TLB setup + tlbwi) */
-void func_8007CCA8(void) {
+/* __osInitTLB — write TLB entry (COP0 TLB setup + tlbwi) */
+void __osInitTLB(void) {
     /* mtc0 $t1, $0   — write COP0 Index    */
     /* mtc0 $zero, $5 — write COP0 PageMask */
     /* mtc0 $t1, $10  — write COP0 EntryHi  */

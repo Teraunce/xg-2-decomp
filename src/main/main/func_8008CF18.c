@@ -1,8 +1,8 @@
 #include "ultra64.h"
-void func_8007BCD8(Unk*, s32, s32);                     /* extern */
-void func_8007BD08(OSThread*, OSId, u32, s32, u32, OSPri);    /* extern */
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
+void osCreateMesgQueue(Unk*, s32, s32);                     /* extern */
+void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);    /* extern */
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
 void func_8007CF98(s32, s32, s32);                         /* extern */
 void func_8007D008(Unk*, s32);                            /* extern */
 void func_8007D0E8(Unk*);                               /* extern */
@@ -16,19 +16,19 @@ extern s32 D_8018B1E8;
 extern s32 D_8018C1E8;
 extern s32 D_8018C200;
 extern s32 D_8018D310;
-extern s32 func_8008D0A8;
-extern s32 func_8008D188;
+extern s32 osEPiStartDma_simple;
+extern s32 osEPiStartDma;
 extern s32 func_8008DE28;
 
-void func_8008CF18(s32 arg0, char *arg1, char *arg2, s32 arg3) {
+void osEPiLoad(s32 arg0, char *arg1, char *arg2, s32 arg3) {
     s32 sp2C;
     s32 sp28;
     s32 sp24;
     s32 temp_v0;
 
     if (D_80096480 == NULL) {
-        func_8007BCD8(arg1, arg2, arg3);
-        func_8007BCD8(&D_8018C1E8, &D_8018C200, 1);
+        osCreateMesgQueue(arg1, arg2, arg3);
+        osCreateMesgQueue(&D_8018C1E8, &D_8018C200, 1);
         if (D_800964B0 == 0) {
             func_8008E458();
         }
@@ -39,18 +39,18 @@ void func_8008CF18(s32 arg0, char *arg1, char *arg2, s32 arg3) {
             sp28 = sp24;
             func_8007D008(0, arg0);
         }
-        temp_v0 = func_8007C768();
+        temp_v0 = osDisableInt();
         D_80096480 = (void *)1;
         D_80096480 = &D_8018B038;
         D_80096480 = &D_8018C1E8;
         D_80096480 = arg1;
         sp2C = temp_v0;
         D_80096490 = &D_8018D310;
-        D_80096490 = &func_8008D0A8;
-        D_80096490 = &func_8008D188;
-        func_8007BD08(&D_8018B038, 0, &func_8008DE28, &D_80096480, &D_8018B1E8 + 0x1000, arg0);
+        D_80096490 = &osEPiStartDma_simple;
+        D_80096490 = &osEPiStartDma;
+        osCreateThread(&D_8018B038, 0, &func_8008DE28, &D_80096480, &D_8018B1E8 + 0x1000, arg0);
         func_8007D0E8(&D_8018B038);
-        func_8007C788(sp2C);
+        osRestoreInt(sp2C);
         if (sp28 != -1) {
             func_8007D008(0, sp28);
         }

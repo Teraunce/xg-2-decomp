@@ -18,8 +18,8 @@ extern f32 D_8004C3B8;
 extern f32 D_8004C3BC;
 extern f32 D_8004C3C0;
 extern f32 D_8004C3C4;
-extern s32 D_80091E70;
-extern s32 D_80091E74;
+extern s32 gPlayerList;
+extern s32 gPlayerList2;
 extern s32 D_80093D58;
 extern s32 D_80093E60;
 extern Unk *D_80173CC0;
@@ -79,7 +79,7 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
         temp_v0->unk18 = 0xFCFFFFFF;
         temp_v0->unk1C = 0xFFFDF638;
         do {
-            temp_ft1 = (f32) ((D_80091E74 + (var_s1 << 6)) & 0x7F) * D_8004C3A0;
+            temp_ft1 = (f32) ((gPlayerList2 + (var_s1 << 6)) & 0x7F) * D_8004C3A0;
             temp_ft0 = temp_ft1 - temp_fs0;
             temp_s2 = (s32) ((temp_fs0 - fabsf(temp_ft0)) * (f32) (0xFF - arg0->unk558) * D_8004C3A4);
             if (!(temp_ft1 < temp_fs0)) {
@@ -94,10 +94,10 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
             func_80058294(&sp60, arg1->unkC - arg1->unk0, arg1->unk10 - arg1->unk4, arg1->unk14 - arg1->unk8, arg1->unk18, arg1->unk1C, arg1->unk20);
             func_80056EA8(&sp20, &sp60, &spA0);
             func_80056ADC(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
-            func_80057884(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (D_80091E70 << 6));
+            func_80057884(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
             temp_a0 = D_80173CC0 + 8;
             D_80173CC0->unk0 = 0xDA380003;
-            D_80173CC0->unk4 = (void *) (D_8017C7F0 + (D_8017C118 << 7) + (D_80091E70 << 6));
+            D_80173CC0->unk4 = (void *) (D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
             D_80173CC0->unk8 = 0xFA000000;
             temp_fv0_2 = arg0->unk648 * (f32) temp_s2;
             D_80173CC0 = temp_a0;
@@ -132,7 +132,7 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
         func_80058294(&sp60, arg0->unk340, arg0->unk344, arg0->unk348, arg1->unk18, arg1->unk1C, arg1->unk20);
         func_80056EA8(&sp20, &sp60, &spA0);
         func_80056ADC(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
-        func_80057884(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (D_80091E70 << 6));
+        func_80057884(&sp20, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
         temp_a3 = D_80173CC0;
         temp_a0_2 = D_80173CC0 + 8;
         temp_a2 = D_8017C118 << 7;
@@ -141,10 +141,10 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
         temp_v1_3 = D_8017C7F0 + temp_a2;
         D_8017C118 = temp_a1;
         D_80173CC0 = temp_a0_2;
-        temp_a3->unk4 = (s32) (temp_v1_3 + (D_80091E70 << 6));
+        temp_a3->unk4 = (s32) (temp_v1_3 + (gPlayerList << 6));
         D_80173CC0 = temp_a0_2 + 8;
         D_80173CC0->unk8 = 0xFA000000;
-        temp_fv0_3 = arg0->unk648 * (((func_8007B5A8((f32) D_80091E74 * D_8004C3B8) + D_8004C3BC) * D_8004C3C0) + D_8004C3C0);
+        temp_fv0_3 = arg0->unk648 * (((func_8007B5A8((f32) gPlayerList2 * D_8004C3B8) + D_8004C3BC) * D_8004C3C0) + D_8004C3C0);
         if (D_8004C3C4 <= temp_fv0_3) {
             var_t0 = (s32) (temp_fv0_3 - D_8004C3C4) | 0x80000000;
         } else {

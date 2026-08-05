@@ -12,7 +12,7 @@ typedef struct {
 } UnkStruct_var_t6;
 
 s32 func_8007CD08(Unk*, s32*, s32);                         /* extern */
-s32 func_80087C78(s32, s32);                          /* extern */
+s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 func_80087D78();                                  /* extern */
 void func_80087DBC();                                  /* extern */
 extern s8 D_8018AD68;
@@ -36,9 +36,9 @@ s32 func_8008C898(UnkStruct_arg0 *arg0) {
     sp44 = &D_8018ADB8;
     func_80087D78();
     D_8018AD68 = 3;
-    func_80087C78(1, (arg0->unk8 << 6) + &D_8018ADF8);
+    osSiRawStartDma(1, (arg0->unk8 << 6) + &D_8018ADF8);
     func_8007CD08(arg0->unk4, 0, 1);
-    sp48 = func_80087C78(0, &D_8018ADB8);
+    sp48 = osSiRawStartDma(0, &D_8018ADB8);
     func_8007CD08(arg0->unk4, 0, 1);
     sp44 = &D_8018ADB8;
     if (arg0->unk8 != 0) {

@@ -24,7 +24,7 @@ extern f32 D_8004C3F4;
 extern f32 D_8004C3F8;
 extern f32 D_8004C3FC;
 extern f32 D_8004C400;
-extern s32 D_80091E70;
+extern s32 gPlayerList;
 extern s32 D_80170880;
 extern s32 D_80173C70;
 extern Unk *D_80173CC0;
@@ -126,7 +126,7 @@ void func_80069A60(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5,
     temp_fs0 = arg0->unk48;
     func_80058294(&sp70, arg0->unk10 - arg0->unk34, arg0->unk14 - arg0->unk38, arg0->unk18 - arg0->unk3C, temp_fs1, temp_fs2, temp_fs0);
     func_80056ADC(&sp70, &sp30, arg0->unk34 - arg1->unk0, arg0->unk38 - arg1->unk4, arg0->unk3C - arg1->unk8);
-    func_80057884(&sp30, D_8017C7F0 + (D_8017C118 << 7) + (D_80091E70 << 6));
+    func_80057884(&sp30, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
     sp1A0 = &sp130;
     sp134 = 0.0f;
     sp130 = ((Unk *)arg0->unkC)->unk78;
@@ -135,9 +135,9 @@ void func_80069A60(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5,
     func_80058294(&spB0, (sp140 + arg0->unk34) - arg0->unk1C, (sp144 + arg0->unk38) - arg0->unk20, (sp148 + arg0->unk3C) - arg0->unk24, temp_fs1, temp_fs2, temp_fs0);
     func_80058294(&sp70, arg0->unk10 - arg0->unk1C, arg0->unk14 - arg0->unk20, arg0->unk18 - arg0->unk24, temp_fs1, temp_fs2, temp_fs0);
     func_80056ADC(&sp70, &sp30, arg0->unk10 - arg1->unk0, arg0->unk14 - arg1->unk4, arg0->unk18 - arg1->unk8);
-    func_80057884(&sp30, D_8017C7F0 + ((D_8017C118 << 7) + 0x80) + (D_80091E70 << 6));
+    func_80057884(&sp30, D_8017C7F0 + ((D_8017C118 << 7) + 0x80) + (gPlayerList << 6));
     func_80056ADC(&spB0, &sp30, arg0->unk1C - arg1->unk0, arg0->unk20 - arg1->unk4, arg0->unk24 - arg1->unk8);
-    func_80057884(&sp30, D_8017C7F0 + ((D_8017C118 << 7) + 0x100) + (D_80091E70 << 6));
+    func_80057884(&sp30, D_8017C7F0 + ((D_8017C118 << 7) + 0x100) + (gPlayerList << 6));
     temp_v0 = D_80173CC0 + 8;
     D_80173CC0->unk0 = 0xD9FFFFFF;
     D_80173CC0->unk4 = 0x20000;
@@ -181,7 +181,7 @@ void func_80069A60(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5,
     temp_a3 = D_80173CC0 + 8;
     temp_a1->unk0 = 0xDC08000A;
     D_80173CC0 = temp_a3;
-    temp_v1 = (D_8017C114 << 6) + ((D_80091E70 << 5) + &D_8017C1B0);
+    temp_v1 = (D_8017C114 << 6) + ((gPlayerList << 5) + &D_8017C1B0);
     temp_a1->unk4 = temp_v1;
     D_80173CC0->unk8 = 0xDC08030A;
     temp_a3->unk4 = (void *) (temp_v1 + 0x10);
@@ -207,12 +207,12 @@ block_6:
             var_s0 = &D_8017C118;
             var_s2 = &D_8017C7F0;
         }
-        func_8007BA28(*var_s2 + ((*var_s0 << 7) + 0x80) + (D_80091E70 << 6), D_8004C3D8, D_8004C3D8, 0, D_8004C3DC, (temp_a1_2->unk34 - temp_a1_2->unk40) * D_8004C3C8, var_ft1, var_ft2);
+        func_8007BA28(*var_s2 + ((*var_s0 << 7) + 0x80) + (gPlayerList << 6), D_8004C3D8, D_8004C3D8, 0, D_8004C3DC, (temp_a1_2->unk34 - temp_a1_2->unk40) * D_8004C3C8, var_ft1, var_ft2);
         temp_v1_3 = *var_s2;
         temp_t2 = D_80173CC0 + 8;
         temp_a1_3 = *var_s0 << 7;
         D_80173CC0->unk0 = 0xDA380003;
-        temp_a0 = D_80091E70 << 6;
+        temp_a0 = gPlayerList << 6;
         D_80173CC0->unk4 = (void *) (temp_v1_3 + temp_a1_3 + temp_a0);
         D_80173CC0 = temp_t2;
         D_80173CC0 = temp_t2 + 8;
@@ -429,7 +429,7 @@ block_38:
                 temp_t1->unk10 = 0xDA380003;
                 temp_t1->unk18 = 0xDE000000;
                 temp_a0_4 = D_8017C118 << 7;
-                temp_a2_2 = D_80091E70 << 6;
+                temp_a2_2 = gPlayerList << 6;
                 temp_t1->unk14 = (s32) (D_8017C7F0 + temp_a0_4 + temp_a2_2);
                 D_80173CC0 = temp_t1 + 0x18;
                 D_80173CC0 = temp_t1 + 0x20;
@@ -454,7 +454,7 @@ block_53:
                 temp_t1->unk10 = 0xDA380003;
                 temp_t1->unk18 = 0xDE000000;
                 temp_a0_5 = D_8017C118 << 7;
-                var_a2 = D_80091E70 << 6;
+                var_a2 = gPlayerList << 6;
                 temp_t1->unk14 = (s32) (D_8017C7F0 + temp_a0_5 + var_a2);
                 D_80173CC0 = temp_t1 + 0x18;
                 D_80173CC0 = temp_t1 + 0x20;
@@ -480,7 +480,7 @@ block_52:
                 temp_t1->unk10 = 0xDA380003;
                 temp_t1->unk18 = 0xDE000000;
                 temp_a0_6 = D_8017C118 << 7;
-                var_a2 = D_80091E70 << 6;
+                var_a2 = gPlayerList << 6;
                 temp_t1->unk14 = (s32) (D_8017C7F0 + temp_a0_6 + var_a2);
                 D_80173CC0 = temp_t1 + 0x18;
                 D_80173CC0 = temp_t1 + 0x20;
@@ -491,7 +491,7 @@ block_52:
             case 3:
                 temp_t1->unk10 = 0xDA380003;
                 temp_t1->unk18 = 0xDE000000;
-                temp_t1->unk14 = (s32) (D_8017C7F0 + (D_8017C118 << 7) + (D_80091E70 << 6));
+                temp_t1->unk14 = (s32) (D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
                 D_80173CC0 = temp_t1 + 0x18;
                 D_80173CC0 = temp_t1 + 0x20;
                 temp_t1->unk1C = (s32) ((Unk *)arg0->unkC)->unk18;
@@ -532,7 +532,7 @@ block_52:
                         temp_t1_2->unk10 = 0xDA380003;
                         temp_t1_2->unk18 = 0xDE000000;
                         temp_a0_7 = D_8017C118 << 7;
-                        temp_a2_3 = D_80091E70 << 6;
+                        temp_a2_3 = gPlayerList << 6;
                         temp_t1_2->unk14 = (s32) (D_8017C7F0 + temp_a0_7 + temp_a2_3);
                         D_80173CC0 = temp_t1_2 + 0x18;
                         D_80173CC0 = temp_t1_2 + 0x20;
@@ -558,7 +558,7 @@ block_52:
                     } else {
                         temp_t1_2->unk10 = 0xDA380003;
                         temp_t1_2->unk18 = 0xDE000000;
-                        temp_t1_2->unk14 = (s32) (D_8017C7F0 + (D_8017C118 << 7) + (D_80091E70 << 6));
+                        temp_t1_2->unk14 = (s32) (D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
                         D_80173CC0 = temp_t1_2 + 0x18;
                         D_80173CC0 = temp_t1_2 + 0x20;
                         temp_t1_2->unk1C = (s32) ((Unk *)arg0->unkC)->unk18;
@@ -568,7 +568,7 @@ block_52:
                     temp_t1_2->unk10 = 0xDA380003;
                     temp_t1_2->unk18 = 0xDE000000;
                     temp_a0_8 = D_8017C118 << 7;
-                    var_a2_3 = D_80091E70 << 6;
+                    var_a2_3 = gPlayerList << 6;
                     temp_t1_2->unk14 = (s32) (D_8017C7F0 + temp_a0_8 + var_a2_3);
                     D_80173CC0 = temp_t1_2 + 0x18;
                     D_80173CC0 = temp_t1_2 + 0x20;
@@ -581,7 +581,7 @@ block_52:
                 temp_t1_2->unk10 = 0xDA380003;
                 temp_t1_2->unk18 = 0xDE000000;
                 temp_a0_9 = D_8017C118 << 7;
-                var_a2_3 = D_80091E70 << 6;
+                var_a2_3 = gPlayerList << 6;
                 temp_t1_2->unk14 = (s32) (D_8017C7F0 + temp_a0_9 + var_a2_3);
                 D_80173CC0 = temp_t1_2 + 0x18;
                 D_80173CC0 = temp_t1_2 + 0x20;

@@ -15,7 +15,7 @@
  *   Otherwise write zero to gSfxTimerD and return.
  *   This path is shared between:
  *     a) arg1 == 0  (caller has nothing active)
- *     b) func_8006216C(D_80093EE4) returns nonzero  (master entity is
+ *     b) func_8006216C(gHandlerTable) returns nonzero  (master entity is
  *        already in the heap — normal frame-to-frame ticking)
  *
  * -------------------------------------------------------------------------
@@ -25,9 +25,9 @@
  *   States that jump directly to func_800634B4 (epilogue) do not advance.
  *
  *   State 0 — "Is the SFX system initialised?"
- *     Check func_8006216C(D_80092CE0) (the gSfxSlotEnd sentinel).
- *     NOT found → DMA-load the audio overlay via func_8007BCA8 /
- *       func_8007BA98 / func_8007BB48 / func_8005B224 / func_8005F838
+ *     Check func_8006216C(gSfxSlotEnd) (the gSfxSlotEnd sentinel).
+ *     NOT found → DMA-load the audio overlay via __osInvalICache_full /
+ *       osWritebackInvalDCache / osInvalICache / func_8005B224 / func_8005F838
  *       (twice: once for code, once for data).  → advance state.
  *     Found → scan gSfxChannelMute[0..3]; if any byte is nonzero set
  *       gSfxBlockedFlag = 1.  → DO NOT advance state (return as-is).
@@ -91,10 +91,10 @@
  *   D_80182EA8  0x80182EA8  u8[]  SFX block data
  *   D_80173D08  0x80173D08  s32   audio frame timer (overlay)
  *   D_801839A8  0x801839A8  void* output context pointer (overlay)
- *   D_80092CE0  0x80092CE0  void* gSfxSlotEnd sentinel (main BSS)
- *   D_80092CD0  0x80092CD0  u8[4] gSfxChannelMute (main BSS)
+ *   gSfxSlotEnd  0x80092CE0  void* gSfxSlotEnd sentinel (main BSS)
+ *   gSfxChannelMute  0x80092CD0  u8[4] gSfxChannelMute (main BSS)
  *   D_80092B64  0x80092B64  s32   sound-output-active flag (main BSS)
- *   D_80093EE4  0x80093EE4  void* master handler entity (main BSS)
+ *   gHandlerTable  0x80093EE4  void* master handler entity (main BSS)
  *   D_80096540  0x80096540  void* DMA destination buffer (main BSS)
  *   D_8004BA14  0x8004BA14  void* heap-init pointer (rodata)
  *   D_800DDC5C  0x800DDC5C  void* audio callback table (rodata)
@@ -109,10 +109,10 @@ extern s32   D_801823CC;        /* DL timing reference (used as s32 for arithmet
 extern u8    D_80182EA8[];      /* SFX block data base */
 extern s32   D_80173D08;        /* audio frame timer */
 extern void *D_801839A8;        /* output context */
-extern void *D_80092CE0;        /* gSfxSlotEnd sentinel */
-extern u8    D_80092CD0[4];     /* gSfxChannelMute[4] */
+extern void *gSfxSlotEnd;        /* gSfxSlotEnd sentinel */
+extern u8    gSfxChannelMute[4];     /* gSfxChannelMute[4] */
 extern s32   D_80092B64;        /* sound-output-active flag */
-extern void *D_80093EE4;        /* master handler entity */
+extern void *gHandlerTable;        /* master handler entity */
 extern s32   D_80096540;        /* DMA destination buffer */
 extern void *D_8004BA14;        /* heap-init pointer (loaded as pointer) */
 extern void *D_800DDC5C;        /* audio callback table */
@@ -120,9 +120,9 @@ extern u32   D_1F080;           /* DMA length */
 
 /* ---- forward declarations for called functions ------------------------- */
 s32   func_8006216C(void *entity);
-void  func_8007BCA8(void);
-void  func_8007BA98(void *dst, u32 len);
-void  func_8007BB48(void *dst, u32 len);
+void  __osInvalICache_full(void);
+void  osWritebackInvalDCache(void *dst, u32 len);
+void  osInvalICache(void *dst, u32 len);
 void  func_8005B224(void *src, void *dst, u32 len, s32 unk);
 void  func_8005F838(void);
 void  func_80063100(void);
@@ -155,7 +155,7 @@ void func_80063158(void *entity, s32 arg1) {
     /* ------------------------------------------------------------------ */
     /* Quick path B: master entity is already in the heap → just tick      */
     /* ------------------------------------------------------------------ */
-    if (func_8006216C(D_80093EE4)) {
+    if (func_8006216C(gHandlerTable)) {
         goto lbl_blocked_check;
     }
 
@@ -171,21 +171,21 @@ void func_80063158(void *entity, s32 arg1) {
 
     /* ------------------------------------------------------------------
      * State 0: check whether the audio overlay is already loaded
-     *          (gSfxSlotEnd / D_80092CE0 will be in the heap once DMA'd).
+     *          (gSfxSlotEnd / gSfxSlotEnd will be in the heap once DMA'd).
      * ------------------------------------------------------------------ */
     case 0:
-        if (!func_8006216C(D_80092CE0)) {
+        if (!func_8006216C(gSfxSlotEnd)) {
             /* Sentinel NOT found → DMA-load the audio overlay twice. */
-            func_8007BCA8();
-            func_8007BA98(&D_80096540, D_1F080);
-            func_8007BB48(&D_80096540, D_1F080);
+            __osInvalICache_full();
+            osWritebackInvalDCache(&D_80096540, D_1F080);
+            osInvalICache(&D_80096540, D_1F080);
             func_8005B224((u8 *)D_8004BA14 + 0x18,
                           &D_80096540,
                           D_1F080,
                           0);
-            func_8007BCA8();
-            func_8007BA98(&D_80096540, D_1F080);
-            func_8007BB48(&D_80096540, D_1F080);
+            __osInvalICache_full();
+            osWritebackInvalDCache(&D_80096540, D_1F080);
+            osInvalICache(&D_80096540, D_1F080);
             func_8005F838();
             /* → advance state */
             goto lbl_advance_state;
@@ -193,7 +193,7 @@ void func_80063158(void *entity, s32 arg1) {
             /* Sentinel found → check channel mute flags. */
             s32 i;
             for (i = 0; i < 4; i++) {
-                if (D_80092CD0[i] != 0) {
+                if (gSfxChannelMute[i] != 0) {
                     D_801823C4 = 1;
                     break;
                 }

@@ -6,7 +6,7 @@ s32 func_80084F18(Unk*, s32, s32);                       /* extern */
 s32 func_80085C5C(s32*, s32, s32);                       /* extern */
 extern f32 D_8004CFA8;
 extern f32 D_8004CFAC;
-extern s32 D_80095288;
+extern s32 gAiClock;
 
 s32 func_800865F8(Unk *arg0, s16 arg1, s32 arg2, s32 arg3) {
     s32 temp_a2;

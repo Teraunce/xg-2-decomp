@@ -13,14 +13,14 @@ extern f32 D_8004BF64;
 extern s32 D_8004BF68;
 extern s32 D_8004BF6C;
 extern f32 D_8004BF70;
-extern s32 D_80092CC4;
-extern s32 D_80093F04;
+extern s32 gSfxPendingSlot;
+extern s32 gInitStateFlags;
 extern s32 D_80181E48;
 extern s32 D_80181E4C;
 extern s32 D_80181E70;
 extern s32 D_80181EB0;
 extern s32 D_80182078;
-extern s32 D_801820D8;
+extern s32 gSfxChannelState;
 extern s32 D_801822D8;
 
 void func_8005F6B8(void) {
@@ -33,7 +33,7 @@ void func_8005F6B8(void) {
     func_8005C8EC(0x28, 0);
     func_8005C8B8();
     var_a0 = 0;
-    var_v1 = &D_801820D8;
+    var_v1 = &gSfxChannelState;
     do {
         var_v1->unk0 = 0;
         var_v1->unkC = 0;
@@ -55,6 +55,6 @@ void func_8005F6B8(void) {
     func_8007AC38(&sp68, &sp28, &D_80181E70);
     D_80181E48 = 0;
     D_80181E4C = 0;
-    D_80092CC4 = -1;
-    D_80093F04 = 0;
+    gSfxPendingSlot = -1;
+    gInitStateFlags = 0;
 }

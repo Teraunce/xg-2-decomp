@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8008D3B8 (initial). */
 
-s32 func_8007D688(u32);                             /* extern */
+s32 osVirtualToPhysical(u32);                             /* extern */
 extern s32 D_800964A0;
 extern s32 D_8018C214;
 extern s32 D_A4600000;
@@ -18,7 +18,7 @@ extern s32 D_A4600028;
 extern s32 D_A460002C;
 extern s32 D_A4600030;
 
-s32 func_8008D188(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+s32 osEPiStartDma(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 sp2C;
     s32 sp28;
     Unk *sp24;
@@ -81,7 +81,7 @@ s32 func_8008D188(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         }
         *(&D_800964A0 + (sp28 * 4)) = arg0;
     }
-    D_A4600000 = func_8007D688(arg3);
+    D_A4600000 = osVirtualToPhysical(arg3);
     D_A4600004 = (arg0->unkC | arg2) & 0x1FFFFFFF;
     switch (arg1) {                                 /* irregular */
     case 0:

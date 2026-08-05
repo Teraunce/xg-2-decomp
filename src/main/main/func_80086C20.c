@@ -3,14 +3,14 @@
 
 extern s32 D_A4040010;
 
-s32 func_80086C20(s32 arg0) {
+s32 osSpGetStatusBits(s32 arg0) {
     if (arg0 & 0x1C) {
         return 1;
     }
     return 0;
 }
 
-void func_80086C48(s32 arg0) {
+void osSpSetStatus(s32 arg0) {
     D_A4040010 = arg0;
 }
 

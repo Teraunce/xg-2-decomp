@@ -17,9 +17,9 @@ extern f32 D_8004C34C;
 extern f32 D_8004C350;
 extern f32 D_8004C354;
 extern f32 D_8004C358;
-extern s32 D_80090EA0;
-extern s32 D_80091968;
-extern s32 D_80091E70;
+extern s32 gEntityPool;
+extern s32 gTrackNodeCount;
+extern s32 gPlayerList;
 extern s32 D_80170880;
 extern Unk *D_80173CC0;
 extern s32 D_8017C958;
@@ -78,13 +78,13 @@ void func_800676DC(s32 arg0) {
     Unk *temp_v1_4;
     Unk *var_s0;
 
-    temp_s3 = (arg0 * 0x228) + &D_80090EA0;
+    temp_s3 = (arg0 * 0x228) + &gEntityPool;
     if ((D_80182EA8.unk16D8 != 2) && (temp_s3->unkD0 != 0)) {
         sp70 = temp_s3->unkC - temp_s3->unk0;
         var_s4 = 0;
         sp74 = temp_s3->unk10 - temp_s3->unk4;
         sp78 = temp_s3->unk14 - temp_s3->unk8;
-        func_80057A94(temp_s3 + ((D_80091E70 << 6) + 0x30), &sp20);
+        func_80057A94(temp_s3 + ((gPlayerList << 6) + 0x30), &sp20);
         func_80065224(&D_80173CC0);
         func_80063F18(0);
         func_80066574(&D_8004C328, 0, 5);
@@ -99,7 +99,7 @@ void func_800676DC(s32 arg0) {
         temp_v1->unk4 = 0x504A50;
         temp_v1->unk8 = 0xE2001D00;
         temp_v1->unkC = 4;
-        if (D_80091968 > 0) {
+        if (gTrackNodeCount > 0) {
             temp_s2 = (arg0 << 5) + &D_8017C968;
             var_s0 = temp_s3;
             var_s1 = &D_80170880;
@@ -151,7 +151,7 @@ block_23:
                         } else {
                             var_s0->unkDC = 0;
                         }
-                        if (((Unk*)((char*)&D_80090EA0 + (arg0 * 0x228)))->unk1E4 != 0) {
+                        if (((Unk*)((char*)&gEntityPool + (arg0 * 0x228)))->unk1E4 != 0) {
                             var_fv0 = temp_s2->unk18 - (sp60 * temp_s2->unk10);
                         } else {
                             var_fv0 = temp_s2->unk18 + (sp60 * temp_s2->unk10);
@@ -215,7 +215,7 @@ block_51:
                 }
                 var_s4 += 1;
                 var_s1 += 0x668;
-            } while (var_s4 < D_80091968);
+            } while (var_s4 < gTrackNodeCount);
         }
         temp_a2_2 = D_80173CC0;
         temp_v0 = D_80173CC0 + 8;

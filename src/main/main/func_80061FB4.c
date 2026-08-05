@@ -5,7 +5,7 @@
  * SFX heap core operations — insert, mark-active, find, contains, count.
  *
  * The SFX subsystem maintains a fixed-stride array of SfxSortEntry structs
- * at gSfxHeap (D_80182348, overlay segment, 0x0C bytes each).  Entries are
+ * at gSfxHeap (gSfxHeap, overlay segment, 0x0C bytes each).  Entries are
  * kept in insertion-priority order: func_80061FB4 shifts existing entries up
  * to open a slot at the requested position, then writes the new entry.
  *

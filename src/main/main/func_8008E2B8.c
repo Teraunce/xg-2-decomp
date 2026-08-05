@@ -1,12 +1,12 @@
 #include "ultra64.h"
-s32 func_8007C768();                                /* extern */
-s32 func_8007C788(s32);                               /* extern */
-extern s32 D_80095290;
+s32 osDisableInt();                                /* extern */
+s32 osRestoreInt(s32);                               /* extern */
+extern s32 osIntMask;
 
 void func_8008E2B8(s32 arg0) {
     s32 temp_s0;
 
-    temp_s0 = func_8007C768();
-    D_80095290 &= ~(arg0 & ~0x401);
-    func_8007C788(temp_s0);
+    temp_s0 = osDisableInt();
+    osIntMask &= ~(arg0 & ~0x401);
+    osRestoreInt(temp_s0);
 }
