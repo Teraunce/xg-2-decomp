@@ -5,7 +5,7 @@ s32 sfxMapId(s32);                               /* extern */
 void func_80065224(void**);                               /* extern */
 void func_80065274(void**);                               /* extern */
 void func_80065370(void**, s32);                            /* extern */
-void func_80066574(s32, s32, s32);                    /* extern */
+void sceneDispatch(s32, s32, s32);                    /* extern */
 extern s32 D_8004C050;
 extern s32 D_8004C058;
 extern s32 D_80173CC0;
@@ -31,7 +31,7 @@ void func_800634DC(void) {
         }
         var_a3 = 5;
     }
-    func_80066574(var_a1, 0, var_a3);
+    sceneDispatch(var_a1, 0, var_a3);
     func_80065274(&D_80173CC0);
 }
 

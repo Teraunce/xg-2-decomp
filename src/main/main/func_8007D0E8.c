@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8007D238 (initial). */
+/* Warning: missing "jr $ra" in last block of __osDequeueThread (initial). */
 
 s32 __osEnqueueWait(void **);                           /* extern */
 s32 __osEnqueueThread(void **, void *);                   /* extern */
@@ -42,7 +42,7 @@ void osStartThread(Unk *arg0) {
     osRestoreInt(temp_s0);
 }
 
-void func_8007D240(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8007D238(Unk *arg0) {
-    func_8007D240();
+void __osRemoveLink(void);  /* forward: GETTER_NOJR fallthrough */
+void __osDequeueThread(Unk *arg0) {
+    __osRemoveLink();
 }

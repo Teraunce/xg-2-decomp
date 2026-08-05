@@ -19,7 +19,7 @@ extern s32 D_8018157C;
 extern s32 D_80181580;
 
 /*
- * func_8005C9BC — audio event sub-dispatcher (nonmatching).
+ * audioQueueDispatch — audio event sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — three reasons:
  *
@@ -38,7 +38,7 @@ extern s32 D_80181580;
  *
  * Function size: 0x324 bytes.
  */
-void func_8005C9BC(void) { /* nonmatching — see asm stub */ }
+void audioQueueDispatch(void) { /* nonmatching — see asm stub */ }
 
 s32 sfxQueueCmd(s16 arg0, f32 arg1, s32 arg2, s8 arg3, s32 arg4) {
     s32 temp_a0;

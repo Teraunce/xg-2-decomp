@@ -25,10 +25,10 @@
  * Active cases (14 of 24 entries; rest → default advance):
  *
  * case 0:
- *   Decode audio command from s2->0x18 via func_8008177C(s5, sp+0x88).
+ *   Decode audio command from s2->0x18 via midiDecodeEvent(s5, sp+0x88).
  *   Sub-dispatch on (s16)sp+0x88:
- *     == 1: func_800805A4(sp+0x50); func_80080228(s2)
- *     == 3: func_80080304(sp+0x88); func_80080228(s2)
+ *     == 1: func_800805A4(sp+0x50); audioStreamTick(s2)
+ *     == 3: midiProcessTempo(sp+0x88); audioStreamTick(s2)
  *     == 4: s2->0x2C=2; osSetTimer(s5, cmd=0x10, a2=0x7FFFFFFF)
  *     else: (no action, advance)
  *
@@ -36,8 +36,8 @@
  *   s0 = s2->0x3C; s1 = s0->0x10;
  *   sfxPlayNoteAtEntity(s2->0x14, s0);
  *   sfxStopAtEntity(s2->0x14, s0);
- *   if (s1->0x37) func_800813E8(s2, s1);
- *   func_800801B8(s2, s0);
+ *   if (s1->0x37) audioNoteRelease(s2, s1);
+ *   audioNoteUnlink(s2, s0);
  *
  * case 6:
  *   s0 = s2->0x3C; s1 = s0->0x10;
@@ -48,7 +48,7 @@
  *   sfxPlayAtEntity(s2->0x14, s0, (s16)v0, s3);
  *
  * case 7:
- *   func_80080304(sp+0x50, s2);   [sp+0x50 = stored obj+0x38 ptr]
+ *   midiProcessTempo(sp+0x50, s2);   [sp+0x50 = stored obj+0x38 ptr]
  *
  * case 9:
  *   osSetTimer(s5, cmd=0x9, a2=s2->0x5C);
@@ -82,13 +82,13 @@
  * case 0xF:
  *   if (s2->0x2C == 1) → loop (no advance);
  *   s2->0x2C = 1;
- *   func_80080228(s2);
+ *   audioStreamTick(s2);
  *
  * case 0x10:
  *   if (s2->0x2C != 2) → next;
  *   timerRelinkByType(s5, 0); timerRelinkByType(s5, 2);
  *   walk linked-list from s2->0x64;
- *     func_80080110(s2, node+4, 0xC350);
+ *     audioNoteActivate(s2, node+4, 0xC350);
  *     if result: sfxNoteRetrigger(s2, node+4, 0xC350);
  *     advance via node->0x0.
  *   s2->0x2C = 2;

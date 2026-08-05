@@ -17,7 +17,7 @@ void func_8007E9D8(s32, s32);                          /* extern */
 void func_8007EA18(s32, s8, s8);                     /* extern */
 void func_8007FBD8(Unk*, Unk*);                          /* extern */
 void func_800822DC(Unk*, Unk*);                          /* extern */
-s32 func_800866E8(s32);                               /* extern */
+s32 geomNodeDispatchGetter(s32);                               /* extern */
 s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);   /* extern */
 extern s32 D_8004B660;
 extern s32 D_8004B664;
@@ -93,7 +93,7 @@ void func_8005C0BC(void) {
     __osInvalICache_full();
     spTaskSubmit(&D_8017F338, 0, 0, D_8004B660, D_801808F4, temp_s3_2, &D_8017EFC8);
     osRecvMesg(&D_8017EFC8, 0, 1);
-    temp_v0 = func_800866E8(0x5622);
+    temp_v0 = geomNodeDispatchGetter(0x5622);
     temp_fv1 = (f32) temp_v0 * D_8004BDE8;
     D_8017F3D8.unk18 = temp_v0;
     temp_ft0 = (s32) temp_fv1;

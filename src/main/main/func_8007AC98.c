@@ -1,7 +1,7 @@
 #include "ultra64.h"
 f32 sqrtfWrap(f32);                             /* extern */
 
-void func_8007AC98(f32 *arg0, f32 *arg1, f32 *arg2) {
+void vec3NormalizeF(f32 *arg0, f32 *arg1, f32 *arg2) {
     f32 temp_fa1;
     f32 temp_fv0;
     f32 temp_fv1;

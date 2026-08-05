@@ -137,9 +137,9 @@ s32 sfxHasEntity(void *entity) {
 }
 
 /* -------------------------------------------------------------------------
- * func_800621B0
+ * sfxGetActiveCount
  * Return the current active-heap entry count.
  * ------------------------------------------------------------------------- */
-s32 func_800621B0(void) {
+s32 sfxGetActiveCount(void) {
     return gSfxActiveCount;
 }

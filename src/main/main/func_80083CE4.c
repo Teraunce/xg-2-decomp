@@ -1,5 +1,5 @@
 #include "ultra64.h"
-char *func_80083BB8(s32, s32, s32, s16 *);          /* extern */
+char *audioRspBuildDL(s32, s32, s32, s16 *);          /* extern */
 
 char *audioAdpcmCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
     s32 sp90;
@@ -85,7 +85,7 @@ char *audioAdpcmCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
         temp_v1_3 = arg0->unk3C;
         var_a1_2 = var_a1;
         var_t1_2 = temp_t1;
-        var_t2_2 = func_80083BB8(var_a0, var_a1, var_a2, arg1);
+        var_t2_2 = audioRspBuildDL(var_a0, var_a1, var_a2, arg1);
         if (temp_v1_3 != 0) {
             *arg1 += temp_v1_3 * 2;
         } else {
@@ -124,7 +124,7 @@ char *audioAdpcmCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
                 sp88 = (s32) temp_a3;
                 sp80 = temp_a2;
                 sp8C = var_a1_3;
-                temp_v0_4 = func_80083BB8(var_a0_2, (s32) var_a1_3, temp_a2, (s16 *) temp_a3);
+                temp_v0_4 = audioRspBuildDL(var_a0_2, (s32) var_a1_3, temp_a2, (s16 *) temp_a3);
                 var_a1_2 = (s32) var_a1_3;
                 var_a2_2 = (s16) temp_a2;
                 var_t1_2 = temp_t1_2;
@@ -158,7 +158,7 @@ char *audioAdpcmCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
         sp50 = temp_t4;
         sp5C = temp_t1_3;
         sp90 = var_a0_3;
-        temp_v0_6 = func_80083BB8(var_a0_3, temp_a1, temp_t1_3 - var_v1_2, arg1);
+        temp_v0_6 = audioRspBuildDL(var_a0_3, temp_a1, temp_t1_3 - var_v1_2, arg1);
         temp_v1_4 = arg0->unk3C;
         var_t5 = 1;
         var_t2 = temp_v0_6;

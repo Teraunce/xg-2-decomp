@@ -3,8 +3,8 @@ s32 intDisable();                                /* extern */
 void intRestore(s32);                               /* extern */
 s32 sramStartDma(s32, s32, s32);                    /* extern */
 static void exceptionVectors(void);                      /* static, forward decl */
-void func_8007611C();                               /* static */
-void func_80076138();                               /* static */
+void cacheInvalDcache();                               /* static */
+void cacheInvalIcache();                               /* static */
 extern s32 D_80000000;
 extern s32 D_80001FF0;
 extern s32 D_80003FE0;
@@ -24,16 +24,16 @@ s32 sramStartDmaSafe(s32 arg0, s32 arg1, s32 arg2) {
  * exceptionVectors — exception vector stubs (0x70 bytes, static/handwritten).
  *
  * Contains two MIPS exception vector stubs copied to 0x80000180 and
- * 0x80000000 by func_80076070.  Each stub saves $k0 via mtc0 and jumps
- * to func_8007616C.  Uses CP0 registers and kernel regs ($k0) — cannot
+ * 0x80000000 by osExceptionInstall.  Each stub saves $k0 via mtc0 and jumps
+ * to intExceptionDispatch.  Uses CP0 registers and kernel regs ($k0) — cannot
  * be expressed in C.  The .L80076014 block (NOPs + redirect to 0x80000194)
  * caused m2c to fail (jump table false positive).
  * ------------------------------------------------------------------------- */
 static void exceptionVectors(void) {
-    /* handwritten: mtc0 $k0,$30; lui/addiu $k0, func_8007616C; jr $k0 */
+    /* handwritten: mtc0 $k0,$30; lui/addiu $k0, intExceptionDispatch; jr $k0 */
 }
 
-void func_80076070(void) {
+void osExceptionInstall(void) {
     char *var_t0;
     char *var_t0_2;
     s32 *var_t1;
@@ -64,12 +64,12 @@ void func_80076070(void) {
         var_t1_2 += 4;
         *var_t2_2 = temp_t5_2;
     } while (var_t0_2 != (char*)exceptionVectors + 0x4C);
-    func_8007611C();
-    func_80076138();
+    cacheInvalDcache();
+    cacheInvalIcache();
     D_80189180 = -0x802;
 }
 
-void func_8007611C(void) {
+void cacheInvalDcache(void) {
     char *var_t0;
 
     var_t0 = &D_80001FF0;
@@ -79,7 +79,7 @@ void func_8007611C(void) {
     } while (var_t0 != (char*)&D_80001FF0);
 }
 
-void func_80076138(void) {
+void cacheInvalIcache(void) {
     char *var_t0;
 
     var_t0 = &D_80003FE0;
@@ -98,7 +98,7 @@ void setCOP0Status(void) {
 }
 
 /* -------------------------------------------------------------------------
- * func_8007616C — interrupt/exception dispatcher (0x1D8 bytes, static).
+ * intExceptionDispatch — interrupt/exception dispatcher (0x1D8 bytes, static).
  *
  * Full MIPS interrupt handler.  On entry ($k0 = handler base):
  *   - Saves $at/$v0 to D_80188E48 context block (+0x328/+0x330)
@@ -113,6 +113,6 @@ void setCOP0Status(void) {
  * Uses sd/ld (64-bit), mfc0/mtc0, kernel regs — not expressible in C.
  * m2c failed: "Cannot find branch target .L80076014" (cross-function).
  * ------------------------------------------------------------------------- */
-static void func_8007616C(void) {
+static void intExceptionDispatch(void) {
     /* handwritten exception handler: sd/ld/mfc0/mtc0/$k0 */
 }

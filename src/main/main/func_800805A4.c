@@ -30,10 +30,10 @@
  */
 
 extern void *func_800804A8(void *node, u8 b, u8 c, u8 d);
-extern void *func_80080438(void *node, u8 b, u8 c, u8 d);
-extern void *func_800803C4(void *node, u8 b, u8 c);
+extern void *audioNoteFind(void *node, u8 b, u8 c, u8 d);
+extern void *audioNoteLookup(void *node, u8 b, u8 c);
 extern void  func_80090AE8(void *a0, void *a1, void *stk);
-extern f32   func_80086698(s16 cents);
+extern f32   audioSemitoneRatio(s16 cents);
 extern void  osSetTimer(void *a, void *cmd_stk, s32 c);
 extern s32   sfxComputeVolume(void *node, void *ctx);
 extern void  sfxNoteRetrigger(void *a, void *b, s32 c);
@@ -97,7 +97,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
         tbl_slot = (u8 *)tbl_base + ((s32)cmd_low << 4);
         stk9C    = (s16)*(u8 *)((u8 *)tbl_slot + 8);
 
-        /* note: func_80080438 receives stk9C/stk9E/stk9F on stack */
+        /* note: audioNoteFind receives stk9C/stk9E/stk9F on stack */
         {
             void *s0;
             void *snd_entry;
@@ -115,7 +115,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
             s32   s4_v;
             void *inner0;
 
-            s0 = func_80080438(node, cmd_b, cmd_c, cmd_low);
+            s0 = audioNoteFind(node, cmd_b, cmd_c, cmd_low);
             if (s0 == NULL) return;
 
             func_80090AE8(*(void **)((u8 *)node + 0x14),
@@ -134,7 +134,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
             base_note  = *(u8 *)((u8 *)snd_entry + 4);
             fine_cents = *(s8  *)((u8 *)snd_entry + 5);
             pitch_arg  = (s16)(((s32)(cmd_b - base_note)) * 100 + fine_cents);
-            *(f32 *)((u8 *)s0 + 0x28) = func_80086698((s16)pitch_arg);
+            *(f32 *)((u8 *)s0 + 0x28) = audioSemitoneRatio((s16)pitch_arg);
 
             s7_0  = *(void **)((u8 *)s7 + 0);
             inner = *(void **)s7_0;
@@ -236,7 +236,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
         void *owner;
         void *owner0;
 
-        s0_80 = func_800803C4(node, cmd_b, cmd_low);
+        s0_80 = audioNoteLookup(node, cmd_b, cmd_low);
         if (s0_80 == NULL) return;
 
         state = *(u8 *)((u8 *)s0_80 + 0x35);
@@ -256,7 +256,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
         void *s0_a0;
         s32   v0_ff5c;
 
-        s0_a0 = func_800803C4(node, cmd_b, cmd_low);
+        s0_a0 = audioNoteLookup(node, cmd_b, cmd_low);
         if (s0_a0 == NULL) return;
 
         *(u8 *)((u8 *)s0_a0 + 0x33) = cmd_c;
@@ -491,7 +491,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
         product    = (s32)fine_s * raw;
         rounded    = (product >= 0) ? (product >> 13) : ((product + 0x1FFF) >> 13);
 
-        fs0_e = func_80086698((s16)rounded);
+        fs0_e = audioSemitoneRatio((s16)rounded);
         *(f32 *)((u8 *)tbl_slot_e + 0xC) = fs0_e;
 
         s0_e = *(void **)((u8 *)node + 0x64);

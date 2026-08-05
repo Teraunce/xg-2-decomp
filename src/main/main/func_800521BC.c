@@ -133,16 +133,16 @@ void func_800521BC(s32 arg0) {
  * func_80052490 — async wait/alloc loop (0x9C bytes, nonmatching).
  *
  * Allocates a 0x88-byte block via frameAlloc, sets up a linked-list node,
- * then polls func_800503F8 in a tight loop until it returns 0.  On success,
+ * then polls sfxGetRunning in a tight loop until it returns 0.  On success,
  * resolves a symbol via D_80174BF8, calls func_80050260, then accounts for
  * elapsed time (D_8017CCBC delta) via gfxGetWritePtr.
  * Branch back to function start (bnez $s1, func_80052490) caused m2c to fail.
  * ------------------------------------------------------------------------- */
-s32  func_800503F8(void);               /* extern */
+s32  sfxGetRunning(void);               /* extern */
 void func_80050260(Unk*);               /* extern */
 extern s32 D_8017CCB8;
 
 void func_80052490(s32 arg0) {
-    /* nonmatching: self-loop (do { alloc+poll } while (func_800503F8() != 0)) */
+    /* nonmatching: self-loop (do { alloc+poll } while (sfxGetRunning() != 0)) */
     (void)arg0;
 }

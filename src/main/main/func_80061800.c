@@ -25,6 +25,6 @@ s32 func_80061800(s32 arg0) {
     return 0;
 }
 
-s32 func_80061884(void) {
+s32 localeGet(void) {
     return gLocale;
 }

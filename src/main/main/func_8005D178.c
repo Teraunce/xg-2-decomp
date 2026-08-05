@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8005D9BC (initial). */
+/* Warning: missing "jr $ra" in last block of sfxComputeSpatial (initial). */
 
 s16 func_80082418(Unk*, Unk*);                        /* extern */
 void func_800824B8(Unk*, s16);                          /* extern */
@@ -399,6 +399,6 @@ block_108:
 }
 
 s32 func_8005D9C0(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8005D9BC(s32 arg2) {
+void sfxComputeSpatial(s32 arg2) {
     return func_8005D9C0();
 }

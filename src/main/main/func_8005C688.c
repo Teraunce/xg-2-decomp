@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8005C9B4(void *, u32, u32);                  /* extern */
+void audioQueueDispatchGetter(void *, u32, u32);                  /* extern */
 void func_8005D178();                                  /* extern */
 s32 osVirtualToPhysical(u32);                             /* extern */
 u32 func_80082900(u32, void *, s32, s16);              /* extern */
@@ -62,7 +62,7 @@ void func_8005C688(void) {
     D_80180884->unk18 = &D_80093F90;
     D_80180884->unk30 = (u32) D_8017F434;
     D_80180884->unk34 = (s32) (((s32) (temp_v0_2 - D_8017F434) >> 3) * 8);
-    func_8005C9B4(D_80180884, temp_v0_2, D_8017F434);
+    audioQueueDispatchGetter(D_80180884, temp_v0_2, D_8017F434);
     func_8005D178();
 }
 

@@ -3,7 +3,7 @@ extern s32 D_8018AD28;
 extern s32 D_8018AD64;
 extern u8 D_8018AD69;
 
-void func_80088310(s32 arg0) {
+void siInitControllerReadCmd(s32 arg0) {
     Unk *spC;
     s8 spB;
     s8 spA;

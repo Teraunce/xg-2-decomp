@@ -22,7 +22,7 @@ typedef struct {
 void __osTimerUnlink(Unk*);                           /* extern */
 void __osTimerInsert(Unk*, void**);                        /* extern */
 
-u8 func_80080110(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
+u8 audioNoteActivate(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
     char *sp2C;
     u8 sp1F;
     s32 temp_v1;
@@ -62,7 +62,7 @@ loop_2:
     return var_t1;
 }
 
-void func_800801B8(UnkStruct_arg0 *arg0, s32 arg1) {
+void audioNoteUnlink(UnkStruct_arg0 *arg0, s32 arg1) {
     void **var_v0;
     void **var_v1;
 

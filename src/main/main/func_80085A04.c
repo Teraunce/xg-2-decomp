@@ -1,6 +1,6 @@
 #include "ultra64.h"
 /*
- * func_80085A04 — geometry buffer write dispatch (nonmatching).
+ * geomBufWrite — geometry buffer write dispatch (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  * 1. Non-standard ABI: command type arrives in $v1, not $a0-$a3.
@@ -15,7 +15,7 @@
  *   [4]→unk0C  [5]→unk0E  [6]→various  [7]→various
  * Function size: 0x258 bytes.
  */
-s32 func_80085A04(Unk *arg0, s32 arg1, s32 *arg2, s32 arg3) {
+s32 geomBufWrite(Unk *arg0, s32 arg1, s32 *arg2, s32 arg3) {
     /* nonmatching: command in $v1 / index ($v1 & 7) — see asm stub */
     (void)arg1; (void)arg2; (void)arg3;
     return 0;

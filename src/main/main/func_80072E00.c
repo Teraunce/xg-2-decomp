@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80061924();                                /* extern */
+s32 sfxRandNext();                                /* extern */
 void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
@@ -87,14 +87,14 @@ void func_80072E00(s32 arg0) {
                     var_v1 = 0;
                 } else {
                     if (var_s1->unk36C > 0) {
-                        var_v0 = func_80061924();
+                        var_v0 = sfxRandNext();
                         var_v1_2 = var_s1->unk36C;
                         goto block_32;
                     }
                     if (temp_v1 >= var_s1->unk37C) {
                         var_v1 = 1;
                     } else {
-                        var_v0 = func_80061924();
+                        var_v0 = sfxRandNext();
                         var_v1_2 = var_s1->unk37C - var_s1->unk35C;
 block_32:
                         var_v1 = (var_v0 % (u32) var_v1_2) == 0;

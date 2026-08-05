@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 osVirtualToPhysical(u32);                             /* extern */
 
-void func_8004D65C(Unk *arg0, Unk *arg1, s32 arg2) {
+void overlayRelocate(Unk *arg0, Unk *arg1, s32 arg2) {
     s32 *temp_a1;
     Unk *var_a2;
     s32 *var_s1;

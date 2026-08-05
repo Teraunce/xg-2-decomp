@@ -2,7 +2,7 @@
 s32 intDisable();                                /* extern */
 void intRestore(s32);                               /* extern */
 void __osPiRawWriteIo(s32*, s32);                              /* extern */
-void func_80076070();                                  /* extern */
+void osExceptionInstall();                                  /* extern */
 extern u32 osTvType;
 extern s32 D_80093F50;
 extern s32 D_80093F60;
@@ -14,7 +14,7 @@ void func_8007583C(void) {
     s32 temp_s0;
 
     temp_s0 = intDisable();
-    func_80076070();
+    osExceptionInstall();
     __osPiRawWriteIo(0xB1FFFFF0, 0);
     __osPiRawWriteIo(0xB1FFFFFC, 0);
     D_80189168 = 1;

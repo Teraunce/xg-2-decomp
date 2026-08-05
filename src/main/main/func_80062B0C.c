@@ -16,7 +16,7 @@
  *   Phase 1 — PLAY / TRIGGER:
  *     Retrieves the first heap slot (slot -4 = index 0) and the last slot
  *     (slot -1 = gSfxAllocCount).  If both resolve to the same entity it
- *     triggers secondary logic (func_8006394C / func_80061884 / func_80061800).
+ *     triggers secondary logic (sfxPhaseHook / localeGet / func_80061800).
  *     Then either re-inserts gSfxEntity (gSfxEntity) at the top of the heap
  *     via sfxHeapInsert (priority -3, flags 1), or re-marks the current
  *     highest-priority entity via sfxGetTopEntity + sfxMarkEntityActive.
@@ -60,8 +60,8 @@ void sfxMarkEntityActive(void *entity);                    /* mark active (sfxHe
 void sfxHeapInsert(void *entity, s32 slot, s32 flags); /* heap insert (sfxHeapInsert.c) */
 void *sfxGetEntity(s32 slotSpec, s32 *outType);    /* slot lookup (sfxGetEntity.c) */
 void *sfxGetTopEntity(void);                           /* entity at gSfxMaxIndex */
-void func_8006394C(void);                            /* secondary trigger (asm) */
-void *func_80061884(void);                           /* secondary query A (asm) */
+void sfxPhaseHook(void);                            /* secondary trigger (asm) */
+void *localeGet(void);                           /* secondary query A (asm) */
 void func_80061800(void);                            /* secondary trigger B (asm) */
 
 /* -------------------------------------------------------------------------
@@ -141,9 +141,9 @@ phase1:
     slot = sfxGetEntity(-1, NULL);   /* last slot = gSfxAllocCount */
     if (slot == firstSlot) {
         /* Both ends resolve to the same entity — trigger secondary logic. */
-        func_8006394C();
+        sfxPhaseHook();
         if (D_80092CD8 != NULL) {
-            void *secondary = func_80061884();
+            void *secondary = localeGet();
             if (D_80092CD8 != secondary) {
                 func_80061800();
             }

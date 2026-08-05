@@ -180,7 +180,7 @@ block_13:
     temp_v0_2->unk4 = temp_a0;
 }
 
-void func_8006394C(void) {
+void sfxPhaseHook(void) {
 
 }
 

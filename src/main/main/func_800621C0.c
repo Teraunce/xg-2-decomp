@@ -9,7 +9,7 @@
  * sfxGetTopEntity — return the entity at gSfxMaxIndex (highest occupied slot).
  * sfxGetAllocEntity — return the entity at gSfxAllocCount (allocation cursor).
  * sfxUpdateChannels — update all four SFX channel states from the input table.
- * func_800625C0 — trivially return gSfxActiveCount.
+ * sfxGetCount — trivially return gSfxActiveCount.
  *
  * Globals:
  *   gSfxActiveCount   0x80092CB8  s32
@@ -296,9 +296,9 @@ void sfxUpdateChannels(void) {
 }
 
 /* -------------------------------------------------------------------------
- * func_800625C0
+ * sfxGetCount
  * Return the current active SFX entry count (trivial getter).
  * ------------------------------------------------------------------------- */
-s32 func_800625C0(void) {
+s32 sfxGetCount(void) {
     return gSfxActiveCount;
 }

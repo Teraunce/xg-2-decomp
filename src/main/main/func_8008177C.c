@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_8008177C — MIDI-style byte-stream event decoder.
+ * midiDecodeEvent — MIDI-style byte-stream event decoder.
  *
  * Reads one event from the stream pointed to by arg0 and fills in the event
  * descriptor pointed to by arg1.
@@ -32,7 +32,7 @@ typedef struct {
 
 u8 streamReadVarInt(Unk*);                            /* extern */
 
-void func_8008177C(Unk *arg0, Unk *arg1) {
+void midiDecodeEvent(Unk *arg0, Unk *arg1) {
     s32 temp_t9;
     s32 temp_v0;
     s8 temp_a1;

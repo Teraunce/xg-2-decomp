@@ -4,7 +4,7 @@ void audioNodeInit(Unk*, s32, s32, s32);              /* extern */
 extern s32 func_800843AC;
 extern s32 func_800849A4;
 
-void func_800830B4(Unk *arg0, s32 arg1) {
+void audioMidiNodeInit(Unk *arg0, s32 arg1) {
     audioNodeInit(arg0, &func_800849A4, &func_800843AC, 4);
     arg0->unk14 = audioHeapAlloc(0, 0, arg1, 1, 0x50);
     arg0->unk38 = 1;
@@ -26,7 +26,7 @@ void func_800830B4(Unk *arg0, s32 arg1) {
     arg0->unk44 = 0;
 }
 
-void func_80083158(Unk *arg0) {
+void audioFillDecayTable(Unk *arg0) {
     f64 temp_fv1;
     f64 var_fv0;
     s32 temp_v1;

@@ -1,12 +1,12 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8007D304 (initial). */
+/* Warning: missing "jr $ra" in last block of osTimerHandlerGetter (initial). */
 
 extern Unk *gOSMsgQueuePtr;
 extern s32 D_80189A8C;
 extern s32 D_80189A90;
 extern s32 D_80189A94;
 
-void func_8007D240(void **arg1, char *arg2, char *arg3) {
+void __osRemoveLink(void **arg1, char *arg2, char *arg3) {
     char *var_a2;
     char *var_a3;
 
@@ -28,7 +28,7 @@ loop_1:
     }
 }
 
-void func_8007D278(void) {
+void osMsgQueueInit(void) {
     D_80189A8C = 0;
     D_80189A8C = 0;
     D_80189A90 = 0;
@@ -44,6 +44,6 @@ void func_8007D278(void) {
 }
 
 void func_8007D30C(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8007D304(void) {
+void osTimerHandlerGetter(void) {
     func_8007D30C();
 }

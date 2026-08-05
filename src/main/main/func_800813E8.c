@@ -2,7 +2,7 @@
 void __osTimerUnlink(Unk*);                            /* extern */
 void __osTimerInsert(Unk*, void**);                    /* extern */
 
-void func_800813E8(Unk *arg0, Unk *arg1) {
+void audioNoteRelease(Unk *arg0, Unk *arg1) {
     s16 temp_s3;
     Unk *temp_s1;
     Unk *var_s0;

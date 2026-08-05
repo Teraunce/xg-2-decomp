@@ -6,13 +6,13 @@ void func_80082EDC(void *, s32, s32);                     /* extern */
 void func_80082F30(void *, s32, s32);                     /* extern */
 void func_80082F84(Unk*, s32);                          /* extern */
 s32 func_8008300C(void *, s32, s32);                     /* extern */
-void func_800830B4(Unk*, s32);                          /* extern */
+void audioMidiNodeInit(Unk*, s32);                          /* extern */
 void func_80083638(void *, s32, void *);                         /* extern */
 s32 func_80084188(Unk*, s32, s32);                       /* extern */
 s32 func_800843AC(void *, s32, char*);                       /* extern */
 s32 audioNoteWrite(Unk*, s32, s32);                       /* extern */
 void func_80085068(s32);                       /* extern */
-s32 func_80085FB8(Unk*, s32, s32);                       /* extern */
+s32 audioNodeSetProp(Unk*, s32, s32);                       /* extern */
 s32 func_800865F8(Unk*, s16, s32, s32);            /* extern */
 
 void func_80082B98(Unk *arg0, Unk *arg1) {
@@ -72,7 +72,7 @@ void func_80082B98(Unk *arg0, Unk *arg1) {
             func_80083638(var_s3, 1, 0);
             func_80082F84(var_s2, temp_s7);
             func_80085068(1);
-            func_800830B4(var_s1, temp_s7);
+            audioMidiNodeInit(var_s1, temp_s7);
             func_800843AC(var_s1, 1, var_s2);
             func_80084188(arg0->unk34, 2, var_s1);
             var_s0->unkC = (void *) (var_s0 + 0x8C);
@@ -84,7 +84,7 @@ void func_80082B98(Unk *arg0, Unk *arg1) {
         } while (var_s4 < arg1->unk4);
         var_s4 = 0;
     }
-    func_80085FB8(sp5C, 1, arg0->unk30);
+    audioNodeSetProp(sp5C, 1, arg0->unk30);
     temp_v0_3 = audioHeapAlloc(0, 0, temp_s7, arg1->unk8, 0x1C);
     arg0->unk2C = 0;
     var_v1 = temp_v0_3;

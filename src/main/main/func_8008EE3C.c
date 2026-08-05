@@ -47,7 +47,7 @@ s32 func_8008EEC4(u8 *arg0) {
     return (char*)var_v1 - (char*)arg0;
 }
 
-u8 *func_8008EEEC(u8 *arg0, s32 arg1) {
+u8 *byteArrayFind(u8 *arg0, s32 arg1) {
     Unk *var_a0;
     u8 var_v1;
 

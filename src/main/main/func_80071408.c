@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void func_80061A9C(s8*, s8, s32);                        /* extern */
-s32 func_80061AEC(u8 *, u8 *, s32);                   /* extern */
+s32 memcmp(u8 *, u8 *, s32);                   /* extern */
 s32 contPakAllocNote(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
 s32 contPakLoadSave(Unk*, u16, s32, s32, s32);       /* extern */
 s32 contPakWriteNote(Unk*, s32, u8, s32, s32, char*);    /* extern */
@@ -80,7 +80,7 @@ s32 func_80071408(s32 arg0) {
                         *var_v0_3 = temp_v1_2;
                         var_v0_3 = &(&sp20)[var_a0_2];
                     } while (var_a0_2 < 0x20);
-                    if (func_80061AEC(&sp20, &sp40, 0x20) != 0) {
+                    if (memcmp(&sp20, &sp40, 0x20) != 0) {
                         var_s5 = 0;
                     }
                     var_v0 = var_s5;

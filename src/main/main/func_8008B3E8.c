@@ -6,7 +6,7 @@ extern u8 D_8018AD69;
 extern s32 D_8018ADB8;
 extern s32 D_8018ADF4;
 
-void func_8008B3E8(s32 arg0) {
+void siInitPollCmd(s32 arg0) {
     Unk *spC;
     s8 spB;
     s8 spA;

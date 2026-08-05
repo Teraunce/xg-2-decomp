@@ -2,7 +2,7 @@
 s32 __osDispatchThread();                                  /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
-void func_8007D238(Unk *);                            /* extern */
+void __osDequeueThread(Unk *);                            /* extern */
 extern Unk *__osAllThreadList;
 extern char *__osRunningThread;
 
@@ -15,7 +15,7 @@ void osDestroyThread(Unk *arg0) {
     if (arg0 == NULL) {
         arg0 = __osRunningThread;
     } else if (arg0->unk10 != 1) {
-        func_8007D238(arg0->unk8);
+        __osDequeueThread(arg0->unk8);
     }
     if (__osAllThreadList == arg0) {
         __osAllThreadList = __osAllThreadList->unkC;

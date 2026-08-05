@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80061AEC(void *, void *, s32);                  /* extern */
+s32 memcmp(void *, void *, s32);                  /* extern */
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 void entityClearSlots(s32, s32);                       /* extern */
 s32 contPakFetchNote(void *, s32, void *);              /* extern */
@@ -75,7 +75,7 @@ loop_17:
             var_a0 = 0;
             if (var_s1->unk3A0 == gContPakNoteCode) {
                 if ((var_s1->unk39C == gGameID) && (var_s1->unk3A2 == 0)) {
-                    var_a0 = func_80061AEC(temp_s3 + 0xE, &D_80093ECC, 0x10) == 0;
+                    var_a0 = memcmp(temp_s3 + 0xE, &D_80093ECC, 0x10) == 0;
                 }
             }
             var_s1->unk394 = var_s2_2;

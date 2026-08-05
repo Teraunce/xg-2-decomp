@@ -10,8 +10,8 @@ typedef struct {
     /* 0x1C */ s32 unk1C;
 } UnkStruct_arg0;
 
-void func_8007D47C(s32, u32);                          /* extern */
-u32 func_8007D4F0(UnkStruct_arg0*);                          /* extern */
+void __osTimerSetCompare(s32, u32);                          /* extern */
+u32 __osTimerEnqueue(UnkStruct_arg0*);                          /* extern */
 extern s32 *gOSMsgQueuePtr;
 
 s32 func_80088408(UnkStruct_arg0 *arg0, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
@@ -32,11 +32,11 @@ s32 func_80088408(UnkStruct_arg0 *arg0, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     }
     arg0->unk18 = arg6;
     arg0->unk1C = arg7;
-    temp_ret = func_8007D4F0(arg0);
+    temp_ret = __osTimerEnqueue(arg0);
     sp18 = temp_ret;
     sp1C = (u32) (u64) temp_ret;
     if ((void*)(s32)*gOSMsgQueuePtr == (void*)arg0) {
-        func_8007D47C(sp18, sp1C);
+        __osTimerSetCompare(sp18, sp1C);
     }
     return 0;
 }

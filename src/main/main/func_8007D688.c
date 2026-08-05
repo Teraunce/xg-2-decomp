@@ -25,7 +25,7 @@ typedef struct {
     /* 0x10 */ char *unk10;
 } UnkStruct_var_v1;
 
-s32 func_8007D708(u32 arg0);                        /* static */
+s32 tlbVirtToPhys(u32 arg0);                        /* static */
 
 s32 osVirtualToPhysical(u32 arg0) {
     if ((arg0 >= 0x80000000U) && (arg0 < 0xA0000000U)) {
@@ -34,10 +34,10 @@ s32 osVirtualToPhysical(u32 arg0) {
     if ((arg0 >= 0xA0000000U) && (arg0 < 0xC0000000U)) {
         return arg0 & 0x1FFFFFFF;
     }
-    return func_8007D708(arg0);
+    return tlbVirtToPhys(arg0);
 }
 
-s32 func_8007D708(u32 arg0) {
+s32 tlbVirtToPhys(u32 arg0) {
     s32 var_v0;
     u32 temp_t3;
 
@@ -66,7 +66,7 @@ void __osVirtualToPhysical_noop(void) {
 
 }
 
-void func_8007D7D8(UnkStruct_arg0 *arg0, s32 arg1, s32 arg3) {
+void overlayRelocatePtrs(UnkStruct_arg0 *arg0, s32 arg1, s32 arg3) {
     s32 temp_a2_2;
     s32 temp_a2_3;
     s32 var_v0;

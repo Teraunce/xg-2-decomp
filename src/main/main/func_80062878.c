@@ -4,7 +4,7 @@
 /*
  * sfxUpdateHeap — Per-frame SFX output dispatch.
  * sfxFlushInactive — Tick all active heap entries (decrement state counters).
- * func_80062ACC — Reset SFX state machine phase and fade timer.
+ * sfxResetPhase — Reset SFX state machine phase and fade timer.
  *
  * sfxUpdateHeap iterates over every active heap entry (0 .. gSfxActiveCount-1)
  * looking for entries whose type does NOT have bits 0x2 or 0x4 set
@@ -23,7 +23,7 @@
  * sfxFlushInactive iterates the heap, decrementing each active entry's state
  * counter (heap[i].state) until it reaches zero, then OR-ing 0x8 into type.
  *
- * func_80062ACC resets gSfxPhase = 0, gSfxFadeTimer = 0, and writes the
+ * sfxResetPhase resets gSfxPhase = 0, gSfxFadeTimer = 0, and writes the
  * two initialiser values D_80092CB0 / D_80092CB4 into D_801823B8 / D_801823BC.
  *
  * Globals:
@@ -186,11 +186,11 @@ void sfxFlushInactive(void) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80062ACC
+ * sfxResetPhase
  * Reset the SFX state machine to phase 0 and clear the fade timer.
  * Writes the two init values into the SFX parameter slots B/C.
  * ------------------------------------------------------------------------- */
-void func_80062ACC(void) {
+void sfxResetPhase(void) {
     s32 initB = D_80092CB0;
     s32 initC = D_80092CB4;
 

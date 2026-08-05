@@ -5,7 +5,7 @@ s32 __osGetCount();                                /* extern */
 void func_8007D678();                              /* extern */
 extern s32 D_80189A98;
 
-void func_8007D47C(s32 arg0, u32 arg1) {
+void __osTimerSetCompare(s32 arg0, u32 arg1) {
     u32 sp24;
     s32 sp20;
     s32 sp1C;

@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_80066574 (initial). */
+/* Warning: missing "jr $ra" in last block of sceneDispatch (initial). */
 
 s32 fontGetCharWidth(u16, s32 *, s32 *);               /* extern */
 void rdpTextLayout(s32, u8**, s32);                     /* extern */
@@ -56,6 +56,6 @@ void func_80066400(s32 arg0, s32 arg1, u16 *arg2) {
 }
 
 void func_80066580(void);  /* forward: GETTER_NOJR fallthrough */
-void func_80066574(s32 arg1, s32 arg2, s32 arg3) {
+void sceneDispatch(s32 arg1, s32 arg2, s32 arg3) {
     func_80066580();
 }

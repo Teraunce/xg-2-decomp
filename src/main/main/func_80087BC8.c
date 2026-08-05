@@ -3,7 +3,7 @@ s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
-void func_80088310(s32);                                 /* extern */
+void siInitControllerReadCmd(s32);                                 /* extern */
 extern s32 D_8018AD28;
 extern u8 D_8018AD68;
 
@@ -14,7 +14,7 @@ s32 func_80087BC8(s32 arg0) {
     sp1C = 0;
     __siLock();
     if (D_8018AD68 != 0) {
-        func_80088310(0);
+        siInitControllerReadCmd(0);
         sp1C = osSiRawStartDma(1, &D_8018AD28);
         osRecvMesg(arg0, 0, 1);
     }

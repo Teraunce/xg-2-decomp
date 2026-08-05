@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8005C9B4 (initial). */
+/* Warning: missing "jr $ra" in last block of audioQueueDispatchGetter (initial). */
 
 void func_8005C88C(s32);                                 /* extern */
 extern s32 gAudioStatus;
@@ -53,7 +53,7 @@ void func_8005C8EC(s32 arg0, s32 arg1) {
     }
 }
 
-void func_8005C9BC(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8005C9B4(void) {
-    func_8005C9BC();
+void audioQueueDispatch(void);  /* forward: GETTER_NOJR fallthrough */
+void audioQueueDispatchGetter(void) {
+    audioQueueDispatch();
 }

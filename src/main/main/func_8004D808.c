@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void gfxSpTaskWait(s32, s32, s32);                     /* extern */
-void func_8004D65C(Unk*, Unk*, s32);                /* extern */
+void overlayRelocate(Unk*, Unk*, s32);                /* extern */
 void __osInvalICache_full();                                  /* extern */
 extern f32 D_8004BB00;
 extern f32 D_8004BB04;
@@ -24,7 +24,7 @@ s32 *func_8004D808(Unk *arg0) {
     if ((s32) &D_803DA400 >= (gDLWritePtr + temp_a2)) {
         gfxSpTaskWait(arg0->unk0, gDLWritePtr, temp_a2);
         temp_s0 = gDLWritePtr + (arg0->unk8 & 0xFFFFFF);
-        func_8004D65C(temp_s0, arg0, gDLWritePtr);
+        overlayRelocate(temp_s0, arg0, gDLWritePtr);
         *temp_s0 = gDLWritePtr + (*temp_s0 & 0xFFFFFF);
         gDLWritePtr += arg0->unk4;
         __osInvalICache_full();

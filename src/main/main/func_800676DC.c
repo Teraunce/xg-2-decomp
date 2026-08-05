@@ -4,7 +4,7 @@ void func_80057A94(s32, s32);                       /* extern */
 void func_80063F18(s32);                                 /* extern */
 void func_80065224(void **);                           /* extern */
 void func_80065274(void **);       /* extern */
-void func_80066574(s32, s32, s32);       /* extern */
+void sceneDispatch(s32, s32, s32);       /* extern */
 extern s32 D_8004C328;
 extern s32 D_8004C330;
 extern s32 D_8004C334;
@@ -87,7 +87,7 @@ void func_800676DC(s32 arg0) {
         func_80057A94(temp_s3 + ((gPlayerList << 6) + 0x30), &sp20);
         func_80065224(&D_80173CC0);
         func_80063F18(0);
-        func_80066574(&D_8004C328, 0, 5);
+        sceneDispatch(&D_8004C328, 0, 5);
         temp_a0 = D_80173CC0;
         temp_v1 = D_80173CC0 + 8;
         temp_a0->unk0 = 0xE7000000;
@@ -195,7 +195,7 @@ block_23:
                                     var_a3 = (s32) sp60;
                                     var_v0_5 = ((var_s4 * 4) + &D_80182EA8)->unk16F8 + 0x15;
                                 }
-                                func_80066574(var_a1, temp_a2, var_a3);
+                                sceneDispatch(var_a1, temp_a2, var_a3);
                                 var_s0 += 1;
                             } else {
                                 goto block_51;

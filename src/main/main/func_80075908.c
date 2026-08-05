@@ -141,7 +141,7 @@ done_wait:
     __osPiRawWriteIo(0xB1FFFFF0, 0);
 }
 
-s32 func_80075B58(u8 *arg0) {
+s32 strlen(u8 *arg0) {
     u8 *var_v1;
 
     var_v1 = arg0 + 1;

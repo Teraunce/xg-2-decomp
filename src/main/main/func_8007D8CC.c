@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8007DA6C (initial). */
 
-void func_8007D7D8(void *, s32, s32);              /* extern */
+void overlayRelocatePtrs(void *, s32, s32);              /* extern */
 extern s32 gPendingFlushFlag;
 
 void func_8007D8CC(Unk *arg0, s32 arg1) {
@@ -26,7 +26,7 @@ void func_8007D8CC(Unk *arg0, s32 arg1) {
                     temp_a0 = (char*)((s32)temp_v0 + (s32)arg0);
                     if (temp_v0 != NULL) {
                         temp_t9->unk8 = temp_a0;
-                        func_8007D7D8(temp_a0, arg0, arg1);
+                        overlayRelocatePtrs(temp_a0, arg0, arg1);
                     }
                     var_t3 = (s32)0 /* implicit $t5 count from caller */;
                     if ((s32)0 /* implicit $t5 count from caller */ > 0) {
@@ -34,7 +34,7 @@ void func_8007D8CC(Unk *arg0, s32 arg1) {
                             temp_a0_2 = var_t3->unkC + arg0;
                             var_t3->unkC = temp_a0_2;
                             if (temp_a0_2 != NULL) {
-                                func_8007D7D8(temp_a0_2, arg0, arg1);
+                                overlayRelocatePtrs(temp_a0_2, arg0, arg1);
                             }
                             var_t3 = (Unk*)((s32)var_t3 + 4); /* $t3 loop feedback: var_t3 + 4 */
                         } while (((s32)0 /* $t4 loop counter */ + 1) < (s32)0 /* implicit $t5 count from caller */);

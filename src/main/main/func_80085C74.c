@@ -108,7 +108,7 @@ char *func_80085C74(Unk *arg0, s32 arg2, s32 arg4) {
     return var_s0 + 8;
 }
 
-s32 func_80085FB8(Unk *arg0, s32 arg1, s32 arg2) {
+s32 audioNodeSetProp(Unk *arg0, s32 arg1, s32 arg2) {
     if (arg1 != 1) {
         if (arg1 != 6) {
             return 0;

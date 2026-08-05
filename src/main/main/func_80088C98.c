@@ -4,7 +4,7 @@ s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
 void func_80088E9C(s32, u16, u8*);                     /* extern */
-u8 func_800890C8(u8*);                             /* extern */
+u8 crc8Calc(u8*);                             /* extern */
 s32 contPakProbe(s32, s32);                        /* extern */
 extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
@@ -63,7 +63,7 @@ loop_5:
     temp_t4 = (s32) (sp2E & 0xC0) >> 4;
     sp5C = temp_t4;
     if (temp_t4 == 0) {
-        if (func_800890C8(arg3) != sp52) {
+        if (crc8Calc(arg3) != sp52) {
             sp5C = contPakProbe(arg0, arg1);
             if (sp5C != 0) {
                 __siUnlock();

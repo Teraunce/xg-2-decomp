@@ -15,7 +15,7 @@ s32 osSetIntMask(s32);                             /* extern */
 void __osTimerUnlink(Unk*);                            /* extern */
 void __osTimerInsert(Unk*, void**);                    /* extern */
 
-void func_80081D08(void) {
+void audioTimerResched(void) {
     Unk *saved_reg_s2 = NULL; /* implicit $s2 set by caller — not saved/restored here */
     s32 saved_reg_s3;
     s32 temp_s4;

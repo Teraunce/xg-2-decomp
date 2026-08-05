@@ -39,7 +39,7 @@ void  sfxPlayAbsAtEntity(void *a, void *b, s32 fine);
 void  osSetTimer(void *node, void *pkt, s32 param);
 void  sfxPlayNoteAtEntity(void *a, void *b);
 void  sfxStopAtEntity(void *a, void *b);
-void  func_80081D08(void);
+void  audioTimerResched(void);
 s32   osStopTimer(void *a, void *b);
 
 extern f64 D_8004CE68;
@@ -149,7 +149,7 @@ next_frame:
         }
         sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x38), s5);
         sfxStopAtEntity(*(void **)((u8 *)obj + 0x38), s5);
-        func_80081D08();
+        audioTimerResched();
         *(s32 *)((u8 *)s5 + 0x28) = 0;
         goto lbl_done;
 
@@ -225,7 +225,7 @@ next_frame:
     case 7:
         sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x38), s5);
         sfxStopAtEntity(*(void **)((u8 *)obj + 0x38), s5);
-        func_80081D08();
+        audioTimerResched();
         *(s32 *)((u8 *)s5 + 0x28) = 0;
         goto lbl_done;
 

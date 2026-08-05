@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8005B864 (initial). */
+/* Warning: missing "jr $ra" in last block of viRenderSync (initial). */
 
 void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void func_8005AEB4();                                  /* extern */
@@ -35,7 +35,7 @@ void func_8005B7D8(s32 arg0) {
     D_8017DF54 = 0;
 }
 
-s16 func_8005B864(void) {
+s16 viRenderSync(void) {
     func_8005B874(0);
     return D_8017DF52;
 }

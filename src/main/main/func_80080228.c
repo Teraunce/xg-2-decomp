@@ -70,9 +70,9 @@ typedef struct {
 void osSetTimer(void **, s32, s32);           /* extern */
 void func_80081704(Unk*, Unk*);                   /* extern */
 s32 func_80081720(Unk*);                           /* extern */
-s32 func_80081B58(UnkStruct_arg0*, s32*);                    /* extern */
+s32 streamTryReadVarInt(UnkStruct_arg0*, s32*);                    /* extern */
 
-void func_80080228(UnkStruct_arg0 *arg0) {
+void audioStreamTick(UnkStruct_arg0 *arg0) {
     s16 sp28;
     s32 sp24;
     s32 sp20;
@@ -82,7 +82,7 @@ void func_80080228(UnkStruct_arg0 *arg0) {
     temp_a2 = arg0->unk18;
     if ((arg0->unk2C == 1) && (temp_a2 != 0)) {
         sp20 = temp_a2;
-        if (func_80081B58(temp_a2, &sp24) != 0) {
+        if (streamTryReadVarInt(temp_a2, &sp24) != 0) {
             if ((arg0->unk84 != 0) && ((func_80081720(sp20) + sp24) >= ((Unk *)arg0->unk80)->unk8)) {
                 func_80081704(sp20, arg0->unk7C);
                 temp_v0 = arg0->unk84;
@@ -96,7 +96,7 @@ void func_80080228(UnkStruct_arg0 *arg0) {
     }
 }
 
-void func_80080304(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
+void midiProcessTempo(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     UnkStruct_temp_a2 *temp_a2;
     UnkStruct_temp_v0 *temp_v0;
 
@@ -123,7 +123,7 @@ s32 sfxComputePan(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     return var_v1 & 0xFF;
 }
 
-char *func_800803C4(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
+char *audioNoteLookup(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
     u8 temp_a0;
     UnkStruct_var_v1 *var_v1;
 
@@ -146,7 +146,7 @@ loop_2:
     return NULL;
 }
 
-char *func_80080438(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2, s32 arg3) {
+char *audioNoteFind(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     UnkStruct_temp_v1 *temp_v1;
 
     temp_v1 = arg0->unk6C;

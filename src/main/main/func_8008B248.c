@@ -3,7 +3,7 @@ s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
-void func_8008B3E8(s32);                                 /* extern */
+void siInitPollCmd(s32);                                 /* extern */
 s32 func_8008B4E4(void *, s32 (*)[]);                    /* extern */
 extern u8 D_8018AD69;
 extern s32 D_8018ADB8;
@@ -26,7 +26,7 @@ s32 siQueryControllers(s32 arg0, u8 *arg1) {
     sp18 = 3;
     __siLock();
     do {
-        func_8008B3E8(0);
+        siInitPollCmd(0);
         sp3C = osSiRawStartDma(1, &D_8018ADB8);
         osRecvMesg(arg0, &sp38, 1);
         sp3C = osSiRawStartDma(0, &D_8018ADB8);

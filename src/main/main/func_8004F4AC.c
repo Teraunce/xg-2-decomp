@@ -1,7 +1,7 @@
 #include "ultra64.h"
 u16 *gfxGetWritePtr();                               /* extern */
 s32 heap_alloc_default(s32, s32);                        /* extern */
-void func_8004F440(Unk*);                            /* extern */
+void overlayNodeMark(Unk*);                            /* extern */
 void func_80056A90(Unk*, s32, s32, s32);                   /* extern */
 s32 func_80057C20(Unk*, Unk*, Unk*, Unk*);                /* extern */
 s32 func_8013BDF4(s32);                               /* extern */
@@ -171,7 +171,7 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
             var_a0 += 0xC;
         } while (var_s1 < arg0->unk58);
     }
-    func_8004F440(arg0);
+    overlayNodeMark(arg0);
     var_s1_2 = 0;
     temp_v0 = gfxGetWritePtr();
     *((0 * 2) + temp_v0) = 0;

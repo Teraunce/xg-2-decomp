@@ -12,8 +12,8 @@ typedef struct {
 
 s32 __osGetCount();                                /* extern */
 s32 osSendMesg(Unk*, s32, s32);                       /* extern */
-void func_8007D47C(s32, u32);                          /* extern */
-u32 func_8007D4F0(void*);                            /* extern */
+void __osTimerSetCompare(s32, u32);                          /* extern */
+u32 __osTimerEnqueue(void*);                            /* extern */
 void func_8007D678();                              /* extern */
 extern void **gOSMsgQueuePtr;
 extern s32 D_80189A98;
@@ -49,7 +49,7 @@ loop_1:
             temp_t3 = sp24->unk14;
             sp24->unk14 = (u32) (temp_t3 - sp1C);
             sp24->unk10 = (u32) ((sp24->unk10 - 0) - (temp_t3 < sp1C));
-            func_8007D47C(sp24->unk10, sp24->unk14);
+            __osTimerSetCompare(sp24->unk10, sp24->unk14);
             return;
         }
         *(void**)(s32)sp24->unk4 = (void*)(s32)sp24->unk0;
@@ -65,7 +65,7 @@ loop_1:
         if ((temp_t8 != 0) || (temp_t9_2 != 0)) {
             sp24->unk10 = temp_t8;
             sp24->unk14 = temp_t9_2;
-            func_8007D4F0(sp24);
+            __osTimerEnqueue(sp24);
         }
         goto loop_1;
     }

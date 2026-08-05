@@ -6,7 +6,7 @@ s32 osRestoreInt(s32);                               /* extern */
 void osSetEventMesg(s32, s32, s32);                     /* extern */
 void osSetThreadPri(Unk*, s32);                            /* extern */
 void osStartThread(Unk*);                               /* extern */
-void func_8007D278();                                  /* extern */
+void osMsgQueueInit();                                  /* extern */
 s32 func_80087138(char*);                               /* extern */
 void osViInit();                                  /* extern */
 extern char *D_800955C0;
@@ -26,7 +26,7 @@ void func_80086DE0(s32 arg0) {
     s32 temp_v0;
 
     if ((s32)0 /* implicit $t6 from caller */ == 0) {
-        func_8007D278();
+        osMsgQueueInit();
         osCreateMesgQueue(&D_8018AC98, &D_8018ACB0, 5);
         D_8018ACC8 = 0xD;
         D_8018ACC8 = 0;

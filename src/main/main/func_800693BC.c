@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void mtxCopyTranslate(Unk*, Unk*, f32, f32, f32);           /* extern */
-void func_80056E5C(void *, f32, f32, f32);                /* extern */
+void mtxNodeInit(void *, f32, f32, f32);                /* extern */
 void func_80056EA8(s32, s32, s32);                     /* extern */
 void guMtxScaleF2L(Unk*, Unk*);                          /* extern */
 void mtxLookAt(Unk*, f32, f32, f32, f32, f32, f32); /* extern */
@@ -90,7 +90,7 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
             temp_ft1_2 = var_ft1 * D_8004C3AC;
             temp_fv0 = arg0->unk648;
             temp_fv1 = 2.0f * temp_fv0 * temp_ft1_2;
-            func_80056E5C(&sp20, temp_fv1, temp_fv1, temp_fv0 * (temp_ft1_2 * D_8004C3B0));
+            mtxNodeInit(&sp20, temp_fv1, temp_fv1, temp_fv0 * (temp_ft1_2 * D_8004C3B0));
             mtxLookAt(&sp60, arg1->unkC - arg1->unk0, arg1->unk10 - arg1->unk4, arg1->unk14 - arg1->unk8, arg1->unk18, arg1->unk1C, arg1->unk20);
             func_80056EA8(&sp20, &sp60, &spA0);
             mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
@@ -128,7 +128,7 @@ void func_800693BC(Unk *arg0, Unk *arg1) {
         D_80173CC0 = temp_v1_2 + 0x10;
         temp_v1_2->unk8 = 0xFCFFB9FF;
         temp_v1_2->unkC = 0xFFFDFE38;
-        func_80056E5C(&sp20, D_8004C3B4, D_8004C3B4, 2.0f);
+        mtxNodeInit(&sp20, D_8004C3B4, D_8004C3B4, 2.0f);
         mtxLookAt(&sp60, arg0->unk340, arg0->unk344, arg0->unk348, arg1->unk18, arg1->unk1C, arg1->unk20);
         func_80056EA8(&sp20, &sp60, &spA0);
         mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);

@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
-void func_8008B3E8(s32);                                 /* extern */
+void siInitPollCmd(s32);                                 /* extern */
 s32 func_8008B4E4(void *, s32 (*)[]);                    /* extern */
 extern s32 D_8018ADB8;
 
@@ -16,7 +16,7 @@ s32 contPakProbe(s32 arg0, s32 arg1) {
     s32 sp1C;
 
     sp34 = 0;
-    func_8008B3E8(0);
+    siInitPollCmd(0);
     sp34 = osSiRawStartDma(1, &D_8018ADB8);
     osRecvMesg(arg0, &sp30, 1);
     sp34 = osSiRawStartDma(0, &D_8018ADB8);

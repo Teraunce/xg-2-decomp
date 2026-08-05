@@ -2,7 +2,7 @@
 s32 __osGetCount();                                /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                    /* extern */
 s32 osSendMesg(Unk*, s32, s32);                       /* extern */
-void func_8007D304();                                  /* extern */
+void osTimerHandlerGetter();                                  /* extern */
 char *osViGetCurrentFramebuffer();                              /* extern */
 void osViSwapBuffer();                                  /* extern */
 extern char *__osRunningThread;
@@ -68,7 +68,7 @@ loop_3:
     if (temp_s0 != 0xE) {
         goto loop_3;
     }
-    func_8007D304();
+    osTimerHandlerGetter();
     goto loop_3;
 }
 

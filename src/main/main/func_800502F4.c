@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 func_800502D4();                                /* extern */
-s32 func_800503F0();                                /* static */
+s32 sfxNullReturn();                                /* static */
 extern s32 D_80091FD0;
 extern s32 D_8017C950;
 
@@ -17,12 +17,12 @@ s32 func_80050328(s32 arg0) {
             if (arg0 != 4) {
                 if (arg0 < 5) {
                     if (arg0 != 2) {
-                        return func_800503F0();
+                        return sfxNullReturn();
                     }
                     return 1;
                 }
                 if (arg0 != 8) {
-                    return func_800503F0();
+                    return sfxNullReturn();
                 }
                 return 3;
             }
@@ -31,13 +31,13 @@ s32 func_80050328(s32 arg0) {
         if (arg0 != 0x40) {
             if (arg0 < 0x41) {
                 if (arg0 != 0x20) {
-                    return func_800503F0();
+                    return sfxNullReturn();
                 }
                 return 5;
             }
             if (arg0 != 0x80) {
                 if (arg0 != 0x100) {
-                    return func_800503F0();
+                    return sfxNullReturn();
                 }
                 return 8;
             }
@@ -48,10 +48,10 @@ s32 func_80050328(s32 arg0) {
     return 4;
 }
 
-s32 func_800503F0(void) {
+s32 sfxNullReturn(void) {
     return 0;
 }
 
-s32 func_800503F8(void) {
+s32 sfxGetRunning(void) {
     return D_8017C950;
 }

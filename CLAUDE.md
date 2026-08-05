@@ -19,7 +19,7 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Files compiling with zero errors (IDO 7.1) | **453** |
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
-| Named functions (proper identifiers) | **286** |
+| Named functions (proper identifiers) | **343** |
 | Named data globals applied | **97** |
 | ROM byte-exact match | ✅ yes |
 
@@ -382,6 +382,31 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
     matrix game-local (`mtxCatF`, `mtxXfmPoint3`, `mtxIdentInit`), entity init
     (`entitySlotReset`, `sfxEntryReset`), COP0 (`setCOP0Compare`), locale (`localeCheck`),
     audio timing (`audioSetBeatPos`). Applied replacements across 41 files. Total named: **255**.
+34. **Named 11 additional functions** — seventeenth batch: particle (`particleUpdate`), math
+    (`vec3NormalizeAssert`, `mtxNodeInit`, `memsetWord`), audio (`audioQueueDispatch`,
+    `audioQueueDispatchGetter`, `sfxRandNext`), SFX (`sfxGetActiveCount`, `sfxGetCount`,
+    `sfxPhaseHook`), geometry (`geomNodeDispatchGetter`). Applied 41 replacements
+    across 15 files. Total named: **343**.
+33. **Named 15 additional functions** — sixteenth batch: scene (`sceneDispatch`), audio
+    (`audioNoteUnlink`, `audioNoteRelease`, `mtxEulerRotF`, `mtxEulerRotGetter`),
+    geometry (`geomBufWrite`, `geomBufWriteGetter`), SFX (`sfxChannelClear`,
+    `sfxResetPhase`, `sfxSlotResolve`, `sfxNullReturn`, `sfxGetRunning`), overlay
+    (`overlayGetEntry`), exception (`intExceptionDispatch`), video (`viRenderSync`).
+    Applied 67 replacements across 21 files. Total named: **332**.
+32. **Named 15 additional functions** — fifteenth batch: C runtime (`strlen`), controller pak
+    (`crc8Calc`), SI (`siInitControllerReadCmd`), OS timer (`__osTimerSetCompare`,
+    `__osTimerEnqueue`), stream (`streamTryReadVarInt`, `streamReadS16`), SFX
+    (`sfxComputeDist`), matrix (`guRotateInt`), audio (`audioMidiNodeInit`,
+    `audioFillDecayTable`), utility (`byteArrayFind`, `localeGet`), game
+    (`gameStateMachineLoop`), RSP (`osSpSetPcIfHalted`). Applied 68 replacements
+    across 30 files. Total named: **317**. Also fixed 2 missed GETTER_NOJR stubs
+    (`guRotateInt`, `osSpSetPcIfHalted`).
+31. **Named 16 additional functions** — fourteenth batch: matrix (`guRotateF`, `guRotate`,
+    `vec3NormalizeF`), spatial SFX (`sfxComputeSpatial`, `sfxPlaySpatial`), audio
+    (`audioDecodeStart`), OS thread (`__osDequeueThread`, `__osRemoveLink`,
+    `osMsgQueueInit`), SI (`siInitPollCmd`), C runtime (`memcmp`, `memcmpImpl`),
+    overlay (`overlayRelocate`, `overlayMarkNodes`, `overlayMarkLeaf`, `overlayNodeMark`).
+    Applied 74 replacements across 31 files. Total named: **302**.
 30. **Named 15 additional functions** — thirteenth batch: matrix (`guMtxL2FFixed`),
     OS PI (`__osPiIsBusy`), MIDI/audio (`midiSetNote`, `audioNodeSetValue`,
     `audioRspDispatchNode`), utility (`calcHash`, `alignUp256`, `intToAsciiStr`),

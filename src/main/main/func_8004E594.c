@@ -10,12 +10,12 @@ typedef struct {
     /* 0xFC */ s32 unkFC;
 } UnkStruct_arg0;
 
-void func_8004E7D4(char*);                               /* extern */
+void sfxChannelClear(char*);                               /* extern */
 extern f32 D_8004BB18;
 
 void func_8004E594(UnkStruct_arg0 *arg0) {
-    func_8004E7D4(0);
-    func_8004E7D4(arg0 + 0x78);
+    sfxChannelClear(0);
+    sfxChannelClear(arg0 + 0x78);
     arg0->unkF0 = 1;
     arg0->unkF4 = 0;
     arg0->unkF8 = 7;

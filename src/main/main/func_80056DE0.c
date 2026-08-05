@@ -26,7 +26,7 @@ void func_80056DE0(Unk *arg0, Unk *arg1, f32 arg4) {
     arg1->unk3C = (s32) ((temp_fa0_4 << 0x10) | (temp_fa0 & 0xFFFF));
 }
 
-void func_80056E5C(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
+void mtxNodeInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk0 = arg1;
     arg0->unk4 = 0;
     arg0->unk8 = 0;

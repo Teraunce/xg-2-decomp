@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8008177C(Unk*, Unk*);                     /* extern */
+void midiDecodeEvent(Unk*, Unk*);                     /* extern */
 extern f64 D_8004CE58;
 extern f64 D_8004CE60;
 
@@ -31,7 +31,7 @@ loop_3:
     var_s4 = arg0->unk8;
     var_s5 = arg0->unk1A;
     var_s6 = var_v0;
-    func_8008177C(arg0, &sp50);
+    midiDecodeEvent(arg0, &sp50);
     if (sp50 == 4) {
         var_s4 = arg0->unk8;
         var_s5 = arg0->unk1A;

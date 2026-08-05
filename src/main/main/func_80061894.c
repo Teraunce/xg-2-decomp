@@ -32,7 +32,7 @@ void func_80061904(s32 arg0) {
     D_80092CB4 = arg0;
 }
 
-s32 func_80061924(void) {
+s32 sfxRandNext(void) {
     u32 temp_a0;
     u32 temp_a1;
     u32 temp_v0;
@@ -143,30 +143,30 @@ void func_80061AC8(void) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80061AD0 — word-fill loop (memset-word variant).
+ * memsetWord — word-fill loop (memset-word variant).
  *
  * Fills arg2+1 consecutive words at arg0 with value arg1.
- * Branch-back-to-self pattern (bnez func_80061AD0) caused m2c to fail;
+ * Branch-back-to-self pattern (bnez memsetWord) caused m2c to fail;
  * translated as do-while with post-decrement check.
  * ------------------------------------------------------------------------- */
-void func_80061AD0(s32 *arg0, s32 arg1, s32 arg2) {
+void memsetWord(s32 *arg0, s32 arg1, s32 arg2) {
     do {
         *arg0++ = arg1;
     } while (arg2-- != 0);
 }
 
-void func_80061AEC(void) {
+void memcmp(void) {
     func_80061B28();
 }
 
 /* -------------------------------------------------------------------------
- * func_80061AF4 — byte-by-byte compare (memcmp variant).
+ * memcmpImpl — byte-by-byte compare (memcmp variant).
  *
  * Compares up to arg2+1 bytes at arg0 vs arg1.
  * Returns -1 if *arg0 < *arg1, +1 if *arg0 > *arg1, 0 if all equal.
  * Branch-back-to-self pattern caused m2c to fail; loop is a do-while.
  * ------------------------------------------------------------------------- */
-s32 func_80061AF4(u8 *arg0, u8 *arg1, s32 arg2) {
+s32 memcmpImpl(u8 *arg0, u8 *arg1, s32 arg2) {
     u8 a, b;
     do {
         a = *arg0;

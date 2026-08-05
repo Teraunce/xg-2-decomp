@@ -15,7 +15,7 @@ typedef struct {
     /* 0x08 */ s32 unk8;
 } UnkStruct_var_s0;
 
-char *func_80083BB8(void) {
+char *audioRspBuildDL(void) {
     Unk *saved_reg_s0 = NULL; /* implicit $s0 set by caller */
     s32 saved_reg_s1 = 0; /* implicit $s1 set by caller */
     Unk *saved_reg_s2 = NULL; /* implicit $s2 set by caller */

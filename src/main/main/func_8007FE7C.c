@@ -30,7 +30,7 @@ void func_8007FF30(void) {
 
 }
 
-s32 func_8007FF38(Unk *arg0, s32 arg1) {
+s32 sfxComputeDist(Unk *arg0, s32 arg1) {
     s32 temp_v1;
 
     temp_v1 = arg0->unk24 - arg1;

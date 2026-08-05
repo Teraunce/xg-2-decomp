@@ -23,7 +23,7 @@ void osWritebackDCache(u32, s32);                         /* extern */
 char *func_80086928(void *);                        /* extern */
 s32 sfxIsBusy();                                /* extern */
 void osSpSetStatus(s32);                                 /* extern */
-s32 func_80086C58(s32);                               /* extern */
+s32 osSpSetPcIfHalted(s32);                               /* extern */
 s32 osSpRawStartDma(s32, s32, s32, s32);               /* extern */
 extern s32 D_A0000000;
 
@@ -41,10 +41,10 @@ void sfxLoadUcode(UnkStruct_arg0 *arg0) {
     }
     osWritebackDCache(sp1C, 0x40);
     osSpSetStatus(0x2B00);
-    if (func_80086C58(0x04001000) == -1) {
+    if (osSpSetPcIfHalted(0x04001000) == -1) {
         do {
 
-        } while (func_80086C58(0x04001000) == -1);
+        } while (osSpSetPcIfHalted(0x04001000) == -1);
     }
     if (osSpRawStartDma(1, 0x04000FC0, sp1C, 0x40) == -1) {
         do {

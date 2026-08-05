@@ -2,9 +2,9 @@
 #include "audio.h"
 
 /*
- * sfxLookupName / sfxSlotResolve / func_80061F38 — SFX slot-index resolver
+ * sfxLookupName / sfxSlotResolve / sfxSlotResolve — SFX slot-index resolver
  *
- * func_80061F38 resolves four magic negative sentinel values into real heap
+ * sfxSlotResolve resolves four magic negative sentinel values into real heap
  * indices before any access to gSfxHeap (gSfxHeap):
  *
  *   slotSpec == -4  →  0               (first slot)
@@ -15,7 +15,7 @@
  *   slotSpec >= 0   →  slotSpec        (pass-through)
  *
  * sfxSlotResolve is the label name for the same function (4-byte-aligned
- * padding precedes the real entry at func_80061F38).
+ * padding precedes the real entry at sfxSlotResolve).
  *
  * sfxLookupName is a thin wrapper around sfxFormatName that passes
  * a3=0, sp+0x10=0, sp+0x14=1 while forwarding a0–a2 unchanged.
@@ -27,7 +27,7 @@ extern s32 gSfxMaxIndex;     /* 0x80092CBC  s32 highest occupied heap index */
 void sfxFormatName(s32 a0, s32 a1, s32 a2, s32 a3, s32 extra1, s32 extra2);
 
 /* -------------------------------------------------------------------------
- * sfxSlotResolve / func_80061F38
+ * sfxSlotResolve / sfxSlotResolve
  * Resolve a symbolic slot index to a concrete index into gSfxHeap.
  * Called before every heap access that may use sentinel values.
  * ------------------------------------------------------------------------- */

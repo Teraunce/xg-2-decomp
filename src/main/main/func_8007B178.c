@@ -1,14 +1,14 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8007B30C (initial). */
+/* Warning: missing "jr $ra" in last block of guRotateInt (initial). */
 
 f32 cosf(f32);                             /* extern */
 void guMtxIdent(char*);                            /* extern */
-void func_8007AC98(f32 *, f32 *, f32 *);               /* extern */
+void vec3NormalizeF(f32 *, f32 *, f32 *);               /* extern */
 f32 sinf(f32);                             /* extern */
 extern f32 D_8004C878;
 extern f32 D_801897F8;
 
-void func_8007B178(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void guRotateF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
@@ -24,7 +24,7 @@ void func_8007B178(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 temp_fv1_2;
 
     D_801897F8 = D_8004C878;
-    func_8007AC98(&arg2, &arg3, &arg4);
+    vec3NormalizeF(&arg2, &arg3, &arg4);
     temp_fa0 = arg1 * D_801897F8;
     arg1 = temp_fa0;
     sp34 = sinf(temp_fa0);
@@ -51,7 +51,7 @@ void func_8007B178(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     arg0->unk4 = (f32) ((arg4 * sp34) + temp_ft4);
 }
 
-void func_8007B318(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8007B30C(s32 arg1, s32 arg2, s32 arg3) {
-    func_8007B318();
+void guRotate(f32, s32, f32, f32, f32);               /* extern */
+void guRotateInt(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    guRotate((f32)arg1, arg0, (f32)arg2, (f32)arg3, 0.0f);
 }

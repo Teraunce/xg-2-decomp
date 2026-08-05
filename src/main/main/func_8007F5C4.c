@@ -36,12 +36,12 @@ void func_8007EBC4(void *);
 void func_8007EB88(void *);                           /* extern */
 void  timerRelinkByType(void *a, s32 b);
 s32   sfxComputeVolume(void *a, void *b);
-s32   func_8007FF38(void *a, void *b);
+s32   sfxComputeDist(void *a, void *b);
 void audioLoadNotes(Unk*, Unk*);                   /* extern */
-s32   func_80080110(void *a, void *b, s32 c);
+s32   audioNoteActivate(void *a, void *b, s32 c);
 void  sfxNoteRetrigger(void *a, void *b, s32 c);
-void  func_800801B8(void *a, void *b);
-void  func_800813E8(void *a, void *b);
+void  audioNoteUnlink(void *a, void *b);
+void  audioNoteRelease(void *a, void *b);
 void  osSetTimer(void *a, void *b, s32 c);
 s32   osStopTimer(void *a, void *b);
 void  sfxPlayNoteAtEntity(void *a, void *b);
@@ -143,8 +143,8 @@ lbl_loop:
         sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x14), s0);
         sfxStopAtEntity(*(void **)((u8 *)obj + 0x14), s0);
         s1 = *(Unk **)((u8 *)s0 + 0x10);
-        if (*(u8 *)((u8 *)s1 + 0x37) != 0) func_800813E8(obj, s1);
-        func_800801B8(obj, s0);
+        if (*(u8 *)((u8 *)s1 + 0x37) != 0) audioNoteRelease(obj, s1);
+        audioNoteUnlink(obj, s0);
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
@@ -188,7 +188,7 @@ lbl_loop:
         *(s16 *)((u8 *)obj + 0x32) = (s16)t6;
         do {
             v0a = (s16)sfxComputeVolume(s1, obj);
-            v0b = func_8007FF38(s1, *(void **)((u8 *)obj + 0x1C));
+            v0b = sfxComputeDist(s1, *(void **)((u8 *)obj + 0x1C));
             sfxPlayAtEntity(*(void **)((u8 *)obj + 0x14),
                           (u8 *)s1 + 4, v0a, v0b);
             s1 = *(Unk **)s1;
@@ -245,8 +245,8 @@ lbl_loop:
             do {
                 sfxPlayNoteAtEntity(*(void **)((u8 *)obj + 0x14), inner_s0);
                 sfxStopAtEntity(*(void **)((u8 *)obj + 0x14), inner_s0);
-                if (*(u8 *)((u8 *)s1 + 0x37) != 0) func_800813E8(obj, s1);
-                func_800801B8(obj, inner_s0);
+                if (*(u8 *)((u8 *)s1 + 0x37) != 0) audioNoteRelease(obj, s1);
+                audioNoteUnlink(obj, inner_s0);
                 s1 = *(Unk **)((u8 *)obj + 0x64); /* re-read */
                 inner_s0 = (u8 *)s1 + 4;
             } while (s1 != NULL);
@@ -267,7 +267,7 @@ lbl_loop:
         if (s1 != NULL) {
             inner_s0 = (u8 *)s1 + 4;
             do {
-                if (func_80080110(obj, inner_s0, 0xC350) != 0)
+                if (audioNoteActivate(obj, inner_s0, 0xC350) != 0)
                     sfxNoteRetrigger(obj, inner_s0, 0xC350);
                 s1 = *(Unk **)s1;  /* linked-list next */
                 inner_s0 = (u8 *)s1 + 4;
@@ -305,7 +305,7 @@ lbl_loop:
         if (t6 < 0) t6 = -1;
         *(u8 *)((u8 *)s1 + 0x36) = (u8)t6;
         v0a = (s16)sfxComputeVolume(s1, obj);
-        v0b = func_8007FF38(s1, *(void **)((u8 *)obj + 0x1C));
+        v0b = sfxComputeDist(s1, *(void **)((u8 *)obj + 0x1C));
         sfxPlayAtEntity(*(void **)((u8 *)obj + 0x14),
                       (u8 *)s1 + 4, v0a, v0b);
         stk8C = 0x16;

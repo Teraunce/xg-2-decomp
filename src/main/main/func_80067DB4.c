@@ -4,7 +4,7 @@ void guLookAt(void *, s32, s32, s32, f32, f32, f32, s32, s32, s32); /* extern */
 void guMtxXfm(s32, s32, s32, s32, s32, s32, s32); /* extern */
 void guMtxCat(s32, s32, s32);               /* extern */
 void func_8007B118(void *, u16 *, f32, f32, f32, f32, f32); /* extern */
-void func_8007B30C(void *, f32, f32);                    /* extern */
+void guRotateInt(void *, f32, f32);                    /* extern */
 void func_8007B55C(void *, f32, f32);                    /* extern */
 s32 func_800AAEFC(u8, u8, void *, void *, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_800AAFD0(u8, u8, void *, f32, s32, s32, s32, s32, s32); /* extern */
@@ -242,12 +242,12 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
     temp_s2 = arg0 * 0x228;
     temp_s1_2 = temp_s2 + &gEntityPool;
     temp_s1_2->unk224 = sp130;
-    func_8007B30C(&D_80185D78, 0.0f, 0.0f);
+    guRotateInt(&D_80185D78, 0.0f, 0.0f);
     sp120 = temp_s1_2->unk18;
     sp124 = temp_s1_2->unk1C;
     sp128 = temp_s1_2->unk20;
     if (gGameFlags & 0x10) {
-        func_8007B30C(&spE0, (f32) -gPlayerList2, temp_s1_2->unkC - temp_s1_2->unk0);
+        guRotateInt(&spE0, (f32) -gPlayerList2, temp_s1_2->unkC - temp_s1_2->unk0);
         guMtxXfm(&spE0, sp120, sp124, sp128, &sp120, &sp124, &sp128);
     }
     temp_s0_2 = temp_s2 + (&gEntityPool + 0x30);

@@ -6,7 +6,7 @@ void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 s32 osGetTime();                                /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
-void func_80088310(s32);                                 /* extern */
+void siInitControllerReadCmd(s32);                                 /* extern */
 s32 func_80088408(void *, s32, s32, s32, s32, s32, s32);       /* extern */
 u64 __udivdi3(s32, u32, s32, s32);                  /* extern */
 s32 __muldi3(s32, s32, s32, s32);                  /* extern */
@@ -62,7 +62,7 @@ s32 func_80088048(char *arg0, s32 arg1, s32 arg2) {
         osRecvMesg(&sp38, &sp7C, 1);
     }
     D_8018AD69 = 4;
-    func_80088310(0);
+    siInitControllerReadCmd(0);
     sp78 = osSiRawStartDma(1, &D_8018AD28);
     osRecvMesg(arg0, &sp7C, 1);
     sp78 = osSiRawStartDma(0, &D_8018AD28);

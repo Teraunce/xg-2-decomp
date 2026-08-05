@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_80081B58 — guarded stream-delta call, writes result to *arg1.
+ * streamTryReadVarInt — guarded stream-delta call, writes result to *arg1.
  *
  * Jal delay-slot ABI fix (three registers):
  *   or  $a2, $a0, $zero   — saves arg0 into $a2 before branch/jal
@@ -37,7 +37,7 @@ typedef struct {
 
 u8 streamReadVarInt(Unk*);                            /* extern */
 
-s32 func_80081B58(UnkStruct_arg0 *arg0, s32 *arg1) {
+s32 streamTryReadVarInt(UnkStruct_arg0 *arg0, s32 *arg1) {
     u32 temp_v0;
 
     temp_v0 = arg0->unk8;
@@ -66,7 +66,7 @@ s32 streamReadU32(UnkStruct_arg0 *arg0) {
     return (temp_a1->unk0 << 0x18) | (temp_a1->unk1 << 0x10) | (temp_t7->unk1 << 8) | temp_t6->unk1;
 }
 
-s16 func_80081C00(UnkStruct_arg0 *arg0) {
+s16 streamReadS16(UnkStruct_arg0 *arg0) {
     UnkStruct_temp_a1 *temp_a1;
     char *temp_t9;
 

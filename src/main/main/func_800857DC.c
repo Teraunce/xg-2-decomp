@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_80085A00 (initial). */
+/* Warning: missing "jr $ra" in last block of geomBufWriteGetter (initial). */
 
 s32 osVirtualToPhysical(u32);                             /* extern */
 f32 func_80085368(Unk*, s32);                     /* extern */
@@ -55,7 +55,7 @@ char *func_800857DC(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     return var_v1;
 }
 
-s32 func_80085A04(void);  /* forward: GETTER_NOJR fallthrough */
-void func_80085A00(s32 arg1) {
-    return func_80085A04();
+s32 geomBufWrite(void);  /* forward: GETTER_NOJR fallthrough */
+void geomBufWriteGetter(s32 arg1) {
+    return geomBufWrite();
 }

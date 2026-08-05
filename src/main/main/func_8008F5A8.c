@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8008EEEC(void *, u8);                         /* extern */
+s32 byteArrayFind(void *, u8);                         /* extern */
 void func_8008EF38();                                  /* extern */
 extern s32 D_8004CFD8;
 extern s32 D_8004CFDC;
@@ -95,13 +95,13 @@ block_9:
         return spCC;
     }
     spD0 = 0;
-    temp_v0_5 = func_8008EEEC(&D_8004CFDC, var_s2->unk1);
+    temp_v0_5 = byteArrayFind(&D_8004CFDC, var_s2->unk1);
     var_s0_2 = temp_v0_5;
     if (temp_v0_5 != 0) {
         do {
             var_s2_2 += 1;
             spD0 |= *(&D_8004CFE4 + ((s32*)(s32)var_s0_2 - &D_8004CFDC));
-            temp_v0_6 = func_8008EEEC(&D_8004CFDC, var_s2_2->unk0);
+            temp_v0_6 = byteArrayFind(&D_8004CFDC, var_s2_2->unk0);
             var_s0_2 = temp_v0_6;
         } while (temp_v0_6 != 0);
     }
@@ -159,7 +159,7 @@ loop_29:
             }
         }
     }
-    if (func_8008EEEC(&D_8004CFD8, var_a1_2) != 0) {
+    if (byteArrayFind(&D_8004CFD8, var_a1_2) != 0) {
         temp_t9_2 = var_s2_2->unk0;
         var_s2_2 += 1;
         spD4 = temp_t9_2;

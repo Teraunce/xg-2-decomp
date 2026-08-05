@@ -3,7 +3,7 @@ s32 __osEnqueueWait(void **);                           /* extern */
 s32 __osEnqueueThread(s32, void *);                       /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
-void func_8007D238(Unk *);                            /* extern */
+void __osDequeueThread(Unk *);                            /* extern */
 extern Unk *__osRunQueue;
 extern Unk *__osRunningThread;
 
@@ -17,7 +17,7 @@ void osSetThreadPri(Unk *arg0, s32 arg1) {
     if (arg0->unk4 != arg1) {
         arg0->unk4 = arg1;
         if ((arg0 != __osRunningThread) && (arg0->unk10 != 1)) {
-            func_8007D238(arg0->unk8);
+            __osDequeueThread(arg0->unk8);
             __osEnqueueThread(arg0->unk8, arg0);
         }
         if (__osRunningThread->unk4 < __osRunQueue->unk4) {

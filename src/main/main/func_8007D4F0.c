@@ -28,7 +28,7 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 extern void **gOSMsgQueuePtr;
 
-u32 func_8007D4F0(UnkStruct_arg0 *arg0) {
+u32 __osTimerEnqueue(UnkStruct_arg0 *arg0) {
     UnkStruct_sp34 *sp34;
     u32 sp2C;
     s8 sp28;
