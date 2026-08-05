@@ -25,3 +25,5 @@ tools/mips-binutils/lib/libctf-mips.so
 tools/mips-binutils/lib/libctf-mips.so.0
 tools/mips-binutils/lib/libctf-nobfd-mips.so
 tools/mips-binutils/lib/libctf-nobfd-mips.so.0
+tools/mips-binutils/lib/libbfd-2.38-mips.so.0
+tools/mips-binutils/lib/libopcodes-2.38-mips.so.0

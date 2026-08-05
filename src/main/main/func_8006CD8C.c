@@ -1,0 +1,68 @@
+#include "ultra64.h"
+typedef struct {
+    /* 0x00 */ u8 pad00[0x10];
+    /* 0x10 */ s32 unk10;
+    /* 0x14 */ s32 unk14;
+    /* 0x18 */ s32 unk18;
+    /* 0x1C */ s32 unk1C;
+    /* 0x20 */ s32 unk20;
+    /* 0x24 */ s32 unk24;
+    /* 0x28 */ s32 unk28;
+    /* 0x2C */ s32 unk2C;
+    /* 0x30 */ s32 unk30;
+    /* 0x34 */ s32 unk34;
+    /* 0x38 */ s32 unk38;
+    /* 0x3C */ s32 unk3C;
+    /* 0x40 */ s32 unk40;
+    /* 0x44 */ s32 unk44;
+    /* 0x48 */ s32 unk48;
+    /* 0x4C */ s32 unk4C;
+} UnkStruct_arg0;
+
+void func_80086A44(UnkStruct_arg0*);                   /* extern */
+void func_80086BD4(s32);                            /* extern */
+extern s32 D_800777C8;
+extern s32 D_80077898;
+extern s32 D_80078A28;
+extern s32 D_80092B88;
+extern s32 D_80094250;
+extern s32 D_80094640;
+extern s32 D_8016C5D0;
+extern s32 D_80173CC0;
+extern s32 D_80190810;
+extern s32 D_801928A0;
+extern s32 D_801A28A0;
+
+char *func_8006CD8C(UnkStruct_arg0 *arg0) {
+    char *var_v0;
+    char *temp_a2;
+    char *temp_s0;
+
+    arg0->unk10 = 1;
+    arg0->unk1C = (s32) (&D_80077898 - &D_800777C8);
+    temp_a2 = arg0 + 0x58;
+    arg0->unk14 = 0;
+    arg0->unk18 = &D_800777C8;
+    if (D_80092B88 & 4) {
+        arg0->unk20 = &D_80077898;
+        var_v0 = &D_80094250;
+    } else {
+        arg0->unk20 = &D_80078A28;
+        var_v0 = &D_80094640;
+    }
+    arg0->unk28 = var_v0;
+    temp_s0 = arg0 + 0x10;
+    arg0->unk24 = 0x1000;
+    arg0->unk2C = 0x800;
+    arg0->unk30 = &D_80190810;
+    arg0->unk34 = 0x400;
+    arg0->unk38 = &D_801928A0;
+    arg0->unk3C = &D_801A28A0;
+    arg0->unk48 = &D_8016C5D0;
+    arg0->unk40 = temp_a2;
+    arg0->unk4C = 0xC00;
+    arg0->unk44 = (s32) (((s32) ((char*)(s32)D_80173CC0 - temp_a2) >> 3) * 8);
+    func_80086A44(temp_s0);
+    func_80086BD4(temp_s0);
+    return temp_s0;
+}

@@ -1,0 +1,17 @@
+#include "ultra64.h"
+s32 func_80074EA0();                                /* extern */
+void func_80074ED8(s32);                               /* extern */
+s32 func_80075B78(s32, s32, s32);                    /* extern */
+
+s32 func_80075D9C(s32 arg0) {
+    s32 temp_s1;
+    s32 var_s0;
+
+    temp_s1 = func_80074EA0();
+    var_s0 = func_80075B78(0x404, 0, 0);
+    if (var_s0 & 0x8000) {
+        var_s0 |= 0xFFFF0000;
+    }
+    func_80074ED8(temp_s1);
+    return var_s0;
+}

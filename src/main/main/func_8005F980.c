@@ -1,0 +1,126 @@
+#include "ultra64.h"
+void func_8004D358();                                  /* extern */
+void func_8004D420();                                  /* extern */
+s32 func_8004D4A8(s32);                               /* extern */
+void func_8005C88C(s32);                                 /* extern */
+void func_8005C8D4(s32);                               /* extern */
+void func_8005C8EC(s32, s32);                              /* extern */
+s32 func_8005CCE0(s32, s32, s32, s32, s32);                   /* extern */
+void func_8005F838();                                  /* extern */
+void func_8005FF44(s32);                                 /* extern */
+s32 func_80061800(s32);                               /* extern */
+void func_80062D98(void*, void*);                            /* extern */
+void func_80062F1C(s32, s32, s32, s32, s32);                   /* extern */
+void func_80063650();                                  /* extern */
+s32 func_80063800(s32);                               /* extern */
+void func_80063DF0();                                  /* extern */
+s32 func_800AE150();                                  /* extern */
+s32 func_800C0810(s32, s32, s32, s32);                  /* extern */
+s32 func_800C9138(void *, s32);                            /* extern */
+s32 func_800CD200();                                  /* extern */
+extern f32 D_8004BF74;
+extern f32 D_8004BF78;
+extern s32 D_80091E74;
+extern s32 D_80091FCC;
+extern s32 D_80092B58;
+extern s32 D_80092B5C;
+extern s32 D_80092B64;
+extern s32 D_80092B74;
+extern s16 D_80092B78;
+extern s32 D_80092B80;
+extern s32 D_80092B8C;
+extern s32 D_80092D20;
+extern s32 D_80093338;
+extern s32 D_8009333C;
+extern s32 D_80093340;
+extern s32 D_80093344;
+extern s32 D_80093348;
+extern s32 D_80093F04;
+extern s32 D_800E3848;
+extern s32 D_80173C38;
+extern s32 D_80174C28;
+extern s32 D_8017C950;
+extern Unk D_8017C968;
+extern s32 D_8017CC58;
+extern Unk D_80181EF0;
+extern s32 D_801821E8;
+extern Unk D_80182EA8;
+
+void func_8005F980(s32 arg0) {
+    s32 *var_v1;
+
+    func_8004D420();
+    func_8004D358();
+    func_80063650();
+    D_80181EF0.unk0 = func_8004D4A8(0x20000);
+    D_80181EF0.unk4 = func_8004D4A8(0x20000);
+    D_8017C968.unk0 = 0;
+    D_8017C968.unk8 = 0x140;
+    D_8017C968.unkC = 0xF0;
+    D_8017C950 = 1;
+    D_80091FCC = 0;
+    D_8017C968.unk4 = 0;
+    D_8017CC58 = 1;
+    D_8017C968.unk10 = (f32) D_8004BF74;
+    D_8017C968.unk14 = (f32) D_8004BF78;
+    D_8017C968.unk18 = (f32) D_8004BF74;
+    D_8017C968.unk1C = (f32) D_8004BF78;
+    if (arg0 == 0) {
+        func_800AE150();
+        func_8005F838();
+    }
+    func_80063DF0();
+    D_801821E8 = func_80063800(0x200);
+    D_80092B78 = 0;
+    func_80061800(D_80092B74);
+    if (arg0 != 0) {
+        func_80062F1C(0, 0x55, 0, 4, 0);
+        func_80062D98(&D_80092D20, 0);
+        var_v1 = (s32 *)0x80090000;
+    } else {
+        func_80062F1C(0, 0x100, 2, 4, 0);
+        func_8005C8EC(0, 0);
+        func_8005C8D4(D_80182EA8.unkB00);
+        if (D_80092B80 != 0) {
+            D_80092B64 = 1;
+            D_80182EA8.unk16D8 = (s32) D_80093338;
+            D_80182EA8.unk16DC = (s32) D_8009333C;
+            D_80182EA8.unk16E0 = (s32) D_80093340;
+            D_80182EA8.unkB6C = (s32) D_80093344;
+            D_80182EA8.unkB0C = (s32) D_80093348;
+            if (D_80174C28 != 0) {
+                goto block_14;
+            }
+            func_800C0810(1, D_80093344, D_80093348, D_80174C28);
+            var_v1 = (s32 *)0x80090000;
+        } else if (D_80174C28 != 0) {
+            if ((D_80182EA8.unk16D8 != 1) && (D_80182EA8.unk16D8 != 2) && (D_80182EA8.unk16D8 != 0xB)) {
+                if (!(D_80092B8C & 0x2000)) {
+                    func_8005C88C(0x15);
+                    D_80092B64 = 1;
+block_14:
+                    func_8005CCE0(0xE, 0x3F800000, 0x10000, 0x40, 0);
+                    func_800C9138(&D_800E3848, 0);
+                    var_v1 = (s32 *)0x80090000;
+                } else {
+                    goto block_16;
+                }
+            } else {
+                goto block_16;
+            }
+        } else {
+block_16:
+            if (D_80173C38 != 0) {
+                func_8005FF44(0);
+                var_v1 = (s32 *)0x80090000;
+            } else {
+                func_8005CCE0(0xE, 0x3F800000, 0x10000, 0x40, 0);
+                func_800CD200();
+                var_v1 = &D_80092B58;
+            }
+        }
+    }
+    *var_v1 = 1;
+    D_80093F04 = 0;
+    D_80092B5C = D_80091E74;
+}

@@ -1,0 +1,40 @@
+#include "ultra64.h"
+/* Warning: missing "jr $ra" in last block of func_8005B864 (initial). */
+
+void func_8005AA64(Unk*, s32, s32);                       /* extern */
+void func_8005AEB4();                                  /* extern */
+extern s16 D_8017DF3E;
+extern s8 D_8017DF40;
+extern char *D_8017DF44;
+extern s32 D_8017DF4C;
+extern s16 D_8017DF52;
+extern s16 D_8017DF54;
+extern s16 D_8017DF56;
+extern s32 D_8017DF58;
+extern s32 D_8017EF98;
+
+void func_8005B7D8(s32 arg0) {
+    s32 var_a0;
+    s8 *var_v1;
+
+    D_8017DF44 = &D_8017EF98;
+    func_8005AA64(&D_8017EF98, arg0, -1);
+    func_8005AEB4();
+    var_a0 = 0xFC3;
+    var_v1 = &D_8017DF58 + 0xFC3;
+    D_8017DF3E = 0;
+    D_8017DF40 = 0;
+    D_8017DF4C = 0;
+    do {
+        *var_v1 = 0;
+        var_a0 -= 1;
+        var_v1 -= 1;
+    } while (var_a0 >= 0);
+    D_8017DF56 = 0xFC4;
+    D_8017DF52 = 0;
+    D_8017DF54 = 0;
+}
+
+s16 func_8005B864(void) {
+    return D_8017DF52;
+}
