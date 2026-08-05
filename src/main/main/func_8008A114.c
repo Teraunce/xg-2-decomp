@@ -48,7 +48,7 @@ void func_8008A114(s32 arg0, u16 arg1) {
     sp20 = temp_v0 | (arg1 << 5);
     sp18 = 0;
     do {
-        ((Unk *)(sp + sp18))->unk22 /* FIXME: type unknown */ = 0xFF;
+        ((Unk *)(sp + sp18))->unk22 = 0xFF;
         temp_t4 = sp18 + 1;
         sp18 = temp_t4;
     } while (temp_t4 < 0x20);

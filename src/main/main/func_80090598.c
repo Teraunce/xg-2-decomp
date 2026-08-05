@@ -208,10 +208,10 @@ loop_51:
                 var_v0_5 = &var_s5_3[var_s3];
             }
             var_v1_3 = var_s3 - 1;
-            if (var_a1_4 == var_v0_5->unk0 /* FIXME: was ->unk-1 */) {
+            if (var_a1_4 == *(u8*)((char*)var_v0_5 - 1) {
                 var_v0_6 = (Unk*)&var_s5_3[var_s3];
                 do {
-                    temp_t9_2 = var_v0_6->unk0 /* FIXME: was ->unk-1 */;
+                    temp_t9_2 = *(u8*)((char*)var_v0_6 - 1)
                     var_v1_3 -= 1;
                     var_v0_6 -= 1;
                 } while (var_a1_4 == temp_t9_2);

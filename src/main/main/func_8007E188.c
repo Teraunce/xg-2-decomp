@@ -28,7 +28,7 @@ loop_1:
     do {
         var_a0 += 4;
         var_v0 += 0x10;
-        var_v0->unk0 /* FIXME: was ->unk-4 */ = (s32) var_v1->unk18;
+        *(s32*)((char*)var_v0 - 4)= (s32) var_v1->unk18;
         temp_t1 = var_v1->unk58;
         var_v1 += 0x10;
         var_a1 += 4;

@@ -72,7 +72,7 @@ void func_8007DD7C(Unk *arg0, Unk *arg1) {
             temp_v0_4 = temp_v0_3 + 1;
             var_t9 = temp_v0_4 + 5;
             if (temp_a0_2 == 0) {
-                temp_v0_3->unk1 = (u8) temp_v0_4->unk0 /* FIXME: was ->unk-1 */;
+                temp_v0_3->unk1 = (u8) *(u8*)((char*)temp_v0_4 - 1)
             } else {
                 if (temp_a0_2 != 0xFF) {
                     temp_v0_3->unk1 = (u8) (temp_a0_2 - 1);

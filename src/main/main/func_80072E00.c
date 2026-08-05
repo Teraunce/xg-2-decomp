@@ -111,7 +111,7 @@ block_32:
                             func_8007BA98(&D_8018AD28, 0x40);
                             func_80087C4C(&D_80192860);
                         }
-                        if ((void *)(((Unk*)((char*)&D_80192860 + sp10))->unk2 /* FIXME: type unknown */ & 1) && (func_8008CCE8(&D_801887A0, var_s5, var_s4) == 0)) {
+                        if ((void *)(((Unk*)((char*)&D_80192860 + sp10))->unk2 & 1) && (func_8008CCE8(&D_801887A0, var_s5, var_s4) == 0)) {
                             var_s1->unk33C = 0;
                             var_s1->unk32C = 1;
                             goto block_71;

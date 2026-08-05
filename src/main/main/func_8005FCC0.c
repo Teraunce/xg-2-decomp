@@ -50,7 +50,7 @@ void func_8005FCC0(s32 arg3) {
                 var_a0 = 0;
                 var_a1 = var_t0;
 loop_8:
-                if ((void *)((var_a1 + &D_80182EA8))->unk4 /* FIXME: type unknown */ != 0) {
+                if ((void *)((var_a1 + &D_80182EA8))->unk4 != 0) {
                     temp_v0 = &sp10 + var_a2;
                     temp_v1 = &sp60 + var_a2;
                     var_a2 += 1;

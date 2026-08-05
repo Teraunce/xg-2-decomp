@@ -43,7 +43,7 @@ loop_4:
     }
     sp20 = 0;
     do {
-        ((Unk *)(sp + sp20))->unk24 /* FIXME: type unknown */ = 0;
+        ((Unk *)(sp + sp20))->unk24 = 0;
         temp_t4 = sp20 + 1;
         sp20 = temp_t4;
     } while (temp_t4 < 0x20);

@@ -71,10 +71,10 @@ void func_80065694(Unk *arg0, s32 arg1) {
         do {
             temp_v0 = ((var_t0 - var_a3_2) * 2) + arg0;
             temp_a2_2 = *var_a1_2;
-            temp_v1 = temp_v0->unk0 /* FIXME: was ->unk-2 */;
+            temp_v1 = *(u16*)((char*)temp_v0 - 2)
             var_a3_2 += 1;
             *var_a1_2 = temp_v1;
-            temp_v0->unk0 /* FIXME: was ->unk-2 */ = temp_a2_2;
+            *(u16*)((char*)temp_v0 - 2)= temp_a2_2;
             var_a1_2 += 2;
         } while (var_a3_2 < temp_t1);
     }
@@ -119,10 +119,10 @@ void func_800657A8(Unk *arg0, u32 arg1) {
         do {
             temp_v0_2 = ((var_t0 - var_a2) * 2) + temp_a3;
             temp_a0 = *var_a1_2;
-            temp_v1 = temp_v0_2->unk0 /* FIXME: was ->unk-2 */;
+            temp_v1 = *(u16*)((char*)temp_v0_2 - 2)
             var_a2 += 1;
             *var_a1_2 = temp_v1;
-            temp_v0_2->unk0 /* FIXME: was ->unk-2 */ = temp_a0;
+            *(u16*)((char*)temp_v0_2 - 2)= temp_a0;
             var_a1_2 += 2;
         } while (var_a2 < temp_t1);
     }

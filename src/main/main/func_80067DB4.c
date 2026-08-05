@@ -322,7 +322,7 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
         var_v0_5 = ((s32) (temp_fv0_3 - D_8004C38C) | 0x80000000) & 0xFFF;
     }
     D_80174BE8->unk8 = (s32) ((var_v0_5 << 0xC) | 0xF2000000);
-    ((Unk *)(D_80174BE8 + 8))->unk4 /* FIXME: type unknown */ = 0x01000000;
+    ((Unk *)(D_80174BE8 + 8))->unk4 = 0x01000000;
     temp_fv0_4 = 2.0f * (f32) D_80091E74;
     if (D_8004C390 <= temp_fv0_4) {
         var_v1_2 = (s32) (temp_fv0_4 - D_8004C390) | 0x80000000;
@@ -336,7 +336,7 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
     temp_s2_3->unk0 = (s32) (((temp_s0_5 & 0xFFF) << 0xC) | ((func_80058940(0x100) & 0xFFF) | 0xF2000000));
     temp_s2_3->unk4 = 0;
     temp_s2_3->unk8 = 0xFB000000;
-    ((Unk *)(temp_s2_3 + 8))->unk4 /* FIXME: type unknown */ = (s32) (func_80058940(0x100) & 0xFF);
+    ((Unk *)(temp_s2_3 + 8))->unk4 = (s32) (func_80058940(0x100) & 0xFF);
     temp_v1_7 = D_80091E70 << 6;
     var_a1 = temp_v1_7 + ((D_8017C118 << 7) + D_8017C7F0);
     temp_v1_8 = temp_v1_7 + (arg0 * 0x228) + &D_80090EA0;
@@ -416,15 +416,15 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
                 var_s0 = var_s4 + 0x24;
                 do {
                     temp_fv1_2 = temp_s1_3->unk0;
-                    temp_ft2 = (f32) var_s0->unk0 /* FIXME: was ->unk-18 */ - temp_fv1_2;
-                    if ((temp_ft2 < temp_fs0) && (temp_ft1 = temp_s1_3->unk4, (((f32) var_s0->unk0 /* FIXME: was ->unk-14 */ - temp_ft1) < temp_fs0)) && (temp_ft0_2 = temp_s1_3->unk8, (((f32) var_s0->unk0 /* FIXME: was ->unk-10 */ - temp_ft0_2) < temp_fs0)) && (temp_fv1_3 = (f32) -sp134, (temp_fv1_3 < ((f32) var_s0->unk0 /* FIXME: was ->unk-C */ - temp_fv1_2))) && (temp_fv1_3 < ((f32) var_s0->unk0 /* FIXME: was ->unk-8 */ - temp_ft1)) && (temp_fv1_3 < ((f32) var_s0->unk0 /* FIXME: was ->unk-4 */ - temp_ft0_2))) {
+                    temp_ft2 = (f32) *(f32*)((char*)var_s0 - 18)- temp_fv1_2;
+                    if ((temp_ft2 < temp_fs0) && (temp_ft1 = temp_s1_3->unk4, (((f32) *(f32*)((char*)var_s0 - 14)- temp_ft1) < temp_fs0)) && (temp_ft0_2 = temp_s1_3->unk8, (((f32) *(f32*)((char*)var_s0 - 10)- temp_ft0_2) < temp_fs0)) && (temp_fv1_3 = (f32) -sp134, (temp_fv1_3 < ((f32) *(s32*)((char*)var_s0 - 12) - temp_fv1_2))) && (temp_fv1_3 < ((f32) *(f32*)((char*)var_s0 - 8)- temp_ft1)) && (temp_fv1_3 < ((f32) *(f32*)((char*)var_s0 - 4)- temp_ft0_2))) {
                         spC8 = temp_ft2;
-                        spCC = (f32) var_s0->unk0 /* FIXME: was ->unk-C */ - temp_s1_3->unk0;
-                        spD0 = (f32) var_s0->unk0 /* FIXME: was ->unk-14 */ - temp_s1_3->unk4;
-                        spD4 = (f32) var_s0->unk0 /* FIXME: was ->unk-8 */ - temp_s1_3->unk4;
-                        spD8 = (f32) var_s0->unk0 /* FIXME: was ->unk-10 */ - temp_s1_3->unk8;
+                        spCC = (f32) *(s32*)((char*)var_s0 - 12) - temp_s1_3->unk0;
+                        spD0 = (f32) *(f32*)((char*)var_s0 - 14)- temp_s1_3->unk4;
+                        spD4 = (f32) *(f32*)((char*)var_s0 - 8)- temp_s1_3->unk4;
+                        spD8 = (f32) *(f32*)((char*)var_s0 - 10)- temp_s1_3->unk8;
                         var_a0_2 = 0;
-                        spDC = (f32) var_s0->unk0 /* FIXME: was ->unk-4 */ - temp_s1_3->unk8;
+                        spDC = (f32) *(f32*)((char*)var_s0 - 4)- temp_s1_3->unk8;
                         var_v1_4 = 0 & 1;
 loop_61:
                         temp_ft0_3 = (&spC8)[var_v1_4];
@@ -443,7 +443,7 @@ loop_61:
                             temp_a3_2->unk0 = 0xDA380003;
                             D_80173CC0 = temp_a1_4;
                             D_80173CC0 = temp_a1_4 + 8;
-                            temp_a3_2->unk4 = (s32) (var_t1->unk0 /* FIXME: was ->unk-3810 */ + (D_8017C118 << 7) + (var_t0->unk1E70 << 6));
+                            temp_a3_2->unk4 = (s32) (*(s32*)((char*)var_t1 - 3810)+ (D_8017C118 << 7) + (var_t0->unk1E70 << 6));
                             D_80173CC0->unk8 = 0xDE000000;
                             D_8017C118 += 1;
                             temp_a1_4->unk4 = (s32) var_s0->unk0;

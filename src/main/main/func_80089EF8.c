@@ -56,9 +56,9 @@ loop_1:
         temp_at = (s32) var_t7->unk0;
         var_t7 += 0xC;
         var_t6 += 0xC;
-        var_t6->unk0 /* FIXME: was ->unk-C */ = temp_at;
-        var_t6->unk0 /* FIXME: was ->unk-8 */ = (s32) (s32) var_t7->unk0 /* FIXME: was ->unk-8 */;
-        var_t6->unk0 /* FIXME: was ->unk-4 */ = (s32) (s32) var_t7->unk0 /* FIXME: was ->unk-4 */;
+        *(s32*)((char*)var_t6 - 12) = temp_at;
+        *(s32*)((char*)var_t6 - 8)= (s32) (s32) *(s32*)((char*)var_t7 - 8)
+        *(s32*)((char*)var_t6 - 4)= (s32) (s32) *(s32*)((char*)var_t7 - 4)
     } while ((char*)var_t7 != temp_t9);
     var_t6->unk0 = (s32) (s32) var_t7->unk0;
     temp_t2 = (s32) (sp2E & 0xC0) >> 4;
@@ -76,7 +76,7 @@ loop_1:
         } else {
             sp58 = 0;
             do {
-                *arg3 = ((Unk *)(sp + sp58))->unk32 /* FIXME: type unknown */;
+                *arg3 = ((Unk *)(sp + sp58))->unk32;
                 temp_t3 = sp58 + 1;
                 sp58 = temp_t3;
                 arg3 += 1;

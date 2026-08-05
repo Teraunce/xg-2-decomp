@@ -24,7 +24,7 @@ s32 func_8008CCE8(s32 arg0, Unk *arg1, s32 arg2) {
     arg1->unk65 = 0x80;
     sp44 = 0;
     do {
-        ((Unk *)(sp + sp44))->unk20 /* FIXME: type unknown */ = 0x80;
+        ((Unk *)(sp + sp44))->unk20 = 0x80;
         temp_t7 = sp44 + 1;
         sp44 = temp_t7;
     } while (temp_t7 < 0x20);

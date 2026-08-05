@@ -64,7 +64,7 @@ void func_8004FCF8(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
 loop_1:
     temp_a2 = ((Unk *)((char *)(s32)arg0 + (var_v0 - var_s3) * 8))->unk18;
     if ((temp_a2 != var_s3) && (temp_v1 = (Unk *)((char *)(s32)arg0 + temp_a2 * 0x38), (*(((s32) (temp_v1->unk16 << 0x10) >> 0x1B) + &D_8017CC80) == 0))) {
-        if (temp_v1->unk0 /* FIXME: was ->unk-20 */ == 0x8000) {
+        if (*(s32*)((char*)temp_v1 - 20)== 0x8000) {
             func_8004FCF8(arg0, arg1, temp_a2, arg3);
         }
     }
@@ -125,11 +125,11 @@ loop_1:
             if ((var_s6 == 0) && ((u32) (D_80182EA8.unk16D8 - 1) < 2U) && (spA4 != NULL) && (spA4->unk5C == 0x63)) {
                 var_v1 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
                 var_a0 = var_s3;
-                if (var_v1->unk0 /* FIXME: was ->unk-20 */ != 0x8000) {
+                if (*(s32*)((char*)var_v1 - 20)!= 0x8000) {
                     do {
                         var_v1 -= 0x38;
                         var_a0 -= 1;
-                    } while (var_v1->unk0 /* FIXME: was ->unk-20 */ != 0x8000);
+                    } while (*(s32*)((char*)var_v1 - 20)!= 0x8000);
                 }
                 var_v1_2 = (Unk *)((char *)(s32)arg0 + var_a0 * 0x38);
                 if (var_v1_2->unk18 != 0x8000) {

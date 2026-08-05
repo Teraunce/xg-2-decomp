@@ -73,22 +73,22 @@ void func_8007FDA8(Unk *arg0, Unk *arg1, s32 arg2) {
 
     temp_v0 = arg2 * 0x10;
     *(Unk**)(s32)(arg0->unk60 + temp_v0) = arg1;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk7 /* FIXME: type unknown */ = (u8) arg1->unk1;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk9 /* FIXME: type unknown */ = (u8) arg1->unk0;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk8 /* FIXME: type unknown */ = (u8) arg1->unk2;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk4 /* FIXME: type unknown */ = (s16) arg1->unkC;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk7 = (u8) arg1->unk1;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk9 = (u8) arg1->unk0;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk8 = (u8) arg1->unk2;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk4 = (s16) arg1->unkC;
 }
 
 void func_8007FDFC(Unk *arg0, s32 arg1) {
     s32 temp_v0;
 
     temp_v0 = arg1 * 0x10;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk6 /* FIXME: type unknown */ = 0;
-    ((Unk *)(arg0->unk60 + temp_v0))->unkA /* FIXME: type unknown */ = 0;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk7 /* FIXME: type unknown */ = 0x40;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk9 /* FIXME: type unknown */ = 0x7F;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk8 /* FIXME: type unknown */ = 5;
-    ((Unk *)(arg0->unk60 + temp_v0))->unkB /* FIXME: type unknown */ = 0;
-    ((Unk *)(arg0->unk60 + temp_v0))->unk4 /* FIXME: type unknown */ = 0xC8;
-    ((Unk *)(arg0->unk60 + temp_v0))->unkC /* FIXME: type unknown */ = 1.0f;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk6 = 0;
+    ((Unk *)(arg0->unk60 + temp_v0))->unkA = 0;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk7 = 0x40;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk9 = 0x7F;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk8 = 5;
+    ((Unk *)(arg0->unk60 + temp_v0))->unkB = 0;
+    ((Unk *)(arg0->unk60 + temp_v0))->unk4 = 0xC8;
+    ((Unk *)(arg0->unk60 + temp_v0))->unkC = 1.0f;
 }

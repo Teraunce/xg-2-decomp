@@ -266,7 +266,7 @@ block_11:
         if (arg0->unk54 >= 0xD) {
             temp_a3->unk10 = 0xDB060020;
             D_80173CC0 = temp_a3 + 0x18;
-            temp_a3->unk14 = (s32) ((Unk*)((char*)(s32)D_80173C70 + arg0->unk54 * 4))->unk0 /* FIXME: was ->unk-34 */;
+            temp_a3->unk14 = (s32) *(s32*)((char*)(((char*)(s32)D_80173C70 + arg0->unk54 * 4)) - 34)
         }
         D_80178690->unk0 = 0xD7000002;
         D_80178690->unk4 = 0x10000800;

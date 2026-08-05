@@ -74,7 +74,7 @@ block_12:
                         func_80061A9C(func_800639B0(temp_s2), 0, sp20);
                         temp_v0_3 = func_800639B0(temp_s2);
                         if (func_80072340(func_8008A994(temp_s0_2, sp40, 0, 0, sp20, temp_v0_3), arg1, -1) == 0) {
-                            if ((D_801887D0.unk168 != 0) && ((void *)((temp_s1 = sp20 - 4, ((Unk*)(s32)(temp_v0_3 + sp20))->unk0 /* FIXME: type unknown */ /* FIXME: was ->unk-4 */ != func_80070560(temp_v0_3, temp_s1))) || (arg2(temp_v0_3, temp_s1) == 0))) {
+                            if ((D_801887D0.unk168 != 0) && ((void *)((temp_s1 = sp20 - 4, *(f32*)((char*)((s32)(temp_v0_3 + sp20)) - 4)!= func_80070560(temp_v0_3, temp_s1))) || (arg2(temp_v0_3, temp_s1) == 0))) {
                                 if (func_80070F50(0x35, arg1, 0x52, 0x65, 0, 0, 0) != 0) {
                                     D_801887D0.unk168 = 0;
                                     goto block_27;

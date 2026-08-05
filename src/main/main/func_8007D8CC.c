@@ -59,7 +59,7 @@ void func_8007D9D0(Unk *arg0, s32 arg1) {
             temp_t7 = var_v1->unk4;
             var_v0 += 1;
             var_v1 += 8;
-            var_v1->unk0 /* FIXME: was ->unk-4 */ = (s32) (temp_t7 + arg1);
+            *(s32*)((char*)var_v1 - 4)= (s32) (temp_t7 + arg1);
         } while (var_v0 < arg0->unk2);
     }
 }

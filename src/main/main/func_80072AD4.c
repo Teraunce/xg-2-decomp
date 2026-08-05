@@ -42,7 +42,7 @@ void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     temp_s0_2 = func_800639B0(temp_s0);
     temp_s1 = func_800639B0(temp_s0) + temp_v0;
     arg3(temp_s0_2);
-    temp_s1->unk0 /* FIXME: was ->unk-4 */ = func_80070560(temp_s0_2, temp_v0 - 4);
+    *(s32*)((char*)temp_s1 - 4)= func_80070560(temp_s0_2, temp_v0 - 4);
     D_80188940 = 0;
 loop_1:
     D_801887D0.unk168 = 1;

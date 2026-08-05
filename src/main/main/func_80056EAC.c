@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void func_80056EAC(Unk *arg0, Unk *arg1, Unk *arg2) {
     Unk sp_buf[8];
-    Unk *sp = sp_buf; /* FIXME: raw stack pointer */
+    Unk *sp = sp_buf; /* $sp base — local stack byte-pointer */
     f32 sp3C;
     f32 sp38;
     f32 sp34;

@@ -9,7 +9,7 @@ void func_800577A8(Unk *arg0, Unk *arg1, Unk *arg2) {
     s32 sp4;
     s32 sp8;
     Unk sp_buf[8];
-    Unk *sp = sp_buf; /* FIXME: raw stack pointer */
+    Unk *sp = sp_buf; /* $sp base — local stack byte-pointer */
     f32 *var_v1;
     f32 temp_ft0;
     s32 var_a3;

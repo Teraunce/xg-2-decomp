@@ -182,8 +182,8 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
         do {
             var_a0_2->unk0 = (u16) (var_a0_2->unk0 + var_s6);
             var_s6 = var_a0_2->unk0;
-            temp_v0_2 = var_a0_2->unk0 /* FIXME: was ->unk-2 */ + var_s5;
-            var_a0_2->unk0 /* FIXME: was ->unk-2 */ = temp_v0_2;
+            temp_v0_2 = *(u16*)((char*)var_a0_2 - 2)+ var_s5;
+            *(u16*)((char*)var_a0_2 - 2)= temp_v0_2;
             var_s5 = temp_v0_2 & 0xFFFF;
             if (var_s0 < (s32) var_s6) {
                 var_s0 = (s32) var_s6;
@@ -196,7 +196,7 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
         if (arg0->unk58 > 0) {
             var_a0_3 = arg0->unk50 + 6;
             do {
-                if (var_a0_3->unk0 /* FIXME: was ->unk-4 */ & (D_80091FD0 | 0x10)) {
+                if (*(s32*)((char*)var_a0_3 - 4)& (D_80091FD0 | 0x10)) {
                     temp_v0[var_a0_3->unk0] = 1;
                 }
                 var_s1_3 += 1;
@@ -365,9 +365,9 @@ block_97:
                         do {
                             temp_v1_20 = (s32 *)((char *)(s32)temp_a1_2 + (var_lo + var_s0_2) * 4);
                             temp_a0_5 = *temp_v1_20;
-                            *temp_v1_20 = ((Unk *)((char *)(s32)temp_a1_2 + ((var_lo + arg0->unk8) - var_s0_2) * 4))->unk0 /* FIXME: was ->unk-4 */;
+                            *temp_v1_20 = *(s32*)((char*)(((char *)(s32)temp_a1_2 + ((var_lo + arg0->unk8) - var_s0_2) * 4)) - 4)
                             temp_v0_7 = arg0->unk8;
-                            ((Unk *)((char *)(s32)temp_a1_2 + (((var_s1_7 * temp_v0_7) + temp_v0_7) - var_s0_2) * 4))->unk0 /* FIXME: was ->unk-4 */ = temp_a0_5;
+                            *(s32*)((char*)(((char *)(s32)temp_a1_2 + (((var_s1_7 * temp_v0_7) + temp_v0_7) - var_s0_2) * 4)) - 4)= temp_a0_5;
                             temp_a0_4 = arg0->unk8;
                             var_s0_2 += 1;
                             var_lo = var_s1_7 * temp_a0_4;

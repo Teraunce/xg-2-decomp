@@ -87,13 +87,13 @@ block_25:
     sp3E = 0;
     sp158 = 0;
     do {
-        ((Unk *)(sp + sp158))->unk44 /* FIXME: type unknown */ = 0;
+        ((Unk *)(sp + sp158))->unk44 = 0;
         temp_t3 = sp158 + 1;
         sp158 = temp_t3;
     } while (temp_t3 < 0x10);
     sp158 = 0;
     do {
-        ((Unk *)(sp + sp158))->unk40 /* FIXME: type unknown */ = 0;
+        ((Unk *)(sp + sp158))->unk40 = 0;
         temp_t9 = sp158 + 1;
         sp158 = temp_t9;
     } while (temp_t9 < 4);

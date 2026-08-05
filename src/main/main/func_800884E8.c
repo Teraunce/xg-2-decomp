@@ -93,7 +93,7 @@ block_30:
                 sp264 = 0;
                 do {
                     temp_t7 = sp264 * 2;
-                    ((Unk *)(sp + temp_t7))->unk5C /* FIXME: type unknown */ = (u16) ((Unk *)(sp + temp_t7))->unk15C /* FIXME: type unknown */;
+                    ((Unk *)(sp + temp_t7))->unk5C = (u16) ((Unk *)(sp + temp_t7))->unk15C;
                     temp_t1 = sp264 + 1;
                     sp264 = temp_t1;
                 } while (temp_t1 < 0x80);
@@ -131,14 +131,14 @@ block_36:
         sp40 = arg1;
         sp3C = arg2;
         do {
-            ((Unk *)(sp + sp264))->unk4C /* FIXME: type unknown */ = (u8) *arg3;
+            ((Unk *)(sp + sp264))->unk4C = (u8) *arg3;
             temp_t3 = sp264 + 1;
             sp264 = temp_t3;
             arg3 += 1;
         } while (temp_t3 < 0x10);
         sp264 = 0;
         do {
-            ((Unk *)(sp + sp264))->unk48 /* FIXME: type unknown */ = (u8) *arg4;
+            ((Unk *)(sp + sp264))->unk48 = (u8) *arg4;
             temp_t2 = sp264 + 1;
             sp264 = temp_t2;
             arg4 += 1;

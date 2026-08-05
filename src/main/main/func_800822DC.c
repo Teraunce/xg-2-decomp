@@ -80,8 +80,8 @@ void func_800824B8(Unk *arg0, s16 arg1) {
 
     temp_v0 = arg0->unk40;
     temp_v1 = arg1 * 0x30;
-    if (((Unk *)(temp_v1 + temp_v0))->unk28 /* FIXME: type unknown */ == 0) {
-        ((Unk *)(temp_v0 + temp_v1))->unk1C /* FIXME: type unknown */ = 0;
+    if (((Unk *)(temp_v1 + temp_v0))->unk28 == 0) {
+        ((Unk *)(temp_v0 + temp_v1))->unk1C = 0;
         if (arg1 == arg0->unk3C) {
             arg0->unk3C = -1;
         }

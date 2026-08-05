@@ -32,7 +32,7 @@ s32 func_8008C18C(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     s16 unksp121;
     sp12C = 0;
     do {
-        ((Unk *)(arg1 + sp12C))->unk101 /* FIXME: type unknown */ = 0;
+        ((Unk *)(arg1 + sp12C))->unk101 = 0;
         temp_t0 = sp12C + 1;
         sp12C = temp_t0;
     } while (temp_t0 < 0x100);

@@ -30,7 +30,7 @@ void func_800721A8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         goto block_5;
     }
 block_3:
-    D_80188B5C.unk0 /* FIXME: was .unk-22C */ = (s32) (D_80188B5C.unk0 /* FIXME: was .unk-22C */ - 1);
+    *(s32*)((char*)&D_80188B5C - 0x22C) = (s32) (*(s32*)((char*)&D_80188B5C - 0x22C) - 1);
     return;
 block_4:
     var_s5 = 1;

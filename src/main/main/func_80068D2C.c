@@ -154,15 +154,15 @@ void func_80068D2C(s32 arg0, f32 arg1) {
                 var_s0 = var_s5 + 0x24;
                 do {
                     temp_fv1 = temp_s1->unk0;
-                    temp_ft2 = (f32) var_s0->unk0 /* FIXME: was ->unk-18 */ - temp_fv1;
-                    if ((temp_ft2 < temp_fs0) && (temp_ft1 = temp_s1->unk4, (((f32) var_s0->unk0 /* FIXME: was ->unk-14 */ - temp_ft1) < temp_fs0)) && (temp_ft0 = temp_s1->unk8, (((f32) var_s0->unk0 /* FIXME: was ->unk-10 */ - temp_ft0) < temp_fs0)) && (temp_fv1_2 = (f32) -var_t4, (temp_fv1_2 < ((f32) var_s0->unk0 /* FIXME: was ->unk-C */ - temp_fv1))) && (temp_fv1_2 < ((f32) var_s0->unk0 /* FIXME: was ->unk-8 */ - temp_ft1)) && (temp_fv1_2 < ((f32) var_s0->unk0 /* FIXME: was ->unk-4 */ - temp_ft0))) {
+                    temp_ft2 = (f32) *(f32*)((char*)var_s0 - 18)- temp_fv1;
+                    if ((temp_ft2 < temp_fs0) && (temp_ft1 = temp_s1->unk4, (((f32) *(f32*)((char*)var_s0 - 14)- temp_ft1) < temp_fs0)) && (temp_ft0 = temp_s1->unk8, (((f32) *(f32*)((char*)var_s0 - 10)- temp_ft0) < temp_fs0)) && (temp_fv1_2 = (f32) -var_t4, (temp_fv1_2 < ((f32) *(s32*)((char*)var_s0 - 12) - temp_fv1))) && (temp_fv1_2 < ((f32) *(f32*)((char*)var_s0 - 8)- temp_ft1)) && (temp_fv1_2 < ((f32) *(f32*)((char*)var_s0 - 4)- temp_ft0))) {
                         sp18 = temp_ft2;
-                        sp1C = (f32) var_s0->unk0 /* FIXME: was ->unk-C */ - temp_s1->unk0;
-                        sp20 = (f32) var_s0->unk0 /* FIXME: was ->unk-14 */ - temp_s1->unk4;
-                        sp24 = (f32) var_s0->unk0 /* FIXME: was ->unk-8 */ - temp_s1->unk4;
-                        sp28 = (f32) var_s0->unk0 /* FIXME: was ->unk-10 */ - temp_s1->unk8;
+                        sp1C = (f32) *(s32*)((char*)var_s0 - 12) - temp_s1->unk0;
+                        sp20 = (f32) *(f32*)((char*)var_s0 - 14)- temp_s1->unk4;
+                        sp24 = (f32) *(f32*)((char*)var_s0 - 8)- temp_s1->unk4;
+                        sp28 = (f32) *(f32*)((char*)var_s0 - 10)- temp_s1->unk8;
                         var_a0 = 0;
-                        sp2C = (f32) var_s0->unk0 /* FIXME: was ->unk-4 */ - temp_s1->unk8;
+                        sp2C = (f32) *(f32*)((char*)var_s0 - 4)- temp_s1->unk8;
                         var_v1_3 = 0 & 1;
 loop_23:
                         temp_ft0_2 = (&sp18)[var_v1_3];
@@ -183,7 +183,7 @@ loop_23:
                             temp_a3->unk0 = 0xDA380003;
                             D_80173CC0 = temp_a1_2;
                             D_80173CC0 = temp_a1_2 + 8;
-                            temp_a3->unk4 = (s32) (var_t1->unk0 /* FIXME: was ->unk-3810 */ + (D_8017C118 << 7) + (var_t0->unk1E70 << 6));
+                            temp_a3->unk4 = (s32) (*(s32*)((char*)var_t1 - 3810)+ (D_8017C118 << 7) + (var_t0->unk1E70 << 6));
                             D_80173CC0->unk8 = 0xDE000000;
                             D_8017C118 += 1;
                             temp_a1_2->unk4 = (s32) var_s0->unk0;

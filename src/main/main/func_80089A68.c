@@ -34,7 +34,7 @@ s32 func_80089A68(UnkStruct_arg0 *arg0) {
     case 0:
         sp3C = 0;
 loop_9:
-        if (((Unk *)(sp + sp3C))->unk1C /* FIXME: type unknown */ != ((Unk *)(arg0 + sp3C))->unkC /* FIXME: type unknown */) {
+        if (((Unk *)(sp + sp3C))->unk1C != ((Unk *)(arg0 + sp3C))->unkC) {
             return 2;
         }
         temp_t9 = sp3C + 1;

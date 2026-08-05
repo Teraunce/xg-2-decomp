@@ -64,7 +64,7 @@ loop_4:
     }
     sp2C = 0;
 loop_15:
-    if (((Unk *)(sp + sp2C))->unk54 /* FIXME */ == ((Unk *)(sp + sp2C))->unk34 /* FIXME */) {
+    if (((Unk *)(sp + sp2C))->unk54 == ((Unk *)(sp + sp2C))->unk34) {
         temp_t4 = sp2C + 1;
         sp2C = temp_t4;
         if (temp_t4 < 0x20) {
@@ -128,7 +128,7 @@ loop_31:
         }
         sp2C = 0;
 loop_37:
-        if (((Unk *)(sp + sp2C))->unk54 != (arg2 + sp2C)->unk54 /* FIXME */) {
+        if (((Unk *)(sp + sp2C))->unk54 != (arg2 + sp2C)->unk54) {
             return 0xA;
         }
         temp_t5_2 = sp2C + 1;

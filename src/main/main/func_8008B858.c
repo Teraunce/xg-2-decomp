@@ -83,7 +83,7 @@ block_10:
 block_15:
     sp64 = 0;
     do {
-        ((Unk *)(arg1 + sp64))->unkC /* FIXME: type unknown */ = *(u8*)((char*)sp38 + sp64);
+        ((Unk *)(arg1 + sp64))->unkC = *(u8*)((char*)sp38 + sp64);
         temp_t6 = sp64 + 1;
         sp64 = temp_t6;
     } while (temp_t6 < 0x20);

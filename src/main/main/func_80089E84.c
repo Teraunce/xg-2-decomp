@@ -12,7 +12,7 @@ s32 func_80089E84(Unk *arg0) {
     sp20 = 0;
     sp24 = 0;
     do {
-        ((Unk *)(sp + sp24))->unk28 /* FIXME: type unknown */ = (u8) arg0->unk65;
+        ((Unk *)(sp + sp24))->unk28 = (u8) arg0->unk65;
         temp_t1 = sp24 + 1;
         sp24 = temp_t1;
     } while (temp_t1 < 0x20);

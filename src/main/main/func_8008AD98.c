@@ -101,13 +101,13 @@ block_26:
     arg2->unk4 = sp28;
     sp20 = 0;
     do {
-        ((Unk *)(arg2 + sp20))->unkE /* FIXME: type unknown */ = (u8) ((Unk *)(sp + sp20))->unk38 /* FIXME: type unknown */;
+        ((Unk *)(arg2 + sp20))->unkE = (u8) ((Unk *)(sp + sp20))->unk38;
         temp_t5 = sp20 + 1;
         sp20 = temp_t5;
     } while (temp_t5 < 0x10);
     sp20 = 0;
     do {
-        ((Unk *)(arg2 + sp20))->unkA /* FIXME: type unknown */ = (u8) ((Unk *)(sp + sp20))->unk34 /* FIXME: type unknown */;
+        ((Unk *)(arg2 + sp20))->unkA = (u8) ((Unk *)(sp + sp20))->unk34;
         temp_t9 = sp20 + 1;
         sp20 = temp_t9;
     } while (temp_t9 < 4);

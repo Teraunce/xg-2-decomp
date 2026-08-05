@@ -40,8 +40,8 @@ void func_8007A758(char *arg0, char *arg1) {
                 var_t0 += 8;
                 temp_fa0 = (s32) var_ft4;
                 temp_fa1 = (s32) (var_ft5 * 65536.0f);
-                var_v0->unk0 /* FIXME: was ->unk-4 */ = (s32) ((temp_fa1 & 0xFFFF0000) | ((temp_fa0 >> 0x10) & 0xFFFF));
-                var_v1->unk0 /* FIXME: was ->unk-4 */ = (s32) (((temp_fa1 << 0x10) & 0xFFFF0000) | (temp_fa0 & 0xFFFF));
+                *(f32*)((char*)var_v0 - 4)= (s32) ((temp_fa1 & 0xFFFF0000) | ((temp_fa0 >> 0x10) & 0xFFFF));
+                *(f32*)((char*)var_v1 - 4)= (s32) (((temp_fa1 << 0x10) & 0xFFFF0000) | (temp_fa0 & 0xFFFF));
                 var_ft5 = var_t0->unk0;
                 var_ft4 = var_t0->unk4 * 65536.0f;
             } while (var_a0 != 2);
@@ -50,8 +50,8 @@ void func_8007A758(char *arg0, char *arg1) {
         var_v1 += 4;
         temp_fa0_2 = (s32) var_ft4;
         temp_fa1_2 = (s32) (var_ft5 * 65536.0f);
-        var_v0->unk0 /* FIXME: was ->unk-4 */ = (s32) ((temp_fa1_2 & 0xFFFF0000) | ((temp_fa0_2 >> 0x10) & 0xFFFF));
-        var_v1->unk0 /* FIXME: was ->unk-4 */ = (s32) (((temp_fa1_2 << 0x10) & 0xFFFF0000) | (temp_fa0_2 & 0xFFFF));
+        *(f32*)((char*)var_v0 - 4)= (s32) ((temp_fa1_2 & 0xFFFF0000) | ((temp_fa0_2 >> 0x10) & 0xFFFF));
+        *(f32*)((char*)var_v1 - 4)= (s32) (((temp_fa1_2 << 0x10) & 0xFFFF0000) | (temp_fa0_2 & 0xFFFF));
         var_a2 += 1;
         var_a3 += 0x10;
     } while (var_a2 != 4);

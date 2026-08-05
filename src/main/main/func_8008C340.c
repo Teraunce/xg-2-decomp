@@ -32,7 +32,7 @@ loop_1:
         } else {
             sp1C = arg0->unk60;
         }
-        if ((sp23 == arg1) || (((Unk *)((char*)arg2 + sp28))->unk101 /* FIXME: type unknown */ & (1 << ((s32) sp23 % 8)))) {
+        if ((sp23 == arg1) || (((Unk *)((char*)arg2 + sp28))->unk101 & (1 << ((s32) sp23 % 8)))) {
             if (sp23 != arg2->unk100) {
                 sp18 = func_80089B64(arg0, arg2, 0, sp23);
                 if ((sp18 != 0) && (sp18 != 3)) {

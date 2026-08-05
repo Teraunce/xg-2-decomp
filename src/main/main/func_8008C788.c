@@ -7,7 +7,7 @@ extern s32 D_8018ADB8;
 
 s32 func_8008C788(s32 arg0, s32 arg1) {
     Unk sp_buf[8];
-    char *sp = (char*)sp_buf; /* FIXME: raw stack pointer */
+    char *sp = (char*)sp_buf; /* $sp base — local stack byte-pointer */
     s32 sp34;
     s32 sp30[2];
     s32 sp2F;

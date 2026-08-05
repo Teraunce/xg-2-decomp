@@ -40,7 +40,7 @@ loop_3:
             if (arg3 != 0) {
                 sp40 = 0;
 loop_9:
-                if (*(s32*)(s32)(arg3 + sp40) != ((Unk *)(sp + sp40))->unk30 /* FIXME: type unknown */) {
+                if (*(s32*)(s32)(arg3 + sp40) != ((Unk *)(sp + sp40))->unk30) {
                     sp18 = 1;
                 } else {
                     temp_t4 = sp40 + 1;
@@ -53,7 +53,7 @@ loop_9:
             if ((arg4 != 0) && (sp18 == 0)) {
                 sp40 = 0;
 loop_15:
-                if (*(s32*)(s32)(arg4 + sp40) != ((Unk *)(sp + sp40))->unk2C /* FIXME: type unknown */) {
+                if (*(s32*)(s32)(arg4 + sp40) != ((Unk *)(sp + sp40))->unk2C) {
                     sp18 = 1;
                 } else {
                     temp_t4_2 = sp40 + 1;

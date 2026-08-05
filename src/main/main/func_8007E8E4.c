@@ -40,7 +40,7 @@ void func_8007E958(Unk *arg0, char *arg1, s32 arg2) {
                 var_a3 += 1;
                 var_v1 += 1;
                 var_v0 += 1;
-                var_v1->unk0 /* FIXME: was ->unk-1 */ = temp_t6;
+                *(u8*)((char*)var_v1 - 1)= temp_t6;
             } while (temp_a1 != var_a3);
             if (var_a3 != arg2) {
                 goto loop_4;
@@ -50,12 +50,12 @@ void func_8007E958(Unk *arg0, char *arg1, s32 arg2) {
 loop_4:
                 var_a3 += 4;
                 var_v1 += 4;
-                var_v1->unk0 /* FIXME: was ->unk-4 */ = (u8) var_v0->unk0;
+                *(s32*)((char*)var_v1 - 4)= (u8) var_v0->unk0;
                 temp_t8 = var_v0->unk1;
                 var_v0 += 4;
-                var_v1->unk0 /* FIXME: was ->unk-3 */ = temp_t8;
-                var_v1->unk0 /* FIXME: was ->unk-2 */ = (u8) var_v0->unk0 /* FIXME: was ->unk-2 */;
-                var_v1->unk0 /* FIXME: was ->unk-1 */ = (u8) var_v0->unk0 /* FIXME: was ->unk-1 */;
+                *(u8*)((char*)var_v1 - 3)= temp_t8;
+                *(u16*)((char*)var_v1 - 2)= (u8) *(u16*)((char*)var_v0 - 2)
+                *(u8*)((char*)var_v1 - 1)= (u8) *(u8*)((char*)var_v0 - 1)
             } while (var_a3 != arg2);
         }
     }

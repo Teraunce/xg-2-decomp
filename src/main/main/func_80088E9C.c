@@ -48,7 +48,7 @@ void func_80088E9C(s32 arg0, u16 arg1, u8 *arg2) {
     sp20 = temp_v0 | (arg1 << 5);
     sp18 = 0;
     do {
-        ((Unk *)(sp + sp18))->unk22 /* FIXME: type unknown */ = (u8) *arg2;
+        ((Unk *)(sp + sp18))->unk22 = (u8) *arg2;
         temp_t7 = sp18 + 1;
         sp18 = temp_t7;
         arg2 += 1;

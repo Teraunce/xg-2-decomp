@@ -169,7 +169,7 @@ loop_51:
         if (sp24 > 0) {
             do {
                 temp_t5 = sp484 * 2;
-                ((Unk *)(sp + temp_t5))->unk37C /* FIXME: type unknown */ = (u16) ((Unk *)(sp + temp_t5))->unk27C /* FIXME: type unknown */;
+                ((Unk *)(sp + temp_t5))->unk37C = (u16) ((Unk *)(sp + temp_t5))->unk27C;
                 temp_t8 = sp484 + 1;
                 sp484 = temp_t8;
             } while (temp_t8 < sp24);

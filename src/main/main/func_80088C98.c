@@ -55,9 +55,9 @@ loop_5:
         temp_at = (s32) var_t9->unk0;
         var_t9 += 0xC;
         var_t8 += 0xC;
-        var_t8->unk0 /* FIXME: was ->unk-C */ = temp_at;
-        var_t8->unk0 /* FIXME: was ->unk-8 */ = (s32) (s32) var_t9->unk0 /* FIXME: was ->unk-8 */;
-        var_t8->unk0 /* FIXME: was ->unk-4 */ = (s32) (s32) var_t9->unk0 /* FIXME: was ->unk-4 */;
+        *(s32*)((char*)var_t8 - 12) = temp_at;
+        *(s32*)((char*)var_t8 - 8)= (s32) (s32) *(s32*)((char*)var_t9 - 8)
+        *(s32*)((char*)var_t8 - 4)= (s32) (s32) *(s32*)((char*)var_t9 - 4)
     } while ((char*)var_t9 != temp_t1);
     var_t8->unk0 = (s32) (s32) var_t9->unk0;
     temp_t4 = (s32) (sp2E & 0xC0) >> 4;
