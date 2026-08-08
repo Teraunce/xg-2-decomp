@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_8008EF38 — GBI command dispatcher variant (nonmatching).
+ * gbiCmdDispatch — GBI command dispatcher variant (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -25,4 +25,4 @@
  * Likely signature (non-C-expressible): (Unk *s0_ctx, u8 a1_cmd)
  * where s0_ctx arrives in $s0 from the caller's register state.
  */
-void func_8008EF38(void) { /* nonmatching — see asm stub */ }
+void gbiCmdDispatch(void) { /* nonmatching — see asm stub */ }

@@ -3,7 +3,7 @@ s32 osContPakWrite(s32, s32, u16, s32, s32);         /* extern */
 s32 contPakReadNoteDir(void *);                          /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);              /* extern */
-s32 func_8008A898(void *, u8*, s32, void *);        /* extern */
+s32 contPakWriteNote(void *, u8*, s32, void *);        /* extern */
 
 s32 contPakWriteNote(Unk *arg0, s32 arg1, u8 arg2, s32 arg3, s32 arg4, char *arg5) {
     s32 sp154;
@@ -63,7 +63,7 @@ s32 contPakWriteNote(Unk *arg0, s32 arg1, u8 arg2, s32 arg3, s32 arg4, char *arg
     sp30 = sp13A;
     if (sp2C >= 8) {
 loop_29:
-        sp154 = func_8008A898(arg0, &sp23, &sp34, &sp30);
+        sp154 = contPakWriteNote(arg0, &sp23, &sp34, &sp30);
         if (sp154 != 0) {
             return sp154;
         }
@@ -80,7 +80,7 @@ block_32:
     if (temp_t3 > 0) {
 loop_33:
         if (sp2C == 8) {
-            sp154 = func_8008A898(arg0, &sp23, &sp34, &sp30);
+            sp154 = contPakWriteNote(arg0, &sp23, &sp34, &sp30);
             if (sp154 != 0) {
                 return sp154;
             }

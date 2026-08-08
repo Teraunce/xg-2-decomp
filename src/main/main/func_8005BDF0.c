@@ -10,7 +10,7 @@ extern s32 D_801816A8;
 extern Unk D_80181E30;
 extern char *D_80181E34;
 
-s32 func_8005BDF0(s32 arg0, s32 arg1) {
+s32 audioDmaBufAlloc(s32 arg0, s32 arg1) {
     char *temp_a0;
     Unk *temp_s0;
     Unk *temp_s1;

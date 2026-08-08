@@ -4,7 +4,7 @@ void __osTimerInsert(Unk*, void**);                    /* extern */
 extern u32 D_801816A8;
 extern Unk D_80181E30;
 
-void func_8005C010(void) {
+void audioBufRecycle(void) {
     char *temp_s1;
     Unk *var_s0;
 

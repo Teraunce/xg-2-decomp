@@ -20,7 +20,7 @@ typedef struct {
 } UnkStruct_sp1C;
 
 void osWritebackDCache(u32, s32);                         /* extern */
-char *func_80086928(void *);                        /* extern */
+char *spTaskLoad(void *);                        /* extern */
 s32 sfxIsBusy();                                /* extern */
 void osSpSetStatus(s32);                                 /* extern */
 s32 osSpSetPcIfHalted(s32);                               /* extern */
@@ -30,7 +30,7 @@ extern s32 D_A0000000;
 void sfxLoadUcode(UnkStruct_arg0 *arg0) {
     UnkStruct_sp1C *sp1C;
 
-    sp1C = func_80086928(arg0);
+    sp1C = spTaskLoad(arg0);
     if (sp1C->unk4 & 1) {
         sp1C->unk18 = (s32) sp1C->unk38;
         sp1C->unk1C = (s32) sp1C->unk3C;

@@ -1,13 +1,13 @@
 #include "ultra64.h"
 s32 byteArrayFind(void *, u8);                         /* extern */
-void func_8008EF38();                                  /* extern */
+void gbiCmdDispatch();                                  /* extern */
 extern s32 D_8004CFD8;
 extern s32 D_8004CFDC;
 extern s32 D_8004CFE4;
 extern u8 D_800964C0;
 extern u8 D_800964E4;
 
-s32 func_8008F5A8(s32 (*arg0)(s32, u8 *, s32, u8 *), s32 arg1, u8 *arg2, s32 arg3) {
+s32 vsprintfCore(s32 (*arg0)(s32, u8 *, s32, u8 *), s32 arg1, u8 *arg2, s32 arg3) {
     u8 spD4;
     s32 spD0;
     s32 spCC;
@@ -170,7 +170,7 @@ loop_29:
         spD4 = 0x4C;
         var_s2_2 += 1;
     }
-    func_8008EF38();
+    gbiCmdDispatch();
     temp_t9_3 = (((((spC8 - spAC) - spB0) - spB4) - spB8) - spBC) - spC0;
     spC8 = temp_t9_3;
     temp_t6 = temp_t9_3 > 0;

@@ -3,7 +3,7 @@
 
 void sfxHeapInsert(void *, s32, s32);                         /* extern */
 void sfxMarkEntityActive(void*);                               /* extern */
-void func_8006211C(void *);                               /* extern */
+void sfxFindEntity(void *);                               /* extern */
 s32 sfxHasEntity(void *);                             /* extern */
 s32 sfxGetTopEntity();                                /* extern */
 s32 sfxGetAllocEntity();                                /* extern */
@@ -27,7 +27,7 @@ void func_800705F0(s32 arg0) {
     if ((D_801887D0.unk160 < 0) || (D_801887D0.unk16C != 0)) {
         sfxMarkEntityActive(sfxGetTopEntity());
         if (D_801887D0.unk178 != 0) {
-            func_8006211C((void*)(s32)D_801887D0.unk178);
+            sfxFindEntity((void*)(s32)D_801887D0.unk178);
         }
         if (D_801887D0.unk174 != 0) {
             ((void(*)(s32, s32))(s32)D_801887D0.unk174)(arg0, D_801887D0.unk168);
@@ -49,7 +49,7 @@ void func_800705F0(s32 arg0) {
                 var_a0 = &D_800E412C;
                 if (sfxHasEntity(&D_800E412C) != 0) {
 block_21:
-                    func_8006211C(var_s0);
+                    sfxFindEntity(var_s0);
                 } else {
 block_20:
                     sfxHeapInsert(var_a0, -3, 1);

@@ -3,10 +3,10 @@ s32 sfxQueueCmd(s16, f32, s32, s8, s32);           /* extern */
 void audioQueuePlay(s32, f32, s32, s8, s32);           /* extern */
 void audioQueueStop(s32);                               /* extern */
 s32 audioQueueFind(s32, f32*, s32*, s32*);                    /* extern */
-s32 func_8005DFAC(f32 *, s32 *, s32 *, s32 *);      /* extern */
+s32 sfxEntitySpatial(f32 *, s32 *, s32 *, s32 *);      /* extern */
 extern s32 D_80092844;
 
-void func_8005E09C(s32 arg1, f32 arg2, s32 arg3, s32 *arg4) {
+void sfxEntitySpatialUpdate(s32 arg1, f32 arg2, s32 arg3, s32 *arg4) {
     s32 sp1C;
     s32 sp18;
     s32 temp_a0;
@@ -14,7 +14,7 @@ void func_8005E09C(s32 arg1, f32 arg2, s32 arg3, s32 *arg4) {
 
     sp18 = 0x40;
     sp1C = 0;
-    if (func_8005DFAC(&arg2, &arg3, &sp18, &sp1C) != 0) {
+    if (sfxEntitySpatial(&arg2, &arg3, &sp18, &sp1C) != 0) {
         temp_a0 = *arg4;
         if (temp_a0 != 0) {
             if (audioQueueFind(temp_a0, 0, 0, 0) != 0) {

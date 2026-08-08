@@ -4,7 +4,7 @@ s32 heap_alloc_default(s32);                             /* extern */
 void audioDecodeStart(void);                              /* extern */
 extern s32 D_80192880;
 
-s32 func_8004D5B4(s32 arg0) {
+s32 gfxAudioDecodeWait(s32 arg0) {
     s32 temp_s1;
     s32 temp_v0;
 

@@ -29,6 +29,7 @@ s32 osSpGetStatus(void) {
     return D_A4040010;
 }
 
-void func_80086DD8(void) {
-
+void viMgrInit(void);  /* forward: GETTER_NOJR fallthrough */
+void viMgrInitGetter(void) {
+    viMgrInit();  /* GETTER_NOJR: loads D_800955C0 into $t6, falls into viMgrInit */
 }

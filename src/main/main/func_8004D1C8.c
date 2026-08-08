@@ -17,7 +17,7 @@ extern s32 D_8016DF70;
 extern s32 D_801A3000;
 extern s32 D_803DA400;
 
-void func_8004D1C8(s32 arg0, u8 *arg1, s32 arg2) {
+void rspReadBytes(s32 arg0, u8 *arg1, s32 arg2) {
     s32 sp38;
     s32 sp20;
     s32 temp_a1;
@@ -78,7 +78,7 @@ void func_8004D344(void) {
     gDLWritePtr = gDLSavePtr;
 }
 
-void func_8004D358(void) {
+void dlResetPtr(void) {
     if (gDLBase != NULL) {
         gDLWritePtr = gDLBase;
         return;
@@ -117,7 +117,7 @@ void func_8004D3A8(s32 arg0, s32 arg1) {
     }
 }
 
-void func_8004D420(void) {
+void rspResetCounters(void) {
     gRSPTaskA = 0;
     gRSPTaskB = 0;
 }

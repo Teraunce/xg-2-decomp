@@ -88,9 +88,9 @@ loop_4:
 }
 
 /*
- * func_8007D678 — write COP0 Compare register (timer interrupt threshold).
+ * setCOP0Compare — write COP0 Compare register (timer interrupt threshold).
  * Uses `mtc0 $a0, $11` — not expressible in standard C.
  */
-void func_8007D678(void) {
+void setCOP0Compare(void) {
     /* mtc0 $a0, $11 — write COP0 Compare */
 }

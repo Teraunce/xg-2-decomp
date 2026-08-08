@@ -1,6 +1,6 @@
 #include "ultra64.h"
 /*
- * func_8006C128 — rendering/scene-graph sub-dispatcher (nonmatching).
+ * renderSceneDispatch — rendering/scene-graph sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -13,4 +13,4 @@
  *
  * Function size: 0xC64 bytes.
  */
-void func_8006C128(void) { /* nonmatching — see asm stub */ }
+void renderSceneDispatch(void) { /* nonmatching — see asm stub */ }

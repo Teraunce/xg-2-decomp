@@ -19,7 +19,7 @@ extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
 extern s32 D_8018ADF8;
 
-s32 func_8008C898(UnkStruct_arg0 *arg0) {
+s32 contPakSiDmaRead(UnkStruct_arg0 *arg0) {
     s32 sp4C;
     s32 sp48;
     char *sp44;

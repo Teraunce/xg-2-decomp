@@ -1,11 +1,11 @@
 #include "ultra64.h"
-void func_8004D8C0(s32, s32);                          /* extern */
+void viSetResolution(s32, s32);                          /* extern */
 void __osInvalICache_full(void);                             /* extern */
 extern s32 osMemSize;
 extern s32 D_80090E94;
 extern s32 D_80095650;
 
-void func_8004DC24(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+void viInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     s32 sp30;
     s32 sp2C;
     u32 sp28;
@@ -50,7 +50,7 @@ void func_8004DC24(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     Unk *var_a2;
     Unk *var_v0;
 
-    func_8004D8C0(arg1, arg2);
+    viSetResolution(arg1, arg2);
     var_a1 = (arg2 >= 0x101) * 2;
     if (arg1 >= 0x141) {
         var_a1 |= 1;

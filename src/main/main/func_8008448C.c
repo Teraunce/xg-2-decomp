@@ -1,10 +1,10 @@
 #include "ultra64.h"
-f64 func_800842C0(f64, s32 *);                      /* extern */
+f64 frexp(f64, s32 *);                      /* extern */
 extern f64 D_8004CED8;
 extern f64 D_8004CEE0;
 extern Unk D_80095570;
 
-s16 func_8008448C(f64 arg1, s32 arg0) {
+s16 audioCalcRatio(f64 arg1, s32 arg0) {
     s16 *saved_reg_s1 = NULL; /* implicit $s1 set by caller — not saved/restored here */
     s32 spB0;
     s32 sp68[32];
@@ -39,7 +39,7 @@ s16 func_8008448C(f64 arg1, s32 arg0) {
     ((Unk*)&sp68)->unk3C = (s32) D_80095570.unk3C;
     var_s0 = (s32) ((1.0 / (f64) arg0) * temp_fs0);
     var_fv1 = 1.0;
-    var_fv0 = 1.0 + (((*(f32*)((char*)(((s32)sp68 + ((s32) (func_800842C0(var_fa1 / (s32)0.0 /* implicit $fs0/$f16 float from caller */, &spB0) * (f64) 0x10) * 8)))) - 40)+ (f64) spB0) * D_8004CED8) / (1.0 * temp_fs0);
+    var_fv0 = 1.0 + (((*(f32*)((char*)(((s32)sp68 + ((s32) (frexp(var_fa1 / (s32)0.0 /* implicit $fs0/$f16 float from caller */, &spB0) * (f64) 0x10) * 8)))) - 40)+ (f64) spB0) * D_8004CED8) / (1.0 * temp_fs0);
 
     if (var_s0 != 0) {
         do {

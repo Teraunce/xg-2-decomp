@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_8008506C — object command dispatch (nonmatching).
+ * audioNodeCmd — object command dispatch (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  * 1. Non-standard ABI: command code arrives in $t6, not $a0-$a3.
@@ -23,7 +23,7 @@
  *
  * Function size: 0xE8 bytes.
  */
-s32 func_8008506C(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
+s32 audioNodeCmd(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     /* nonmatching: command code in $t6 (non-standard) — see asm stub */
     (void)arg1; (void)arg2; (void)arg3;
     return 0;

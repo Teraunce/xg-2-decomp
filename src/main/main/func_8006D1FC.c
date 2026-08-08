@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_8006D1FC — main game-loop dispatcher / renderer (nonmatching).
+ * gameLoopDispatch — main game-loop dispatcher / renderer (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -23,4 +23,4 @@
  * traversal, and the full RCP display-list build for each frame.  Even
  * ignoring the ABI issue, it would be extremely difficult to match.
  */
-void func_8006D1FC(void) { /* nonmatching — see asm stub */ }
+void gameLoopDispatch(void) { /* nonmatching — see asm stub */ }

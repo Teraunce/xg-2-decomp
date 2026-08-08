@@ -1,6 +1,6 @@
 #include "ultra64.h"
 /*
- * func_80050408 — main game-loop top-level dispatcher (nonmatching).
+ * gameMainLoop — main game-loop top-level dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — three reasons:
  *
@@ -20,4 +20,4 @@
  * frame pointer adjusted).
  * Function size: 0x1DB4 bytes — second largest in the project.
  */
-void func_80050408(void) { /* nonmatching — see asm stub */ }
+void gameMainLoop(void) { /* nonmatching — see asm stub */ }

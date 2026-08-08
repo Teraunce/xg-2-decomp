@@ -25,11 +25,11 @@ f32 sinf(f32);                             /* sinf */
 extern f32 D_8004BD8C;
 
 /*
- * func_8005698C — init Z-axis rotation matrix (nonmatching).
+ * mtxRotZF — init Z-axis rotation matrix (nonmatching).
  *
  * arg_ft1 and arg_fv0 are passed in non-standard float registers ($f7/$f0)
  * by the SN64 compiler; not expressible as normal C parameters.
- * Called via getter func_80056980 which loads D_8004BD88 into $fv0 and
+ * Called via getter mtxRotAxisFGetter2 which loads D_8004BD88 into $fv0 and
  * moves $a1 into $ft1.
  *
  * The matrix written is a rotation around the Z axis by angle (arg_ft1 * arg_fv0):
@@ -39,7 +39,7 @@ extern f32 D_8004BD8C;
  *   [ 0     0    0  D ]
  * where D = D_8004BD8C (likely 1.0f).
  */
-void func_8005698C(Matrix4x4 *arg0 /*, f32 arg_ft1, f32 arg_fv0 */) {
+void mtxRotZF(Matrix4x4 *arg0 /*, f32 arg_ft1, f32 arg_fv0 */) {
     /* angle = arg_ft1 * arg_fv0  (mul.s $fs0, $ft1, $fv0) */
     f32 sin_val = sinf(0.0f /* angle */);
     f32 cos_val = cosf(0.0f /* angle */);

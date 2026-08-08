@@ -1,11 +1,11 @@
 #include "ultra64.h"
-s16 func_80058940(s16);                                 /* extern */
+s16 randRange(s16);                                 /* extern */
 void guLookAt(void *, s32, s32, s32, f32, f32, f32, s32, s32, s32); /* extern */
 void guMtxXfm(s32, s32, s32, s32, s32, s32, s32); /* extern */
 void guMtxCat(s32, s32, s32);               /* extern */
-void func_8007B118(void *, u16 *, f32, f32, f32, f32, f32); /* extern */
+void guPerspective(void *, u16 *, f32, f32, f32, f32, f32); /* extern */
 void guRotateInt(void *, f32, f32);                    /* extern */
-void func_8007B55C(void *, f32, f32);                    /* extern */
+void guScaleGetter(void *, f32, f32);                    /* extern */
 s32 func_800AAEFC(u8, u8, void *, void *, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_800AAFD0(u8, u8, void *, f32, s32, s32, s32, s32, s32); /* extern */
 s32 func_8013AB6C(s32, s32, void *, void *, s32);     /* extern */
@@ -220,7 +220,7 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
     D_80173CC0 = temp_v1_2 + 8;
     D_80173CC0->unk8 = 0xDE000000;
     temp_v1_2->unk4 = &D_80093B98;
-    func_8007B55C(&sp68, D_8004C370, D_8004C370);
+    guScaleGetter(&sp68, D_8004C370, D_8004C370);
     sp134 = (s32) ((f32) temp_s0->unkB0 * arg1);
     if (gGameFlags & 1) {
         sp134 = sp134 / 2;
@@ -234,7 +234,7 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
         var_fv0_2 = D_8004C37C;
         var_ft0_2 = D_8004C380;
     }
-    func_8007B118(&sp28, &sp130, var_fv0, var_a3, var_fv0_2, (f32)sp134, var_ft0_2);
+    guPerspective(&sp28, &sp130, var_fv0, var_a3, var_fv0_2, (f32)sp134, var_ft0_2);
     temp_v1_3 = D_80173CC0;
     D_80173CC0 += 8;
     temp_v1_3->unk0 = 0xDB0E0000;
@@ -332,11 +332,11 @@ void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
     temp_s2_3 = D_80178698;
     D_80173D0C->unk0 = (s32) (((var_v1_2 & 0xFFF) << 0xC) | 0xF2000000);
     D_80173D0C->unk4 = 0;
-    temp_s0_5 = func_80058940(0x100);
-    temp_s2_3->unk0 = (s32) (((temp_s0_5 & 0xFFF) << 0xC) | ((func_80058940(0x100) & 0xFFF) | 0xF2000000));
+    temp_s0_5 = randRange(0x100);
+    temp_s2_3->unk0 = (s32) (((temp_s0_5 & 0xFFF) << 0xC) | ((randRange(0x100) & 0xFFF) | 0xF2000000));
     temp_s2_3->unk4 = 0;
     temp_s2_3->unk8 = 0xFB000000;
-    ((Unk *)(temp_s2_3 + 8))->unk4 = (s32) (func_80058940(0x100) & 0xFF);
+    ((Unk *)(temp_s2_3 + 8))->unk4 = (s32) (randRange(0x100) & 0xFF);
     temp_v1_7 = gPlayerList << 6;
     var_a1 = temp_v1_7 + ((D_8017C118 << 7) + D_8017C7F0);
     temp_v1_8 = temp_v1_7 + (arg0 * 0x228) + &gEntityPool;

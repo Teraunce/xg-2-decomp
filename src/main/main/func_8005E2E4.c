@@ -12,7 +12,7 @@ extern s32 gEntityPool;
 extern s32 D_80092844;
 extern s32 D_8017C950;
 
-void func_8005E2E4(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
+void sfxPositionalUpdateDoppler(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
     s32 sp34;
     s32 sp30;
     f32 temp_fv1;
@@ -50,7 +50,7 @@ block_10:
     }
 }
 
-s32 func_8005E45C(f32 arg0, f32 arg1, f32 arg2, s32 *arg3, s32 *arg4) {
+s32 entityFindNearest(f32 arg0, f32 arg1, f32 arg2, s32 *arg3, s32 *arg4) {
     Unk *var_a1;
     Unk *var_v1;
     f32 temp_ft0;

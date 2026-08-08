@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80061AC8(s32, s32, u32);                       /* extern */
+void sfxEntryWrite(s32, s32, u32);                       /* extern */
 u16 sfxAllocBlock(s32);                             /* extern */
 void sfxPlay(u16);                               /* extern */
 s32 sfxGetEntry(s32);                             /* extern */
@@ -21,7 +21,7 @@ extern Unk D_801887D0;
 extern s32 D_80188938;
 extern s32 D_80188940;
 
-void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
+void contPakCreateNote(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     u16 sp44;
     s32 sp40;
     s32 sp20;
@@ -38,7 +38,7 @@ void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     temp_v0_2 = sfxAllocBlock(temp_v0);
     sp44 = temp_v0_2;
     temp_s0 = temp_v0_2 & 0xFFFF;
-    func_80061AC8(sfxGetEntry(temp_s0), 0xDEADBEEF, temp_v0 >> 2);
+    sfxEntryWrite(sfxGetEntry(temp_s0), 0xDEADBEEF, temp_v0 >> 2);
     temp_s0_2 = sfxGetEntry(temp_s0);
     temp_s1 = sfxGetEntry(temp_s0) + temp_v0;
     arg3(temp_s0_2);

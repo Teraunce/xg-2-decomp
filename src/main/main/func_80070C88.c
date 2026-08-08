@@ -3,7 +3,7 @@ s32 sfxHasEntity(void *);                             /* extern */
 void gameHandlerSetup(s32, s32);                        /* extern */
 extern s32 gHandlerTable;
 
-void func_80070C88(s32 arg0, s32 arg1) {
+void sfxHandlerEnsure(s32 arg0, s32 arg1) {
     if (sfxHasEntity(&gHandlerTable) == 0) {
         gameHandlerSetup(2, arg1);
     }

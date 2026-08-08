@@ -4,7 +4,7 @@ s32 contPakChecksum(s32, u16*, u16*);              /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);           /* extern */
 
-s32 func_80089674(Unk *arg0, Unk *arg1) {
+s32 contPakVerifyNote(Unk *arg0, Unk *arg1) {
     Unk *sp = (Unk*)0;
     s8 sp30;
     s32 sp2C;

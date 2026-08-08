@@ -1,6 +1,6 @@
 #include "ultra64.h"
 /*
- * func_800541C0 — large game-state / object-pool sub-dispatcher (nonmatching).
+ * gameThreadEntry — large game-state / object-pool sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -14,4 +14,4 @@
  * Entry begins with a zeroing loop, suggesting pool or table initialization.
  * Function size: 0x1418 bytes.
  */
-void func_800541C0(void) { /* nonmatching — see asm stub */ }
+void gameThreadEntry(void) { /* nonmatching — see asm stub */ }

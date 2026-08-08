@@ -1,17 +1,17 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of sfxComputeSpatial (initial). */
 
-s16 func_80082418(Unk*, Unk*);                        /* extern */
-void func_800824B8(Unk*, s16);                          /* extern */
+s16 midiAllocNote(Unk*, Unk*);                        /* extern */
+void midiReleaseNote(Unk*, s16);                          /* extern */
 void midiSetNote(Unk*, s16);                          /* extern */
-void func_80082528(void *);                               /* extern */
-void func_80082598(char*);                               /* extern */
-s32 func_800825E8(char*);                             /* extern */
-void func_80082608(void *, f32);                          /* extern */
-void func_80082668(void *, s16, s32);                      /* extern */
-void func_80082698(void *, s16);                          /* extern */
-void func_800826F8(void *, s8);                           /* extern */
-void func_80082758(void *, s8);                           /* extern */
+void midiSeqStop(void *);                               /* extern */
+void midiTimerReset(char*);                               /* extern */
+s32 midiNoteIsPlaying(char*);                             /* extern */
+void midiTimerSetNote(void *, f32);                          /* extern */
+void midiNoteSetState(void *, s16, s32);                      /* extern */
+void midiSetVolume(void *, s16);                          /* extern */
+void midiSetExpression(void *, s8);                           /* extern */
+void midiSetController(void *, s8);                           /* extern */
 extern f32 D_8004BE20;
 extern f32 D_8004BE24;
 extern f32 D_8004BE28;
@@ -36,7 +36,7 @@ extern s32 D_80180908;
 extern s32 D_80180B38;
 extern s32 D_801839A4;
 
-void func_8005D178(void) {
+void midiQueueProcess(void) {
     u8 sp10;
     Unk *var_s0;
     Unk *var_s0_2;
@@ -118,8 +118,8 @@ void func_8005D178(void) {
 block_7:
             midiSetNote(D_800927F0, var_s0->unk12);
             var_s3_2 += 1;
-            if (func_800825E8(D_800927F0) == 0) {
-                func_800824B8(D_800927F0, var_s0->unk12);
+            if (midiNoteIsPlaying(D_800927F0) == 0) {
+                midiReleaseNote(D_800927F0, var_s0->unk12);
                 var_s0->unk4 = 0;
                 var_s0->unk0 = 0;
                 D_80092844 -= 1;
@@ -150,7 +150,7 @@ loop_59:
                                 temp_s1_2 = &(&sp10)[var_s2];
                                 if (!(*temp_s1_2 & 1)) {
                                     midiSetNote(D_800927F0, var_v1->unk12);
-                                    func_80082598(D_800927F0);
+                                    midiTimerReset(D_800927F0);
                                 }
                                 *temp_s1_2 = 0;
                                 var_v1->unk4 = 3;
@@ -242,7 +242,7 @@ loop_20:
                         goto loop_20;
                     }
                 } else {
-                    temp_v0_2 = func_80082418(D_800927F0, ((Unk*)(s32)(D_801808DC + (temp_s1->unk6 * 4)))->unk10);
+                    temp_v0_2 = midiAllocNote(D_800927F0, ((Unk*)(s32)(D_801808DC + (temp_s1->unk6 * 4)))->unk10);
                     if (temp_v0_2 >= 0) {
                         var_v1_3->unk0 = (s32) temp_s1->unk0;
                         var_v1_3->unk4 = (s32) temp_s1->unk4;
@@ -272,7 +272,7 @@ block_67:
                 temp_s1_3 = &(&sp10)[var_s3_4];
                 if (!(*temp_s1_3 & 1)) {
                     midiSetNote(D_800927F0, var_s0_2->unk12);
-                    func_80082598(D_800927F0);
+                    midiTimerReset(D_800927F0);
                 }
                 *temp_s1_3 = 0;
                 var_s0_2->unk4 = 3;
@@ -313,7 +313,7 @@ block_67:
                         var_fv1 = temp_fs3;
                     }
                 }
-                func_80082608(D_800927F0, var_fv1);
+                midiTimerSetNote(D_800927F0, var_fv1);
                 var_v0_4 = temp_s2 & 5;
             }
             var_v0_5 = temp_s2 & 9;
@@ -353,7 +353,7 @@ block_108:
                         var_a1 = (s16) (s32) var_fv1_4;
                     }
                 }
-                func_80082698(D_800927F0, var_a1);
+                midiSetVolume(D_800927F0, var_a1);
                 var_v0_5 = temp_s2 & 9;
             }
             var_v0_7 = temp_s2 & 0x11;
@@ -369,7 +369,7 @@ block_108:
                         var_a1_2 = 0;
                     }
                 }
-                func_800826F8(D_800927F0, var_a1_2);
+                midiSetExpression(D_800927F0, var_a1_2);
                 var_v0_7 = temp_s2 & 0x11;
             }
             var_v0_8 = temp_s2 & 1;
@@ -385,20 +385,20 @@ block_108:
                         var_a1_3 = 0;
                     }
                 }
-                func_80082758(D_800927F0, var_a1_3);
+                midiSetController(D_800927F0, var_a1_3);
                 var_v0_8 = temp_s2 & 1;
             }
             var_s3_5 += 1;
             if (var_v0_8 != 0) {
-                func_80082668(D_800927F0, var_s0_3->unk12, *(var_s0_3->unk6 + &D_80092848));
-                func_80082528(D_800927F0);
+                midiNoteSetState(D_800927F0, var_s0_3->unk12, *(var_s0_3->unk6 + &D_80092848));
+                midiSeqStop(D_800927F0);
             }
         }
         var_s0_3 += 0x14;
     } while (var_s3_5 < 0x1C);
 }
 
-s32 func_8005D9C0(void);  /* forward: GETTER_NOJR fallthrough */
+s32 sfxComputeSpatialImpl(void);  /* forward: GETTER_NOJR fallthrough */
 void sfxComputeSpatial(s32 arg2) {
-    return func_8005D9C0();
+    return sfxComputeSpatialImpl();
 }

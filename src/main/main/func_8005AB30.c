@@ -2,7 +2,7 @@
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 extern s32 D_8016DF70;
 
-void func_8005AB30(void) {
+void rspDrainMesgQueue(void) {
     s32 sp10;
     s32 temp_v0;
     Unk *temp_s0;

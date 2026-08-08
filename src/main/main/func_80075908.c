@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /* -------------------------------------------------------------------------
- * func_80075908 — hardware controller command-dispatch loop (0x250 bytes,
+ * sramHwDispatch — hardware controller command-dispatch loop (0x250 bytes,
  * nonmatching).
  *
  * Polls the status register at 0xB1FFFFF0 in an outer loop, then dispatches
@@ -26,7 +26,7 @@
  *   [6] write packed colour bytes to 0xB1FE0000
  *   [7] sramBlockRead(2)
  *   [8] sramBlockRead(1)
- *   [9] func_8007573C(), then default path
+ *   [9] sramCopyData(), then default path
  * -------------------------------------------------------------------------
  */
 
@@ -36,13 +36,13 @@ void __osPiResetCount(s32 delay);
 s32  getCOP0Status(void);
 void setCOP0Status(s32 arg0);
 void sramBlockRead(s32 arg0);
-void func_8007573C(void);
+void sramCopyData(void);
 
 extern s32 D_80188FC0;
 extern u8  D_80189168;
 extern u8  D_8018916A;
 
-void func_80075908(void) {
+void sramHwDispatch(void) {
     /* nonmatching: bnel/beql branch-likely idioms + jump table — see asm stub */
     s32 s1 = 1;
     s32 s0;
@@ -114,7 +114,7 @@ top:
                 sramBlockRead(1);
                 break;
             case 9:
-                func_8007573C();
+                sramCopyData();
                 break;
             }
         }

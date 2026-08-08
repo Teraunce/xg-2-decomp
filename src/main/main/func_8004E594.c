@@ -13,7 +13,7 @@ typedef struct {
 void sfxChannelClear(char*);                               /* extern */
 extern f32 D_8004BB18;
 
-void func_8004E594(UnkStruct_arg0 *arg0) {
+void sfxEntityInit(UnkStruct_arg0 *arg0) {
     sfxChannelClear(0);
     sfxChannelClear(arg0 + 0x78);
     arg0->unkF0 = 1;
@@ -22,7 +22,7 @@ void func_8004E594(UnkStruct_arg0 *arg0) {
     arg0->unkFC = 7;
 }
 
-void func_8004E5D8(UnkStruct_arg0 *arg0) {
+void velStateInit(UnkStruct_arg0 *arg0) {
     arg0->unk0 = 0;
     arg0->unk8 = 0;
     arg0->unk4 = (f32) D_8004BB18;

@@ -6,10 +6,10 @@ typedef struct {
     /* 0x0C */ s32 unkC;
 } UnkStruct_arg0;
 
-s32 func_8008EC64(s32, u32, s32, u32);              /* extern */
+s32 __divdi3(s32, u32, s32, u32);              /* extern */
 u64 __muldi3(s32, u32, s32, u32);              /* extern */
 
-void func_8008FE98(UnkStruct_arg0 *arg0, s32 arg2, u32 arg3, s32 arg4, u32 arg5) {
+void __divmoddi3(UnkStruct_arg0 *arg0, s32 arg2, u32 arg3, s32 arg4, u32 arg5) {
     u32 sp2C;
     s32 sp28;
     u32 sp24;
@@ -23,7 +23,7 @@ void func_8008FE98(UnkStruct_arg0 *arg0, s32 arg2, u32 arg3, s32 arg4, u32 arg5)
     u32 temp_v1_2;
     u64 temp_ret_2;
 
-    temp_ret = func_8008EC64(arg2, arg3, arg4, arg5);
+    temp_ret = __divdi3(arg2, arg3, arg4, arg5);
     temp_v0 = temp_ret;
     temp_v1 = (u32) (u64) temp_ret;
     sp20 = temp_v0;
@@ -50,6 +50,6 @@ void func_8008FE98(UnkStruct_arg0 *arg0, s32 arg2, u32 arg3, s32 arg4, u32 arg5)
     arg0->unkC = (s32) ((Unk*)&sp20)->unkC;
 }
 
-s32 func_8008FF98(s32 arg1, s32 arg2) {
+s32 intDiv(s32 arg1, s32 arg2) {
     return arg1 / arg2;
 }

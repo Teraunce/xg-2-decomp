@@ -3,7 +3,7 @@ void __osPiRawWriteIo(s32*, s32);                          /* extern */
 s32 __osPiRawReadIo(s32*);                             /* extern */
 void __osPiResetCount(s32);                                 /* extern */
 
-void func_8007573C(void) {
+void sramCopyData(void) {
     s32 temp_s4;
     s32 var_s1;
     s32 var_s2;

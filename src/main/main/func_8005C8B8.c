@@ -1,15 +1,15 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of audioQueueDispatchGetter (initial). */
 
-void func_8005C88C(s32);                                 /* extern */
+void audioSetCallback(s32);                                 /* extern */
 extern s32 gAudioStatus;
 extern s32 D_80092804;
 extern s32 D_80092818;
 extern s32 D_8009281C;
 extern s32 D_80092824;
 
-void func_8005C8B8(void) {
-    func_8005C88C(-1);
+void audioResetCallback(void) {
+    audioSetCallback(-1);
 }
 
 void audioSetTrack(s32 arg0) {
@@ -17,7 +17,7 @@ void audioSetTrack(s32 arg0) {
     D_80092824 = 1;
 }
 
-void func_8005C8EC(s32 arg0, s32 arg1) {
+void audioSetRates(s32 arg0, s32 arg1) {
     s32 temp_a0;
     s32 temp_a2;
     s32 var_a0;

@@ -34,8 +34,8 @@ extern f64 D_8004CED0;     /* double constant (scale factor, ldc1 in asm) */
 
 /* audioNodeSetValue — mesh element setter (nonmatching, in geomBufWrite.c) */
 s32 audioNodeSetValue(s32 *arg0, s32 arg1, s32 arg2);
-/* func_80085C74, geomBufWriteGetter — installed as callbacks into dest->unk4/unk28 */
-extern void func_80085C74(void);
+/* audioGeomNodeCmd, geomBufWriteGetter — installed as callbacks into dest->unk4/unk28 */
+extern void audioGeomNodeCmd(void);
 extern void geomBufWriteGetter(void);
 
 void audioGeomNodeInit(Unk *arg0, Unk *arg1, void *arg2) {
@@ -44,7 +44,7 @@ void audioGeomNodeInit(Unk *arg0, Unk *arg1, void *arg2) {
     u8 sel;
 
     /* Install callbacks and init dest object */
-    arg0->unk4  = (s32)func_80085C74;
+    arg0->unk4  = (s32)audioGeomNodeCmd;
     arg0->unk28 = (s32)geomBufWriteGetter;
     audioNodeInit(arg0, (void *)0, (void *)audioNodeSetValue, 5);
 

@@ -7,7 +7,7 @@ extern s32 D_80181578;
 extern s32 D_8018157C;
 extern s32 D_80181580;
 
-void func_8005D0C8(void) {
+void sfxAmbientTick(void) {
     s32 temp_v1;
     s32 temp_v1_2;
 

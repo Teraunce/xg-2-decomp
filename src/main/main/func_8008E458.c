@@ -5,7 +5,7 @@ extern s32 D_800964B0;
 extern s32 D_8018D308;
 extern s32 D_8018D310;
 
-void func_8008E458(void) {
+void piMgrInit(void) {
     D_800964B0 = 1;
     osCreateMesgQueue(&D_8018D310, &D_8018D308, 1);
     osSendMesg(&D_8018D310, 0, 0);

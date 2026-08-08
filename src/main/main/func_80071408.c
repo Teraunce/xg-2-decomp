@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80061A9C(s8*, s8, s32);                        /* extern */
+void memsetBytes(s8*, s8, s32);                        /* extern */
 s32 memcmp(u8 *, u8 *, s32);                   /* extern */
 s32 contPakAllocNote(Unk*, u16, s32, u8*, u8*, s32, s32*); /* extern */
 s32 contPakLoadSave(Unk*, u16, s32, s32, s32);       /* extern */
@@ -11,7 +11,7 @@ extern s8 D_80093EC8;
 extern s32 D_80093ECC;
 extern s32 D_8018894C;
 
-s32 func_80071408(s32 arg0) {
+s32 contPakFormatNote(s32 arg0) {
     s32 sp68;
     s8 sp60;
     u8 sp40;
@@ -33,7 +33,7 @@ s32 func_80071408(s32 arg0) {
     char *temp_s0_2;
     char *temp_s1;
 
-    func_80061A9C(&sp60, 0, 4);
+    memsetBytes(&sp60, 0, 4);
     temp_s1 = (arg0 * 0x68) + &D_8018894C;
     sp60 = 0x33;
     temp_v0 = contPakAllocNote(temp_s1, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, 0x100, &sp68);

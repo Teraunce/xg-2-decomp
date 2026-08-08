@@ -23,7 +23,7 @@ typedef struct {
 
 char *sfxEventDequeue();                              /* extern */
 
-void func_80086208(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2) {
+void sfxNoteUpdate(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     UnkStruct_temp_a0 *temp_a0;
     UnkStruct_temp_v0 *temp_v0;
 

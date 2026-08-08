@@ -171,7 +171,7 @@ void sfxPlayCue(void *entity, void *soundId) {
  * The code then falls through to sfxFrameTick.  Marked nonmatching;
  * the exact C form is unknown.
  * sfxFrameTick is a sub-entry (alabel) 4 bytes in; it is the callback
- * form that callers (func_80070C3C etc.) invoke directly.
+ * form that callers (gameHandlerInit etc.) invoke directly.
  * ========================================================================= */
 extern s32   D_801823C0;   /* gSfxFrameState */
 extern s32   D_801823C4;   /* gSfxBlockedFlag */

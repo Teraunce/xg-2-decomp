@@ -576,3 +576,285 @@ cacheInvalIcache = 0x80076138; // type:func // invalidate entire I-cache by inde
 audioGeomNodeInit = 0x800831F8; // type:func // geometry/vertex table node init (nonmatching: FPU loop, jtbl_8004CEB8)
 audioRspBuildDL = 0x80083BB8; // type:func // build RSP audio DL command words (0x08/0x04/0x0F/0x01 opcodes) in implicit save-reg pass
 audioTimerResched = 0x80081D08; // type:func // rescan timer list by caller key ($s3), relink matching timers via __osTimerInsert
+mtxCatFSafe = 0x80056EA8; // type:func // 4-byte guard: beq $a0,$a2 skips into mtxCatF if output!=first-input, else falls through
+trackNodeFindNearest = 0x8004EE64; // type:func // find nearest track node to (x,y,z); iterates node graph with 3D distance accumulation
+trackNodeFindNearestGetter = 0x8004EE5C; // type:func // GETTER_NOJR: falls into trackNodeFindNearest (pass-through with return D_8017CCB8)
+mtxRotAxisF = 0x800568F4; // type:func // build float rotation matrix around an axis; angle = $ft0*$fv0 (scale preloaded by getter)
+mtxRotAxisFGetter = 0x800568E8; // type:func // GETTER_NOJR: loads D_8004BD80 into $fv0, $a1→$ft0, falls into mtxRotAxisF
+mtxRotAxisFGetter2 = 0x80056980; // type:func // GETTER_NOJR: loads D_8004BD88 into $fv0, $a1→$ft1, falls into mtxRotAxisF
+guRotateDeg = 0x8007B368; // type:func // GETTER_NOJR: loads D_8004C888 deg2rad, moves $a1-$a3 to float regs, scales angle, falls into guRotate
+osEPiRawReadIoCart = 0x8008CEB8; // type:func // GETTER_NOJR: loads D_A4600010 (PI status) into $a2, falls into osEPiRawReadIo_cart
+audioNodeCmdGetter = 0x80085068; // type:func // GETTER_NOJR: falls into audioNodeCmd (audio object command dispatcher)
+audioNodeCmd = 0x8008506C; // type:func // audio object cmd dispatch: $t6-indexed jump table (cases 0/3/6/7/8/default); permanently nonmatching
+contParseReadResp = 0x80088248; // type:func // parse SI DMA read response (D_8018AD28) into controller input structs
+contParseReadRespGetter = 0x80088240; // type:func // GETTER_NOJR: falls into contParseReadResp
+siReadControllers = 0x80088048; // type:func // full SI DMA controller read cycle: init cmd, DMA, osRecvMesg x2, parse response
+contGetInputPort = 0x80087C4C; // type:func // read controller input for port arg0 via contParseReadResp into local buffer
+contParsePollResp = 0x8008B4EC; // type:func // parse SI DMA poll response (D_8018ADB8) into controller structs; return bitmask
+contParsePollRespGetter = 0x8008B4E4; // type:func // GETTER_NOJR: falls into contParsePollResp
+audioAdpcmNodeInit = 0x8008300C; // type:func // init ADPCM decode audio node: audioNodeInit(audioAdpcmCmd, audioAdpcmNodeCmd, 0) + alloc
+audioMixNodeInit = 0x80082F30; // type:func // init 6-input audio mixing/summing node: audioNodeInit(audioMixNodeCmd, 6)
+audioAdpcmNodeCmd = 0x80083638; // type:func // ADPCM audio node command handler (cmd 4=set stream, 5=set params; nonmatching)
+audioMixNodeCmd = 0x80084188; // type:func // multi-input audio mix node command handler (cmd 1=link, 5=process; nonmatching)
+audioMidiNodeCmd = 0x800843AC; // type:func // MIDI audio node cmd handler: case 1=set parent, 3=append, 4=activate, 9=pause
+guLookAtHiliteF = 0x8007A298; // type:func // build float look-at-hilite matrix from eye/at/up + hilite object params
+guLookAtHilite = 0x8007A6D8; // type:func // build look-at-hilite matrix (float) then convert to fixed-point via guMtxF2L
+osGetThreadPri = 0x80087138; // type:func // return thread priority (unk4); if arg0==NULL use __osRunningThread
+piMgrInit = 0x8008E458; // type:func // PI manager init: set D_800964B0=1, osCreateMesgQueue, osSendMesg initial
+audioNoteClearAll = 0x800814EC; // type:func // clear all unk34 note slots: zero unk60[i*0x10], call audioDefaultNoteSlot each
+sfxNoteAssign = 0x80090AE8; // type:func // assign/trigger SFX note: func_80090C38 to claim slot, queue event 0xB note-on
+piReadBytes = 0x80075044; // type:func // read arg2 bytes from PI address arg0 into buffer arg1, handles byte alignment
+viGetSyncByte = 0x800502D4; // type:func // return viRenderSync() & 0xFF (frame sync low byte)
+sfxMarkAllActive = 0x8005FC3C; // type:func // mark all active SFX entities via sfxMarkEntityActive loop; reset D_80181E48
+entityUpdateDispatch = 0x8005566C; // type:func // game-loop/entity-update sub-dispatcher (17 alabel cross-entries; nonmatching)
+sfxTableInit = 0x80063650; // type:func // init SFX free-list table (0x40 entries at D_801823D0); load sample data from gSfxDefTable
+sfxComputeFreqOffset = 0x80063F24; // type:func // compute abs distance of arg0->unk1 from D_80182EA4 target; +0x100 if origin mismatch
+sceneObjectDispatch = 0x80066580; // type:func // scene-object sub-dispatcher (5 alabel cross-entries; nonmatching)
+gameLoopDispatch = 0x8006D1FC; // type:func // main game-loop dispatcher/renderer ($v0/$v1 as input args; nonmatching)
+gameLoopDispatchGetter = 0x8006D1EC; // type:func // GETTER_NOJR: loads D_8017C8A4→$v1, D_80091968→$a0, falls into gameLoopDispatch
+sramCopyData = 0x8007573C; // type:func // copy memory via PI raw read/write between SRAM/ROM addresses (0xB1FFFFF4 region)
+overlayLoadEntries = 0x8007D8CC; // type:func // patch overlay entry pointers (magic 0x4231); calls overlayRelocatePtrs on each entry
+audioTimerDispatch = 0x80081D94; // type:func // per-frame audio timer dispatcher: osStopTimer loop + jtbl_8004CE70 (9 cases) SFX dispatch
+midiTimerReset = 0x80082598; // type:func // reset MIDI note timer: compute slot from unk3C*0x30+unk40, call osSetTimer with flag=1
+audioVoiceNodeInit = 0x80082F84; // type:func // init generic voice audio node: audioNodeInit(func_80085154, audioNodeCmdGetter, 1) + alloc
+audioCalcRatio = 0x8008448C; // type:func // compute exponential ratio (f64 base ^ arg0) via square-and-multiply; used for pitch/volume
+audioGeomNodeCmd = 0x80085C74; // type:func // geometry audio node render callback: builds RSP DL command words via audioRspSetupSample
+contPakWritePage = 0x80088BD0; // type:func // write pak page: contPakRepairId + osContPakWrite 8 sectors + repair ID again
+contPakBuildCmd = 0x8008CB6C; // type:func // build SI controller pak command packet: crc5 of page addr + data bytes + cmd header
+contPakReadPage = 0x8008A7A0; // type:func // read pak page sectors with ID repair (contPakRepairId + osContPakRead)
+contPakWriteNote = 0x8008A898; // type:func // write note byte if changed: compare arg3->unk0, call contPakReadWriteNote if differ
+piGetHandle = 0x8008E778; // type:func // return D_80096488 (PI handle) if D_80096480 initialized, else 0
+trackNodeSearchNearest = 0x8004EC88; // type:func // recursive nearest-track-node search: 3D distance accumulation over node graph
+handlerSetupLooped = 0x80070CD4; // type:func // setup looped handler: gameHandlerSetup(5) with alignUp256 on arg3
+handlerSetupTable = 0x80070D50; // type:func // setup table handler: gameHandlerSetup(6) with table ptr arg3
+contPakSiDmaRead = 0x8008C898; // type:func // SI lock + osSiRawStartDma(1,pak_buf) + osRecvMesg×2 — pak SI DMA read
+audioSeqUpdate = 0x80080DC4; // type:func // per-frame audio seq/MIDI update dispatcher (jtbl_8004CDF0, 24 cases; sibling of audioNodeUpdate)
+audioNodeDispatch = 0x800849A4; // type:func // audio playback sub-dispatcher (jtbl_8004CEE8, 5th arg from stack; 0x548 bytes; nonmatching)
+gbiCmdDispatch = 0x8008EF38; // type:func // GBI/pak cmd dispatcher (jtbl_8004CFFC, 52 entries; $s0 implicit ctx; nonmatching)
+audioResetCallback = 0x8005C8B8; // type:func // reset audio callback: calls audioSetCallback(-1)
+rdpFormatFloat = 0x8006584C; // type:func // format float+D_8004C0E8 as decimal ASCII via intToAsciiStr (2 decimal places)
+rdpFormatFloatGetter = 0x80065838; // type:func // GETTER_NOJR: carries f64 in $fv1/$f2/$f3, falls into rdpFormatFloat
+rspResetCounters = 0x8004D420; // type:func // reset gRSPTaskA=0 and gRSPTaskB=0
+viSetResolution = 0x8004D8C0; // type:func // init video resolution: D_8017CA44=arg0, D_80173C18=arg1, float-scale dims
+velStateInit = 0x8004E5D8; // type:func // init velocity state: unk0=0, unk4=D_8004BB18, unk8=0
+entityListPrune = 0x8004FC94; // type:func // walk D_80174BF8 list, remove nodes where unk84->unk8->unk5C==0x63
+triComputeNormal = 0x80057C20; // type:func // compute face normal from 3 s16 vertices: cross product + sqrtf normalize
+audioHeapInit = 0x8007DAD8; // type:func // init audio heap descriptor: aligned base, size, unkC=0, unk4=unk0
+midiAllocNote = 0x80082418; // type:func // find free unk40 MIDI note slot, init with note ptr, return slot index or -1
+midiReleaseNote = 0x800824B8; // type:func // clear MIDI note slot: set unk1C=0 if unk28==0, unlink from unk3C
+midiNoteIsPlaying = 0x800825E8; // type:func // return unk28 of active MIDI note slot (non-zero = playing)
+midiTimerSetNote = 0x80082608; // type:func // osSetTimer with code 4 and f32 arg1 delay
+midiNoteSetState = 0x80082668; // type:func // set unk20 of MIDI note slot arg1 to (s16)(arg2 & 0xFF)
+audioSetChanA = 0x8005CF84; // type:func // set D_80092830=arg0, D_80092838=1 (audio channel A value + dirty flag)
+audioSetChanB = 0x8005CF9C; // type:func // set D_80092834=arg0, D_80092838=1 (audio channel B value + dirty flag)
+entityFindNearest = 0x8005E45C; // type:func // find nearest entity in gEntityPool to (arg0,arg1,arg2), write result to arg3/arg4
+guScaleF = 0x8007B508; // type:func // build float scale matrix: guMtxIdent then set diagonal unk0/unk14/unk28, unk3C=1.0f
+guScale = 0x8007B568; // type:func // build integer scale matrix: guScaleF then guMtxF2L
+sinInt = 0x8007B768; // type:func // fixed-point sin table lookup (D_80094A60/D_8009525E, 0x10000=2π), returns s16
+audioNoteMinTime = 0x8007E464; // type:func // walk unk4 bitmask, find min unkB8/unkBC among active notes
+audioNodeStateRead = 0x80081704; // type:func // copy audio node state: arg0->unk8/unk1A/unkC from arg1
+audioNodeGetPos = 0x80081720; // type:func // return arg0->unkC (audio node clock/position)
+sfxSetPitch = 0x80063E2C; // type:func // set D_80182E70=arg0&0xFF, reset D_801823EC/F0 timing counters
+sfxSetFreq = 0x80063E4C; // type:func // set D_80182EA4=arg0&0xFF frequency target, compute D_80182E8C/E98/E88
+sfxSetFilter = 0x80063EF4; // type:func // set D_80182E84=arg0|0xFF000000, D_80182E6C=0xFF00FF color filter
+u16StrLen = 0x80065670; // type:func // count non-zero u16 elements in null-terminated array, return count
+rdpFmt2Digit = 0x80065764; // type:func // format 2-digit decimal: unk0=(d/10+0x30), unk2=(d%10+0x30), unk4=0
+audioClearNode = 0x80086078; // type:func // clear audio node: arg0->unk0 = 0
+osEPiRawReadIo = 0x8008E3C0; // type:func // PI busy-wait on D_A4600010&3, then *arg2 = *(arg0->unkC|arg1|RDRAM)
+osEPiRawReadIoGetter = 0x8008E3B8; // type:func // GETTER_NOJR: falls into osEPiRawReadIo
+osEPiRawWriteIo = 0x8008E410; // type:func // PI busy-wait on D_A4600010&3, then *(arg0->unkC|arg1|RDRAM) = arg2
+osEPiRawWriteIoGetter = 0x8008E408; // type:func // GETTER_NOJR: falls into osEPiRawWriteIo
+__ashrdi3 = 0x8008EB58; // type:func // 64-bit arithmetic right shift: (s64)(arg0 >> arg2) >> 0x20
+__umoddi3 = 0x8008EB84; // type:func // 64-bit unsigned modulo: (s64)(arg0 % arg2) >> 0x20
+__ashldi3 = 0x8008EBFC; // type:func // 64-bit left shift: (s64)(arg0 << arg2) >> 0x20
+__moddi3 = 0x8008EC28; // type:func // 64-bit signed modulo: (s64)(arg0 % arg2) >> 0x20
+__divdi3 = 0x8008EC64; // type:func // 64-bit signed divide with overflow check: (s64)(arg0 / arg2) >> 0x20
+audioBankLookup = 0x800804A8; // type:func // binary search audio bank unk60 table by note/velocity range, return entry ptr
+frexp = 0x800842C0; // type:func // decompose f64 into [0.5,1.0) mantissa and exponent (standard frexp)
+audioTriOsc = 0x80085368; // type:func // triangle wave oscillator: advance unk14 by unk10*arg1, wrap to [-2,2], return amplitude
+u64DivImpl = 0x80061B38; // type:func // 64-bit unsigned division by binary shift (64 iterations, u32×4 args)
+intDiv = 0x8008FF98; // type:func // return arg1 / arg2 (integer divide)
+rspTaskAlloc = 0x8004D550; // type:func // gfxSpTaskWait then heap_alloc_default from D_80192880 result
+viInit = 0x8004DC24; // type:func // full VI init: viSetResolution + memory config + VI mode table setup
+contInit = 0x8004E4E4; // type:func // controller init: osSetEventMesg(5) + siReadControllers + parse response bitmask
+siMsgDispatch = 0x8004E1B8; // type:func // SI message relay loop: osRecvMesg, if 0x18 siDmaReset else forward to D_80174708
+viModeConfig = 0x8004E830; // type:func // dispatch gGameState (0-6) via jtbl to fill D_8017C968 VideoModeConfig
+viSetFieldBit = 0x80087A88; // type:func // set/clear bit 0x20 of *gVIConfig with osDisableInt/osRestoreInt
+viSetDisplay = 0x800872A8; // type:func // set gVIConfig unk10/unk14/unk2 with osDisableInt/osRestoreInt
+siDmaReset = 0x80087DE8; // type:func // siLock + siRawStartDma read D_8018AD28 + clear 16 bytes + write back + siUnlock
+audioDrainDecode = 0x8005BDD0; // type:func // drain LZSS audio decode: audioDecodeLZSS(0x7FFFFFFF)
+guTranslateF = 0x8007B820; // type:func // build float translation matrix: guMtxIdent + set elements [12-14] to XYZ + guMtxF2L
+mtxEulerScaleFGetter = 0x8007B878; // type:func // GETTER_NOJR: load D_8004C8E8 into $fv0, scale $fa0 by it, fall into mtxEulerScaleF
+mtxEulerScaleF = 0x8007B890; // type:func // build scaled YXZ Euler rotation matrix with translation (cos/sinf; entries × arg4; unk30-38 = arg5-7)
+audioSynthInit = 0x8007FBD8; // type:func // init audio synthesis context: alloc note/timer slots, set defaults, pendingFlushEnqueue
+audioMidiInit = 0x800822DC; // type:func // init MIDI track context: alloc sequence/timer slots, osSetTimer code 5, pendingFlushEnqueue
+midiSeqStop = 0x80082528; // type:func // stop MIDI seq timer: if slot unk28==0, osSetTimer(arg0+0x14, code=0, 0)
+audioBuildFrame = 0x80082900; // type:func // build audio RSP cmd list: walk pendingFlush queue by time, dispatch nodes, sfxFlushTimers
+midiSetVolume = 0x80082698; // type:func // set MIDI volume: osSetTimer(arg0+0x14, code=3, 0) with s16 vol
+midiSetExpression = 0x800826F8; // type:func // set MIDI expression: osSetTimer(arg0+0x14, code=2, 0) with s8 expr
+midiSetController = 0x80082758; // type:func // set MIDI controller: osSetTimer(arg0+0x14, code=8, 0) with s8 val
+audioSampleInit = 0x8005B7D8; // type:func // init ADPCM sample buffer: audioSetupCopySample + audioInitDecodeTable + zero decode buf
+audioBufRecycle = 0x8005C010; // type:func // free expired DMA buffer entries from D_80181E30 pool (age > 2 frames)
+audioDmaBufAlloc = 0x8005BDF0; // type:func // search DMA buffer pool for entry at right offset; return physical address via osVirtualToPhysical
+audioDmaBufInit = 0x8005BF64; // type:func // init DMA buffer pool: 0x5F entries × 0x14 bytes, each with 0x300-byte heap buffer
+audioRspDone = 0x8005C540; // type:func // audio RSP done handler: start AI DMA, recv RSP msgs, reload ucode, osSpTaskStart, audioBufRecycle
+sfxEntityInit = 0x8004E594; // type:func // init entity SFX state: sfxChannelClear×2, set unkF0=1 unkF4=0 unkF8=7 unkFC=7
+audioLoadBank = 0x8004E6C8; // type:func // decompress overlay bank at D_8004B7B0[arg0*0x10], return first word
+audioLoadWavetable = 0x8004E6F4; // type:func // decompress overlay bank at D_8004B8B0[arg0*0x10], init float params, return unk30 ptr
+audioSetBufLen = 0x8007E9D8; // type:func // set audio buffer length: osSetTimer(gAudioOutputCtx+0x48, code=0xE, 0) with s16 len
+audioSetChanWeight = 0x8007EA18; // type:func // set audio channel weight: osSetTimer(gAudioOutputCtx+0x48, code=0xC, 0) with s8 chan/weight
+trackEdgeProcess = 0x80050260; // type:func // zero D_8017CC80 visited-edge flags (32 bytes), then func_8004FCF8(arg0->unk38, 0, 1, arg0)
+mtxProjectVec = 0x800577A8; // type:func // transform 4 rows of matrix by vector, then perspective-divide XYZ by W; result → arg2
+guMtxL2FFixedW = 0x80057A94; // type:func // wrapper: guMtxL2FFixed(arg1, arg0) — arg order swapped vs direct call
+sfxComputeSpatialImpl = 0x8005D9C0; // type:func // spatial SFX impl: find nearest entity to (arg0,arg1,arg3), compute dist/dir, emit sfx
+guMtxIdentL = 0x8007A8E0; // type:func // build fixed-point identity matrix: guMtxIdent float + guMtxF2L pack (IDO match)
+guOrthoF = 0x8007AD28; // type:func // build float orthographic projection matrix (l,r,t,b,n,f,scale)
+guOrtho = 0x8007AE7C; // type:func // build fixed-point ortho matrix: guOrthoF + guMtxF2L
+sfxPlaySpatialDef = 0x8005DED4; // type:func // sfxPlaySpatial with defaults: D_8004BE80 radius, 0x10000 flags
+sfxEntitySpatial = 0x8005DFAC; // type:func // sfxComputeSpatial from entity: extract pos (unk0/unk4/unk8) and orient fields
+sfxRaceInit = 0x8005FF44; // type:func // init race SFX: load 14 sfxMapId cue tables, sfxSetCueParams, sfxPlayCue
+rdpFrameBegin = 0x800600D8; // type:func // per-frame render setup: G_DL + G_SETOTHERMODE_L, fill/fog dispatch on D_80181E48
+contPakUpdate = 0x80072E00; // type:func // controller pak state-machine update: siRead, contPakBuildMap, contPakSiDmaRead
+sfxBufAlloc = 0x80063DF0; // type:func // alloc two SFX DMA buffers: sfxFreeBlock(0x1800) + sfxFreeBlock(0x300)
+sfxHandlerEnsure = 0x80070C88; // type:func // ensure sfx handler entity: if not sfxHasEntity(gHandlerTable), gameHandlerSetup(2, arg1)
+sfxRenderBegin = 0x80065370; // type:func // emit RDP NOOP+SETSCISSOR+SETCOMBINE into DL; set D_80182E80=1
+sfxPhaseTick = 0x80062B0C; // type:func // SFX 3-phase scan/play/decay state machine (phases stored in gSfxPhase)
+getRaceCtrl = 0x8005FCB8; // type:func // return gRaceCtrl
+guScaleGetter = 0x8007B55C; // type:func // GETTER_NOJR: mtc1 $a1/$a2/$a3 into $fa0/$fa1/$ft4, falls into guScale
+guEulerScaleL = 0x8007BA28; // type:func // build fixed-point Euler rotation+scale matrix: mtxEulerScaleFGetter + guMtxF2L
+rdpFormatStr = 0x80065964; // type:func // format u16 display string with %-substitution (%%f→rdpFormatFloat, %%a→rdpFmt2Digit, int→intToAsciiStr)
+pakNameToU16 = 0x80070454; // type:func // convert 8-bit pak note name (16 chars) to u16 display array; 0x7E→0x4F
+contPakHandlerInit = 0x80071A28; // type:func // pak cmd-1 handler: siQueryControllers, entityClearSlots init
+contPakHandlerDetect = 0x80071D04; // type:func // pak cmd-2 handler: siRead + contGetInputPort + contPakBuildMap
+contPakHandlerRead = 0x800721A8; // type:func // pak cmd-4 handler: read pak note entry, handlerPostCmd
+contPakSaveNote = 0x800727EC; // type:func // save pak note state machine: contPakFetchNote/contPakWriteNote with callback
+contPakLoadNote = 0x80072550; // type:func // load pak note: contPakFetchNote + contPakReadNote + contPakCountNotes
+contPakCreateNote = 0x80072AD4; // type:func // create pak note: contPakAllocNote + sfxAllocBlock + contPakWriteNote
+contPakReadDir = 0x8008B708; // type:func // read pak note directory: contPakReadNoteDir + contPakRepairId validation
+contPakVerifyRead = 0x8008B858; // type:func // pak note read with full verify: contPakChecksum + contPakTransfer + contPakVerifyNote
+piCopyBytes = 0x8007515C; // type:func // copy arg2 bytes from PI src to dst: word-at-a-time aligned, byte-at-a-time for tails
+piSetBytes = 0x8007544C; // type:func // fill arg2 PI bytes at dst with val: word-at-a-time aligned, byte-at-a-time for tails
+piMoveBytes = 0x80075518; // type:func // copy arg2 bytes src→dst via piReadByteUnaligned/piWriteByteUnaligned
+renderTexLine = 0x80073480; // type:func // render textured line strip: gfxAddLineTex + gfxAddLineVtx + renderLineStrip
+renderTexLineW = 0x80074E30; // type:func // wrapper: renderTexLine with default args
+__osTimerHandler = 0x8007D30C; // type:func // OS timer interrupt handler: dequeue expired timers, send osSetTimer messages, re-enqueue periodic timers
+contPakSiWrite = 0x8008CA00; // type:func // write pak command via SI DMA (write+read): __siLock, osSiRawStartDma(1,cmd), wait, osSiRawStartDma(0,resp), wait, parse, __siUnlock
+midiTrackInit = 0x8007E074; // type:func // init MIDI track: set data ptr/flags, iterate 16 channels reading audioStreamReadVarInt offsets, compute tempo reciprocal
+audioSynthChannelInit = 0x80082B98; // type:func // alloc and init audio synthesis channel: mix/adpcm/voice/midi nodes per voice slot, osTimerInsert, audioHeapAlloc
+contPakHandlerWait = 0x80070B0C; // type:func // infinite loop: handlerGetResult(-1) — pak handler idle task that never returns
+contPakHandlerStatus = 0x80071360; // type:func // walk D_801887D0 pak entries by state (2/4), post handlerPostCmd 0x51 or 0x41
+contPakFormatNote = 0x80071408; // type:func // allocate+format+verify pak note: contPakAllocNote, write test pattern, read+memcmp verify
+pendingFlushClear = 0x8007DA74; // type:func // if pending-flush list head ($t6) != 0: audioClearNode, clear gPendingFlushFlag
+audioSynthSetupGetter = 0x8007DAA4; // type:func // GETTER_NOJR: load *D_800952D0 into $t6, fall into audioSynthSetup
+audioSynthSetup = 0x8007DAB0; // type:func // if $t6==0 (not init): store arg0, call audioSynthChannelInit
+viMgrInitGetter = 0x80086DD8; // type:func // GETTER_NOJR: load D_800955C0 into $t6, fall into viMgrInit
+viMgrInit = 0x80086DE0; // type:func // init VI manager: osCreateMesgQueue, osSetEventMesg(7/3), osCreateThread, osViInit, osStartThread
+midiQueueProcess = 0x8005D178; // type:func // process audio MIDI queue: alloc/release/update notes per gAudioQueueReadIdx, set pitch/vol/expr/controller
+audioTimerRelink = 0x80082818; // type:func // relink audio timer node: __osTimerUnlink(arg1) + __osTimerInsert(arg1, arg0+0x14) (IDO match)
+audioTimerNodeInit = 0x80082E98; // type:func // init audio timer/sequencer node: audioNodeInit(type=3, func_80085FEC dispatch, audioNodeSetProp handler) (IDO match)
+audioNoteWriteNodeInit = 0x80082EDC; // type:func // init audio note-write node: audioNodeInit(type=7, func_80084F48 dispatch, audioNoteWrite handler) (IDO match)
+audioVoiceGeomInit = 0x800865F8; // type:func // init geometry node for voice slot: audioGeomNodeInit + audioNodeSetValue + audioNoteWrite; return node ptr
+sfxNotePlay = 0x80086298; // type:func // enqueue type-0xD SFX event with full note params: pitch (sfxComputePitch), vol, pan, filter, via sfxEventDequeue
+sfxNoteUpdate = 0x80086208; // type:func // enqueue type-0xE SFX event with single frequency value; fill entity/sfx source fields
+sfxFrameBegin = 0x80063E24; // type:func // empty hook: called at start of sfxMarkAllActive frame pass
+rspHalt = 0x80086D28; // type:func // halt RSP: osSpSetStatus(0x400) — set SP_SET_HALT bit (IDO match)
+__piUnlock = 0x8008E4EC; // type:func // release PI mutex: osSendMesg(&D_8018D310, 0, 0) (IDO match)
+__piLock = 0x8008E4B0; // type:func // acquire PI mutex: if not init piMgrInit(); osRecvMesg(&D_8018D310, ..., 1)
+triContainsPoint2D = 0x80059774; // type:func // 2D triangle point-in-triangle test: cross-product sign method on UV/XY vertex pairs; returns 1 if inside
+trackNodeRender = 0x8004FCF8; // type:func // recursive track node renderer: mark visited in D_8017CC80, process colors/normals, recurse to connected nodes
+sfxEntryWrite = 0x80061AC8; // type:func // 8-byte wrapper: passes args to func_80061ADC (sfx entry init/write)
+frameDispatchThread = 0x800602A0; // type:func // frame dispatch thread: osRecvMesg loop, dispatch via jump table (rdpFrameBegin, contPakUpdate, etc.)
+frameThreadInit = 0x80060834; // type:func // init frame dispatch thread: osCreateMesgQueue, osCreateThread(frameDispatchThread, pri=8), osStartThread
+audioTimerNodeCmd = 0x80085FEC; // type:func // RSP cmd builder for timer node (dispatch fn in audioTimerNodeInit type=3): emit SETLOOP + CLEARLOOP RSP cmds
+audioNoteWriteCmd = 0x80084F48; // type:func // RSP cmd builder for note-write node (dispatch fn in audioNoteWriteNodeInit type=7): build ADPCM decode DL per voice
+audioMixCmd = 0x800841B8; // type:func // RSP cmd builder for mix node (dispatch fn in audioMixNodeInit type=6): build MIX RSP commands
+audioVoiceNodeCmd = 0x80085154; // type:func // RSP cmd builder for voice node (dispatch fn in audioVoiceNodeInit type=1): build SETVOL + ENVMIXER RSP cmds
+audioAdpcmDecodeCmd = 0x8008380C; // type:func // ADPCM decode RSP cmd builder: set in audioAdpcmNodeCmd case 1 (wavetable loaded); build ADPCM DMA + DECODE commands
+audioGeomRspCmd = 0x80085410; // type:func // RSP cmd builder for geometry/spatial audio: build SETVOL+MIX RSP cmds for 3D positioned voice
+audioTriOscCmd = 0x800857DC; // type:func // RSP cmd builder for triangle-wave oscillator voice: audioTriOsc + audioLoopDmaCmd + osVirtualToPhysical
+osSetTimerImpl = 0x80088408; // type:func // N64 osSetTimer: fill OSTimer fields (countdown/interval/mq/msg), __osTimerEnqueue, __osTimerSetCompare if at list head
+spTaskLoad = 0x80086928; // type:func // load RSP task: memmove(arg0 → D_80189AA8, 0x40 bytes), convert all virtual pointers to physical via osVirtualToPhysical
+memmove = 0x8008E7A8; // type:func // memmove: overlapping-safe copy — backward copy when dst overlaps src from below; word-aligned optimization
+viMgrThread = 0x80086F60; // type:func // VI manager thread body: receive retrace(0xD)/timer msgs, osViSwapBuffer, osTimerHandlerGetter, track frame timing
+siInitControllerCmds = 0x80087F54; // type:func // init SI controller command buffer: zero 16 slots, write per-port read commands (FF 01 04 01), write 0xFE terminator
+osSendMesgImpl = 0x8008E628; // type:func // osSendMesg body: check queue full, block if needed, store msg at unkC index, wake blocked receivers; piGetHandle helper follows
+mtxRotZF = 0x8005698C; // type:func // Z-axis rotation matrix builder (non-standard SN64 FP calling convention)
+rdpMtxPackRow = 0x80056DE0; // type:func // pack matrix translation row into RDP fixed-point word pairs
+contPakFatAlloc = 0x8008896C; // type:func // scan FAT for free entries and chain them for a note allocation
+siSetupWriteCmd = 0x80088E9C; // type:func // build SI pak write command buffer (crc5 + 0x23 write opcode)
+contPakOpenNote = 0x8008980C; // type:func // read note sector-1, verify/repair checksums, load note metadata into pak handle
+siSetupReadCmd = 0x8008A114; // type:func // build SI pak read command buffer (crc5 + 0x21 read opcode)
+contPakReadChain = 0x8008A568; // type:func // read pak pages following FAT chain, optionally freeing entries
+contPakRepairNotes = 0x8008BAC8; // type:func // scan all note slots, verify each note, clear corrupted entries
+gameThreadEntry = 0x800541C0; // type:func // main game thread entry point (nonmatching: 22 alabel markers + jump table)
+contPakBuildNoteMap = 0x8008C18C; // type:func // build cross-reference bitmap of which notes share FAT pages
+contPakCountNoteLinks = 0x8008C340; // type:func // count FAT chain links for a note using the cross-ref bitmap
+piCartDmaComplete = 0x8008DC54; // type:func // PI cart DMA completion: poll status, write addr twice, notify, unmask IRQ
+osEnableIntMask = 0x8008E318; // type:func // enable specific interrupt bits: osDisableInt + osIntMask |= arg0 + osRestoreInt
+vsprintfCore = 0x8008F5A8; // type:func // printf core: scan format string, call output callback, dispatch format specifiers
+__divmoddi3 = 0x8008FE98; // type:func // 64-bit divmod: quotient + remainder packed into 4-field struct
+fmtIntBuf = 0x8008FBF8; // type:func // format integer to digit buffer using radix and digit table (for vsprintf)
+gameThreadInit = 0x800555D8; // type:func // create + start game thread with func_800541C0 entry
+sfxFrameStateMachine = 0x80063158; // type:func // SFX per-frame 8-state machine: init→schedule→tick→DMA audio overlay
+gameMainLoop = 0x80050408; // type:func // main game-loop top-level dispatcher (nonmatching: $v0/$v1 as inputs, 17 alabels, jump table)
+gameStateInit = 0x80052F5C; // type:func // game-state initializer / sub-dispatcher (nonmatching: 14 alabels, jump table)
+mtxRotXF = 0x8005685C; // type:func // X-axis rotation matrix builder (non-standard SN64 FP calling convention)
+fmvDecodeFrame = 0x8005B874; // type:func // FMV video frame decoder: Huffman bit-stream read + viSwapBuffers
+audioQueueStopAll = 0x8005F530; // type:func // stop all audio queues in the channel table (4 queues per slot)
+gameModeReset = 0x8005F6B8; // type:func // reset game mode: audioSetRates + audioResetCallback + camera matrix init
+gameModeResetGetter = 0x8005F6B4; // type:func // GETTER_NOJR: lb $zero,0x7C83($a0) prefetch, fall into gameModeReset
+audioPlayNormalized = 0x8005F5B0; // type:func // normalize 4 float volumes then call audioQueuePlay for each channel
+sfxRaceSetup = 0x8005E5A4; // type:func // init SFX channel slots for a race: sfxQueueCmd per player + track node audio count
+geomCollisionDispatch = 0x8005E8B4; // type:func // collision/geometry sub-dispatcher (nonmatching: $v0 as input, 13 alabels, jump table, heavy FP)
+sfxRaceSetupGetter = 0x8005E8AC; // type:func // GETTER_NOJR: pre-loads state, falls into geomCollisionDispatch; returns D_80181648
+sfxMixCmd = 0x80062CE8; // type:func // build RSP audio mix command from gSfxPhase/gSfxFadeTimer state via rdpSetFogColor
+__osIntHandler = 0x8007C0F4; // type:func // N64 interrupt handler body: saves context, calls handler, context-switches thread (contains __osEnqueueWait/__osDispatchThread alabels)
+sfxLoadSample = 0x80063B9C; // type:func // load SFX sample block from gSfxDefTable by index, dispatch via sfxDispatchSample
+renderSceneDispatch = 0x8006C128; // type:func // rendering/scene-graph sub-dispatcher (nonmatching: 10 alabels, jump table)
+contPakEventLoop = 0x800707B0; // type:func // pak event-queue loop: osRecvMesg + dispatch 7 pak handler cmds (nonmatching)
+sramHwDispatch = 0x80075908; // type:func // hardware SRAM/controller command-dispatch loop polling 0xB1FFFFF0 (nonmatching)
+renderMainDispatch = 0x80076344; // type:func // main render dispatcher: handwritten 64-bit MIPS, 26KB stack, 5 jump tables (nonmatching)
+guRotateDegF2L = 0x8007B4C0; // type:func // guRotateDeg into temp matrix then guMtxF2L in-place
+osDisableIntMask = 0x8008E2B8; // type:func // clear specific interrupt bits: osDisableInt + osIntMask &= ~arg0 + osRestoreInt
+__osPiWait = 0x8008E368; // type:func // block current thread on PI wait queue: set state=2, __osEnqueueWait
+audioTimerCmd0F = 0x8007E5E8; // type:func // build AnimCmd type=0xF on stack, call osSetTimer at arg0+0x48 (IDO match)
+audioTimerCmd11 = 0x8007EAE8; // type:func // build AnimCmd type=0x11 on stack, call osSetTimer at arg0+0x48 (IDO match)
+midiSmfInit = 0x80081C30; // type:func // MIDI SMF header parser: read MThd+MTrk, init stream context timing
+rspReadBytes = 0x8004D1C8; // type:func // RSP-DMA byte read with 64-byte alignment correction into caller buffer
+gfxAllocWait = 0x8004D504; // type:func // heap_alloc_default + gfxSpTaskWait with allocated buffer
+gfxAudioDecodeWait = 0x8004D5B4; // type:func // gfxSpTaskWait on audio DMA + heap_alloc + audioDecodeStart
+gfxAudioWait = 0x8004D618; // type:func // gfxSpTaskWait + audioDecodeStart (no alloc)
+overlayLoadDL = 0x8004D808; // type:func // gfxSpTaskWait + overlayRelocate into DL write ptr, advance ptr
+overlayLoadEntry = 0x8004E5F0; // type:func // overlayDecompress from D_8004B7B0/D_8004B8A0 by index, set arg1->unkC
+overlayLoadAlt = 0x8004E670; // type:func // overlayDecompress from D_8004B8B0 by index, set arg2->unk6C and arg1->unkC
+overlayGetEntryAlt = 0x8004E76C; // type:func // overlayDecompress from D_8004B7B0 by index, set arg1->unkC only
+frameHeapInit = 0x8004EC54; // type:func // heap_alloc_default(0xFA00) → init D_8017C8A0/D_8017C7F0 frame heap pointers
+trackNodeFindWrapper = 0x8004EF5C; // type:func // thin wrapper: call trackNodeFindNearestGetter
+viGetSyncWord = 0x800502F4; // type:func // read two viGetSyncByte calls, pack as 16-bit word (byte1<<8|byte0)
+audioSampleInitWrap = 0x800502B8; // type:func // thin wrapper: call audioSampleInit
+mtxSetFromVectors = 0x80057DB4; // type:func // build RDP matrix from 3 float vectors (normalize+cross product, pack to fixed-point)
+mtxTransposeL2F = 0x800580C0; // type:func // transpose fixed-point Mtx to float 4x4 (if src != dst)
+mtxRotAxisAngle = 0x80058138; // type:func // build rotation matrix from axis vector + angle (vec3Normalize + sinf/cosf)
+sfxProcessInput = 0x80053F00; // type:func // process SFX input table entry by player index via sfxQueueCmd dispatch
+mtxRotAxisApply = 0x80056A18; // type:func // apply X+Z axis rotation via getters then mtxCatFSafe concatenation
+entitySpawn = 0x8005252C; // type:func // init entity slot: sfxEntityInit + velStateInit + entitySlotReset + mtxLookAt
+gfxFrameSetup = 0x800521BC; // type:func // frame display list setup: gfxGetWritePtr + frameAlloc + func_800524B8
+mtxSetFromVectorsNeg = 0x80058584; // type:func // mtxSetFromVectors with negated input vectors (vec3Cross + vec3Normalize)
+cameraSetupMtx = 0x800586CC; // type:func // build camera view matrix: vec3Normalize+Cross, guMtxCat, guTranslateF
+rspDrainMesgQueue = 0x8005AB30; // type:func // drain RSP message queue D_8016DF70 (implicit $v0 count, $v1 base)
+entityPhysicsInit = 0x8004EFFC; // type:func // entity physics/motion state init (pos, vel, matrix, slot reset)
+renderNodeSetup = 0x8004F4AC; // type:func // render geometry node setup (heap alloc, mtxIdentInit, triComputeNormal)
+mainPoolAlloc = 0x80052BB0; // type:func // allocate main game pool (0x3EA90 bytes) into D_80170390
+audioSystemInit = 0x8005C0BC; // type:func // full audio subsystem init (audioSynthInit, audioMidiInit, audioHeapInit, overlayLoadEntries)
+audioRspDoneGetter = 0x8005C538; // type:func // GETTER_NOJR: pre-loads D_800927F8, falls into audioRspDone
+audioFrameBuild = 0x8005C688; // type:func // per-frame audio processing: audioBuildFrame + RSP task dispatch + midiQueueProcess
+sfxAmbientTick = 0x8005D0C8; // type:func // ring-buffer ambient SFX cycling (sfxQueueCmd + audioQueueFind)
+sfxEntityPlayDef = 0x8005E004; // type:func // entity wrapper for sfxPlaySpatialDef (passes entity pos/type fields)
+sfxEntityPlay = 0x8005E04C; // type:func // entity wrapper for sfxPlaySpatial (passes entity pos/type fields, full params)
+sfxEntitySpatialUpdate = 0x8005E09C; // type:func // manage spatial SFX at entity: sfxEntitySpatial + audioQueuePlay/Stop
+sfxPositionalUpdate = 0x8005E1B4; // type:func // manage positional SFX: sfxComputeSpatial + audioQueuePlay/Stop
+sfxPositionalUpdateDoppler = 0x8005E2E4; // type:func // positional SFX update with doppler frequency scaling
+sfxPlayAtNearest = 0x8005E544; // type:func // entityFindNearest then sfxQueueCmd at that entity
+gameSceneInit = 0x8005F980; // type:func // scene-level init: rspReset, dlReset, sfxTableInit, audioBootDecode, sfxRaceInit, localeCheck
+sfxRaceUpdate = 0x8005FCC0; // type:func // SFX race frame update: track segment SFX play + sfxMarkAllActive
+audioTimerAcquire = 0x80090C38; // type:func // timer slot search/acquire: walk timer queue by priority, unlink+reinsert

@@ -1,8 +1,8 @@
 #include "ultra64.h"
 char *sfxEventDequeue(void *);                        /* extern */
-s32 func_80090C38(Unk*, void**, s16);            /* extern */
+s32 audioTimerAcquire(Unk*, void**, s16);            /* extern */
 
-s32 func_80090AE8(Unk *arg0, Unk *arg1, Unk *arg2) {
+s32 sfxNoteAssign(Unk *arg0, Unk *arg1, Unk *arg2) {
     Unk *sp10;
     s32 *temp_v0;
     s32 temp_v0_2;
@@ -15,7 +15,7 @@ s32 func_80090AE8(Unk *arg0, Unk *arg1, Unk *arg2) {
     if ((temp_v0 == NULL) || (*temp_v0 == 0)) {
         return 0;
     }
-    temp_v0_2 = func_80090C38(arg0, &sp10, arg2->unk0);
+    temp_v0_2 = audioTimerAcquire(arg0, &sp10, arg2->unk0);
     if (sp10 != NULL) {
         temp_s1 = sp10->unkC;
         if (temp_v0_2 != 0) {

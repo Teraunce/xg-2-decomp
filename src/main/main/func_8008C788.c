@@ -2,7 +2,7 @@
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 void siInitPollCmd(s32);                                 /* extern */
-s32 func_8008B4E4(void *, s32 (*)[]);                    /* extern */
+s32 contParsePollRespGetter(void *, s32 (*)[]);                    /* extern */
 extern s32 D_8018ADB8;
 
 s32 contPakProbe(s32 arg0, s32 arg1) {
@@ -21,7 +21,7 @@ s32 contPakProbe(s32 arg0, s32 arg1) {
     osRecvMesg(arg0, &sp30, 1);
     sp34 = osSiRawStartDma(0, &D_8018ADB8);
     osRecvMesg(arg0, &sp30, 1);
-    func_8008B4E4(&sp2F, (s32 (*)[]) &sp1C);
+    contParsePollRespGetter(&sp2F, (s32 (*)[]) &sp1C);
     temp_t8 = ((Unk*)(sp + (arg1 * 4)))->unk1E;
     if ((temp_t8 & 1) && (temp_t8 & 2)) {
         return 2;

@@ -27,11 +27,11 @@
 
 s32  osRecvMesg(void *arg0, void *arg1, s32 arg2);
 s32  osSendMesg(void *arg0, void *arg1, s32 arg2);
-void func_8008E2B8(s32 arg0);
-void func_8008E408(void *arg0, s32 arg1, s32 arg2);
-void func_8008E3B8(void *arg0, s32 arg1, s32 arg2);
-void func_8008E318(s32 arg0);
-void func_8008E368(void);
+void osDisableIntMask(s32 arg0);
+void osEPiRawWriteIoGetter(void *arg0, s32 arg1, s32 arg2);
+void osEPiRawReadIoGetter(void *arg0, s32 arg1, s32 arg2);
+void osEnableIntMask(s32 arg0);
+void __osPiWait(void);
 
 extern s32 D_A4600010;  /* RSP/RDP register */
 
@@ -52,7 +52,7 @@ void gfxDmaEventLoop(Unk *arg0) {
             Unk *geo = (Unk *)(s32)sp44->unk14;
             if (geo->unk4 == 2 && (geo->unk14 == 0 || geo->unk14 == 1)) {
                 /* nonmatching: GPU geometry update (vertex stride calc,
-                 * polygon type check, D_A4600010 write, func_8008E318 call).
+                 * polygon type check, D_A4600010 write, osEnableIntMask call).
                  * See asm stub .L8008DE90–.L8008E070 for full impl. */
                 (void)sp30;
                 goto dispatch;

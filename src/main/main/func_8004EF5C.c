@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_8004EE5C();                                  /* extern */
+s32 trackNodeFindNearestGetter();                                  /* extern */
 
-void func_8004EF5C(void) {
-    func_8004EE5C();
+void trackNodeFindWrapper(void) {
+    trackNodeFindNearestGetter();
 }

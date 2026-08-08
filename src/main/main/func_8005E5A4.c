@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8005E8AC (initial). */
+/* Warning: missing "jr $ra" in last block of sfxRaceSetupGetter (initial). */
 
 s32 sfxQueueCmd(s16, f32, s32, s8, s32);               /* extern */
 extern f32 D_8004BE94;
@@ -18,7 +18,7 @@ extern s32 D_80181688;
 extern s32 D_80182EA8;
 extern s32 D_80184580;
 
-void func_8005E5A4(s32 arg0) {
+void sfxRaceSetup(s32 arg0) {
     Unk *var_s0;
     Unk *var_s2;
     f32 temp_fs0;
@@ -124,7 +124,8 @@ block_14:
     }
 }
 
-s32 func_8005E8AC(void) {
-    func_8005E8B4();
+void geomCollisionDispatch(void);  /* forward: GETTER_NOJR fallthrough */
+s32 sfxRaceSetupGetter(void) {
+    geomCollisionDispatch();  /* GETTER_NOJR: pre-loads state, falls into geomCollisionDispatch */
     return D_80181648;
 }

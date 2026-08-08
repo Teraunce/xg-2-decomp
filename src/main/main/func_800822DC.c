@@ -5,9 +5,9 @@ void timerQueueInit(Unk*, s32, s32);               /* extern */
 char *audioHeapAlloc(s32, s32, s32, s32, s32);             /* extern */
 void pendingFlushEnqueue(void *, void *);                       /* extern */
 extern s32 gPendingFlushFlag;
-extern s32 func_80081D94;
+extern s32 audioTimerDispatch;
 
-void func_800822DC(Unk *arg0, Unk *arg1) {
+void audioMidiInit(Unk *arg0, Unk *arg1) {
     s16 sp34;
     char *sp28;
     u32 var_v1;
@@ -35,7 +35,7 @@ void func_800822DC(Unk *arg0, Unk *arg1) {
     sp28 = temp_a0;
     timerQueueInit(temp_a0, temp_a1, arg1->unk4);
     arg0->unk0 = 0;
-    arg0->unk8 = &func_80081D94;
+    arg0->unk8 = &audioTimerDispatch;
     arg0->unk4 = arg0;
     arg0->unk38 = (s32) gPendingFlushFlag;
     pendingFlushEnqueue(gPendingFlushFlag, arg0);
@@ -44,7 +44,7 @@ void func_800822DC(Unk *arg0, Unk *arg1) {
     arg0->unk4C = osStopTimer(sp28, arg0 + 0x28);
 }
 
-s16 func_80082418(Unk *arg0, Unk *arg1) {
+s16 midiAllocNote(Unk *arg0, Unk *arg1) {
     s16 var_v1;
     s32 temp_a2;
     Unk *temp_a0;
@@ -74,7 +74,7 @@ loop_1:
     return -1;
 }
 
-void func_800824B8(Unk *arg0, s16 arg1) {
+void midiReleaseNote(Unk *arg0, s16 arg1) {
     s32 temp_v0;
     s32 temp_v1;
 

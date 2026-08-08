@@ -35,7 +35,7 @@ void vec3Cross(Unk *arg0, Unk *arg1, Unk *arg2) {
     }
 }
 
-s32 func_80057C20(Unk *arg0, Unk *arg1, Unk *arg2, Unk *arg3) {
+s32 triComputeNormal(Unk *arg0, Unk *arg1, Unk *arg2, Unk *arg3) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_ft0;

@@ -19,7 +19,7 @@ extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
 extern s32 D_8018AEF8;
 
-s32 func_8008CA00(UnkStruct_arg0 *arg0) {
+s32 contPakSiWrite(UnkStruct_arg0 *arg0) {
     s32 sp4C;
     s32 sp48;
     char *sp44;

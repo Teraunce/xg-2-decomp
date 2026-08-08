@@ -1,6 +1,6 @@
 #include "ultra64.h"
 /*
- * func_800849A4 — audio playback sub-dispatcher (nonmatching).
+ * audioNodeDispatch — audio playback sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — dispatches via jr through jtbl_8004CEE8.
  * m2c marks any function containing jr-from-table as nonmatching.
@@ -10,7 +10,7 @@
  * frame pointer is set up, indicating sp+0xB8 is caller-provided (5th+ arg).
  * Function size: 0x548 bytes.
  */
-void func_800849A4(void) { /* nonmatching — see asm stub */ }
+void audioNodeDispatch(void) { /* nonmatching — see asm stub */ }
 
 void audioNodeInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk0 = 0;

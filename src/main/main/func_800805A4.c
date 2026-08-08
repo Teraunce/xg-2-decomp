@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_800805A4 — GBI audio command dispatcher (nonmatching).
+ * audioRspDispatch — GBI audio command dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING: dispatches via jtbl_8004CC18 using jr at prologue.
  *
@@ -29,10 +29,10 @@
  *   cmd_b==0x5D (direct): return
  */
 
-extern void *func_800804A8(void *node, u8 b, u8 c, u8 d);
+extern void *audioBankLookup(void *node, u8 b, u8 c, u8 d);
 extern void *audioNoteFind(void *node, u8 b, u8 c, u8 d);
 extern void *audioNoteLookup(void *node, u8 b, u8 c);
-extern void  func_80090AE8(void *a0, void *a1, void *stk);
+extern void  sfxNoteAssign(void *a0, void *a1, void *stk);
 extern f32   audioSemitoneRatio(s16 cents);
 extern void  osSetTimer(void *a, void *cmd_stk, s32 c);
 extern s32   sfxComputeVolume(void *node, void *ctx);
@@ -42,11 +42,11 @@ extern void  sfxPlayPanAtEntity(void *a, void *b, u8 c);
 extern void  sfxPlayLoopAtEntity(void *a, void *b, f32 c);
 extern void  sfxPlayAbsAtEntity(void *a, void *b, u8 c);
 extern void  sfxComputePan(void *node, void *ctx);
-extern void  func_80086298(void *a0, void *a1, s32 a2, f32 a3,
+extern void  sfxNotePlay(void *a0, void *a1, s32 a2, f32 a3,
                            s32 sp10, u8 sp14, u8 sp18, s32 sp1c);
 extern void  audioSetNoteSlot(void *node, void *a1, u8 a2);
 
-void func_800805A4(Unk *cmd, Unk *node) {
+void audioRspDispatch(Unk *cmd, Unk *node) {
     u8  cmd_a;
     u8  cmd_b;
     u8  cmd_c;
@@ -90,7 +90,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
 
         if (*(s32 *)((u8 *)node + 0x2C) != 1) return;
 
-        s7 = func_800804A8(node, cmd_b, cmd_c, cmd_low);
+        s7 = audioBankLookup(node, cmd_b, cmd_c, cmd_low);
         if (s7 == NULL) return;
 
         tbl_base = *(void **)((u8 *)node + 0x60);
@@ -118,7 +118,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
             s0 = audioNoteFind(node, cmd_b, cmd_c, cmd_low);
             if (s0 == NULL) return;
 
-            func_80090AE8(*(void **)((u8 *)node + 0x14),
+            sfxNoteAssign(*(void **)((u8 *)node + 0x14),
                           (u8 *)s0 + 4, &stk9C);
 
             *(void **)((u8 *)s0 + 0x20) = s7;
@@ -210,7 +210,7 @@ void func_800805A4(Unk *cmd, Unk *node) {
             v0_ff5c = sfxComputeVolume(s0, node);
 
             inner0 = *(void **)*(void **)((u8 *)s7);
-            func_80086298(*(void **)((u8 *)node + 0x14),
+            sfxNotePlay(*(void **)((u8 *)node + 0x14),
                           (u8 *)s0 + 4,
                           *(s32 *)((u8 *)s7 + 8),
                           fs0_v,

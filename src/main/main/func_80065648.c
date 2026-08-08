@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_80065838 (initial). */
+/* Warning: missing "jr $ra" in last block of rdpFormatFloatGetter (initial). */
 
 void copyU16Array(void *);                            /* extern */
 extern f64 D_8004C0E0;
@@ -15,7 +15,7 @@ void func_80065648(Unk *arg0) {
     copyU16Array(var_a0 - 2);
 }
 
-s32 func_80065670(Unk *arg0) {
+s32 u16StrLen(Unk *arg0) {
     s32 var_v1;
     u16 *var_a0;
 
@@ -80,7 +80,7 @@ void intToAsciiStr(Unk *arg0, s32 arg1) {
     }
 }
 
-void func_80065764(Unk *arg0, s32 arg1) {
+void rdpFmt2Digit(Unk *arg0, s32 arg1) {
     arg0->unk4 = 0;
     arg0->unk0 = (s16) ((arg1 / 10) + 0x30);
     arg0->unk2 = (s16) ((arg1 % 10) + 0x30);
@@ -128,7 +128,7 @@ void func_800657A8(Unk *arg0, u32 arg1) {
     }
 }
 
-void func_8006584C(void);  /* forward: GETTER_NOJR fallthrough */
-void func_80065838(s32 arg2, f64 arg3) {
-    func_8006584C();
+void rdpFormatFloat(void);  /* forward: GETTER_NOJR fallthrough */
+void rdpFormatFloatGetter(s32 arg2, f64 arg3) {
+    rdpFormatFloat();
 }

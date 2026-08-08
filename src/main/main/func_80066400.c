@@ -55,7 +55,7 @@ void func_80066400(s32 arg0, s32 arg1, u16 *arg2) {
     sfxGetVolLevel(arg0, arg1);
 }
 
-void func_80066580(void);  /* forward: GETTER_NOJR fallthrough */
+void sceneObjectDispatch(void);  /* forward: GETTER_NOJR fallthrough */
 void sceneDispatch(s32 arg1, s32 arg2, s32 arg3) {
-    func_80066580();
+    sceneObjectDispatch();
 }

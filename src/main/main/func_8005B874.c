@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void viSwapBuffers(Unk*);                            /* extern */
-void func_8005AFC4();                                  /* extern */
+void audioInitFreqTable();                                  /* extern */
 extern s32 D_800925D0;
 extern s32 D_800926D0;
 extern Unk D_8017CE08;
@@ -16,7 +16,7 @@ extern u16 D_8017DF56;
 extern s32 D_8017DF58;
 extern s32 D_80190000;
 
-s16 func_8005B874(s32 arg0) {
+s16 fmvDecodeFrame(s32 arg0) {
     s32 subroutine_arg5 = 0;
     s16 *temp_a0_2;
     s16 temp_s0_2;
@@ -77,7 +77,7 @@ s16 func_8005B874(s32 arg0) {
         }
         temp_s0_2 = var_s2 - 0x273;
         if (D_8017CE08.unk4E4 == 0x8000) {
-            func_8005AFC4();
+            audioInitFreqTable();
         }
         var_a2 = ((Unk*)((char*)&D_8017D2F8 + ((s32)(temp_s0_2 << 0x10) >> 0xF)))->unk4E6;
         do {

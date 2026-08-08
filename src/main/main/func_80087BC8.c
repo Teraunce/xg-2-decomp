@@ -7,7 +7,7 @@ void siInitControllerReadCmd(s32);                                 /* extern */
 extern s32 D_8018AD28;
 extern u8 D_8018AD68;
 
-s32 func_80087BC8(s32 arg0) {
+s32 siReadBlocking(s32 arg0) {
     s32 sp1C;
     s32 temp_v0;
 

@@ -9,13 +9,13 @@ extern s32 D_80188780;
 extern s32 D_801887A0;
 extern s32 D_801887B8;
 extern Unk D_801887D0;
-extern s32 func_80070B0C;
+extern s32 contPakHandlerWait;
 
 void func_80070B24(s32 arg0) {
     D_80188770 = arg0;
     osCreateMesgQueue(&D_801887A0, &D_80188780, 8);
     osCreateMesgQueue(&D_801887B8, &D_80188774, 1);
-    osCreateThread(&D_801875C0, 5, &func_80070B0C, 0, &D_80188770, 5);
+    osCreateThread(&D_801875C0, 5, &contPakHandlerWait, 0, &D_80188770, 5);
     D_801887D0.unk16C = 1;
     D_801887D0.unk160 = -1;
     osStartThread(&D_801875C0);

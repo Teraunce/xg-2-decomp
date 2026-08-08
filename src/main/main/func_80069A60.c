@@ -1,13 +1,13 @@
 #include "ultra64.h"
 void mtxCopyTranslate(Unk*, Unk*, f32, f32, f32);           /* extern */
-void func_800576FC(Unk*, Unk*, Unk*);                 /* extern */
+void mtxXfmPoint3(Unk*, Unk*, Unk*);                 /* extern */
 void guMtxScaleF2L(Unk*, Unk*);                          /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 void mtxLookAt(Unk*, f32, f32, f32, f32, f32, f32); /* extern */
 void guLookAt(s32, s32, s32, s32, f32, f32, f32, f32, f32, f32); /* extern */
-void func_8007A6D8(char *, s32, s32, f32, f32, f32, f32, f32, f32, f32); /* extern */
+void guLookAtHilite(char *, s32, s32, f32, f32, f32, f32, f32, f32, f32); /* extern */
 void guMtxXfm(void *, f32, f32, f32, f32 *, f32 *, f32 *); /* extern */
-void func_8007BA28(s32, f32, f32, s32, f32, f32, f32, f32); /* extern */
+void guEulerScaleL(s32, f32, f32, s32, f32, f32, f32, f32); /* extern */
 s32 func_800AE674(s32, s32, s32, s32);                /* extern */
 extern f32 D_8004C3C8;
 extern f32 D_8004C3CC;
@@ -131,7 +131,7 @@ void func_80069A60(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5,
     sp134 = 0.0f;
     sp130 = ((Unk *)arg0->unkC)->unk78;
     sp138 = ((Unk *)arg0->unkC)->unk80;
-    func_800576FC(&sp70, &sp130, &sp140);
+    mtxXfmPoint3(&sp70, &sp130, &sp140);
     mtxLookAt(&spB0, (sp140 + arg0->unk34) - arg0->unk1C, (sp144 + arg0->unk38) - arg0->unk20, (sp148 + arg0->unk3C) - arg0->unk24, temp_fs1, temp_fs2, temp_fs0);
     mtxLookAt(&sp70, arg0->unk10 - arg0->unk1C, arg0->unk14 - arg0->unk20, arg0->unk18 - arg0->unk24, temp_fs1, temp_fs2, temp_fs0);
     mtxCopyTranslate(&sp70, &sp30, arg0->unk10 - arg1->unk0, arg0->unk14 - arg1->unk4, arg0->unk18 - arg1->unk8);
@@ -176,7 +176,7 @@ void func_80069A60(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5,
     sp144 = arg1->unk1C;
     sp148 = arg1->unk20;
     vec3Cross(sp1A0, &sp140, &sp150);
-    func_8007A6D8(&sp160, 0, 0, 0.0f, sp150, sp154, sp158, arg1->unk18, arg1->unk1C, arg1->unk20);
+    guLookAtHilite(&sp160, 0, 0, 0.0f, sp150, sp154, sp158, arg1->unk18, arg1->unk1C, arg1->unk20);
     temp_a1 = D_80173CC0;
     temp_a3 = D_80173CC0 + 8;
     temp_a1->unk0 = 0xDC08000A;
@@ -207,7 +207,7 @@ block_6:
             var_s0 = &D_8017C118;
             var_s2 = &D_8017C7F0;
         }
-        func_8007BA28(*var_s2 + ((*var_s0 << 7) + 0x80) + (gPlayerList << 6), D_8004C3D8, D_8004C3D8, 0, D_8004C3DC, (temp_a1_2->unk34 - temp_a1_2->unk40) * D_8004C3C8, var_ft1, var_ft2);
+        guEulerScaleL(*var_s2 + ((*var_s0 << 7) + 0x80) + (gPlayerList << 6), D_8004C3D8, D_8004C3D8, 0, D_8004C3DC, (temp_a1_2->unk34 - temp_a1_2->unk40) * D_8004C3C8, var_ft1, var_ft2);
         temp_v1_3 = *var_s2;
         temp_t2 = D_80173CC0 + 8;
         temp_a1_3 = *var_s0 << 7;

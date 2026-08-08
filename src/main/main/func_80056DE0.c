@@ -2,7 +2,7 @@
 extern f32 D_8004BD9C;
 
 /*
- * func_80056DE0 — pack RDP command words from truncated float values (nonmatching).
+ * rdpMtxPackRow — pack RDP command words from truncated float values (nonmatching).
  *
  * Heavily non-standard SN64 calling convention: six values from implicit registers:
  *   $fv1/$f2  — truncated integer (temp_fa0)
@@ -13,7 +13,7 @@ extern f32 D_8004BD9C;
  *   $t0       — integer mask (likely 0xFFFF0000)
  * All replaced with 0 as placeholder values below.
  */
-void func_80056DE0(Unk *arg0, Unk *arg1, f32 arg4) {
+void rdpMtxPackRow(Unk *arg0, Unk *arg1, f32 arg4) {
     s32 temp_fa0   = 0 /* $fv1/$f2 implicit */;
     s32 temp_fa0_2 = 0 /* $ft4/$f8 implicit */;
     s32 temp_fa0_3 = 0 /* $ft2/$f4 implicit */;
@@ -46,13 +46,13 @@ void mtxNodeInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
 /* -------------------------------------------------------------------------
- * func_80056EA8 — single-instruction branch fragment (0x4 bytes).
+ * mtxCatFSafe — single-instruction branch fragment (0x4 bytes).
  *
  * The only instruction is: beq $a0, $a2, .L80056EB8
  * The delay slot falls into the following function.  This cannot be
  * expressed in standard C; kept as a nonmatching stub.
  * ------------------------------------------------------------------------- */
-void func_80056EA8(s32 arg0, s32 arg1, s32 arg2) {
+void mtxCatFSafe(s32 arg0, s32 arg1, s32 arg2) {
     if (arg0 == arg2) {
         return;
     }

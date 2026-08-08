@@ -1,9 +1,9 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8008CEB8 (initial). */
+/* Warning: missing "jr $ra" in last block of osEPiRawReadIoCart (initial). */
 
 s32 osContPakWrite(s32, s32, u16, s32, s32);           /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);                /* extern */
-void func_8008CB6C(s32, u16, u8*, void *);               /* extern */
+void contPakBuildCmd(s32, u16, u8*, void *);               /* extern */
 extern s32 D_8018ADF8;
 extern s32 D_8018AEF8;
 extern s32 D_8018AFF8;
@@ -52,12 +52,12 @@ s32 contPakBuildMap(s32 arg0, Unk *arg1, s32 arg2) {
         temp_t9 = sp44 + 1;
         sp44 = temp_t9;
     } while (temp_t9 < 0x20);
-    func_8008CB6C(arg2, 0x600, &D_8018B018, (arg2 << 6) + &D_8018AEF8);
-    func_8008CB6C(arg2, 0x600, &D_8018AFF8, (arg2 << 6) + &D_8018ADF8);
+    contPakBuildCmd(arg2, 0x600, &D_8018B018, (arg2 << 6) + &D_8018AEF8);
+    contPakBuildCmd(arg2, 0x600, &D_8018AFF8, (arg2 << 6) + &D_8018ADF8);
     return 0;
 }
 
-void func_8008CEC0(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8008CEB8(void) {
-    func_8008CEC0();
+s32 osEPiRawReadIo_cart(s32, s32 *, s32);              /* extern */
+s32 osEPiRawReadIoCart(s32 arg0, s32 *arg1) {
+    return osEPiRawReadIo_cart(arg0, arg1, D_A4600010);  /* GETTER_NOJR: preloads D_A4600010→$a2 */
 }

@@ -26,11 +26,11 @@ extern f32 D_8004BD84;
 extern f32 D_8004BD88;
 
 /*
- * func_800568F4 — init Y-axis rotation matrix (nonmatching).
+ * mtxRotAxisF — init Y-axis rotation matrix (nonmatching).
  *
  * arg_ft0 and arg_fv0 are passed in non-standard float registers ($f8/$f0)
  * by the SN64 compiler; not expressible as normal C parameters.
- * Called via getter func_800568E8 which loads D_8004BD84 into $fv0 and
+ * Called via getter mtxRotAxisFGetter which loads D_8004BD84 into $fv0 and
  * moves $a1 into $ft0.
  *
  * The matrix written is a rotation around the Y axis by angle (arg_ft0 * arg_fv0):
@@ -40,7 +40,7 @@ extern f32 D_8004BD88;
  *   [ 0    0  0    D ]
  * where D = D_8004BD84 (likely 1.0f).
  */
-void func_800568F4(Matrix4x4 *arg0 /*, f32 arg_ft0, f32 arg_fv0 */) {
+void mtxRotAxisF(Matrix4x4 *arg0 /*, f32 arg_ft0, f32 arg_fv0 */) {
     /* angle = arg_ft0 * arg_fv0  (mul.s $fs0, $ft0, $fv0) */
     f32 sin_val = sinf(0.0f /* angle */);
     f32 cos_val = cosf(0.0f /* angle */);
@@ -64,11 +64,11 @@ void func_800568F4(Matrix4x4 *arg0 /*, f32 arg_ft0, f32 arg_fv0 */) {
 }
 
 /*
- * func_80056980 — GETTER_NOJR preamble for func_8005698C.
+ * mtxRotAxisFGetter2 — GETTER_NOJR preamble for mtxRotZF.
  * Loads D_8004BD88 into $fv0 and moves $a1 into $ft1, then falls through.
  * Cannot be expressed in standard C.
  */
-f32 func_80056980(s32 arg1) {
+f32 mtxRotAxisFGetter2(s32 arg1) {
     (void)arg1;
     return D_8004BD88;
 }

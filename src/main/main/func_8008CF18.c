@@ -6,8 +6,8 @@ s32 osRestoreInt(s32);                               /* extern */
 void osSetEventMesg(s32, s32, s32);                         /* extern */
 void osSetThreadPri(Unk*, s32);                            /* extern */
 void osStartThread(Unk*);                               /* extern */
-s32 func_80087138(char*);                               /* extern */
-void func_8008E458();                                  /* extern */
+s32 osGetThreadPri(char*);                               /* extern */
+void piMgrInit();                                  /* extern */
 extern char *D_80096480;
 extern char *D_80096490;
 extern s32 D_800964B0;
@@ -30,11 +30,11 @@ void osEPiLoad(s32 arg0, char *arg1, char *arg2, s32 arg3) {
         osCreateMesgQueue(arg1, arg2, arg3);
         osCreateMesgQueue(&D_8018C1E8, &D_8018C200, 1);
         if (D_800964B0 == 0) {
-            func_8008E458();
+            piMgrInit();
         }
         osSetEventMesg(8, &D_8018C1E8, 0x22222222);
         sp28 = -1;
-        sp24 = func_80087138(0);
+        sp24 = osGetThreadPri(0);
         if (sp24 < arg0) {
             sp28 = sp24;
             osSetThreadPri(0, arg0);

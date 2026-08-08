@@ -96,7 +96,7 @@ block_27:
     }
 }
 
-void func_8008D3C0(void);  /* forward: GETTER_NOJR fallthrough */
+void osEPiGetDomainInfo(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8008D3B8(void) {
-    func_8008D3C0();
+    osEPiGetDomainInfo();
 }

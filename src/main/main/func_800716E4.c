@@ -21,16 +21,16 @@ void entityClearSlots(s32 arg1, s32 arg2) {
  *
  * Shared stack frame with entityClearSlots (no prologue here).
  * On each iteration: zeroes gSfxChannelMute[v1..], dispatches on a 12-entry
- * jump table (jtbl_8004C730, index from func_8008B858 return value),
+ * jump table (jtbl_8004C730, index from contPakVerifyRead return value),
  * calls handlerPostCmd for logging, optionally calls contPakReadEntry /
- * contPakBuildMap / func_80071408 / func_80071360.
+ * contPakBuildMap / contPakFormatNote / contPakHandlerStatus.
  * Loop: `beqz s1, gameStateMachineLoop` — repeats while s1==0.
  * m2c failed: "Cannot find branch target gameStateMachineLoop" (branch-to-self).
  * ------------------------------------------------------------------------- */
-void func_80071360(void *);
+void contPakHandlerStatus(void *);
 s32  handlerPostCmd(s32, void *, s32, s32, s32, s32, s32);
-s32  func_80071408(void *);
-s32  func_8008B858(void *, s32, void *);
+s32  contPakFormatNote(void *);
+s32  contPakVerifyRead(void *, s32, void *);
 s32  contPakBuildMap(void *, void *, void *);
 s32  contPakReadEntry(void *);
 extern u8    gSfxChannelMute[];

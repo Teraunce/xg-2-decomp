@@ -68,8 +68,8 @@ typedef struct {
 } UnkStruct_var_v1;
 
 void osSetTimer(void **, s32, s32);           /* extern */
-void func_80081704(Unk*, Unk*);                   /* extern */
-s32 func_80081720(Unk*);                           /* extern */
+void audioNodeStateRead(Unk*, Unk*);                   /* extern */
+s32 audioNodeGetPos(Unk*);                           /* extern */
 s32 streamTryReadVarInt(UnkStruct_arg0*, s32*);                    /* extern */
 
 void audioStreamTick(UnkStruct_arg0 *arg0) {
@@ -83,8 +83,8 @@ void audioStreamTick(UnkStruct_arg0 *arg0) {
     if ((arg0->unk2C == 1) && (temp_a2 != 0)) {
         sp20 = temp_a2;
         if (streamTryReadVarInt(temp_a2, &sp24) != 0) {
-            if ((arg0->unk84 != 0) && ((func_80081720(sp20) + sp24) >= ((Unk *)arg0->unk80)->unk8)) {
-                func_80081704(sp20, arg0->unk7C);
+            if ((arg0->unk84 != 0) && ((audioNodeGetPos(sp20) + sp24) >= ((Unk *)arg0->unk80)->unk8)) {
+                audioNodeStateRead(sp20, arg0->unk7C);
                 temp_v0 = arg0->unk84;
                 if (temp_v0 != -1) {
                     arg0->unk84 = (s32) (temp_v0 - 1);
@@ -167,7 +167,7 @@ char *audioNoteFind(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     return temp_v1;
 }
 
-char *func_800804A8(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2, s32 arg3) {
+char *audioBankLookup(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s16 var_t0;
     s32 temp_t3;
     s32 temp_t5;

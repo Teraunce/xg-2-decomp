@@ -4,7 +4,7 @@
 void overlayRelocatePtrs(void *, s32, s32);              /* extern */
 extern s32 gPendingFlushFlag;
 
-void func_8007D8CC(Unk *arg0, s32 arg1) {
+void overlayLoadEntries(Unk *arg0, s32 arg1) {
     s32 var_s3;
     char *temp_a0;
     char *temp_a0_2;
@@ -90,7 +90,7 @@ void __osTimerInsert(Unk *arg0, void **arg1) {
     *arg1 = arg0;
 }
 
-void func_8007DA74(void);  /* forward: GETTER_NOJR fallthrough */
+void pendingFlushClear(void);  /* forward: GETTER_NOJR fallthrough */
 void func_8007DA6C(void) {
-    func_8007DA74();
+    pendingFlushClear();
 }

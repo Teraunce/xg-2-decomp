@@ -4,7 +4,7 @@ extern s32 D_8004B7B0;
 extern s32 D_8004B8A0;
 extern s32 D_80173C70;
 
-void func_8004E5F0(s32 arg0, Unk *arg1) {
+void overlayLoadEntry(s32 arg0, Unk *arg1) {
     s32 temp_v0;
 
     if ((arg0 >= 0xD) && (D_80173C70 == 0)) {

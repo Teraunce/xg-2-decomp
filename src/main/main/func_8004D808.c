@@ -16,7 +16,7 @@ extern f32 D_8017869C;
 extern s32 D_8017CA44;
 extern s32 D_803DA400;
 
-s32 *func_8004D808(Unk *arg0) {
+s32 *overlayLoadDL(Unk *arg0) {
     s32 *temp_s0;
     s32 temp_a2;
 
@@ -34,7 +34,7 @@ s32 *func_8004D808(Unk *arg0) {
     return NULL;
 }
 
-void func_8004D8C0(s32 arg0, s32 arg1) {
+void viSetResolution(s32 arg0, s32 arg1) {
     Unk *var_a2;
     f32 temp_ft0;
     f32 temp_fv0;

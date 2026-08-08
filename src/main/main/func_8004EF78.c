@@ -21,15 +21,15 @@ typedef struct {
     /* 0x80 */ s32 unk80;
 } UnkStruct_arg1;
 
-s16 func_8004EE5C(f32, f32, s32);                   /* extern */
+s16 trackNodeFindNearestGetter(f32, f32, s32);                   /* extern */
 extern f32 D_8004BBB8;
 extern f32 D_8004BBBC;
 
-void func_8004EF78(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2) {
+void entitySlotReset(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     s16 var_v0;
 
     if (arg2 != 0) {
-        var_v0 = func_8004EE5C(arg0->unk0, arg0->unk4, arg0->unk8);
+        var_v0 = trackNodeFindNearestGetter(arg0->unk0, arg0->unk4, arg0->unk8);
     } else {
         var_v0 = arg1->unk4;
     }

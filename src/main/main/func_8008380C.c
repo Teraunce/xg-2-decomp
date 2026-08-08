@@ -1,5 +1,5 @@
 #include "ultra64.h"
-char *func_8008380C(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
+char *audioAdpcmDecodeCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
     char *sp4C;
     s32 sp48;
     s32 sp2C;

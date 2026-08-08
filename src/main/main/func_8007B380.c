@@ -44,5 +44,5 @@ void mtxEulerRotF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3 /*, f32 scale_fv0 */) 
  * then falls through to mtxEulerRotF. Cannot be expressed in standard C.
  */
 void mtxEulerRotGetter(s32 arg1, s32 arg2, s32 arg3) {
-    func_8007B4C0((f32)arg1, arg2);
+    guRotateDegF2L((f32)arg1, arg2);
 }

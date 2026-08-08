@@ -10,7 +10,7 @@ typedef struct {
 
 s32 sfxGetState();                                  /* extern */
 
-void func_80065274(void **arg0) {
+void gfxAddSyncCmd(void **arg0) {
     UnkStruct_temp_v0 *temp_v0;
     UnkStruct_temp_v0_2 *temp_v0_2;
 

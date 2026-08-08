@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 intDisable();                                /* extern */
 void intRestore(s32);                               /* extern */
-void func_80075044(s32, s8*, u32);                       /* extern */
+void piReadBytes(s32, s8*, u32);                       /* extern */
 s32 sramStartDma(s32, s32, s32);                  /* extern */
 
 s32 func_80075E04(s32 arg0, s32 arg1, u32 arg2) {
@@ -24,7 +24,7 @@ loop_2:
         }
         temp_v0 = sramStartDma(0x505, var_a2, 0);
         if (temp_v0 != 0) {
-            func_80075044(0xB1FF0000, var_s3, temp_v0);
+            piReadBytes(0xB1FF0000, var_s3, temp_v0);
             var_s3 += temp_v0;
             var_s1 -= temp_v0;
             var_s2 += temp_v0;

@@ -11,7 +11,7 @@ typedef struct {
 
 void guMtxIdent(char *);                         /* extern */
 
-void func_8007B508(UnkStruct_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3) {
+void guScaleF(UnkStruct_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3) {
     guMtxIdent(arg0);
     arg0->unk0 = arg1;
     arg0->unk14 = arg2;
@@ -19,6 +19,7 @@ void func_8007B508(UnkStruct_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3) {
     arg0->unk28 = arg3;
 }
 
-void func_8007B55C(s32 arg1, s32 arg2, s32 arg3) {
-
+void guScale(void);  /* forward: GETTER_NOJR fallthrough */
+void guScaleGetter(s32 arg1, s32 arg2, s32 arg3) {
+    guScale();  /* GETTER_NOJR: mtc1 $a1/$a2/$a3 to $fa0/$fa1/$ft4, falls into guScale */
 }

@@ -61,7 +61,7 @@ extern u16 *D_80174720;
 extern s32 D_8017CA44;
 extern s32 D_80184580;
 
-void func_80052BB0(void) {
+void mainPoolAlloc(void) {
     D_80170390 = heap_alloc_default(0x3EA90);
 }
 

@@ -4,7 +4,7 @@ u16 sfxGetFrameOutput(s32);                               /* extern */
 extern s32 gLocale;
 extern u16 gLocaleIdx;
 
-s32 func_80061800(s32 arg0) {
+s32 localeCheck(s32 arg0) {
     s32 var_s0;
     u16 temp_v0;
 

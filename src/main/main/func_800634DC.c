@@ -2,9 +2,9 @@
 /* Warning: missing "jr $ra" in last block of func_8006364C (initial). */
 
 s32 sfxMapId(s32);                               /* extern */
-void func_80065224(void**);                               /* extern */
-void func_80065274(void**);                               /* extern */
-void func_80065370(void**, s32);                            /* extern */
+void rdpRunSetupDL(void**);                               /* extern */
+void gfxAddSyncCmd(void**);                               /* extern */
+void sfxRenderBegin(void**, s32);                            /* extern */
 void sceneDispatch(s32, s32, s32);                    /* extern */
 extern s32 D_8004C050;
 extern s32 D_8004C058;
@@ -17,9 +17,9 @@ void func_800634DC(void) {
     s32 var_a3;
     s32 temp_t2;
 
-    func_80065224(&D_80173CC0);
+    rdpRunSetupDL(&D_80173CC0);
     if (D_801823C4 != 0) {
-        func_80065370(&D_80173CC0, 0);
+        sfxRenderBegin(&D_80173CC0, 0);
         sfxMapId(0x48);
         var_a1 = &D_8004C050;
         var_a3 = 0x10;
@@ -32,10 +32,10 @@ void func_800634DC(void) {
         var_a3 = 5;
     }
     sceneDispatch(var_a1, 0, var_a3);
-    func_80065274(&D_80173CC0);
+    gfxAddSyncCmd(&D_80173CC0);
 }
 
 void func_8006364C(Unk *arg0) {
     arg0->unkC00;
-    func_80063650();
+    sfxTableInit();
 }

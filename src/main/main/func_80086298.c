@@ -29,7 +29,7 @@ typedef struct {
 s32 sfxComputePitch(UnkStruct_arg0*, s32);                      /* extern */
 char *sfxEventDequeue();                              /* extern */
 
-void func_80086298(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2, f32 arg3, s16 arg4, u8 arg5, u8 arg6, s32 arg7) {
+void sfxNotePlay(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2, f32 arg3, s16 arg4, u8 arg5, u8 arg6, s32 arg7) {
     char *sp1C;
     u8 var_v1;
     UnkStruct_temp_a0 *temp_a0;

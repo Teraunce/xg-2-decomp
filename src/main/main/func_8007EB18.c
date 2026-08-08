@@ -12,7 +12,7 @@ typedef struct {
     /* 0x08 */ s32 unk8;
 } UnkStruct_temp_v0;
 
-s32 func_8007E464(Unk*, Unk*);                      /* extern */
+s32 audioNoteMinTime(Unk*, Unk*);                      /* extern */
 void osSetTimer(void **, s32, s32);           /* extern */
 
 void audioStartTimer(UnkStruct_arg0 *arg0) {
@@ -22,14 +22,14 @@ void audioStartTimer(UnkStruct_arg0 *arg0) {
 
     if (arg0->unk2C == 1) {
         temp_a0 = arg0->unk18;
-        if ((temp_a0 != 0) && (func_8007E464(temp_a0, &sp1C) != 0)) {
+        if ((temp_a0 != 0) && (audioNoteMinTime(temp_a0, &sp1C) != 0)) {
             sp20 = 0;
             osSetTimer((void **)(arg0 + 0x48), &sp20, arg0->unk24 * sp1C);
         }
     }
 }
 
-void func_8007EB88(UnkStruct_arg0 *arg0) {
+void audioCalcPeriod(UnkStruct_arg0 *arg0) {
     UnkStruct_temp_v0 *temp_v0;
 
     temp_v0 = arg0->unk18;

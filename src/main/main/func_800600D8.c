@@ -13,7 +13,7 @@ extern s32 D_80181E48;
 extern s32 D_80181E4C;
 extern u16 D_801822D8;
 
-void func_800600D8(s32 arg0, s32 arg1) {
+void rdpFrameBegin(s32 arg0, s32 arg1) {
     s32 var_a0;
     s32 var_a1;
     s32 var_v0;

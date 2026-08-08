@@ -20,7 +20,7 @@ extern s32 D_80182258;
 extern s32 D_80182290;
 extern s32 D_801822B0;
 
-void func_8005FF44(s32 arg0) {
+void sfxRaceInit(s32 arg0) {
     gRaceCtrl = arg0;
     copyU16Array(&D_80182038, sfxMapId(0xC6));
     copyU16Array(&D_80182188, sfxMapId(0xC7));

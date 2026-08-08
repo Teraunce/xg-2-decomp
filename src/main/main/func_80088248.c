@@ -2,7 +2,7 @@
 extern s32 D_8018AD28;
 extern u8 D_8018AD69;
 
-void func_80088248(u8 *arg0, char *arg1) {
+void contParseReadResp(u8 *arg0, char *arg1) {
     Unk *sp14;
     s8 spC;
     s32 sp8;

@@ -2,7 +2,7 @@
 #include "audio.h"
 
 /*
- * func_80063158 — SFX per-frame state machine (nonmatching).
+ * sfxFrameStateMachine — SFX per-frame state machine (nonmatching).
  *
  * Entry conditions:
  *   entity — the "master" sound-source entity pointer ($a0, saved to $s1).
@@ -27,13 +27,13 @@
  *   State 0 — "Is the SFX system initialised?"
  *     Check sfxHasEntity(gSfxSlotEnd) (the gSfxSlotEnd sentinel).
  *     NOT found → DMA-load the audio overlay via __osInvalICache_full /
- *       osWritebackInvalDCache / osInvalICache / audioDecodeHufh / func_8005F838
+ *       osWritebackInvalDCache / osInvalICache / audioDecodeHufh / audioBootDecode
  *       (twice: once for code, once for data).  → advance state.
  *     Found → scan gSfxChannelMute[0..3]; if any byte is nonzero set
  *       gSfxBlockedFlag = 1.  → DO NOT advance state (return as-is).
  *
  *   State 1 — Schedule the state-advance callback.
- *     func_80070C3C(entity, sfxFrameTick)
+ *     gameHandlerInit(entity, sfxFrameTick)
  *     → DO NOT advance state (scheduler fires sfxFrameTick on completion).
  *
  *   State 2 — Manage gSfxTimerD.
@@ -64,13 +64,13 @@
  *     result = entityFindActive()
  *     if result < 0: call sfxFrameTick(); return.
  *     extra = func_800DD984(entity)
- *     func_80070CD4(entity, sfxFrameTick, result, extra)
+ *     handlerSetupLooped(entity, sfxFrameTick, result, extra)
  *     → DO NOT advance state.
  *
  *   State 5 — Audio engine tick + D50 dispatch.
  *     result = entityFindActive()
  *     if result < 0: call sfxFrameTick(); return.
- *     func_80070D50(entity, sfxFrameTick, result, D_800DDC5C)
+ *     handlerSetupTable(entity, sfxFrameTick, result, D_800DDC5C)
  *     → DO NOT advance state.
  *
  *   State 6 — Timing gate + trigger output.
@@ -124,25 +124,25 @@ void  __osInvalICache_full(void);
 void  osWritebackInvalDCache(void *dst, u32 len);
 void  osInvalICache(void *dst, u32 len);
 void  audioDecodeHufh(void *src, void *dst, u32 len, s32 unk);
-void  func_8005F838(void);
+void  audioBootDecode(void);
 void  sfxFrameTick(void);
 void  trackSegmentOffset(s32 outer, s32 inner);
 s32   sfxGetFrameOutput(void);
 void *sfxGetEntry(s32 id);
 void  sfxPlay(s32 soundId);
-s32   func_80070C3C(void *entity, void (*cb)(void));
+s32   gameHandlerInit(void *entity, void (*cb)(void));
 s32   entityFindActive(void);
 s32   func_800DD984(void *entity);
-void  func_80070CD4(void *entity, void (*cb)(void), s32 result, s32 extra);
-void  func_80070D50(void *entity, void (*cb)(void), s32 result, void *tbl);
+void  handlerSetupLooped(void *entity, void (*cb)(void), s32 result, s32 extra);
+void  handlerSetupTable(void *entity, void (*cb)(void), s32 result, void *tbl);
 void  audioSetTrack(void *ctx);
 void  func_800C0810(s32 a0, s32 a1);
 
 /* -------------------------------------------------------------------------
- * func_80063158
+ * sfxFrameStateMachine
  * nonmatching
  * ------------------------------------------------------------------------- */
-void func_80063158(void *entity, s32 arg1) {
+void sfxFrameStateMachine(void *entity, s32 arg1) {
     s32 state;
 
     /* ------------------------------------------------------------------ */
@@ -186,7 +186,7 @@ void func_80063158(void *entity, s32 arg1) {
             __osInvalICache_full();
             osWritebackInvalDCache(&D_80096540, D_1F080);
             osInvalICache(&D_80096540, D_1F080);
-            func_8005F838();
+            audioBootDecode();
             /* → advance state */
             goto lbl_advance_state;
         } else {
@@ -206,7 +206,7 @@ void func_80063158(void *entity, s32 arg1) {
      * State 1: schedule the state-advance callback via the audio engine.
      * ------------------------------------------------------------------ */
     case 1:
-        func_80070C3C(entity, sfxFrameTick);
+        gameHandlerInit(entity, sfxFrameTick);
         return;  /* scheduler fires sfxFrameTick on completion */
 
     /* ------------------------------------------------------------------
@@ -287,7 +287,7 @@ void func_80063158(void *entity, s32 arg1) {
         }
         {
             s32 extra = func_800DD984(entity);
-            func_80070CD4(entity, sfxFrameTick, result, extra);
+            handlerSetupLooped(entity, sfxFrameTick, result, extra);
         }
         return;
     }
@@ -300,7 +300,7 @@ void func_80063158(void *entity, s32 arg1) {
         if (result < 0) {
             goto lbl_error;
         }
-        func_80070D50(entity, sfxFrameTick, result, D_800DDC5C);
+        handlerSetupTable(entity, sfxFrameTick, result, D_800DDC5C);
         return;
     }
 

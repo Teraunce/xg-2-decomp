@@ -17,7 +17,7 @@
  *         audioPlayCopySample(D_8004B658 + rec[0], rec[2], volume)   → returns 1
  *
  *     'LZSS' / 0x4C5A5353 — LZSS compressed sample:
- *         func_8005AC70(D_8004B658 + rec[0], volume, rec[2], rec[3])  → returns 1
+ *         audioDecodeLZSS(D_8004B658 + rec[0], volume, rec[2], rec[3])  → returns 1
  *
  *     unknown tag — returns 0.
  *
@@ -44,7 +44,7 @@ extern s32   D_801823E0;  /* 0x801823E0 — current SFX frame output value */
 
 /* Sample decoder prototypes — argument order confirmed from asm. */
 s32 audioPlayCopySample(void *ptr, s32 length, s32 volume);
-s32 func_8005AC70(void *ptr, s32 volume, s32 length, s32 loopEnd);
+s32 audioDecodeLZSS(void *ptr, s32 volume, s32 length, s32 loopEnd);
 s32 audioDecodeHufh(void *ptr, s32 volume, s32 length);
 
 /* Four-CC tags stored at record[+0x4] */
@@ -80,7 +80,7 @@ s32 sfxDispatchSample(s32 defIndex, s32 volume) {
          * COPY (0x434F5059) < HUFH (0x4C485546), so COPY is reached via
          * the beq at 0x80063A7C (after failing the sltu). */
         if (tag == SFX_TAG_LZSS) {
-            func_8005AC70(sample, volume, length, loopEnd);
+            audioDecodeLZSS(sample, volume, length, loopEnd);
             return 1;
         }
         return 0;

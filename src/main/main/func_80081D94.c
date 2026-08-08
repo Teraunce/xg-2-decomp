@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_80081D94 — per-frame update dispatcher for an audio/animation node.
+ * audioTimerDispatch — per-frame update dispatcher for an audio/animation node.
  *   Loops calling osStopTimer until it returns nonzero.
  *   Dispatches on s16 type field (obj+0x28) via jtbl_8004CE70 (9 entries).
  *   type==5 is caught before table lookup; type>=9 skips osStopTimer.
@@ -30,8 +30,8 @@
  * D_8004CEA0: f32 substitute rate when rate < lower bound
  */
 
-void  func_80090AE8(void *a, void *b, void *c);
-void func_80086208(void *a, void *b, s32 c);
+void  sfxNoteAssign(void *a, void *b, void *c);
+void sfxNoteUpdate(void *a, void *b, s32 c);
 void  sfxPlayPanAtEntity(void *a, void *b, s32 vol);
 void  sfxPlayAtEntity(void *a, void *b, s32 pitch, s32 c);
 void  sfxPlayLoopAtEntity(void *a, void *b, f32 rate);
@@ -47,7 +47,7 @@ extern f64 D_8004CE98;
 extern f32 D_8004CEA0;
 
 /* nonmatching: jtbl_8004CE70 switch + bnel/beql branch-likely + FPU */
-void func_80081D94(Unk *obj) {
+void audioTimerDispatch(Unk *obj) {
     Unk  *s4   = (Unk *)((u8 *)obj + 0x28);
     Unk  *s7   = (Unk *)((u8 *)obj + 0x14);
     s32   fp   = 1;
@@ -96,7 +96,7 @@ next_frame:
         stk_v0 = *(s16 *)((u8 *)s5 + 0x20);
         stk_v1 = 0;
         stk_v2 = 0;
-        func_80090AE8(*(void **)((u8 *)obj + 0x38), s5, &stk_v0);
+        sfxNoteAssign(*(void **)((u8 *)obj + 0x38), s5, &stk_v0);
 
         a3    = *(Unk **)s1;
         t6    = *(u8  *)((u8 *)a3 + 0xC);
@@ -110,7 +110,7 @@ next_frame:
         t0    = (v1 <= 0) ? 0 : (v1 >= 0x7F ? 0x7F : v1);
 
         ft0   = *(f32 *)((u8 *)s5 + 0x24);
-        func_80086208(*(void **)((u8 *)obj + 0x38), s5,
+        sfxNoteUpdate(*(void **)((u8 *)obj + 0x38), s5,
                       *(s32 *)((u8 *)s1 + 0x8));
         *(s32 *)((u8 *)s5 + 0x28) = fp;
         sfxPlayPanAtEntity(*(void **)((u8 *)obj + 0x38), s5, t0);

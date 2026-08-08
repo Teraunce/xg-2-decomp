@@ -3,7 +3,7 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 extern s32 osIntMask;
 
-void func_8008E318(s32 arg0) {
+void osEnableIntMask(s32 arg0) {
     s32 temp_s0;
 
     temp_s0 = osDisableInt();

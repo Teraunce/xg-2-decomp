@@ -3,7 +3,7 @@ s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
-void func_80088E9C(s32, u16, u8*);                     /* extern */
+void siSetupWriteCmd(s32, u16, u8*);                     /* extern */
 u8 crc8Calc(u8*);                             /* extern */
 s32 contPakProbe(s32, s32);                        /* extern */
 extern s8 D_8018AD68;
@@ -31,7 +31,7 @@ s32 osContPakWrite(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
     }
     __siLock();
     D_8018AD68 = 3;
-    func_80088E9C(arg1, arg2, arg3);
+    siSetupWriteCmd(arg1, arg2, arg3);
     sp5C = osSiRawStartDma(1, &D_8018ADB8);
     osRecvMesg(arg0, 0, 1);
 loop_5:

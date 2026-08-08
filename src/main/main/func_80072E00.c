@@ -4,10 +4,10 @@ void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 void osSetEventMesg(s32, s32, s32);                      /* extern */
-s32 func_80087BC8(s32);                               /* extern */
-void func_80087C4C(s32);                               /* extern */
-s32 func_8008C898(void *);                             /* extern */
-s32 func_8008CA00(void *);                             /* extern */
+s32 siReadBlocking(s32);                               /* extern */
+void contGetInputPort(s32);                               /* extern */
+s32 contPakSiDmaRead(void *);                             /* extern */
+s32 contPakSiWrite(void *);                             /* extern */
 s32 contPakBuildMap(s32, Unk*, s32);                   /* extern */
 extern s32 D_800925C8;
 extern s32 D_80093EFC;
@@ -27,7 +27,7 @@ extern s32 D_80188E28;
 extern s32 D_8018AD28;
 extern s32 D_80192860;
 
-void func_80072E00(s32 arg0) {
+void contPakUpdate(s32 arg0) {
     s32 sp14;
     s32 sp10;
     char *var_a0;
@@ -71,7 +71,7 @@ void func_80072E00(s32 arg0) {
                     var_s0 = 0;
                 }
                 do {
-                    if (func_8008C898(sp14 + &D_8018894C) != 0) {
+                    if (contPakSiDmaRead(sp14 + &D_8018894C) != 0) {
                         var_s1->unk33C = 1;
                     }
                     var_s0 += 1;
@@ -106,10 +106,10 @@ block_32:
                         if (var_fp == 0) {
                             osWritebackDCache(&D_80192860, 0x10);
                             var_fp = 1;
-                            func_80087BC8(&D_801887A0);
+                            siReadBlocking(&D_801887A0);
                             osRecvMesg(&D_801887A0, 0, 1);
                             osWritebackInvalDCache(&D_8018AD28, 0x40);
-                            func_80087C4C(&D_80192860);
+                            contGetInputPort(&D_80192860);
                         }
                         if ((void *)(((Unk*)((char*)&D_80192860 + sp10))->unk2 & 1) && (contPakBuildMap(&D_801887A0, var_s5, var_s4) == 0)) {
                             var_s1->unk33C = 0;
@@ -127,13 +127,13 @@ block_32:
                 } else {
                     if (var_v1 != 0) {
                         if (var_s1->unk32C == 0) {
-                            if (func_8008CA00(var_s5) != 0) {
+                            if (contPakSiWrite(var_s5) != 0) {
                                 var_s1->unk33C = 1;
                             }
                             var_s1->unk32C = 1;
                         }
                     } else if (var_s1->unk32C != 0) {
-                        if (func_8008C898(var_s5) != 0) {
+                        if (contPakSiDmaRead(var_s5) != 0) {
                             var_s1->unk33C = 1;
                         } else {
                             var_s1->unk32C = 0;
@@ -147,10 +147,10 @@ block_32:
                 if (var_fp == 0) {
                     osWritebackDCache(&D_80192860, 0x10);
                     var_fp = 1;
-                    func_80087BC8(&D_801887A0);
+                    siReadBlocking(&D_801887A0);
                     osRecvMesg(&D_801887A0, 0, 1);
                     osWritebackInvalDCache(&D_8018AD28, 0x40);
-                    func_80087C4C(&D_80192860);
+                    contGetInputPort(&D_80192860);
                 }
                 if (var_s7->unk2 & 2) {
                     var_s1->unk34C = 1;

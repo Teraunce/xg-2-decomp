@@ -1,8 +1,8 @@
 #include "ultra64.h"
-void func_80063E2C(s32);                                 /* extern */
-void func_80063E4C(s32);                                 /* extern */
-void func_80063EF4(s32);                                 /* extern */
-void func_80063F18(s32);                                 /* extern */
+void sfxSetPitch(s32);                                 /* extern */
+void sfxSetFreq(s32);                                 /* extern */
+void sfxSetFilter(s32);                                 /* extern */
+void sfxSetState(s32);                                 /* extern */
 extern s32 D_801823F8;
 extern s32 D_801823FC;
 extern s32 D_80182400;
@@ -20,11 +20,11 @@ extern s16 D_80182E94;
 extern s16 D_80182E96;
 extern s8 D_80182E9C;
 
-void func_80063C08(void) {
-    func_80063E2C(0);
-    func_80063E4C(8);
-    func_80063EF4(0);
-    func_80063F18(1);
+void rdpStateInit(void) {
+    sfxSetPitch(0);
+    sfxSetFreq(8);
+    sfxSetFilter(0);
+    sfxSetState(1);
     D_80182E7C = 0;
     D_80182E76 = 0;
     D_80182E74 = 0;

@@ -1,14 +1,15 @@
 #include "ultra64.h"
-void func_80086078();                                  /* extern */
+void audioClearNode();                                  /* extern */
 extern s32 gPendingFlushFlag;
 
-void func_8007DA74(void) {
+void pendingFlushClear(void) {
     if ((s32)0 /* implicit $t6 from caller */ != 0) {
-        func_80086078();
+        audioClearNode();
         gPendingFlushFlag = 0;
     }
 }
 
-void func_8007DAA4(void) {
-
+void audioSynthSetup(void);  /* forward: GETTER_NOJR fallthrough */
+void audioSynthSetupGetter(void) {
+    audioSynthSetup();  /* GETTER_NOJR: loads *D_800952D0 into $t6, falls into audioSynthSetup */
 }

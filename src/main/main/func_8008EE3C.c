@@ -1,11 +1,11 @@
 #include "ultra64.h"
-s32 func_8008F5A8(void *, s32, s32, void *);              /* extern */
+s32 vsprintfCore(void *, s32, s32, void *);              /* extern */
 extern s32 byteCopyEnd;
 
 s32 func_8008EE3C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_v0;
 
-    temp_v0 = func_8008F5A8(&byteCopyEnd, arg0, arg1, &arg2);
+    temp_v0 = vsprintfCore(&byteCopyEnd, arg0, arg1, &arg2);
     if (temp_v0 >= 0) {
         *((char*)(s32)arg0 + temp_v0) = 0;
     }

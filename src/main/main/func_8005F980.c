@@ -1,19 +1,19 @@
 #include "ultra64.h"
-void func_8004D358();                                  /* extern */
-void func_8004D420();                                  /* extern */
+void dlResetPtr();                                  /* extern */
+void rspResetCounters();                                  /* extern */
 s32 heap_alloc_default(s32);                               /* extern */
-void func_8005C88C(s32);                                 /* extern */
+void audioSetCallback(s32);                                 /* extern */
 void audioSetTrack(s32);                               /* extern */
-void func_8005C8EC(s32, s32);                              /* extern */
+void audioSetRates(s32, s32);                              /* extern */
 s32 sfxQueueCmd(s32, s32, s32, s32, s32);                   /* extern */
-void func_8005F838();                                  /* extern */
-void func_8005FF44(s32);                                 /* extern */
-s32 func_80061800(s32);                               /* extern */
+void audioBootDecode();                                  /* extern */
+void sfxRaceInit(s32);                                 /* extern */
+s32 localeCheck(s32);                               /* extern */
 void sfxPlayCue(void*, void*);                            /* extern */
 void sfxSetCueParams(s32, s32, s32, s32, s32);                   /* extern */
-void func_80063650();                                  /* extern */
+void sfxTableInit();                                  /* extern */
 s32 sfxFreeBlock(s32);                               /* extern */
-void func_80063DF0();                                  /* extern */
+void sfxBufAlloc();                                  /* extern */
 s32 func_800AE150();                                  /* extern */
 s32 func_800C0810(s32, s32, s32, s32);                  /* extern */
 s32 func_800C9138(void *, s32);                            /* extern */
@@ -46,12 +46,12 @@ extern Unk D_80181EF0;
 extern s32 D_801821E8;
 extern Unk D_80182EA8;
 
-void func_8005F980(s32 arg0) {
+void gameSceneInit(s32 arg0) {
     s32 *var_v1;
 
-    func_8004D420();
-    func_8004D358();
-    func_80063650();
+    rspResetCounters();
+    dlResetPtr();
+    sfxTableInit();
     D_80181EF0.unk0 = heap_alloc_default(0x20000);
     D_80181EF0.unk4 = heap_alloc_default(0x20000);
     D_8017C968.unk0 = 0;
@@ -67,19 +67,19 @@ void func_8005F980(s32 arg0) {
     D_8017C968.unk1C = (f32) D_8004BF78;
     if (arg0 == 0) {
         func_800AE150();
-        func_8005F838();
+        audioBootDecode();
     }
-    func_80063DF0();
+    sfxBufAlloc();
     D_801821E8 = sfxFreeBlock(0x200);
     gLocaleIdx = 0;
-    func_80061800(gLocale);
+    localeCheck(gLocale);
     if (arg0 != 0) {
         sfxSetCueParams(0, 0x55, 0, 4, 0);
         sfxPlayCue(&D_80092D20, 0);
         var_v1 = (s32 *)0x80090000;
     } else {
         sfxSetCueParams(0, 0x100, 2, 4, 0);
-        func_8005C8EC(0, 0);
+        audioSetRates(0, 0);
         audioSetTrack(D_80182EA8.unkB00);
         if (gRaceCtrl != 0) {
             D_80092B64 = 1;
@@ -96,7 +96,7 @@ void func_8005F980(s32 arg0) {
         } else if (D_80174C28 != 0) {
             if ((D_80182EA8.unk16D8 != 1) && (D_80182EA8.unk16D8 != 2) && (D_80182EA8.unk16D8 != 0xB)) {
                 if (!(D_80092B8C & 0x2000)) {
-                    func_8005C88C(0x15);
+                    audioSetCallback(0x15);
                     D_80092B64 = 1;
 block_14:
                     sfxQueueCmd(0xE, 0x3F800000, 0x10000, 0x40, 0);
@@ -111,7 +111,7 @@ block_14:
         } else {
 block_16:
             if (D_80173C38 != 0) {
-                func_8005FF44(0);
+                sfxRaceInit(0);
                 var_v1 = (s32 *)0x80090000;
             } else {
                 sfxQueueCmd(0xE, 0x3F800000, 0x10000, 0x40, 0);

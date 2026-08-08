@@ -14,7 +14,7 @@ typedef struct {
 
 s32 crc5Calc(s32);                             /* extern */
 
-void func_8008CB6C(s32 arg0, u16 arg1, u8 *arg2, UnkStruct_arg3 *arg3) {
+void contPakBuildCmd(s32 arg0, u16 arg1, u8 *arg2, UnkStruct_arg3 *arg3) {
     char sp_buf[64];
     char *sp = sp_buf; /* $sp base — local stack byte-pointer */
     UnkStruct_sp44 *sp44;

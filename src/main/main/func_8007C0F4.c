@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_8007C0F4 — massive-stack helper function (nonmatching).
+ * __osIntHandler — massive-stack helper function (nonmatching).
  *
  * PERMANENTLY NONMATCHING — cross-function backward branch:
  *
@@ -23,4 +23,4 @@
  *
  * Function size: 0x754 bytes.
  */
-void func_8007C0F4(void) { /* nonmatching — see asm stub */ }
+void __osIntHandler(void) { /* nonmatching — see asm stub */ }

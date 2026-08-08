@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void guMtxF2L(char*, char*);                          /* extern */
-void func_8007B508(void *, f32, f32, s32);                  /* extern */
+void guScaleF(void *, f32, f32, s32);                  /* extern */
 extern f32 D_8004C848;
 extern Unk D_8004C898;
 extern f64 D_8004C8C0;
@@ -11,13 +11,13 @@ extern s32 D_80094A60;
 extern s32 D_8009525E;
 
 /*
- * func_8007B568 — nonmatching.
+ * guScale — nonmatching.
  * arg2_ft4 is a float passed in non-standard register $f16 (SN64 quirk).
  */
-void func_8007B568(f32 arg1, s32 arg0, f32 arg2_ft4) {
+void guScale(f32 arg1, s32 arg0, f32 arg2_ft4) {
     s32 sp18[16];
 
-    func_8007B508(&sp18, arg0, arg1, (s32) arg2_ft4);
+    guScaleF(&sp18, arg0, arg1, (s32) arg2_ft4);
     guMtxF2L(&sp18, arg0);
 }
 
@@ -65,7 +65,7 @@ f32 sinf(f32 arg0) {
     return D_8004C8D8;
 }
 
-s16 func_8007B768(s32 arg0) {
+s16 sinInt(s32 arg0) {
     s16 var_v1;
     s32 temp_t8;
 

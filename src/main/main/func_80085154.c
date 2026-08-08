@@ -3,7 +3,7 @@ s32 osVirtualToPhysical(u32);                       /* extern */
 extern f64 D_8004CF60;
 extern f32 D_8004CF68;
 
-s32 func_80085154(Unk *arg0, s16 *arg1, s32 arg2, s32 arg4) {
+s32 audioVoiceNodeCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg4) {
     char *sp48;
     s16 sp46;
     char *sp28;
@@ -50,7 +50,7 @@ s32 func_80085154(Unk *arg0, s16 *arg1, s32 arg2, s32 arg4) {
     return (s32) var_a1;
 }
 
-f32 func_80085368(Unk *arg0, s32 arg1) {
+f32 audioTriOsc(Unk *arg0, s32 arg1) {
     f32 var_fv1;
     f64 temp_fv0;
 

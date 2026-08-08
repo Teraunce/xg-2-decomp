@@ -2,7 +2,7 @@
 s32 __osPiRawReadIo(s32*);                              /* extern */
 s32 piReadByteUnaligned(s32);                              /* extern */
 
-void func_80075044(s32 arg0, s8 *arg1, u32 arg2) {
+void piReadBytes(s32 arg0, s8 *arg1, u32 arg2) {
     s32 temp_a0;
     s32 temp_a0_2;
     s32 var_s2;

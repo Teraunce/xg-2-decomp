@@ -3,7 +3,7 @@
 
 s32 guMtxL2FFixed(s32, s32);                            /* extern */
 
-void func_80057A94(s32 arg0, s32 arg1) {
+void guMtxL2FFixedW(s32 arg0, s32 arg1) {
     guMtxL2FFixed(arg1, arg0);
 }
 

@@ -33,9 +33,9 @@ typedef struct {
 s32 osSetIntMask(s32);                             /* extern */
 void __osTimerUnlink(Unk*);                               /* extern */
 void __osTimerInsert(Unk*, void**);                        /* extern */
-void func_8007EB88(void*);                           /* extern */
+void audioCalcPeriod(void*);                           /* extern */
 
-void func_8007EBC4(UnkStruct_arg1 *arg1) {
+void timerRelink(UnkStruct_arg1 *arg1) {
     Unk *saved_reg_s7 = NULL; /* implicit $s7 set by caller — not saved/restored here */
     UnkStruct_temp_a0 *temp_a0;
     UnkStruct_temp_s2 *temp_s2;
@@ -60,7 +60,7 @@ void func_8007EBC4(UnkStruct_arg1 *arg1) {
         temp_v0 = arg1 + 4;
         if (arg1->unk9 == 0x51) {
             temp_fp = saved_reg_s7->unk24;
-            func_8007EB88(saved_reg_s7);
+            audioCalcPeriod(saved_reg_s7);
             var_s1 = saved_reg_s7->unk50;
             if (var_s1 != NULL) {
                 do {

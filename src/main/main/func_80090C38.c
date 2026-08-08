@@ -2,7 +2,7 @@
 void __osTimerUnlink(Unk*);                            /* extern */
 void __osTimerInsert(Unk*, void**);                    /* extern */
 
-s32 func_80090C38(Unk *arg0, void **arg1, s16 arg2) {
+s32 audioTimerAcquire(Unk *arg0, void **arg1, s16 arg2) {
     s16 var_a2;
     s32 var_s2;
     s32 var_v0;

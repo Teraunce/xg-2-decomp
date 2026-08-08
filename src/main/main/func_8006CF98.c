@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8006D1EC (initial). */
+/* Warning: missing "jr $ra" in last block of gameLoopDispatchGetter (initial). */
 
 s32 osVirtualToPhysical(u32);                       /* extern */
 extern s32 gTrackNodeCount;
@@ -88,7 +88,7 @@ void func_8006CF98(Unk *arg0) {
     temp_s0_3->unk4 = osVirtualToPhysical(arg0->unk1F540);
 }
 
-void func_8006D1FC(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8006D1EC(void) {
-    func_8006D1FC();
+void gameLoopDispatch(void);  /* forward: GETTER_NOJR fallthrough */
+void gameLoopDispatchGetter(void) {
+    gameLoopDispatch();
 }

@@ -59,10 +59,10 @@ typedef struct {
 } UnkStruct_temp_v1_5;
 
 void memcpyBytes(Unk*, char*, s32);                   /* extern */
-extern s32 func_8008380C;
+extern s32 audioAdpcmDecodeCmd;
 extern s32 audioAdpcmCmd;
 
-void func_80083638(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
+void audioAdpcmNodeCmd(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
     u8 temp_v0;
     u8 temp_v1_3;
     UnkStruct_temp_a0 *temp_a0;
@@ -103,7 +103,7 @@ void func_80083638(UnkStruct_arg0 *arg0, s32 arg1, UnkStruct_arg2 *arg2) {
                 return;
             case 1:
                 temp_v0_4 = arg0->unk28;
-                arg0->unk4 = &func_8008380C;
+                arg0->unk4 = &audioAdpcmDecodeCmd;
                 temp_v1_2 = temp_v0_4->unkC;
                 if (temp_v1_2 != NULL) {
                     arg0->unk1C = (s32) temp_v1_2->unk0;

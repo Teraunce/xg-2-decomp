@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_80063F24(Unk*);                          /* extern */
+s32 sfxComputeFreqOffset(Unk*);                          /* extern */
 extern s32 D_80092F40;
 extern Unk *D_801823E8;
 extern Unk *D_801823EC;
@@ -43,10 +43,10 @@ loop_10:
                 var_s3 = 0;
                 if ((s32) temp_s4 < (temp_s1->unk0 + temp_s1->unk2)) {
                     var_s0_2 = 1;
-                    var_s2 = func_80063F24(temp_s1->unk8);
+                    var_s2 = sfxComputeFreqOffset(temp_s1->unk8);
                     if ((u16) temp_s1->unk4 > 1U) {
                         do {
-                            temp_v0 = func_80063F24(temp_s1->unk8 + (var_s0_2 * 8));
+                            temp_v0 = sfxComputeFreqOffset(temp_s1->unk8 + (var_s0_2 * 8));
                             if (temp_v0 < var_s2) {
                                 var_s2 = temp_v0;
                                 var_s3 = var_s0_2;

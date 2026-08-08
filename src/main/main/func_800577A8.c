@@ -3,7 +3,7 @@ extern f32 D_8004BDA0;
 extern f32 D_8004BDA4;
 extern f32 D_8004BDA8;
 
-void func_800577A8(Unk *arg0, Unk *arg1, Unk *arg2) {
+void mtxProjectVec(Unk *arg0, Unk *arg1, Unk *arg2) {
     s32 spC;
     s32 sp0;
     s32 sp4;

@@ -2,7 +2,7 @@
 s32 func_80055900();                                  /* extern */
 
 /*
- * func_8005566C — game-loop / entity-update sub-dispatcher (nonmatching).
+ * entityUpdateDispatch — game-loop / entity-update sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -16,7 +16,7 @@ s32 func_80055900();                                  /* extern */
  *
  * Function size: 0xDA8 bytes.
  */
-void func_8005566C(void) { /* nonmatching — see asm stub */ }
+void entityUpdateDispatch(void) { /* nonmatching — see asm stub */ }
 
 void func_80056414(void) {
     func_80055900();

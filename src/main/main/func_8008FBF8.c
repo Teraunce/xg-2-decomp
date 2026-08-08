@@ -1,12 +1,12 @@
 #include "ultra64.h"
-u64 func_8008EB84(s32, s32, s32, s32);              /* extern */
+u64 __umoddi3(s32, s32, s32, s32);              /* extern */
 u64 __udivdi3(s32, s32, s32, s32);              /* extern */
 s32 byteCopy(s32, void *, s32);                  /* extern */
-void func_8008FE98(void *, s32, u32, s32, u32);        /* extern */
+void __divmoddi3(void *, s32, u32, s32, u32);        /* extern */
 extern s32 D_80096510;
 extern s32 D_80096524;
 
-void func_8008FBF8(Unk *arg0, s32 arg1) {
+void fmtIntBuf(Unk *arg0, s32 arg1) {
     s32 sp54;
     s32 sp5C;
     s8 sp78;
@@ -76,7 +76,7 @@ void func_8008FBF8(Unk *arg0, s32 arg1) {
         var_s0 = 0x17;
         sp4C = 0x17;
         sp70 = var_t1;
-        temp_t7 = *((u32) func_8008EB84(sp60, sp64, var_t1 >> 0x1F, var_t1) + var_s3);
+        temp_t7 = *((u32) __umoddi3(sp60, sp64, var_t1 >> 0x1F, var_t1) + var_s3);
         ((Unk*)&sp78)->unk17 = temp_t7;
     }
     sp70 = var_t1;
@@ -91,7 +91,7 @@ void func_8008FBF8(Unk *arg0, s32 arg1) {
         sp40 = arg0->unk0;
         sp44 = arg0->unk4;
 loop_24:
-        func_8008FE98(&sp50, sp40, (u32)sp44, sp38, (u32)sp3C);
+        __divmoddi3(&sp50, sp40, (u32)sp44, sp38, (u32)sp3C);
         temp_a0 = var_s0 - 1;
         arg0->unk0 = sp50;
         arg0->unk4 = sp54;

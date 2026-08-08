@@ -6,7 +6,7 @@ extern f32 D_8004BDB4;
 extern f32 D_8004BDB8;
 extern f32 D_8004BDBC;
 
-void func_80057DB4(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void mtxSetFromVectors(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp78;
     f32 sp74;
     f32 sp70;
@@ -90,7 +90,7 @@ block_8:
     arg0->unk34 = (s32) (temp_fa0_9 << 0x10);
 }
 
-void func_800580C0(Unk *arg0, Unk *arg1) {
+void mtxTransposeL2F(Unk *arg0, Unk *arg1) {
     if (arg0 != arg1) {
         arg1->unk0 = (f32) arg0->unk0;
         arg1->unk10 = (f32) arg0->unk4;

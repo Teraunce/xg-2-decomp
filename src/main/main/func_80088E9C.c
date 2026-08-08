@@ -12,7 +12,7 @@ s32 crc5Calc(s32);                             /* extern */
 extern s32 D_8018ADB8;
 extern s32 D_8018ADF4;
 
-void func_80088E9C(s32 arg0, u16 arg1, u8 *arg2) {
+void siSetupWriteCmd(s32 arg0, u16 arg1, u8 *arg2) {
     Unk *sp = (Unk*)0;
     UnkStruct_sp44 *sp44;
     s8 sp42;

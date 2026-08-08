@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void gfxSpTaskWait(s32, s32, s32);                  /* extern */
 char *heap_alloc_default(s32);                           /* extern */
-void func_80063C08(void);                             /* extern */
+void rdpStateInit(void);                             /* extern */
 extern s32 D_8004B650;
 extern s32 D_8004B654;
 extern char *D_801823E8;
@@ -53,5 +53,5 @@ void func_80063CD8(void) {
             var_t0 += 0xC;
         } while (var_s1 < (u16) temp_a3->unk0);
     }
-    func_80063C08();
+    rdpStateInit();
 }

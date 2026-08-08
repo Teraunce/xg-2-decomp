@@ -22,11 +22,11 @@ typedef struct {
 
 s32 contPakChecksum(s32, u16*, u16*);                 /* extern */
 s32 contPakTransfer(Unk*, Unk*, Unk*);                /* extern */
-s32 func_80089674(Unk*, Unk*);                     /* extern */
+s32 contPakVerifyNote(Unk*, Unk*);                     /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);                /* extern */
 
-s32 func_8008980C(UnkStruct_arg0 *arg0) {
+s32 contPakOpenNote(UnkStruct_arg0 *arg0) {
     s32 sp64;
     u16 sp62;
     u16 sp60;
@@ -50,7 +50,7 @@ s32 func_8008980C(UnkStruct_arg0 *arg0) {
     contPakChecksum(&sp40, &sp62, &sp60);
     sp18 = &sp40;
     if ((((Unk*)&sp40)->unk1C != sp62) || (((Unk*)&sp40)->unk1E != sp60)) {
-        sp1C = func_80089674(arg0, sp18);
+        sp1C = contPakVerifyNote(arg0, sp18);
         if (sp1C == 0xA) {
             sp1C = contPakTransfer(arg0, sp18, &sp20);
             if (sp1C != 0) {

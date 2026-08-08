@@ -1,12 +1,12 @@
 #include "ultra64.h"
-void func_8004D358();                                  /* extern */
-s32 func_8004E4E4();                                /* extern */
-void func_8005566C(void);                              /* extern */
+void dlResetPtr();                                  /* extern */
+s32 contInit();                                /* extern */
+void entityUpdateDispatch(void);                              /* extern */
 void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);          /* extern */
 void osSetEventMesg(s32, s32, s32);                     /* extern */
 void osStartThread(Unk*);                               /* extern */
-void func_800872A8(s32, s32, s32);                     /* extern */
+void viSetDisplay(s32, s32, s32);                     /* extern */
 extern s32 D_8014D6E8;
 extern s32 D_80163720;
 extern s32 D_8016DF70;
@@ -40,14 +40,14 @@ extern s32 D_8017CA30;
 extern s32 D_8017CA38;
 extern s32 D_8017CA48;
 extern s32 D_8017CC50;
-extern s32 func_8004E1B8;
+extern s32 siMsgDispatch;
 
 void gameMainLoop_setup(s32 arg0) {
     s32 temp_v0;
 
     osCreateMesgQueue(&D_8016DF70, &D_8016E290, 0x20);
-    func_8004D358();
-    temp_v0 = func_8004E4E4();
+    dlResetPtr();
+    temp_v0 = contInit();
     D_8017C890 = 1;
     D_80174724 = temp_v0;
     D_8017CA28 = 4;
@@ -75,10 +75,10 @@ void gameMainLoop_setup(s32 arg0) {
     osSetEventMesg(9, &D_80174708, &D_8017CA28);
     osSetEventMesg(6, &D_80174708, &D_8017CA38);
     osSetEventMesg(0xE, &D_80174708, &D_801786B0);
-    func_800872A8(&D_80174708, &D_8017CA30, 1);
+    viSetDisplay(&D_80174708, &D_8017CA30, 1);
     osCreateMesgQueue(&D_80173C48, &D_80178610, 0x20);
     osSetEventMesg(5, &D_80173C48, &D_8017C890);
-    osCreateThread(&D_80174558, 9, &func_8004E1B8, 0, &D_80174550, 0xE);
+    osCreateThread(&D_80174558, 9, &siMsgDispatch, 0, &D_80174550, 0xE);
     osStartThread(&D_80174558);
     D_80173C88.unk0 = 0;
     D_80173C88.unk4 = 1;
@@ -91,7 +91,7 @@ void gameMainLoop_setup(s32 arg0) {
     D_80173C88.unk20 = 0;
     D_80173C88.unk24 = 1;
 loop_1:
-    func_8005566C();
+    entityUpdateDispatch();
     goto loop_1;
 }
 

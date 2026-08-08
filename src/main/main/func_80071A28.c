@@ -9,7 +9,7 @@ extern s32 D_801887A0;
 extern Unk D_801887D0;
 extern s32 D_80188938;
 
-void func_80071A28(s32 *arg0) {
+void contPakHandlerInit(s32 *arg0) {
     u8 sp20;
     char *var_a0;
     Unk *var_s1;

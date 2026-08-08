@@ -9,7 +9,7 @@ extern s32 osIntMask;
 extern s32 D_A4600010;
 extern s32 D_A5000510;
 
-void func_8008DC54(void) {
+void piCartDmaComplete(void) {
     UnkStruct_sp1C *sp1C;
     s32 sp18;
 

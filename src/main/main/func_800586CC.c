@@ -4,7 +4,7 @@
 s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 void guMtxCat(s32, s32, s32);                  /* extern */
-void func_8007B820(s32, f32, f32, f32);                  /* extern */
+void guTranslateF(s32, f32, f32, f32);                  /* extern */
 void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2); /* static */
 s32 func_8005A33C();                                  /* static */
 s32 func_8005A47C(s32);                               /* static */
@@ -13,7 +13,7 @@ extern f32 D_8004BDE0;
 extern f32 D_8004BDE4;
 extern Unk gViewportTimestamp;
 
-void func_800586CC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+void cameraSetupMtx(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     s32 saved_reg_f24;
     s32 saved_reg_f26;
     s32 saved_reg_f28;
@@ -59,7 +59,7 @@ void func_800586CC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     s32 temp_ft2_8;
     s32 temp_ft2_9;
 
-    func_8007B820(&sp80, arg1, arg2, arg3);
+    guTranslateF(&sp80, arg1, arg2, arg3);
     sp64 = arg8;
     sp60 = arg7;
     sp68 = arg9;
@@ -100,7 +100,7 @@ void func_800586CC(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     guMtxCat(&spC0, &sp80, arg0);
 }
 
-s16 func_80058940(s16 arg0) {
+s16 randRange(s16 arg0) {
     s32 temp_v0;
     u16 temp_a1;
     u16 temp_a2;
@@ -133,7 +133,7 @@ f32 func_80058A00(f32 arg0, f32 arg1, f32 arg2) {
 
 /* D_80059234: rodata/jtbl — defined in .s file */
 
-s32 func_80059774(f32 arg_fa0_unused, f32 arg_fa1_unused) {
+s32 triContainsPoint2D(f32 arg_fa0_unused, f32 arg_fa1_unused) {
     Unk *saved_reg_s0;
     Unk *saved_reg_s1;
     Unk *saved_reg_s2;
@@ -236,7 +236,7 @@ s32 func_80059CFC(Unk *arg0, Unk *arg1) {
                         temp_fs4 = temp_ft2 - ((temp_ft2 - temp_v1->unk4) * temp_ft1);
                         temp_fa1 = (temp_fa0 - temp_v1->unk8) * temp_ft1;
                         temp_v0_2 = arg0->unk0;
-                        if (func_80059774(temp_fa0, temp_fa1) != 0) {
+                        if (triContainsPoint2D(temp_fa0, temp_fa1) != 0) {
                             temp_v0_2->unk0 = temp_fs3;
                             temp_v0_2->unk4 = temp_fs4;
                             temp_v0_2->unk8 = (f32) (temp_fa0 - temp_fa1);
@@ -283,7 +283,7 @@ s32 func_80059F34(Unk *arg0, Unk *arg1) {
 block_9:
                     temp_fa0 = ((Unk *)arg0->unk0)->unk8;
                     temp_v0 = arg0->unkC;
-                    if (func_80059774(temp_fa0, (temp_fa0 - ((Unk *)arg0->unk4)->unk8) * (temp_fs1 / (temp_fs1 - temp_fv0))) != 0) {
+                    if (triContainsPoint2D(temp_fa0, (temp_fa0 - ((Unk *)arg0->unk4)->unk8) * (temp_fs1 / (temp_fs1 - temp_fv0))) != 0) {
                         temp_v0->unk0 = (f32) (temp_v0->unk0 + (s32)0 /* implicit $a2 from caller */);
                         temp_v0->unk4 = (f32) ((Unk *)(s32)(temp_v0->unk4 + (s32)0 /* implicit $a2 from caller */))->unk4;
                         temp_v0->unk8 = (f32) ((Unk *)(s32)(temp_v0->unk8 + (s32)0 /* implicit $a2 from caller */))->unk8;

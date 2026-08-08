@@ -8,7 +8,7 @@ extern f32 D_8004CFA8;
 extern f32 D_8004CFAC;
 extern s32 gAiClock;
 
-s32 func_800865F8(Unk *arg0, s16 arg1, s32 arg2, s32 arg3) {
+s32 audioVoiceGeomInit(Unk *arg0, s16 arg1, s32 arg2, s32 arg3) {
     s32 temp_a2;
     s32 temp_s1;
 
@@ -47,6 +47,6 @@ f32 audioSemitoneRatio(s32 arg0) {
     return var_fv1;
 }
 
-void geomNodeDispatchGetter(s32 arg0) {
-
+void geomNodeDispatchGetter(Unk *arg0, Unk *arg1, void *arg2) {
+    audioGeomNodeInit(arg0, arg1, arg2);  /* GETTER_NOJR: preloads D_80095288→$t6 and (f32)arg0→$ft2, falls through */
 }

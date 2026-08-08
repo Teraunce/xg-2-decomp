@@ -6,7 +6,7 @@ s32 entityStepState(s32, s32, s32);                     /* extern */
 s32 contPakFetchNote(void *, s32, void *);              /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 s32 contPakCountNotes(void *, s32*);                   /* extern */
-s32 func_8008B708(void *, s32*, s32*);              /* extern */
+s32 contPakReadDir(void *, s32*, s32*);              /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
 extern s32 D_80093EC8;
@@ -14,7 +14,7 @@ extern s32 D_80093ECC;
 extern Unk D_801887D0;
 extern s32 D_80188940;
 
-void func_80072550(s32 arg0, s32 arg1, s32 arg2) {
+void contPakLoadNote(s32 arg0, s32 arg1, s32 arg2) {
     s32 sp4C;
     s32 sp48;
     s32 sp44;
@@ -42,7 +42,7 @@ loop_2:
         }
     }
     sp40 = 0;
-    if ((D_801887D0.unk168 != 0) && ((temp_s0_2 = (arg1 * 0x68) + (&D_801887D0 + 0x17C), var_v0 = &D_801887D0, (entityStepState(contPakCountNotes(temp_s0_2, &sp40), arg1, -1) != 0)) || ((D_801887D0.unk168 != 0) && (var_v0 = &D_801887D0, (entityStepState(func_8008B708(temp_s0_2, &sp44, &sp48), arg1, -1) != 0))))) {
+    if ((D_801887D0.unk168 != 0) && ((temp_s0_2 = (arg1 * 0x68) + (&D_801887D0 + 0x17C), var_v0 = &D_801887D0, (entityStepState(contPakCountNotes(temp_s0_2, &sp40), arg1, -1) != 0)) || ((D_801887D0.unk168 != 0) && (var_v0 = &D_801887D0, (entityStepState(contPakReadDir(temp_s0_2, &sp44, &sp48), arg1, -1) != 0))))) {
         goto loop_2;
     }
     var_s1 = 0;

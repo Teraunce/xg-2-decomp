@@ -1,7 +1,7 @@
 #include "ultra64.h"
 u16 func_80070268(u8);                              /* extern */
 
-void func_80070454(s32 arg0, Unk *arg1) {
+void pakNameToU16(s32 arg0, Unk *arg1) {
     s32 var_s0;
     u16 *var_s2;
     u16 *var_v1;

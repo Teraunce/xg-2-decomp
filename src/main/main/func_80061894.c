@@ -123,7 +123,7 @@ void safeCopy(u32 arg0, u32 arg1, u32 arg2) {
     }
 }
 
-void func_80061A9C(s8 *arg0, s8 arg1, s32 arg2) {
+void memsetBytes(s8 *arg0, s8 arg1, s32 arg2) {
     s32 var_v1;
     s8 *var_a3;
 
@@ -138,7 +138,7 @@ void func_80061A9C(s8 *arg0, s8 arg1, s32 arg2) {
     }
 }
 
-void func_80061AC8(void) {
+void sfxEntryWrite(void) {
     func_80061ADC();
 }
 
@@ -179,7 +179,7 @@ s32 memcmpImpl(u8 *arg0, u8 *arg1, s32 arg2) {
     return 0;
 }
 
-u32 func_80061B38(u32 arg0, u32 arg1, u32 arg2, u32 arg3) {
+u32 u64DivImpl(u32 arg0, u32 arg1, u32 arg2, u32 arg3) {
     s32 var_a1;
     s32 var_v0;
     u32 var_t0;

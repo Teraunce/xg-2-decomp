@@ -1,5 +1,5 @@
 #include "ultra64.h"
-char *func_800841B8(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
+char *audioMixCmd(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
     s32 temp_v0;
     s32 var_s0;
     void **var_s1;
@@ -35,7 +35,7 @@ f64 func_80084298(f64 arg0, s32 arg2) {
     return var_fa0;
 }
 
-f64 func_800842C0(f64 arg0, s32 *arg2) {
+f64 frexp(f64 arg0, s32 *arg2) {
     f64 var_fv0;
     f64 var_fv1;
 

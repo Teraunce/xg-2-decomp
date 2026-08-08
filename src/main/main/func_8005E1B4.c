@@ -6,7 +6,7 @@ s32 audioQueueFind(s32, f32*, s32*, s32*);                    /* extern */
 s32 sfxComputeSpatial(f32, f32, s32, s32, f32, f32, f32 *, s32 *, s32 *, s32 *, s32); /* extern */
 extern s32 D_80092844;
 
-void func_8005E1B4(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
+void sfxPositionalUpdate(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
     s32 sp34;
     s32 sp30;
     s32 temp_a0;

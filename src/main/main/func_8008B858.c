@@ -24,13 +24,13 @@ s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
 s32 contPakChecksum(s32, u16*, u16*);                 /* extern */
 s32 contPakTransfer(Unk*, Unk*, Unk*);                /* extern */
-s32 func_80089674(Unk*, Unk*);                     /* extern */
+s32 contPakVerifyNote(Unk*, Unk*);                     /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);             /* extern */
-s32 func_8008BAC8(Unk*);                          /* extern */
+s32 contPakRepairNotes(Unk*);                          /* extern */
 s32 contPakProbe(s32, s32);                        /* extern */
 
-s32 func_8008B858(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
+s32 contPakVerifyRead(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     s32 sp64;
     s32 sp60;
     u16 sp5E;
@@ -59,7 +59,7 @@ s32 func_8008B858(s32 arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     contPakChecksum(&sp3C, &sp5E, &sp5C);
     sp38 = &sp3C;
     if ((((Unk*)&sp3C)->unk1C != sp5E) || (((Unk*)&sp3C)->unk1E != sp5C)) {
-        sp60 = func_80089674(arg1, sp38);
+        sp60 = contPakVerifyNote(arg1, sp38);
         if (sp60 != 0) {
             return sp60;
         }
@@ -98,7 +98,7 @@ block_15:
     if (sp60 != 0) {
         return sp60;
     }
-    temp_v0 = func_8008BAC8(arg1);
+    temp_v0 = contPakRepairNotes(arg1);
     sp60 = temp_v0;
     arg1->unk0 = (s32) (arg1->unk0 | 1);
     return temp_v0;

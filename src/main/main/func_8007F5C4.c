@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_8007F5C4 — per-frame node update dispatcher (nonmatching).
+ * audioNodeUpdate — per-frame node update dispatcher (nonmatching).
  *
  * Outer switch: index = u16(obj+0x38), 24 entries via jtbl_8004CB5C.
  * Case 0 has a nested inner switch using jtbl_8004CBBC (20 entries);
@@ -32,8 +32,8 @@
 void  audioStreamSchedule(void *a, s16 *b);
 void  audioRspDispatchNode(void);      /* nonmatching: reads $t0, not $a0/$a1 */
 void  audioStartTimer(void *a);
-void func_8007EBC4(void *);
-void func_8007EB88(void *);                           /* extern */
+void timerRelink(void *);
+void audioCalcPeriod(void *);                           /* extern */
 void  timerRelinkByType(void *a, s32 b);
 s32   sfxComputeVolume(void *a, void *b);
 s32   sfxComputeDist(void *a, void *b);
@@ -52,7 +52,7 @@ void  sfxPlayLoopAtEntity(void *a, void *b, f32 c);
 extern f32 D_8004CC0C;
 
 /* nonmatching: jtbl_8004CB5C/CBBC switch + audioRspDispatchNode non-std ABI */
-void func_8007F5C4(Unk *obj) {
+void audioNodeUpdate(Unk *obj) {
     /* Permanent */
     Unk  *s5   = (Unk *)((u8 *)obj + 0x48);
     void *sp50 = (void *)((u8 *)obj + 0x38); /* stored ptr; a1 for E858 */
@@ -102,9 +102,9 @@ lbl_loop:
             audioStartTimer(obj);
             goto lbl_epilogue;
 
-        /* Sub-case 2: func_8007EBC4(obj) + audioStartTimer */
+        /* Sub-case 2: timerRelink(obj) + audioStartTimer */
         case 2:
-            func_8007EBC4(obj);
+            timerRelink(obj);
             audioStartTimer(obj);
             goto lbl_epilogue;
 
@@ -163,10 +163,10 @@ lbl_loop:
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
-    /* Case 7: func_8007EBC4(obj, &obj->0x38) → default                  */
+    /* Case 7: timerRelink(obj, &obj->0x38) → default                  */
     /* ------------------------------------------------------------------ */
     case 7:
-        func_8007EBC4(obj);
+        timerRelink(obj);
         goto lbl_default;
 
     /* ------------------------------------------------------------------ */
@@ -206,12 +206,12 @@ lbl_loop:
         goto lbl_default;
 
     /* ------------------------------------------------------------------ */
-    /* Case 0xD: obj->0x18 = obj->0x3C; func_8007EB88;                  */
+    /* Case 0xD: obj->0x18 = obj->0x3C; audioCalcPeriod;                  */
     /*   if obj->0x20 != NULL: audioLoadNotes                              */
     /* ------------------------------------------------------------------ */
     case 0xD:
         *(s32 *)((u8 *)obj + 0x18) = *(s32 *)((u8 *)obj + 0x3C);
-        func_8007EB88(obj);
+        audioCalcPeriod(obj);
         if (*(void **)((u8 *)obj + 0x20) == NULL) goto lbl_epilogue;
         audioLoadNotes(obj, *(void **)((u8 *)obj + 0x20));
         goto lbl_epilogue;

@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 byteCopy(s32, void *, s32);                       /* extern */
-s32 func_8008FF98(s32, s32);                            /* extern */
+s32 intDiv(s32, s32);                            /* extern */
 void func_80090028();                                  /* extern */
 extern s32 D_8004D0D8;
 extern s32 D_8004D120;
@@ -152,7 +152,7 @@ loop_47:
                 var_s0 = 7;
                 if (7 >= 0) {
 loop_51:
-                    func_8008FF98(var_s1, 0xA);
+                    intDiv(var_s1, 0xA);
                     var_s5_2 -= 1;
                     *var_s5_2 = sp78 + 0x30;
                     var_s1 = sp74;

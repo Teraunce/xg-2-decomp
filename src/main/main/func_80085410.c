@@ -20,7 +20,7 @@ typedef struct {
 
 s32 osVirtualToPhysical(u32);                             /* extern */
 
-char *func_80085410(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2, UnkStruct_arg3 *arg3) {
+char *audioGeomRspCmd(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2, UnkStruct_arg3 *arg3) {
     char *sp24;
     UnkStruct_sp18 *sp18;
     s32 temp_v0;

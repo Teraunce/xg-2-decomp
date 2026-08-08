@@ -3,8 +3,8 @@ void entityClearSlots(s32, s32);                       /* extern */
 void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
-s32 func_80087BC8(s32);                               /* extern */
-void func_80087C4C(s32);                               /* extern */
+s32 siReadBlocking(s32);                               /* extern */
+void contGetInputPort(s32);                               /* extern */
 s32 siQueryControllers(s32, u8*);                       /* extern */
 s32 contPakBuildMap(s32, Unk*, s32);                /* extern */
 extern s32 D_801887A0;
@@ -12,7 +12,7 @@ extern Unk D_801887D0;
 extern s32 D_8018AD28;
 extern s32 D_80192860;
 
-void func_80071D04(s32 *arg0) {
+void contPakHandlerDetect(s32 *arg0) {
     u8 sp10;
     Unk *var_s0;
     Unk *var_s3;
@@ -22,10 +22,10 @@ void func_80071D04(s32 *arg0) {
     char *var_s4;
 
     osWritebackDCache(&D_80192860, 0x10);
-    func_80087BC8(&D_801887A0);
+    siReadBlocking(&D_801887A0);
     osRecvMesg(&D_801887A0, 0, 1);
     osWritebackInvalDCache(&D_8018AD28, 0x40);
-    func_80087C4C(&D_80192860);
+    contGetInputPort(&D_80192860);
     if (siQueryControllers(&D_801887A0, &sp10) == 0) {
         var_s1 = 0;
         var_s0 = &D_801887D0;

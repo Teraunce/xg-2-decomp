@@ -92,11 +92,11 @@ void sfxMarkEntityActive(void *entity) {
 }
 
 /* -------------------------------------------------------------------------
- * func_8006211C
+ * sfxFindEntity
  * Find the first heap entry matching 'entity' and record its index in
  * gSfxAllocCount.  Sets gSfxAllocCount = -5 if not found.
  * ------------------------------------------------------------------------- */
-void func_8006211C(void *entity) {
+void sfxFindEntity(void *entity) {
     s32 i;
     s32 count = gSfxActiveCount;
 

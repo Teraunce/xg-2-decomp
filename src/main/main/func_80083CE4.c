@@ -188,7 +188,7 @@ char *audioAdpcmCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg3, Unk *arg4) {
     return var_t2;
 }
 
-s32 func_80084188(Unk *arg0, s32 arg1, s32 arg2) {
+s32 audioMixNodeCmd(Unk *arg0, s32 arg1, s32 arg2) {
     if (arg1 == 2) {
         *(s32*)(s32)(arg0->unk1C + (arg0->unk14 * 4)) = arg2;
         arg0->unk14 = (s32) (arg0->unk14 + 1);

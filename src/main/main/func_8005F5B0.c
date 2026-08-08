@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8005F6B4 (initial). */
+/* Warning: missing "jr $ra" in last block of gameModeResetGetter (initial). */
 
 void audioQueuePlay(s32, f32, s32, s8, s32);           /* extern */
 extern f32 D_8004BF48;
@@ -7,7 +7,7 @@ extern f32 D_8004BF4C;
 extern f32 D_8004BF50;
 extern Unk D_80181588;
 
-void func_8005F5B0(f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
+void audioPlayNormalized(f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
     Unk *var_s0;
     f32 temp_fv1;
     f32 var_ft0;
@@ -44,7 +44,8 @@ void func_8005F5B0(f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
     } while (var_s1 < 4);
 }
 
-void func_8005F6B4(Unk *arg0) {
-    arg0->unk7C83;
-    func_8005F6B8();
+void gameModeReset(void);  /* forward: GETTER_NOJR fallthrough */
+void gameModeResetGetter(Unk *arg0) {
+    (void) arg0->unk7C83;  /* GETTER_NOJR: lb $zero,0x7C83($a0) prefetch, falls into gameModeReset */
+    gameModeReset();
 }

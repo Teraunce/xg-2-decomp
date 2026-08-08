@@ -1,6 +1,6 @@
 #include "ultra64.h"
 u8 audioStreamReadByte(s32, s32);                         /* extern */
-s32 func_8007DD1C();                                /* extern */
+s32 audioStreamReadVarInt();                                /* extern */
 
 void audioStreamSchedule(Unk *arg0, Unk *arg1) {
     s32 sp28;
@@ -99,7 +99,7 @@ void audioStreamSchedule(Unk *arg0, Unk *arg1) {
             if ((arg1->unk8 & 0xF0) == 0x90) {
                 sp28 = (s32)0 /* implicit $t1 from caller */;
                 sp24 = (s32)0 /* implicit $t3 from caller */;
-                arg1->unkC = func_8007DD1C();
+                arg1->unkC = audioStreamReadVarInt();
             }
         } else {
             arg1->unkA = 0;
@@ -109,7 +109,7 @@ void audioStreamSchedule(Unk *arg0, Unk *arg1) {
     ((Unk*)0 /* implicit $t4 */)->unk10 = (s32)0 /* implicit $t1 from caller */;
     ((Unk*)0 /* implicit $t4 */)->unkC = (s32) (((Unk*)0 /* implicit $t4 */)->unkC + (s32)0 /* implicit $t1 from caller */);
     if (arg1->unk0 != 0x12) {
-        ((Unk*)0 /* implicit $t5 */)->unkB8 = (s32) (((Unk*)0 /* implicit $t5 */)->unkB8 + func_8007DD1C());
+        ((Unk*)0 /* implicit $t5 */)->unkB8 = (s32) (((Unk*)0 /* implicit $t5 */)->unkB8 + audioStreamReadVarInt());
     }
     ((Unk*)0 /* implicit $t4 */)->unk14 = 1;
 }

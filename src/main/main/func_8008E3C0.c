@@ -1,10 +1,10 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8008E408 (initial). */
+/* Warning: missing "jr $ra" in last block of osEPiRawWriteIoGetter (initial). */
 
 extern s32 D_A0000000;
 extern s32 D_A4600010;
 
-s32 func_8008E3C0(Unk *arg0, s32 arg1, s32 *arg2, s32 arg3) {
+s32 osEPiRawReadIo(Unk *arg0, s32 arg1, s32 *arg2, s32 arg3) {
     if (arg3 & 3) {
         do {
 
@@ -14,7 +14,7 @@ s32 func_8008E3C0(Unk *arg0, s32 arg1, s32 *arg2, s32 arg3) {
     return 0;
 }
 
-s32 func_8008E410(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8008E408(void) {
-    return func_8008E410();
+s32 osEPiRawWriteIo(void);  /* forward: GETTER_NOJR fallthrough */
+void osEPiRawWriteIoGetter(void) {
+    return osEPiRawWriteIo();
 }

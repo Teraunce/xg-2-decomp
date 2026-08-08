@@ -1,7 +1,7 @@
 #include "ultra64.h"
-s32 func_8007DD1C();                                /* extern */
+s32 audioStreamReadVarInt();                                /* extern */
 
-void func_8007E074(Unk *arg0, char *arg1) {
+void midiTrackInit(Unk *arg0, char *arg1) {
     f32 var_ft2;
     s32 temp_t7;
     s32 temp_v0;
@@ -27,7 +27,7 @@ void func_8007E074(Unk *arg0, char *arg1) {
         if (temp_v0 != 0) {
             arg0->unk4 = (s32) (arg0->unk4 | (1 << var_t5));
             var_t4->unk18 = (s32) (arg1 + temp_v0);
-            var_t4 /* loop feedback: previous var_t4 value in $t4 */->unkB8 = func_8007DD1C();
+            var_t4 /* loop feedback: previous var_t4 value in $t4 */->unkB8 = audioStreamReadVarInt();
         } else {
             var_t4->unk18 = 0;
         }

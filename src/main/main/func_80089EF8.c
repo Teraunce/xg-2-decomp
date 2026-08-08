@@ -4,7 +4,7 @@ s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
 u8 crc8Calc(u8*);                           /* extern */
-void func_8008A114(s32, u16);                          /* extern */
+void siSetupReadCmd(s32, u16);                          /* extern */
 s32 contPakProbe(s32, s32);                        /* extern */
 extern s8 D_8018AD68;
 extern s32 D_8018ADB8;
@@ -32,7 +32,7 @@ s32 osContPakRead(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
     sp28 = 2;
     __siLock();
     D_8018AD68 = 2;
-    func_8008A114(arg1, arg2);
+    siSetupReadCmd(arg1, arg2);
     sp5C = osSiRawStartDma(1, &D_8018ADB8);
     osRecvMesg(arg0, 0, 1);
 loop_1:

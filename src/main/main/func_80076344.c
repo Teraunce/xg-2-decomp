@@ -1,6 +1,6 @@
 #include "ultra64.h"
 /*
- * func_80076344 — handwritten 64-bit MIPS function (nonmatching).
+ * renderMainDispatch — handwritten 64-bit MIPS function (nonmatching).
  *
  * PERMANENTLY NONMATCHING — spimdisasm cannot decode this function at all.
  * Every instruction is emitted as a raw `.word` directive because the opcodes
@@ -19,7 +19,7 @@
  * disassembly lines).  Contains five jump tables in its rodata:
  *   jtbl_80076520, D_800769A8, D_800777C8, D_80077898, D_80078A28.
  */
-void func_80076344(void) { /* nonmatching — see asm stub */ }
+void renderMainDispatch(void) { /* nonmatching — see asm stub */ }
 
 /* jtbl_80076520: rodata/jtbl — defined in .s file */
 

@@ -172,12 +172,12 @@ block_7:
     return arg0;
 }
 
-void func_8005CF84(s32 arg0) {
+void audioSetChanA(s32 arg0) {
     D_80092830 = arg0;
     D_80092838 = 1;
 }
 
-void func_8005CF9C(s32 arg0) {
+void audioSetChanB(s32 arg0) {
     D_80092834 = arg0;
     D_80092838 = 1;
 }

@@ -3,7 +3,7 @@ void osInvalICache(u32, s32);                              /* extern */
 void osWritebackDCache(u32, s32);                              /* extern */
 s32 osEPiRawReadIo(s32, s32 *);                        /* extern */
 s32 osEPiRawWriteIo(s32, s32);                          /* extern */
-void func_8008CEB8(s32, u32 *);                          /* extern */
+void osEPiRawReadIoCart(s32, u32 *);                          /* extern */
 void bzero(s32, s32);                            /* extern */
 u32 __udivdi3(s32, u32, s32, s32);                  /* extern */
 s32 __muldi3(u32, s32, s32, s32);                  /* extern */
@@ -63,7 +63,7 @@ void osInitialize(void) {
     osWritebackDCache(0x80000000, 0x190);
     osInvalICache(0x80000000, 0x190);
     __osInitTLB();
-    func_8008CEB8(4, &sp30);
+    osEPiRawReadIoCart(4, &sp30);
     temp_t9 = sp30 & ~0xF;
     sp30 = temp_t9;
     if (temp_t9 != 0) {

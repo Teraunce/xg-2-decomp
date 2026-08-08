@@ -179,7 +179,7 @@ block_59:
     return 1;
 }
 
-void func_8008DC54(void);  /* forward: GETTER_NOJR fallthrough */
+void piCartDmaComplete(void);  /* forward: GETTER_NOJR fallthrough */
 void sramDmaStep(void) {
-    func_8008DC54();
+    piCartDmaComplete();
 }

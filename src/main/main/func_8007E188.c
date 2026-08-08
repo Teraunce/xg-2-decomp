@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void audioStreamSchedule(Unk*, Unk*);                        /* extern */
-void func_8007E074(Unk*, char*);                         /* extern */
+void midiTrackInit(Unk*, char*);                         /* extern */
 extern f64 D_8004C9C8;
 extern f64 D_8004C9D0;
 
@@ -16,7 +16,7 @@ void func_8007E188(Unk *arg0, Unk *arg1, u32 arg2) {
     Unk *var_a1;
     Unk *var_v0;
 
-    func_8007E074(&sp48, arg0->unk0);
+    midiTrackInit(&sp48, arg0->unk0);
 loop_1:
     var_a0 = &sp48;
     var_v1 = var_a0;
@@ -110,7 +110,7 @@ f32 func_8007E3F8(Unk *arg0, s32 arg1, s32 arg2) {
     return (f32) ((f64) ((f32) arg1 * var_ft3) / ((f64) var_ft4 * D_8004C9D0));
 }
 
-s32 func_8007E464(Unk *arg0, Unk *arg1) {
+s32 audioNoteMinTime(Unk *arg0, Unk *arg1) {
     s32 temp_v0;
     s32 var_a2;
     u32 temp_a1;

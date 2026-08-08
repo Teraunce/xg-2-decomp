@@ -1,10 +1,10 @@
 #include "ultra64.h"
 void timerQueueInit(Unk*, s32, s32);                  /* extern */
 char *audioHeapAlloc(s32, s32, s32, u8, s32);               /* extern */
-void func_800814EC(Unk*);                            /* extern */
+void audioNoteClearAll(Unk*);                            /* extern */
 void pendingFlushEnqueue(void *, void *);                       /* extern */
 extern s32 gPendingFlushFlag;
-extern s32 func_80080DC4;
+extern s32 audioSeqUpdate;
 
 void func_8008155C(Unk *arg0, Unk *arg1) {
     s32 sp2C;
@@ -35,7 +35,7 @@ void func_8008155C(Unk *arg0, Unk *arg1) {
     arg0->unk34 = (u8) arg1->unk8;
     sp2C = temp_a2;
     arg0->unk60 = audioHeapAlloc(0, 0, temp_a2, arg1->unk8, 0x10);
-    func_800814EC(arg0);
+    audioNoteClearAll(arg0);
     temp_v0 = audioHeapAlloc(0, 0, temp_a2, (u8) arg1->unk0, 0x38);
     arg0->unk6C = 0;
     var_a0 = 0;
@@ -52,7 +52,7 @@ void func_8008155C(Unk *arg0, Unk *arg1) {
     arg0->unk68 = 0;
     timerQueueInit(arg0 + 0x48, audioHeapAlloc(0, 0, sp2C, (u8) arg1->unk4, 0x1C), arg1->unk4);
     arg0->unk0 = 0;
-    arg0->unk8 = &func_80080DC4;
+    arg0->unk8 = &audioSeqUpdate;
     arg0->unk4 = arg0;
     pendingFlushEnqueue(gPendingFlushFlag, arg0);
 }
@@ -63,13 +63,13 @@ void func_800816E8(Unk *arg0, Unk *arg1) {
     arg1->unk4 = (s32) arg0->unkC;
 }
 
-void func_80081704(Unk *arg0, Unk *arg1) {
+void audioNodeStateRead(Unk *arg0, Unk *arg1) {
     arg0->unk8 = (s32) arg1->unk0;
     arg0->unk1A = (s16) arg1->unkC;
     arg0->unkC = (s32) arg1->unk4;
 }
 
-s32 func_80081720(Unk *arg0) {
+s32 audioNodeGetPos(Unk *arg0) {
     return arg0->unkC;
 }
 

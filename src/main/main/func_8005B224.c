@@ -1,9 +1,9 @@
 #include "ultra64.h"
 void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void viSwapBuffers(Unk*);                            /* extern */
-s32 func_8005AB28();                                  /* extern */
-void func_8005AEB4();                                  /* extern */
-void func_8005AFC4();                                  /* extern */
+s32 audioGetRspCount();                                  /* extern */
+void audioInitDecodeTable();                                  /* extern */
+void audioInitFreqTable();                                  /* extern */
 extern s32 D_800925D0;
 extern s32 D_800926D0;
 extern Unk D_8017CE08;
@@ -79,7 +79,7 @@ void audioDecodeHufh(s32 arg0, u8 *arg1, u32 arg2) {
     var_fp = arg1;
     D_8017DF44 = &sp1050;
     audioSetupCopySample(&sp1050, arg0, -1);
-    func_8005AEB4();
+    audioInitDecodeTable();
     var_v1 = 0;
     D_8017DF3E = 0;
     D_8017DF40 = 0;
@@ -119,7 +119,7 @@ loop_4:
         temp_s0_2 = var_s1 - 0x273;
         if (D_8017CE08.unk4E4 == 0x8000) {
             sp1070 = var_t4;
-            func_8005AFC4();
+            audioInitFreqTable();
         }
         var_a2 = ((Unk*)((char*)&D_8017D2F8 + ((s32)(temp_s0_2 << 0x10) >> 0xF)))->unk4E6;
         do {
@@ -248,5 +248,5 @@ block_41:
             }
         }
     }
-    func_8005AB28();
+    audioGetRspCount();
 }

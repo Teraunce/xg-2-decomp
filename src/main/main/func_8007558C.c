@@ -1,10 +1,10 @@
 #include "ultra64.h"
 s32 __osPiRawReadIo(s32*);                               /* extern */
-void func_80075044(s32, s8*, u32);                     /* extern */
-void func_8007515C(s32, s32, u32);                     /* extern */
+void piReadBytes(s32, s8*, u32);                     /* extern */
+void piCopyBytes(s32, s32, u32);                     /* extern */
 void piWriteBytes(s32, u8*, u32);                     /* extern */
-void func_8007544C(s32, s32, u32);                       /* extern */
-void func_80075518(s32, s32, s32);                     /* extern */
+void piSetBytes(s32, s32, u32);                       /* extern */
+void piMoveBytes(s32, s32, s32);                     /* extern */
 extern u32 D_80093F48;
 extern s32 D_80093F4C;
 extern s32 D_8F188E48;
@@ -52,20 +52,20 @@ void sramBlockRead(s32 arg0) {
                     } else {
                         var_a1 = var_s2;
                     }
-                    func_80075518(var_a0_2, var_a1, var_s0);
+                    piMoveBytes(var_a0_2, var_a1, var_s0);
                     var_s2 += var_s0;
                 } else if (arg0 == 1) {
                     piWriteBytes(var_s2, var_s1, var_s0);
                     var_s2 += var_s0;
                 } else if (temp_v1 & 8) {
-                    func_8007515C(var_s2, var_s1, var_s0);
+                    piCopyBytes(var_s2, var_s1, var_s0);
                     var_s2 += var_s0;
                 } else {
-                    func_80075044(var_s2, var_s1, var_s0);
+                    piReadBytes(var_s2, var_s1, var_s0);
                     goto block_23;
                 }
             } else if (arg0 == 1) {
-                func_8007544C(var_s2, 0, var_s0);
+                piSetBytes(var_s2, 0, var_s0);
                 var_s2 += var_s0;
             } else {
 block_23:

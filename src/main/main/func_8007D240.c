@@ -43,7 +43,7 @@ void osMsgQueueInit(void) {
     gOSMsgQueuePtr->unk1C = 0;
 }
 
-void func_8007D30C(void);  /* forward: GETTER_NOJR fallthrough */
+void __osTimerHandler(void);  /* forward: GETTER_NOJR fallthrough */
 void osTimerHandlerGetter(void) {
-    func_8007D30C();
+    __osTimerHandler();
 }

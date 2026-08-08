@@ -1,22 +1,22 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8005C538 (initial). */
+/* Warning: missing "jr $ra" in last block of audioRspDoneGetter (initial). */
 
 s32 *heap_alloc_default(s32);                            /* extern */
 void audioSetTrack(s32);                               /* extern */
-void func_8005C8EC(s32, s32);                              /* extern */
-void func_8005CF84(s32);                               /* extern */
-void func_8005CF9C(s32);                               /* extern */
+void audioSetRates(s32, s32);                              /* extern */
+void audioSetChanA(s32);                               /* extern */
+void audioSetChanB(s32);                               /* extern */
 void osWritebackInvalDCache(u32, s32);                        /* extern */
 void __osInvalICache_full();                                  /* extern */
 void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
-void func_8007D8CC(Unk*, s32);                        /* extern */
-void func_8007DAA4(void *, void *, s32 *, void *);              /* extern */
-void func_8007DAD8(void *, s32, s32);                     /* extern */
-void func_8007E9D8(s32, s32);                          /* extern */
-void func_8007EA18(s32, s8, s8);                     /* extern */
-void func_8007FBD8(Unk*, Unk*);                          /* extern */
-void func_800822DC(Unk*, Unk*);                          /* extern */
+void overlayLoadEntries(Unk*, s32);                        /* extern */
+void audioSynthSetupGetter(void *, void *, s32 *, void *);              /* extern */
+void audioHeapInit(void *, s32, s32);                     /* extern */
+void audioSetBufLen(s32, s32);                          /* extern */
+void audioSetChanWeight(s32, s8, s8);                     /* extern */
+void audioSynthInit(Unk*, Unk*);                          /* extern */
+void audioMidiInit(Unk*, Unk*);                          /* extern */
 s32 geomNodeDispatchGetter(s32);                               /* extern */
 s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);   /* extern */
 extern s32 D_8004B660;
@@ -56,9 +56,9 @@ extern s32 *D_801808F8;
 extern s32 D_80180908;
 extern Unk D_80182EA8;
 extern s32 D_801839A8;
-extern s32 func_8005BF64;
+extern s32 audioDmaBufInit;
 
-void func_8005C0BC(void) {
+void audioSystemInit(void) {
     Unk *var_v1;
     f32 temp_fv1;
     s32 *temp_v0_2;
@@ -76,7 +76,7 @@ void func_8005C0BC(void) {
 
     osCreateMesgQueue(&D_8017EFC8, &D_8017F008, 0xC8);
     osCreateMesgQueue(&D_8017EFE8, &D_8017F328, 1);
-    func_8007DAD8(&D_8017F378, heap_alloc_default(0xB400), 0xB400);
+    audioHeapInit(&D_8017F378, heap_alloc_default(0xB400), 0xB400);
     D_8017F434 = heap_alloc_default(0x4E20);
     D_8017F370.unk0 = heap_alloc_default(0x40);
     D_8017F370.unk4 = heap_alloc_default(0x40);
@@ -106,13 +106,13 @@ void func_8005C0BC(void) {
     }
     D_8017F3D8.unk0 = 0x2C;
     D_8017F3D8.unk4 = 0x24;
-    D_8017F3D8.unk10 = &func_8005BF64;
+    D_8017F3D8.unk10 = &audioDmaBufInit;
     D_8017F3D8.unk1C = 6;
     D_8017F3D8.unk20 = &D_80092AB0;
     D_8017F3D8.unk8 = 0x100;
     D_8017F3D8.unk14 = &D_8017F378;
     D_801808E4 = D_801808E0 - 0x10;
-    func_8007DAA4(&D_8017F388, &D_8017F3D8, &D_801808E0, &D_8017F3D8);
+    audioSynthSetupGetter(&D_8017F388, &D_8017F3D8, &D_801808E0, &D_8017F3D8);
     D_8017F408.unk0 = 0x10;
     D_8017F408.unk4 = 0x100;
     D_8017F408.unk8 = 0x10;
@@ -120,23 +120,23 @@ void func_8005C0BC(void) {
     D_8017F408.unk10 = 0;
     D_8017F408.unk14 = 0;
     D_8017F408.unk18 = 0;
-    func_8007FBD8(gAudioOutputCtx, &D_8017F408);
+    audioSynthInit(gAudioOutputCtx, &D_8017F408);
     var_s4 = 0;
-    func_8007D8CC(D_801808F0, D_8004B678);
+    overlayLoadEntries(D_801808F0, D_8004B678);
     temp_a1 = D_801808F0->unk4;
     gAudioBufLen = temp_a1;
-    func_8007E9D8(gAudioOutputCtx, temp_a1);
+    audioSetBufLen(gAudioOutputCtx, temp_a1);
     do {
         temp_a1_2 = var_s4 & 0xFF;
         temp_a2 = (0x10 - var_s4) & 0xFF;
         var_s4 += 1;
-        func_8007EA18(gAudioOutputCtx, temp_a1_2, temp_a2);
+        audioSetChanWeight(gAudioOutputCtx, temp_a1_2, temp_a2);
     } while (var_s4 < 0x10);
     D_8017F428.unk0 = 0x1C;
     D_8017F428.unk4 = 0x100;
     D_8017F428.unk8 = &D_8017F378;
-    func_800822DC(D_800927F0, &D_8017F428);
-    func_8007D8CC(D_801808F4, D_8004B668);
+    audioMidiInit(D_800927F0, &D_8017F428);
+    overlayLoadEntries(D_801808F4, D_8004B668);
     temp_v1 = D_801808F4->unk4;
     gAudioCfgPtr = temp_v1;
     D_801808DC = temp_v1->unkC;
@@ -153,7 +153,7 @@ void func_8005C0BC(void) {
     osWritebackInvalDCache(D_801808F8, temp_s1);
     var_s4_2 = 0;
     audioSetTrack(D_801839A8);
-    func_8005C8EC(0x78, 0);
+    audioSetRates(0x78, 0);
     var_v1 = &D_80180908;
     do {
         var_v1->unk0 = 0;
@@ -161,11 +161,12 @@ void func_8005C0BC(void) {
         var_s4_2 += 1;
         var_v1 += 0x14;
     } while (var_s4_2 < 0x1C);
-    func_8005CF84(D_80182EA8.unkAFC);
-    func_8005CF9C(D_80182EA8.unkB04);
+    audioSetChanA(D_80182EA8.unkAFC);
+    audioSetChanB(D_80182EA8.unkB04);
 }
 
-s32 func_8005C538(void) {
-    func_8005C540();
+void audioRspDone(void);  /* forward: GETTER_NOJR fallthrough */
+s32 audioRspDoneGetter(void) {
+    audioRspDone();  /* GETTER_NOJR: pre-loads gAudioFrameLock into $v0, falls into audioRspDone */
     return gAudioFrameLock;
 }

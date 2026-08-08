@@ -14,7 +14,7 @@ void __osTimerSetCompare(s32, u32);                          /* extern */
 u32 __osTimerEnqueue(UnkStruct_arg0*);                          /* extern */
 extern s32 *gOSMsgQueuePtr;
 
-s32 func_80088408(UnkStruct_arg0 *arg0, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
+s32 osSetTimerImpl(UnkStruct_arg0 *arg0, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     u32 sp1C;
     s32 sp18;
     s32 temp_ret;

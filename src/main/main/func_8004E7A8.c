@@ -34,7 +34,7 @@ void sfxChannelClear(char *arg0) {
 }
 
 /* -------------------------------------------------------------------------
- * func_8004E830 — video mode configuration dispatch.
+ * viModeConfig — video mode configuration dispatch.
  *
  * Reads gGameState (0-6), jumps via jtbl_8004BB20, and fills the
  * D_8017C968 VideoModeConfig struct with resolution/FP-scale values.
@@ -96,7 +96,7 @@ extern f32 D_8004BB7C, D_8004BB80, D_8004BB84, D_8004BB88;
 extern f32 D_8004BB8C, D_8004BB90, D_8004BB94, D_8004BB98, D_8004BB9C;
 extern f32 D_8004BBA0, D_8004BBA4, D_8004BBA8, D_8004BBAC, D_8004BBB0;
 
-void func_8004E830(void) {
+void viModeConfig(void) {
     VideoModeConfig *p;
     u32 mode;
 

@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void audioSetNoteSlot(Unk*, Unk*, s32);                  /* extern */
-void func_8007FDFC(Unk*, s32);                       /* extern */
+void audioDefaultNoteSlot(Unk*, s32);                       /* extern */
 
 void audioLoadNotes(Unk *arg0, Unk *arg1) {
     s32 temp_s1;
@@ -15,13 +15,13 @@ void audioLoadNotes(Unk *arg0, Unk *arg1) {
     var_s0 = 0;
     if ((s32) arg0->unk34 > 0) {
         do {
-            func_8007FDFC(arg0, var_s0);
+            audioDefaultNoteSlot(arg0, var_s0);
             audioSetNoteSlot(arg0, temp_s1, var_s0);
             var_s0 += 1;
         } while (var_s0 < (s32) arg0->unk34);
     }
     if (arg1->unk8 != 0) {
-        func_8007FDFC(arg0, var_s0);
+        audioDefaultNoteSlot(arg0, var_s0);
         audioSetNoteSlot(arg0, arg1->unk8, 9);
     }
 }

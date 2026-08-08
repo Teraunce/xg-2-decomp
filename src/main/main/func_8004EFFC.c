@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8004EF78(void *, void *, s32);                 /* extern */
+void entitySlotReset(void *, void *, s32);                 /* extern */
 s32 func_80097F10(void *, s32);                         /* extern */
 s32 func_800F1604(void *, f32 *, void *);                /* extern */
 extern f32 D_8004BBC0;
@@ -20,7 +20,7 @@ extern s32 gGameFlags;
 extern s32 D_80093334;
 extern Unk D_80182EA8;
 
-void func_8004EFFC(Unk *arg0, Unk *arg1, s32 arg3) {
+void entityPhysicsInit(Unk *arg0, Unk *arg1, s32 arg3) {
     s32 sp20;
     f32 sp18;
     f32 sp14;
@@ -113,13 +113,13 @@ block_14:
     sp10 = arg0->unk0;
     sp14 = arg0->unk4;
     sp18 = arg0->unk8;
-    func_8004EF78(&sp10, temp_s0, 1);
+    entitySlotReset(&sp10, temp_s0, 1);
     func_800F1604(temp_s0, &sp10, &sp20);
     func_80097F10(arg0, 1);
     sp10 = arg0->unk0;
     sp14 = arg0->unk4;
     sp18 = arg0->unk8;
-    func_8004EF78(&sp10, temp_s0, 1);
+    entitySlotReset(&sp10, temp_s0, 1);
     func_800F1604(temp_s0, &sp10, &sp20);
     arg0->unk1E8 = 0;
     arg0->unk1EC = 0;
@@ -136,7 +136,7 @@ block_14:
     arg0->unk21C = (f32) D_8004BBF4;
 }
 
-void func_8004F2F0(Unk *arg0) {
+void sfxEntryReset(Unk *arg0) {
     arg0->unk0 = 0;
     arg0->unk4 = 0;
     arg0->unk8 = 0;

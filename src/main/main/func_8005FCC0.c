@@ -1,10 +1,10 @@
 #include "ultra64.h"
-void func_8005FC3C(void);                              /* extern */
+void sfxMarkAllActive(void);                              /* extern */
 void sfxPlay(u16);                               /* extern */
 char *sfxGetEntry(s32);                           /* extern */
 s32 sfxGetFrameOutput(s32);                             /* extern */
 s32 trackSegmentOffset(s32, s32, void *, s32);              /* extern */
-s32 func_80070C88(void *, s32 (*)(void *, s32));                /* extern */
+s32 sfxHandlerEnsure(void *, s32 (*)(void *, s32));                /* extern */
 extern s32 gRaceCtrl;
 extern s32 gGameFlags;
 extern s32 D_80092B8C;
@@ -15,7 +15,7 @@ extern s32 D_80173D08;
 extern s32 gSfxChannelState;
 extern Unk D_80182EA8;
 
-void func_8005FCC0(s32 arg3) {
+void sfxRaceUpdate(s32 arg3) {
     s32 sp60;
     s32 sp10;
     s32 temp_s0;
@@ -87,10 +87,10 @@ loop_8:
         }
     }
     if (gRaceCtrl != 0) {
-        func_8005FC3C();
+        sfxMarkAllActive();
         return;
     }
-    func_80070C88(&gSfxChannelState, func_8005FC3C);
+    sfxHandlerEnsure(&gSfxChannelState, sfxMarkAllActive);
 }
 
 void func_8005FF2C(void) {

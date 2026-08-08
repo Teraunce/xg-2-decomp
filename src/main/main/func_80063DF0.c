@@ -13,22 +13,22 @@ extern u32 D_80182E98;
 extern s32 D_80182EA0;
 extern u32 D_80182EA4;
 
-void func_80063DF0(void) {
+void sfxBufAlloc(void) {
     D_80182408 = sfxFreeBlock(0x1800);
     D_80182410 = sfxFreeBlock(0x300);
 }
 
-void func_80063E24(void) {
+void sfxFrameBegin(void) {
 
 }
 
-void func_80063E2C(s32 arg0) {
+void sfxSetPitch(s32 arg0) {
     D_80182E70 = arg0 & 0xFF;
     D_801823EC = 0;
     D_801823F0 = 0;
 }
 
-void func_80063E4C(s32 arg0) {
+void sfxSetFreq(s32 arg0) {
     s32 temp_v1;
     u32 temp_a0;
     u32 temp_a0_2;
@@ -67,16 +67,16 @@ void func_80063EE4(s32 arg0) {
     D_80182E8C = arg0 & 0xFF;
 }
 
-void func_80063EF4(s32 arg0) {
+void sfxSetFilter(s32 arg0) {
     D_80182E84 = arg0 | 0xFF000000;
     D_80182E6C = 0xFF00FF;
 }
 
-void func_80063F18(s32 arg0) {
+void sfxSetState(s32 arg0) {
     D_80182EA0 = arg0;
 }
 
-s32 func_80063F24(Unk *arg0) {
+s32 sfxComputeFreqOffset(Unk *arg0) {
     s32 var_a0;
     s32 var_a0_2;
     u8 temp_a1;

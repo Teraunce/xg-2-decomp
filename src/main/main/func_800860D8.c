@@ -22,7 +22,7 @@ typedef struct {
     /* 0x0C */ s32 unkC;
 } UnkStruct_temp_v0;
 
-void func_80082818(s32, s32);                    /* extern */
+void audioTimerRelink(s32, s32);                    /* extern */
 char *sfxEventDequeue(void *, void *);                /* extern */
 
 void sfxStopAtEntity(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
@@ -43,7 +43,7 @@ void sfxStopAtEntity(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
                 goto block_5;
             }
         } else {
-            func_80082818(arg0, temp_a2);
+            audioTimerRelink(arg0, temp_a2);
 block_5:
             arg1->unk8 = NULL;
         }

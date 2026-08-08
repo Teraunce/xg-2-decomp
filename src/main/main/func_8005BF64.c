@@ -3,9 +3,9 @@ s32 heap_alloc_default(s32);                               /* extern */
 void __osTimerInsert(Unk*, void**);                       /* extern */
 extern s32 D_801816B0;
 extern Unk D_80181E30;
-extern s32 func_8005BDF0;
+extern s32 audioDmaBufAlloc;
 
-char *func_8005BF64(void **arg0) {
+char *audioDmaBufInit(void **arg0) {
     Unk *var_s0;
     s32 var_s2;
     char *var_s1;
@@ -25,5 +25,5 @@ char *func_8005BF64(void **arg0) {
         D_80181E30.unk0 = 1U;
     }
     *arg0 = &D_80181E30;
-    return &func_8005BDF0;
+    return &audioDmaBufAlloc;
 }

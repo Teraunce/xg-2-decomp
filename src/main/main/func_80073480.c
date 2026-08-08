@@ -24,7 +24,7 @@ extern s32 D_80188E30;
 extern s32 D_80188E34;
 extern s32 D_80188E38;
 
-void func_80073480(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5, u32 arg6, s32 arg7) {
+void renderTexLine(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5, u32 arg6, s32 arg7) {
     f32 *sp50;
     s32 sp4C;
     s32 sp48;

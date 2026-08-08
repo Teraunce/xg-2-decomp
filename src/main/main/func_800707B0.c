@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /* -------------------------------------------------------------------------
- * func_800707B0 — game event-queue dispatcher (0x35C bytes, nonmatching).
+ * contPakEventLoop — game event-queue dispatcher (0x35C bytes, nonmatching).
  *
  * Processes pending command entries from D_801887D0's event ring.  Each
  * entry has a stride of 0x2C bytes; entry->unk0 (cmd 1-7) selects one of
@@ -21,13 +21,13 @@
  * -------------------------------------------------------------------------
  */
 
-void func_80071A28(s32 *arg0);
-void func_80071D04(s32 *arg0);
+void contPakHandlerInit(s32 *arg0);
+void contPakHandlerDetect(s32 *arg0);
 void contPakScanNotes(s32 arg0, s32 arg1);
-void func_800721A8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_80072550(s32 arg0, s32 arg1, s32 arg2);
-void func_800727EC(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32));
-void func_80072AD4(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32));
+void contPakHandlerRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void contPakLoadNote(s32 arg0, s32 arg1, s32 arg2);
+void contPakSaveNote(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32));
+void contPakCreateNote(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32));
 void osSetEventMesg(s32 arg0, s32 arg1, s32 arg2);
 s32  osRecvMesg(Unk *arg0, s32 *arg1, s32 arg2);
 s32  sfxHasEntity(void *entity);
@@ -43,7 +43,7 @@ extern s32 D_8017C890;  /* scene config */
 extern s32 gSessionActive;  /* secondary queue flag */
 extern s32 D_801887A0;  /* secondary queue object */
 
-void func_800707B0(void *arg0) {
+void contPakEventLoop(void *arg0) {
     /* nonmatching: uses caller's $v0 as non-standard init flag;
      * cannot byte-match without SN64. */
     s32 s4_limit;
@@ -77,33 +77,33 @@ void func_800707B0(void *arg0) {
             if ((u32)(cmd - 1) < 7U) {  /* cmd 1-7 */
                 switch (cmd) {
                 case 1:
-                    func_80071A28(&gSfxChannelState);
+                    contPakHandlerInit(&gSfxChannelState);
                     break;
                 case 2:
-                    func_80071D04(&gSfxChannelState);
+                    contPakHandlerDetect(&gSfxChannelState);
                     break;
                 case 3:
                     contPakScanNotes((s32)&gSfxChannelState,
                                   *(s32 *)((char *)entry + 0x04));
                     break;
                 case 4:
-                    func_800721A8((s32)&gSfxChannelState,
+                    contPakHandlerRead((s32)&gSfxChannelState,
                                   *(s32 *)((char *)entry + 0x04),
                                   *(s32 *)((char *)entry + 0x08),
                                   *(s32 *)((char *)entry + 0x0C));
                     break;
                 case 5:
-                    func_80072550((s32)&gSfxChannelState,
+                    contPakLoadNote((s32)&gSfxChannelState,
                                   *(s32 *)((char *)entry + 0x04),
                                   *(s32 *)((char *)entry + 0x08));
                     break;
                 case 6:
-                    func_800727EC((s32)&gSfxChannelState,
+                    contPakSaveNote((s32)&gSfxChannelState,
                                   *(s32 *)((char *)entry + 0x04),
                                   (s32 (*)(s32,s32))*(s32 *)((char *)entry + 0x1C));
                     break;
                 case 7:
-                    func_80072AD4((s32)&gSfxChannelState,
+                    contPakCreateNote((s32)&gSfxChannelState,
                                   *(s32 *)((char *)entry + 0x04),
                                   *(s32 *)((char *)entry + 0x08),
                                   (s32 (*)(s32))*(s32 *)((char *)entry + 0x1C));

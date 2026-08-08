@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8008E3B8 (initial). */
+/* Warning: missing "jr $ra" in last block of osEPiRawReadIoGetter (initial). */
 
 s32 __osEnqueueWait(void *);                               /* extern */
 s32 osDisableInt();                                /* extern */
@@ -8,7 +8,7 @@ extern s32 __osRunQueue;
 extern Unk *__osRunningThread;
 extern s32 D_A4600010;
 
-void func_8008E368(void) {
+void __osPiWait(void) {
     s32 temp_s0;
 
     temp_s0 = osDisableInt();
@@ -17,7 +17,7 @@ void func_8008E368(void) {
     osRestoreInt(temp_s0);
 }
 
-s32 func_8008E3C0(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8008E3B8(void) {
-    return func_8008E3C0();
+s32 osEPiRawReadIo(void);  /* forward: GETTER_NOJR fallthrough */
+void osEPiRawReadIoGetter(void) {
+    return osEPiRawReadIo();
 }

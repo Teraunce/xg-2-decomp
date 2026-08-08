@@ -12,7 +12,7 @@ extern char *D_80178698;
 extern char *D_801786A8;
 extern char *D_8017CCBC;
 
-void func_800521BC(s32 arg0) {
+void gfxFrameSetup(s32 arg0) {
     s32 sp20;
     s32 sp1C;
     s32 sp18;
@@ -134,12 +134,12 @@ void func_800521BC(s32 arg0) {
  *
  * Allocates a 0x88-byte block via frameAlloc, sets up a linked-list node,
  * then polls sfxGetRunning in a tight loop until it returns 0.  On success,
- * resolves a symbol via D_80174BF8, calls func_80050260, then accounts for
+ * resolves a symbol via D_80174BF8, calls trackEdgeProcess, then accounts for
  * elapsed time (D_8017CCBC delta) via gfxGetWritePtr.
  * Branch back to function start (bnez $s1, func_80052490) caused m2c to fail.
  * ------------------------------------------------------------------------- */
 s32  sfxGetRunning(void);               /* extern */
-void func_80050260(Unk*);               /* extern */
+void trackEdgeProcess(Unk*);               /* extern */
 extern s32 D_8017CCB8;
 
 void func_80052490(s32 arg0) {

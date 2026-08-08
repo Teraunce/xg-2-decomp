@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8005C010();                                  /* extern */
+void audioBufRecycle();                                  /* extern */
 void __osInvalICache_full();                                  /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osAiRawStartDma(s32, s32);                          /* extern */
@@ -15,7 +15,7 @@ extern s32 D_8017F438;
 extern s32 D_80180884;
 extern s32 D_801816A8;
 
-s32 func_8005C540(void) {
+s32 audioRspDone(void) {
     s32 temp_a1;
     s32 var_s0;
 
@@ -33,7 +33,7 @@ s32 func_8005C540(void) {
         __osInvalICache_full();
         sfxLoadUcode(D_80180884);
         osSpTaskStart(D_80180884);
-        func_8005C010();
+        audioBufRecycle();
         D_800927D8 = 0;
         D_801816A8 += 1;
         gAudioFrameCount += 1;

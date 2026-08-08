@@ -12,7 +12,7 @@ extern u32 D_80189A90;
 extern s32 D_80189A94;
 extern u16 D_8018ACF8;
 
-void func_80086F60(char *arg0) {
+void viMgrThread(char *arg0) {
     Unk *sp34;
     Unk *sp30;
     u16 *sp2C;
@@ -72,7 +72,7 @@ loop_3:
     goto loop_3;
 }
 
-s32 func_80087138(char *arg0) {
+s32 osGetThreadPri(char *arg0) {
     Unk *var_a0;
 
     var_a0 = arg0;

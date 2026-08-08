@@ -1,10 +1,10 @@
 #include "ultra64.h"
-char *func_80085410(s32, s16, s32, void *);         /* extern */
+char *audioGeomRspCmd(s32, s16, s32, void *);         /* extern */
 char *audioRspSetupSample(void *, u32, s16, s32, void *); /* extern */
-char *func_80085650(void *, u32, s16, s32, void *); /* extern */
-char *func_800857DC(void *, void *, s16, s32, void *); /* extern */
+char *audioLoopDmaCmd(void *, u32, s16, s32, void *); /* extern */
+char *audioTriOscCmd(void *, void *, s16, s32, void *); /* extern */
 
-char *func_80085C74(Unk *arg0, s32 arg2, s32 arg4) {
+char *audioGeomNodeCmd(Unk *arg0, s32 arg2, s32 arg4) {
     s32 sp80;
     s32 sp50;
     s32 sp48;
@@ -61,9 +61,9 @@ char *func_80085C74(Unk *arg0, s32 arg2, s32 arg4) {
                 var_s2 = var_s5;
                 var_s5 = temp_t2;
             } else {
-                var_s0 = func_80085650(arg0, temp_s4, var_s5, arg2, var_s0);
+                var_s0 = audioLoopDmaCmd(arg0, temp_s4, var_s5, arg2, var_s0);
             }
-            temp_v0_3 = func_800857DC(arg0, temp_s1_2, var_s2, arg2, var_s0);
+            temp_v0_3 = audioTriOscCmd(arg0, temp_s1_2, var_s2, arg2, var_s0);
             temp_a0_2 = temp_s1_2->unk8;
             var_s0 = temp_v0_3;
             if (temp_a0_2 != 0) {
@@ -82,7 +82,7 @@ char *func_80085C74(Unk *arg0, s32 arg2, s32 arg4) {
             }
             temp_a0_3 = temp_s1_2->unk20;
             if (temp_a0_3 != 0) {
-                var_s0 = func_80085410(temp_a0_3, var_s2, arg2, var_s0);
+                var_s0 = audioGeomRspCmd(temp_a0_3, var_s2, arg2, var_s0);
             }
             if (temp_s1_2->unk24 == 0) {
                 var_s0 = audioRspSetupSample(arg0, temp_fp, var_s2, arg2, var_s0);

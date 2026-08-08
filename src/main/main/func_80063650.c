@@ -12,7 +12,7 @@ extern char *D_801823DC;
 extern u32 D_801823E0;
 extern s32 D_85388;
 
-void func_80063650(void) {
+void sfxTableInit(void) {
     s32 temp_s0;
     s32 var_v0;
     u16 var_v1;

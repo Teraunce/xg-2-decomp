@@ -10,7 +10,7 @@ Byte-matching every function is **not** the goal — the ROM is always byte-exac
 because it embeds the original `compressed_main.bin` blob.  C files are compiled
 for readability, correctness, and as many IDO byte-matches as possible.
 
-## Current Status (as of 2026-08-05)  <!-- update date when status changes -->
+## Current Status (as of 2026-08-08)  <!-- update date when status changes -->
 
 | Metric | Count |
 |---|---|
@@ -19,7 +19,7 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Files compiling with zero errors (IDO 7.1) | **453** |
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
-| Named functions (proper identifiers) | **343** |
+| Named functions (proper identifiers) | **639** |
 | Named data globals applied | **97** |
 | ROM byte-exact match | ✅ yes |
 
@@ -415,3 +415,143 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
     HUD renderer (`rdpTextLayout`). Applied 94 replacements across 34 files.
     Total named: **286**.
     Also fixed all 33 GETTER_NOJR stubs — each now calls its fall-through successor.
+35. **Named 17 additional functions** — eighteenth batch: audio semitone (`audioSemitoneRatio`),
+    audio node (`audioNodeSetProp`), MIDI (`midiDecodeEvent`), audio note (`audioNoteFind`,
+    `audioNoteLookup`, `audioNoteActivate`), MIDI tempo (`midiProcessTempo`), audio stream
+    (`audioStreamTick`), overlay (`overlayRelocatePtrs`), TLB (`tlbVirtToPhys`), OS timer
+    (`osTimerHandlerGetter`), exception install (`osExceptionInstall`), cache (`cacheInvalDcache`,
+    `cacheInvalIcache`), audio geometry (`audioGeomNodeInit`), audio RSP build
+    (`audioRspBuildDL`), audio timer (`audioTimerResched`). Applied 68 replacements across
+    22 files. Fixed `geomNodeDispatchGetter` GETTER_NOJR stub. Total named: **360**.
+36. **Named 28 additional functions** — nineteenth batch: track node (`trackNodeFindNearest`,
+    `trackNodeFindNearestGetter`), matrix rotation (`mtxRotAxisF`, `mtxRotAxisFGetter`,
+    `mtxRotAxisFGetter2`, `mtxCatFSafe`), N64 SDK (`guRotateDeg`, `guLookAtHiliteF`,
+    `guLookAtHilite`, `osGetThreadPri`), PI (`osEPiRawReadIoCart`, `piMgrInit`, `piReadBytes`),
+    controller SI (`contParseReadResp`, `contParseReadRespGetter`, `siReadControllers`,
+    `contGetInputPort`, `contParsePollResp`, `contParsePollRespGetter`), audio node
+    (`audioAdpcmNodeInit`, `audioMixNodeInit`, `audioAdpcmNodeCmd`, `audioMixNodeCmd`,
+    `audioMidiNodeCmd`, `audioNodeCmd`, `audioNodeCmdGetter`, `audioNoteClearAll`),
+    SFX (`sfxNoteAssign`). Applied 133 replacements across 53 files. Fixed `guRotateDeg`
+    and `osEPiRawReadIoCart` GETTER stubs. Total named: **388**.
+37. **Named 21 additional functions** — twentieth batch: frame sync (`viGetSyncByte`), SFX
+    (`sfxMarkAllActive`, `sfxTableInit`, `sfxComputeFreqOffset`), dispatchers
+    (`entityUpdateDispatch`, `sceneObjectDispatch`, `gameLoopDispatch`, `gameLoopDispatchGetter`),
+    SRAM/PI (`sramCopyData`), overlay (`overlayLoadEntries`), audio
+    (`audioTimerDispatch`, `midiTimerReset`, `audioVoiceNodeInit`, `audioCalcRatio`,
+    `audioGeomNodeCmd`), controller pak (`contPakWritePage`, `contPakBuildCmd`,
+    `contPakReadPage`, `contPakWriteNote`), PI (`piGetHandle`),
+    track (`trackNodeSearchNearest`). Applied 81 replacements across 41 files. Total named: **409**.
+38. **Named 9 additional functions** — twenty-first batch: handler setup (`handlerSetupLooped`,
+    `handlerSetupTable`), controller pak SI DMA (`contPakSiDmaRead`), audio dispatchers
+    (`audioSeqUpdate`, `audioNodeDispatch`, `gbiCmdDispatch`, `audioResetCallback`),
+    RDP float formatter (`rdpFormatFloat`, `rdpFormatFloatGetter`).
+    Applied 34 replacements across 16 files. Total named: **418**.
+39. **Named 14 additional functions** — twenty-second batch: RSP (`rspResetCounters`), video
+    (`viSetResolution`), physics (`velStateInit`), entity (`entityListPrune`, `entityFindNearest`),
+    geometry (`triComputeNormal`), audio heap (`audioHeapInit`), MIDI note (`midiAllocNote`,
+    `midiReleaseNote`, `midiNoteIsPlaying`, `midiTimerSetNote`, `midiNoteSetState`),
+    audio channel (`audioSetChanA`, `audioSetChanB`).
+    Applied 42 replacements across 18 files. Also swept 194 stale replacements across 72 files.
+    Total named: **432**.
+40. **Named 12 additional functions** — twenty-third batch: matrix scale (`guScaleF`, `guScale`),
+    trig (`sinInt`), audio (`audioNoteMinTime`, `audioNodeStateRead`, `audioNodeGetPos`,
+    `audioClearNode`), SFX params (`sfxSetPitch`, `sfxSetFreq`, `sfxSetFilter`),
+    RDP formatting (`u16StrLen`, `rdpFmt2Digit`).
+    Applied 35 replacements across 14 files. Total named: **444**.
+41. **Named 9 additional functions** — twenty-fourth batch: PI IO (`osEPiRawReadIo`,
+    `osEPiRawReadIoGetter`, `osEPiRawWriteIo`, `osEPiRawWriteIoGetter`), 64-bit runtime
+    (`__ashrdi3`, `__umoddi3`, `__ashldi3`, `__moddi3`, `__divdi3`).
+    Applied 21 replacements across 7 files. Total named: **453**.
+42. **Named 7 additional functions** — twenty-fifth batch: audio (`audioBankLookup`,
+    `audioTriOsc`), math (`frexp`, `u64DivImpl`, `intDiv`), RSP/VI (`rspTaskAlloc`, `viInit`).
+    Applied 21 replacements across 14 files. Total named: **460**.
+43. **Named 7 additional functions** — twenty-sixth batch: controller (`contInit`), SI
+    (`siMsgDispatch`, `siDmaReset`), video (`viModeConfig`, `viSetFieldBit`, `viSetDisplay`),
+    audio (`audioDrainDecode`).
+    Applied 20 replacements across 10 files. Total named: **467**.
+44. **Named 24 additional functions** — twenty-seventh batch: matrix (`guTranslateF`, `mtxEulerScaleFGetter`,
+    `mtxEulerScaleF`, `mtxProjectVec`, `guMtxL2FFixedW`), audio synth (`audioSynthInit`, `audioMidiInit`,
+    `audioBuildFrame`, `audioSampleInit`, `audioBufRecycle`, `audioDmaBufAlloc`, `audioDmaBufInit`,
+    `audioRspDone`, `audioSetBufLen`, `audioSetChanWeight`, `audioLoadBank`, `audioLoadWavetable`),
+    MIDI (`midiSeqStop`, `midiSetVolume`, `midiSetExpression`, `midiSetController`),
+    entity/SFX (`sfxEntityInit`, `sfxComputeSpatialImpl`), track (`trackEdgeProcess`).
+    Applied 70 replacements across 33 files. Fixed `mtxEulerScaleFGetter` GETTER_NOJR stub.
+    Total named: **491**.
+45. **Named 8 additional functions** — twenty-eighth batch: matrix (`guMtxIdentL`, `guOrthoF`, `guOrtho`),
+    SFX (`sfxPlaySpatialDef`, `sfxEntitySpatial`, `sfxRaceInit`),
+    render (`rdpFrameBegin`), controller pak (`contPakUpdate`).
+    Applied 24 replacements across 13 files. Total named: **499**.
+46. **Named 5 additional functions** — twenty-ninth batch: SFX (`sfxBufAlloc`, `sfxHandlerEnsure`,
+    `sfxRenderBegin`, `sfxPhaseTick`), utility (`getRaceCtrl`).
+    Applied 13 replacements across 8 files. Total named: **504**.
+47. **Named 17 additional functions** — thirtieth batch: matrix (`guScaleGetter`, `guEulerScaleL`),
+    HUD (`rdpFormatStr`), controller pak (`pakNameToU16`, `contPakHandlerInit`, `contPakHandlerDetect`,
+    `contPakHandlerRead`, `contPakSaveNote`, `contPakLoadNote`, `contPakCreateNote`,
+    `contPakReadDir`, `contPakVerifyRead`), PI DMA (`piCopyBytes`, `piSetBytes`, `piMoveBytes`),
+    render (`renderTexLine`, `renderTexLineW`).
+    Applied 51 replacements across 24 files. Fixed `guScaleGetter` GETTER_NOJR stub.
+    Total named: **521**.
+48. **Named 13 additional functions** — thirty-first batch: OS timer (`__osTimerHandler`),
+    controller pak SI (`contPakSiWrite`), MIDI (`midiTrackInit`, `midiQueueProcess`),
+    audio synth (`audioSynthChannelInit`, `audioSynthSetupGetter`, `audioSynthSetup`),
+    controller pak handlers (`contPakHandlerWait`, `contPakHandlerStatus`, `contPakFormatNote`),
+    audio flush (`pendingFlushClear`), VI manager (`viMgrInitGetter`, `viMgrInit`).
+    Applied 35 replacements across 21 files. Fixed `audioSynthSetupGetter` and `viMgrInitGetter`
+    GETTER_NOJR stubs. Total named: **534**.
+49. **Named 10 additional functions** — thirty-second batch: audio node dispatch
+    (`audioTimerNodeCmd`, `audioNoteWriteCmd`, `audioMixCmd`, `audioVoiceNodeCmd`,
+    `audioAdpcmDecodeCmd`, `audioGeomRspCmd`, `audioTriOscCmd`), SFX note
+    (`sfxNotePlay`, `sfxNoteUpdate`, `sfxFrameBegin`), RSP (`rspHalt`),
+    PI mutex (`__piUnlock`, __piLock`).
+    Applied 26 replacements across 16 files. Total named: **544**.
+50. **Named 15 additional functions** — thirty-third batch: collision (`triContainsPoint2D`),
+    track (`trackNodeRender`), SFX (`sfxEntryWrite`), frame thread
+    (`frameDispatchThread`, `frameThreadInit`), audio node RSP builders
+    (`audioTimerNodeCmd`, `audioNoteWriteCmd`, `audioMixCmd`, `audioVoiceNodeCmd`,
+    `audioAdpcmDecodeCmd`, `audioGeomRspCmd`, `audioTriOscCmd`).
+    Applied 36 replacements across 20 files. Total named: **559**.
+51. **Named 8 additional functions** — thirty-sixth batch: matrix (`mtxRotZF`, `rdpMtxPackRow`),
+    controller pak (`contPakFatAlloc`, `contPakOpenNote`, `contPakReadChain`, `contPakRepairNotes`),
+    SI commands (`siSetupWriteCmd`, `siSetupReadCmd`).
+    Applied 24 replacements across 15 files. Total named: **567**.
+52. **Named 9 additional functions** — thirty-seventh batch: game thread (`gameThreadEntry`,
+    `gameThreadInit`), controller pak (`contPakBuildNoteMap`, `contPakCountNoteLinks`),
+    PI DMA (`piCartDmaComplete`), OS interrupt (`osEnableIntMask`), printf
+    (`vsprintfCore`, `fmtIntBuf`), 64-bit runtime (`__divmoddi3`).
+    Applied 24 replacements across 13 files. Total named: **576**.
+53. **Named 9 additional functions** — thirty-eighth batch: SFX (`sfxFrameStateMachine`),
+    game loop (`gameMainLoop`, `gameStateInit`), matrix (`mtxRotXF`), FMV (`fmvDecodeFrame`),
+    audio (`audioQueueStopAll`, `audioPlayNormalized`), game mode (`gameModeReset`,
+    `gameModeResetGetter`). Applied 18 replacements across 10 files.
+    Fixed `gameModeResetGetter` GETTER_NOJR stub. Total named: **585**.
+54. **Named 5 additional functions** — thirty-ninth batch: SFX (`sfxRaceSetup`,
+    `sfxRaceSetupGetter`, `sfxMixCmd`), geometry (`geomCollisionDispatch`),
+    OS scheduler (`__osIntHandler`).
+    Applied 11 replacements across 5 files. Fixed `sfxRaceSetupGetter` GETTER_NOJR stub.
+    Total named: **590**.
+55. **Named 8 additional functions** — fortieth batch: SFX (`sfxLoadSample`),
+    render (`renderSceneDispatch`, `renderMainDispatch`), controller pak (`contPakEventLoop`),
+    SRAM (`sramHwDispatch`), matrix (`guRotateDegF2L`), OS interrupt (`osDisableIntMask`),
+    PI wait (`__osPiWait`).
+    Applied 16 replacements across 11 files. Total named: **598**.
+56. **Named 8 additional functions** — forty-first batch: audio timer (`audioTimerCmd0F`,
+    `audioTimerCmd11`), MIDI (`midiSmfInit`), GFX pipeline (`gfxAllocWait`,
+    `gfxAudioDecodeWait`, `gfxAudioWait`, `overlayLoadDL`), RSP DMA (`rspReadBytes`).
+    Applied 11 replacements across 8 files. Total named: **606**.
+57. **Named 12 additional functions** — forty-second batch: overlay (`overlayLoadEntry`,
+    `overlayLoadAlt`, `overlayGetEntryAlt`), heap (`frameHeapInit`), track
+    (`trackNodeFindWrapper`), video (`viGetSyncWord`), audio (`audioSampleInitWrap`),
+    matrix (`mtxSetFromVectors`, `mtxTransposeL2F`, `mtxRotAxisAngle`, `mtxRotAxisApply`),
+    SFX (`sfxProcessInput`).
+    Applied 12 replacements across 11 files. Total named: **618**.
+58. **Named 5 additional functions** — forty-third batch: entity (`entitySpawn`), GFX
+    (`gfxFrameSetup`), matrix (`mtxSetFromVectorsNeg`, `cameraSetupMtx`), RSP
+    (`rspDrainMesgQueue`). Applied 5 replacements across 5 files. Total named: **623**.
+59. **Named 16 additional functions** — forty-fourth batch: entity (`entityPhysicsInit`),
+    render (`renderNodeSetup`), memory (`mainPoolAlloc`), audio subsystem
+    (`audioSystemInit`, `audioRspDoneGetter`, `audioFrameBuild`, `audioTimerAcquire`),
+    SFX (`sfxAmbientTick`, `sfxEntityPlayDef`, `sfxEntityPlay`, `sfxEntitySpatialUpdate`,
+    `sfxPositionalUpdate`, `sfxPositionalUpdateDoppler`, `sfxPlayAtNearest`,
+    `sfxRaceUpdate`), game (`gameSceneInit`).
+    Applied 19 replacements across 16 files. Fixed `audioRspDoneGetter` GETTER_NOJR stub.
+    Total named: **639**.

@@ -15,7 +15,7 @@ typedef struct {
 
 s32 contPakReadWriteNote(void *, u16 (*)[], s32, u8);        /* extern */
 
-s32 func_8008C18C(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
+s32 contPakBuildNoteMap(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1) {
     s32 sp12C;
     s32 sp128;
     s32 sp124;

@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80085FEC(Unk *arg0, s32 arg2, s32 arg4) {
+void audioTimerNodeCmd(Unk *arg0, s32 arg2, s32 arg4) {
     Unk *temp_a0;
     Unk *temp_v0;
 
@@ -15,6 +15,6 @@ void func_80085FEC(Unk *arg0, s32 arg2, s32 arg4) {
     *(s32*)((char*)((temp_v0 + 0x20)) - 4)= (s32) arg0->unk14;
 }
 
-void func_80086078(Unk *arg0) {
+void audioClearNode(Unk *arg0) {
     arg0->unk0 = 0;
 }

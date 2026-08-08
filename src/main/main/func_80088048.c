@@ -1,13 +1,13 @@
 #include "ultra64.h"
-void func_80088240(s32, s32);
-/* Warning: missing "jr $ra" in last block of func_80088240 (initial). */
+void contParseReadRespGetter(s32, s32);
+/* Warning: missing "jr $ra" in last block of contParseReadRespGetter (initial). */
 
 void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 s32 osGetTime();                                /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 void siInitControllerReadCmd(s32);                                 /* extern */
-s32 func_80088408(void *, s32, s32, s32, s32, s32, s32);       /* extern */
+s32 osSetTimerImpl(void *, s32, s32, s32, s32, s32, s32);       /* extern */
 u64 __udivdi3(s32, u32, s32, s32);                  /* extern */
 s32 __muldi3(s32, s32, s32, s32);                  /* extern */
 extern s32 gCpuClockHi;
@@ -19,7 +19,7 @@ extern u8 D_8018AD69;
 extern s32 D_8018AD90;
 extern s32 D_8018ADA8;
 
-s32 func_80088048(char *arg0, s32 arg1, s32 arg2) {
+s32 siReadControllers(char *arg0, s32 arg1, s32 arg2) {
     s32 sp7C;
     s32 sp78;
     u32 sp74;
@@ -58,7 +58,7 @@ s32 func_80088048(char *arg0, s32 arg1, s32 arg2) {
         temp_ret_5 = __udivdi3(sp28, sp2C, 0, 0xF4240);
         sp30 = temp_ret_5;
         sp34 = (u32) temp_ret_5;
-        func_80088408(&sp50, sp30 - (s32)sp70, sp34 - sp74, 0, 0, (s32)&sp38, (s32)&sp7C);
+        osSetTimerImpl(&sp50, sp30 - (s32)sp70, sp34 - sp74, 0, 0, (s32)&sp38, (s32)&sp7C);
         osRecvMesg(&sp38, &sp7C, 1);
     }
     D_8018AD69 = 4;
@@ -67,14 +67,14 @@ s32 func_80088048(char *arg0, s32 arg1, s32 arg2) {
     osRecvMesg(arg0, &sp7C, 1);
     sp78 = osSiRawStartDma(0, &D_8018AD28);
     osRecvMesg(arg0, &sp7C, 1);
-    func_80088240(arg1, arg2);
+    contParseReadRespGetter(arg1, arg2);
     D_8018AD68 = 0;
     __siInit();
     osCreateMesgQueue(&D_8018AD90, &D_8018ADA8, 1);
     return sp78;
 }
 
-void func_80088248(void);  /* forward: GETTER_NOJR fallthrough */
-void func_80088240(s32 arg1, s32 arg2) {
-    func_80088248();
+void contParseReadResp(void);  /* forward: GETTER_NOJR fallthrough */
+void contParseReadRespGetter(s32 arg1, s32 arg2) {
+    contParseReadResp();
 }

@@ -4,7 +4,7 @@ f32 cosf(f32);                             /* extern */
 f32 sinf(f32);                             /* extern */
 extern f32 D_8004BDC0;
 
-void func_80058138(Unk *arg0, Unk *arg1, f32 arg2) {
+void mtxRotAxisAngle(Unk *arg0, Unk *arg1, f32 arg2) {
     f32 temp_fa0;
     f32 temp_fa0_2;
     f32 temp_fa0_3;

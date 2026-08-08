@@ -1,9 +1,9 @@
 #include "ultra64.h"
-void func_800577A8(Unk*, Unk*, Unk*);                /* extern */
-void func_80057A94(s32, s32);                       /* extern */
-void func_80063F18(s32);                                 /* extern */
-void func_80065224(void **);                           /* extern */
-void func_80065274(void **);       /* extern */
+void mtxProjectVec(Unk*, Unk*, Unk*);                /* extern */
+void guMtxL2FFixedW(s32, s32);                       /* extern */
+void sfxSetState(s32);                                 /* extern */
+void rdpRunSetupDL(void **);                           /* extern */
+void gfxAddSyncCmd(void **);       /* extern */
 void sceneDispatch(s32, s32, s32);       /* extern */
 extern s32 D_8004C328;
 extern s32 D_8004C330;
@@ -84,9 +84,9 @@ void func_800676DC(s32 arg0) {
         var_s4 = 0;
         sp74 = temp_s3->unk10 - temp_s3->unk4;
         sp78 = temp_s3->unk14 - temp_s3->unk8;
-        func_80057A94(temp_s3 + ((gPlayerList << 6) + 0x30), &sp20);
-        func_80065224(&D_80173CC0);
-        func_80063F18(0);
+        guMtxL2FFixedW(temp_s3 + ((gPlayerList << 6) + 0x30), &sp20);
+        rdpRunSetupDL(&D_80173CC0);
+        sfxSetState(0);
         sceneDispatch(&D_8004C328, 0, 5);
         temp_a0 = D_80173CC0;
         temp_v1 = D_80173CC0 + 8;
@@ -124,7 +124,7 @@ void func_800676DC(s32 arg0) {
                     sp84 = temp_ft0_2;
                     sp68 = temp_fv1;
                     sp88 = temp_fa0;
-                    if (!(((temp_ft2_2 * sp70) + (temp_ft0_2 * sp74) + (temp_fa0 * sp78)) >= 0.0f) && (func_800577A8(&sp20, &sp60, &sp60), !(sp60 <= temp_fs3)) && !(temp_fs0 <= sp60) && !(sp64 <= temp_fs3) && !(temp_fs0 <= sp64) && !(sp68 <= 0.0f) && !(temp_fs0 <= sp68)) {
+                    if (!(((temp_ft2_2 * sp70) + (temp_ft0_2 * sp74) + (temp_fa0 * sp78)) >= 0.0f) && (mtxProjectVec(&sp20, &sp60, &sp60), !(sp60 <= temp_fs3)) && !(temp_fs0 <= sp60) && !(sp64 <= temp_fs3) && !(temp_fs0 <= sp64) && !(sp68 <= 0.0f) && !(temp_fs0 <= sp68)) {
                         if (D_8017C958 != 0) {
                             var_v0 = 1;
                             if (!(sp68 < temp_fs2)) {
@@ -225,7 +225,7 @@ block_51:
         D_80173CC0 = temp_v0 + 8;
         D_80173CC0->unk8 = 0xE2001D00;
         temp_v0->unk4 = 0;
-        func_80065274(&D_80173CC0);
+        gfxAddSyncCmd(&D_80173CC0);
     }
 }
 

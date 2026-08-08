@@ -15,10 +15,10 @@
  *    function declaration.
  *
  * 2. Dispatches via jr through jtbl_8004C9D8 (same outer-dispatch structure
- *    as func_800805A4 / func_800805A4). m2c marks any function containing
+ *    as audioRspDispatch / audioRspDispatch). m2c marks any function containing
  *    jr-from-table as nonmatching.
  *
- * Structurally this function mirrors func_800805A4 exactly — same GBI
+ * Structurally this function mirrors audioRspDispatch exactly — same GBI
  * command dispatch logic on (cmd[8] & 0xF0) — but the compiler placed the
  * cmd pointer in $t0 and the node pointer in $s2 instead of $a0/$s1.
  * This likely indicates it is called from a specific site that already has

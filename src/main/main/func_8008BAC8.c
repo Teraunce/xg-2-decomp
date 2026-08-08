@@ -1,14 +1,14 @@
 #include "ultra64.h"
 s32 osContPakWrite(s32, s32, u16, s32, s32);       /* extern */
-s32 func_8008980C(void *);                          /* extern */
+s32 contPakOpenNote(void *);                          /* extern */
 s32 contPakReadNoteDir(void *);                          /* extern */
 s32 contPakReadWriteNote(void *, u16 (*)[], s32, u8);        /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);            /* extern */
-s32 func_8008C18C(void *, void *);                     /* extern */
-s32 func_8008C340(void *, u8, void *);                /* extern */
+s32 contPakBuildNoteMap(void *, void *);                     /* extern */
+s32 contPakCountNoteLinks(void *, u8, void *);                /* extern */
 
-s32 func_8008BAC8(Unk *arg0) {
+s32 contPakRepairNotes(Unk *arg0) {
     Unk *sp = (Unk*)0;
     s32 sp484;
     s32 sp480;
@@ -45,12 +45,12 @@ s32 func_8008BAC8(Unk *arg0) {
     sp34 = 0;
     sp480 = contPakReadNoteDir(arg0);
     if (sp480 == 2) {
-        sp480 = func_8008980C(arg0);
+        sp480 = contPakOpenNote(arg0);
     }
     if (sp480 != 0) {
         return sp480;
     }
-    sp480 = func_8008C18C(arg0, &sp38);
+    sp480 = contPakBuildNoteMap(arg0, &sp38);
     if (sp480 != 0) {
         return sp480;
     }
@@ -75,7 +75,7 @@ loop_15:
                         return sp480;
                     }
                 }
-                sp2C = func_8008C340(arg0, subroutine_arg1, &sp38) - sp28;
+                sp2C = contPakCountNoteLinks(arg0, subroutine_arg1, &sp38) - sp28;
                 if ((sp2C != 0) || (sp28 = 1, sp47C = (&sp27C[0])[unksp47D], (((s32) sp47C < arg0->unk60) != 0)) || ((s32) (u8) sp47C >= (s32) arg0->unk64) || ((s32) unksp47D <= 0) || ((s32) unksp47D >= 0x80)) {
                     goto block_24;
                 }

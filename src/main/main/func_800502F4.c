@@ -1,14 +1,14 @@
 #include "ultra64.h"
-s32 func_800502D4();                                /* extern */
+s32 viGetSyncByte();                                /* extern */
 s32 sfxNullReturn();                                /* static */
 extern s32 D_80091FD0;
 extern s32 D_8017C950;
 
-s32 func_800502F4(void) {
+s32 viGetSyncWord(void) {
     s32 temp_s0;
 
-    temp_s0 = (func_800502D4() & 0xFF) << 8;
-    return (func_800502D4() & 0xFF) | temp_s0;
+    temp_s0 = (viGetSyncByte() & 0xFF) << 8;
+    return (viGetSyncByte() & 0xFF) | temp_s0;
 }
 
 s32 func_80050328(s32 arg0) {

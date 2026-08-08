@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80061A9C(s8*, s8, s32);                       /* extern */
+void memsetBytes(s8*, s8, s32);                       /* extern */
 u16 sfxAllocBlock(s32);                             /* extern */
 void sfxPlay(u16);                               /* extern */
 s32 sfxGetEntry(s32);                             /* extern */
@@ -17,7 +17,7 @@ extern s32 D_80093ECC;
 extern Unk D_801887D0;
 extern s32 D_80188940;
 
-void func_800727EC(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32)) {
+void contPakSaveNote(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32)) {
     s32 sp40;
     s32 sp20;
     Unk *var_v0;
@@ -71,7 +71,7 @@ block_12:
                     } else {
                         temp_v0_2 = sfxAllocBlock(arg1);
                         temp_s2 = temp_v0_2 & 0xFFFF;
-                        func_80061A9C(sfxGetEntry(temp_s2), 0, sp20);
+                        memsetBytes(sfxGetEntry(temp_s2), 0, sp20);
                         temp_v0_3 = sfxGetEntry(temp_s2);
                         if (entityStepState(contPakWriteNote(temp_s0_2, sp40, 0, 0, sp20, temp_v0_3), arg1, -1) == 0) {
                             if ((D_801887D0.unk168 != 0) && ((void *)((temp_s1 = sp20 - 4, *(f32*)((char*)((s32)(temp_v0_3 + sp20)) - 4)!= calcHash(temp_v0_3, temp_s1))) || (arg2(temp_v0_3, temp_s1) == 0))) {

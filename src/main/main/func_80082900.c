@@ -3,7 +3,7 @@ void sfxFlushTimers(Unk*);                            /* extern */
 extern f64 D_8004CEB0;
 extern char *gPendingFlushFlag;
 
-char *func_80082900(char *arg0, s32 *arg1, s32 arg2, s32 arg3) {
+char *audioBuildFrame(char *arg0, s32 *arg1, s32 arg2, s32 arg3) {
     Unk *spB4;
     s16 spAA;
     f64 temp_fs0;

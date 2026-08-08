@@ -2,24 +2,24 @@
 /* Warning: missing "jr $ra" in last block of func_80056C2C (initial). */
 
 s32 func_80056850(void *, s32);                            /* extern */
-f32 func_800568E8(s32);                                    /* extern */
-f32 func_80056980(s32);                                 /* extern */
-void func_80056EA8(s32, s32, s32);                     /* extern */
+f32 mtxRotAxisFGetter(s32);                                    /* extern */
+f32 mtxRotAxisFGetter2(s32);                                 /* extern */
+void mtxCatFSafe(s32, s32, s32);                     /* extern */
 extern f32 D_8004BD90;
 extern f32 D_8004BD94;
 extern f32 D_8004BD98;
 
-void func_80056A18(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void mtxRotAxisApply(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 sp10;
 
-    func_80056980(arg3);
-    func_800568E8(arg2);
-    func_80056EA8(&sp10, arg0, arg0);
+    mtxRotAxisFGetter2(arg3);
+    mtxRotAxisFGetter(arg2);
+    mtxCatFSafe(&sp10, arg0, arg0);
     func_80056850(&sp10, arg1);
-    func_80056EA8(&sp10, arg0, arg0);
+    mtxCatFSafe(&sp10, arg0, arg0);
 }
 
-void func_80056A90(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
+void mtxIdentInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk4 = 0;
     arg0->unk8 = 0;
     arg0->unkC = 0;
@@ -123,5 +123,5 @@ void func_80056C2C(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3) {
     arg1->unk14 = (s32) ((temp_fa0_11 & 0xFFFF0000) | ((u32) temp_fa0_12 >> 0x10));
     arg1->unk30 = (s32) ((temp_fa0_9 << 0x10) | (temp_fa0_10 & 0xFFFF));
     arg1->unk34 = (s32) ((temp_fa0_11 << 0x10) | (temp_fa0_12 & 0xFFFF));
-    func_80056DE0(arg0, arg1, arg2);
+    rdpMtxPackRow(arg0, arg1, arg2);
 }

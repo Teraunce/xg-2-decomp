@@ -21,7 +21,7 @@ void guMtxIdent(f32);                               /* extern */
 f32 sinf(f32);                             /* extern */
 extern f64 D_8004C868;
 
-void func_8007AEE8(char *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void guPerspectiveF(char *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp20;
     f32 sp1C;
     f32 temp_fa0;

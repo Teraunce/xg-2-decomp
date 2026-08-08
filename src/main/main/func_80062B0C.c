@@ -2,7 +2,7 @@
 #include "audio.h"
 
 /*
- * func_80062B0C — SFX 3-phase playback state machine.
+ * sfxPhaseTick — SFX 3-phase playback state machine.
  *
  * Manages three phases stored in gSfxPhase (gSfxPhase):
  *
@@ -16,7 +16,7 @@
  *   Phase 1 — PLAY / TRIGGER:
  *     Retrieves the first heap slot (slot -4 = index 0) and the last slot
  *     (slot -1 = gSfxAllocCount).  If both resolve to the same entity it
- *     triggers secondary logic (sfxPhaseHook / localeGet / func_80061800).
+ *     triggers secondary logic (sfxPhaseHook / localeGet / localeCheck).
  *     Then either re-inserts gSfxEntity (gSfxEntity) at the top of the heap
  *     via sfxHeapInsert (priority -3, flags 1), or re-marks the current
  *     highest-priority entity via sfxGetTopEntity + sfxMarkEntityActive.
@@ -62,13 +62,13 @@ void *sfxGetEntity(s32 slotSpec, s32 *outType);    /* slot lookup (sfxGetEntity.
 void *sfxGetTopEntity(void);                           /* entity at gSfxMaxIndex */
 void sfxPhaseHook(void);                            /* secondary trigger (asm) */
 void *localeGet(void);                           /* secondary query A (asm) */
-void func_80061800(void);                            /* secondary trigger B (asm) */
+void localeCheck(void);                            /* secondary trigger B (asm) */
 
 /* -------------------------------------------------------------------------
- * func_80062B0C
+ * sfxPhaseTick
  * SFX playback state machine — called once per audio frame.
  * ------------------------------------------------------------------------- */
-void func_80062B0C(void) {
+void sfxPhaseTick(void) {
     s32    phase = gSfxPhase;
     s32    i;
     void  *slot;
@@ -145,7 +145,7 @@ phase1:
         if (D_80092CD8 != NULL) {
             void *secondary = localeGet();
             if (D_80092CD8 != secondary) {
-                func_80061800();
+                localeCheck();
             }
         }
     }

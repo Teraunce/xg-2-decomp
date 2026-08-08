@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8008B4E4 (initial). */
+/* Warning: missing "jr $ra" in last block of contParsePollRespGetter (initial). */
 
 extern s8 D_8018AD68;
 extern u8 D_8018AD69;
@@ -52,7 +52,7 @@ void siInitPollCmd(s32 arg0) {
     spC->unk0 = 0xFE;
 }
 
-void func_8008B4EC(void);  /* forward: GETTER_NOJR fallthrough */
-void func_8008B4E4(void) {
-    func_8008B4EC();
+void contParsePollResp(void);  /* forward: GETTER_NOJR fallthrough */
+void contParsePollRespGetter(void) {
+    contParsePollResp();
 }

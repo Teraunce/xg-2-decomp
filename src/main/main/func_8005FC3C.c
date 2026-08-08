@@ -2,17 +2,17 @@
 void sfxMarkEntityActive(void*);                               /* extern */
 s32 sfxGetActiveCount();                                /* extern */
 s32 sfxGetEntity(s32, s32);                          /* extern */
-void func_80063E24();                                  /* extern */
+void sfxFrameBegin();                                  /* extern */
 extern s32 gPendingEventFlag;
 extern s32 gRaceCtrl;
 extern s32 D_80173D08;
 extern s32 D_80181E48;
 extern s32 D_80181E4C;
 
-void func_8005FC3C(void) {
+void sfxMarkAllActive(void) {
     s32 var_s0;
 
-    func_80063E24();
+    sfxFrameBegin();
     if (D_80181E48 == 0) {
         D_80181E48 = 1;
         D_80181E4C = D_80173D08;
@@ -27,6 +27,6 @@ void func_8005FC3C(void) {
     }
 }
 
-s32 func_8005FCB8(void) {
+s32 getRaceCtrl(void) {
     return gRaceCtrl;
 }

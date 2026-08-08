@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80070454(s32, Unk*);                       /* extern */
+void pakNameToU16(s32, Unk*);                       /* extern */
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 void contPakScanNotes(s32, s32);                          /* extern */
 s32 contPakLoadSave(Unk*, u16, s32, s32, s32); /* extern */
@@ -7,7 +7,7 @@ s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern s32 D_8018894C;
 extern Unk D_80188B5C;
 
-void func_800721A8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void contPakHandlerRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 sp48;
     s32 sp20;
     s32 var_s5;
@@ -24,7 +24,7 @@ void func_800721A8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (arg3 == 0) {
         goto block_4;
     }
-    func_80070454(temp_s0 + 0x1A, &sp20);
+    pakNameToU16(temp_s0 + 0x1A, &sp20);
     var_s5 = 1;
     if (handlerPostCmd(0x38, arg1, 0x39, 0x31, 0, &sp20, 0) <= 0) {
         goto block_5;

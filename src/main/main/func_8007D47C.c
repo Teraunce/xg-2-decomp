@@ -2,7 +2,7 @@
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 s32 __osGetCount();                                /* extern */
-void func_8007D678();                              /* extern */
+void setCOP0Compare();                              /* extern */
 extern s32 D_80189A98;
 
 void __osTimerSetCompare(s32 arg0, u32 arg1) {
@@ -16,6 +16,6 @@ void __osTimerSetCompare(s32 arg0, u32 arg1) {
     temp_t3 = D_80189A98 + arg1;
     sp20 = (temp_t3 < arg1) + arg0;
     sp24 = temp_t3;
-    func_8007D678();
+    setCOP0Compare();
     osRestoreInt(sp1C);
 }

@@ -2,7 +2,7 @@
 s32 piReadByteUnaligned(s32);                             /* extern */
 void piWriteByteUnaligned(s32, s32);                          /* extern */
 
-void func_80075518(s32 arg0, s32 arg1, s32 arg2) {
+void piMoveBytes(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_a0;
     s32 var_a0;
     s32 var_s0;

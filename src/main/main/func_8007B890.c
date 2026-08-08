@@ -4,7 +4,7 @@ f32 sinf(f32);                             /* sinf */
 extern f32 D_80189818;
 
 /*
- * func_8007B890 — build scaled Euler-angle (YXZ) rotation matrix (nonmatching).
+ * mtxEulerScaleF — build scaled Euler-angle (YXZ) rotation matrix (nonmatching).
  *
  * Called via GETTER preamble which loads a scale factor into $fv0/$f0.
  * At entry, arg2 ($fa1) and arg3 ($ft4/$f16, non-standard) are pre-multiplied
@@ -14,7 +14,7 @@ extern f32 D_80189818;
  * The matrix elements are all multiplied by arg4 (a uniform scale factor).
  * arg5/arg6/arg7 are stored to the translation column (unk30/unk34/unk38).
  */
-void func_8007B890(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7 /*, f32 scale_fv0 */) {
+void mtxEulerScaleF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7 /*, f32 scale_fv0 */) {
     f32 sp40;
     f32 sp3C;
     f32 sp34;

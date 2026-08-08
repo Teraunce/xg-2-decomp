@@ -105,16 +105,16 @@ typedef struct {
     /* 0xB4 */ s32 unkB4;
 } UnkStruct_var_v1;
 
-void func_80082B98();                                  /* extern */
+void audioSynthChannelInit();                                  /* extern */
 
-void func_8007DAB0(s32 arg0) {
+void audioSynthSetup(s32 arg0) {
     if ((s32)0 /* implicit $t6 from caller */ == 0) {
         *(s32*)(s32)0 /* implicit $v0 from caller */ = arg0;
-        func_80082B98();
+        audioSynthChannelInit();
     }
 }
 
-void func_8007DAD8(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
+void audioHeapInit(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
     s32 temp_v0;
 
     temp_v0 = 0x10 - (arg1 & 0xF);

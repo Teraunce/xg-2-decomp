@@ -1,9 +1,9 @@
 #include "ultra64.h"
-void func_8004EC88(f32 *, s32 *, f32, f32, f32, s32);  /* extern */
+void trackNodeSearchNearest(f32 *, s32 *, f32, f32, f32, s32);  /* extern */
 extern f32 D_8004BBB4;
 extern s32 D_8017CC60;
 
-s32 func_8004EE64(f32 arg0, f32 arg1, f32 arg2) {
+s32 trackNodeFindNearest(f32 arg0, f32 arg1, f32 arg2) {
     s32 sp1C;
     f32 sp18;
     s32 temp_v0;
@@ -41,6 +41,6 @@ block_8:
         sp1C = 0;
     }
     sp18 = D_8004BBB4;
-    func_8004EC88(&sp18, &sp1C, arg0, arg1, arg2, sp1C);
+    trackNodeSearchNearest(&sp18, &sp1C, arg0, arg1, arg2, sp1C);
     return sp1C;
 }

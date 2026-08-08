@@ -7,7 +7,7 @@ void osSetEventMesg(s32, s32, s32);                     /* extern */
 void osSetThreadPri(Unk*, s32);                            /* extern */
 void osStartThread(Unk*);                               /* extern */
 void osMsgQueueInit();                                  /* extern */
-s32 func_80087138(char*);                               /* extern */
+s32 osGetThreadPri(char*);                               /* extern */
 void osViInit();                                  /* extern */
 extern char *D_800955C0;
 extern s32 D_800955D0;
@@ -17,9 +17,9 @@ extern s32 D_8018AC98;
 extern s32 D_8018ACB0;
 extern s16 D_8018ACC8;
 extern s16 D_8018ACE0;
-extern s32 func_80086F60;
+extern s32 viMgrThread;
 
-void func_80086DE0(s32 arg0) {
+void viMgrInit(s32 arg0) {
     s32 sp2C;
     s32 sp28;
     s32 sp24;
@@ -37,7 +37,7 @@ void func_80086DE0(s32 arg0) {
         osSetEventMesg(7, &D_8018AC98, &D_8018ACC8);
         osSetEventMesg(3, &D_8018AC98, &D_8018ACE0);
         sp28 = -1;
-        sp24 = func_80087138(0);
+        sp24 = osGetThreadPri(0);
         if (sp24 < arg0) {
             sp28 = sp24;
             osSetThreadPri(0, arg0);
@@ -51,7 +51,7 @@ void func_80086DE0(s32 arg0) {
         D_800955D0 = 0;
         D_800955D0 = 0;
         D_800955D0 = 0;
-        osCreateThread(&D_80189AE8, 0, &func_80086F60, &D_800955C0, &D_80189C98 + 0x1000, arg0);
+        osCreateThread(&D_80189AE8, 0, &viMgrThread, &D_800955C0, &D_80189C98 + 0x1000, arg0);
         osViInit();
         osStartThread(&D_80189AE8);
         osRestoreInt(sp2C);

@@ -2,7 +2,7 @@
 s32 osContPakWrite(s32, s32, u16, s32, s32);         /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 
-s32 func_80088BD0(Unk *arg0, s32 arg1, s32 arg2, u8 arg3) {
+s32 contPakWritePage(Unk *arg0, s32 arg1, s32 arg2, u8 arg3) {
     s32 sp24;
     s32 sp20;
     s32 temp_t5;

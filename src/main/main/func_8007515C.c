@@ -3,7 +3,7 @@ s32 __osPiRawReadIo(s32*);                             /* extern */
 s32 piReadByteUnaligned(s32);                             /* extern */
 void storeByteUnaligned(s32, s32);                          /* extern */
 
-void func_8007515C(s32 arg0, s32 arg1, u32 arg2) {
+void piCopyBytes(s32 arg0, s32 arg1, u32 arg2) {
     s32 temp_a0;
     s32 temp_a0_2;
     s32 temp_a0_3;

@@ -6,7 +6,7 @@ extern s32 D_80182E78;
 extern s32 D_80182E80;
 extern s32 D_80182EA0;
 
-void func_80065370(void **arg0, s32 arg1) {
+void sfxRenderBegin(void **arg0, s32 arg1) {
     Unk *temp_v0;
     Unk *temp_v0_2;
     Unk *temp_v0_3;

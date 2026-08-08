@@ -6,12 +6,12 @@ extern s32 D_80174BD0;
 extern s32 D_8017BF58;
 extern s32 D_8017C8B0;
 extern Unk D_8017CCC0;
-extern s32 func_800541C0;
+extern s32 gameThreadEntry;
 
-void func_800555D8(s32 arg0) {
+void gameThreadInit(s32 arg0) {
     osCreateMesgQueue(&D_80174BD0, &D_8017C8B0, 0x20);
     D_8017CCC0.unk0 = arg0;
     D_8017CCC0.unk4 = &D_80174BD0;
-    osCreateThread(&D_8017BF58, 4, &func_800541C0, &D_8017CCC0, &D_8017BF58, 7);
+    osCreateThread(&D_8017BF58, 4, &gameThreadEntry, &D_8017CCC0, &D_8017BF58, 7);
     osStartThread(&D_8017BF58);
 }

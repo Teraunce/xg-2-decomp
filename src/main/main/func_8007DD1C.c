@@ -1,7 +1,7 @@
 #include "ultra64.h"
 u8 audioStreamReadByte(s32, s32);                            /* extern */
 
-s32 func_8007DD1C(void) {
+s32 audioStreamReadVarInt(void) {
     s32 temp_v0;
     s32 temp_v0_2;
     s32 var_t1;

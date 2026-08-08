@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_8004FC94(void);                              /* extern */
+void entityListPrune(void);                              /* extern */
 s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 s32 func_800FDD50(f32 *, f32 *, f32 *, f32 *, s32, f32 *); /* extern */
@@ -15,7 +15,7 @@ extern s32 D_8017CC80;
 extern Unk *D_8017CCB8;
 extern Unk D_80182EA8;
 
-void func_8004FCF8(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
+void trackNodeRender(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
     f32 spA8;
     f32 sp70;
     f32 sp68;
@@ -65,7 +65,7 @@ loop_1:
     temp_a2 = ((Unk *)((char *)(s32)arg0 + (var_v0 - var_s3) * 8))->unk18;
     if ((temp_a2 != var_s3) && (temp_v1 = (Unk *)((char *)(s32)arg0 + temp_a2 * 0x38), (*(((s32) (temp_v1->unk16 << 0x10) >> 0x1B) + &D_8017CC80) == 0))) {
         if (*(s32*)((char*)temp_v1 - 20)== 0x8000) {
-            func_8004FCF8(arg0, arg1, temp_a2, arg3);
+            trackNodeRender(arg0, arg1, temp_a2, arg3);
         }
     }
     temp_s2 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
@@ -142,7 +142,7 @@ loop_1:
                     } while (var_v1_2->unk18 != 0x8000);
                 }
                 var_s6 = 1;
-                func_8004FC94();
+                entityListPrune();
                 var_s3 += 1;
             } else {
                 goto block_32;

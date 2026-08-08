@@ -1,7 +1,7 @@
 #include "ultra64.h"
 
 /*
- * func_80081C30 — MIDI SMF header parser (initialises stream context).
+ * midiSmfInit — MIDI SMF header parser (initialises stream context).
  *
  * Jal delay-slot ABI fix: `or $a3, $a0, $zero` at entry saves arg0 into $a3.
  * Every subsequent jal uses `or $a0, $a3, $zero` in its delay slot to restore
@@ -31,7 +31,7 @@ typedef struct {
 s32 streamReadU32(UnkStruct_arg0 *);
 s16 streamReadS16(UnkStruct_arg0 *);
 
-void func_80081C30(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
+void midiSmfInit(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
     s16 temp_v1;
 
     arg0->unk0 = arg1;

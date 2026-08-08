@@ -1,6 +1,6 @@
 #include "ultra64.h"
 /*
- * func_80052F5C — game-state initializer / main-loop sub-dispatcher (nonmatching).
+ * gameStateInit — game-state initializer / main-loop sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -15,4 +15,4 @@
  * a cold-start initialization path.
  * Function size: 0xFA4 bytes.
  */
-void func_80052F5C(void) { /* nonmatching — see asm stub */ }
+void gameStateInit(void) { /* nonmatching — see asm stub */ }

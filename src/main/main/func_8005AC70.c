@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void viSwapBuffers(Unk*);                               /* extern */
-s32 func_8005AB28();                                  /* extern */
+s32 audioGetRspCount();                                  /* extern */
 extern s32 D_8017CE08;
 extern s16 D_8017D2EE;
 extern s32 D_8017D2F8;
@@ -9,7 +9,7 @@ extern s16 D_8017D7DC;
 extern s32 D_8017DA58;
 extern s32 D_80190000;
 
-void func_8005AC70(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
+void audioDecodeLZSS(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
     u32 sp1038;
     s32 sp1030;
     u32 sp1034;
@@ -103,10 +103,10 @@ void func_8005AC70(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
             var_s4 = var_s4 >> 1;
         } while (var_s3 < arg2);
     }
-    func_8005AB28();
+    audioGetRspCount();
 }
 
-void func_8005AEB4(void) {
+void audioInitDecodeTable(void) {
     s16 temp_v0;
     s16 temp_v0_3;
     s16 var_t0;

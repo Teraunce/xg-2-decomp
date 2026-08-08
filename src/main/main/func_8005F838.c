@@ -1,6 +1,6 @@
 #include "ultra64.h"
-s32 func_8004E6C8(s32);                               /* extern */
-s32 func_8004E6F4(s32);                               /* extern */
+s32 audioLoadBank(s32);                               /* extern */
+s32 audioLoadWavetable(s32);                               /* extern */
 void audioDecodeHufh(s32, u8*, u32);                     /* extern */
 void sfxUpdateChannels();                                  /* extern */
 void osWritebackInvalDCache(u32, s32);                          /* extern */
@@ -17,7 +17,7 @@ extern Unk D_80181FD0;
 extern s8 D_80182280;
 extern Unk D_801822E0;
 
-void func_8005F838(void) {
+void audioBootDecode(void) {
     s32 *var_a1;
     s32 *var_v1;
     s32 temp_v0_2;
@@ -54,10 +54,10 @@ void func_8005F838(void) {
         *temp_v0 = 0;
         *temp_v1 = 0;
     } while (var_a0_2 < 0xD);
-    temp_v0_2 = func_8004E6C8(0);
+    temp_v0_2 = audioLoadBank(0);
     D_801822E0.unk0 = temp_v0_2;
     D_80181FD0.unk0 = temp_v0_2;
-    temp_v0_3 = func_8004E6F4(0);
+    temp_v0_3 = audioLoadWavetable(0);
     D_80181FD0.unk34 = temp_v0_3;
     D_801822E0.unk34 = temp_v0_3;
     func_800AE368(0);

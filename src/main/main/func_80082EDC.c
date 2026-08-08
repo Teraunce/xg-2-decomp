@@ -8,10 +8,10 @@ typedef struct {
 
 void audioNodeInit(void *, void *, void *, s32);
 extern s32 audioNoteWrite;
-extern s32 func_80084F48;
+extern s32 audioNoteWriteCmd;
 
-void func_80082EDC(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
-    audioNodeInit(arg0, &func_80084F48, &audioNoteWrite, 7);
+void audioNoteWriteNodeInit(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
+    audioNodeInit(arg0, &audioNoteWriteCmd, &audioNoteWrite, 7);
     arg0->unk14 = 0;
     arg0->unk18 = arg2;
     arg0->unk1C = arg1;

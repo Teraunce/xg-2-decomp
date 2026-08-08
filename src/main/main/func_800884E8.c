@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8008896C(void *, s32, s32, s32*, u8, s32*, s32*); /* extern */
+s32 contPakFatAlloc(void *, s32, s32, s32*, u8, s32*, s32*); /* extern */
 s32 osContPakWrite(s32, s32, u16, s32, s32);       /* extern */
 s32 contPakReadNoteDir(void *);                          /* extern */
 s32 contPakReadWriteNote(Unk*, Unk*, u8, u8);              /* extern */
@@ -73,7 +73,7 @@ loop_21:
             if (sp260 != 0) {
                 return sp260;
             }
-            sp260 = func_8008896C(arg0, &sp15C, sp25C, &sp274, (s32) sp3B, &sp270, &sp26C);
+            sp260 = contPakFatAlloc(arg0, &sp15C, sp25C, &sp274, (s32) sp3B, &sp270, &sp26C);
             if (sp260 != 0) {
                 return sp260;
             }

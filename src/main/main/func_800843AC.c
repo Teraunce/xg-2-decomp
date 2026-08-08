@@ -17,7 +17,7 @@ typedef struct {
     /* 0x08 */ void (*unk8)(void *, s32, void *);
 } UnkStruct_unk0;
 
-s32 func_800843AC(UnkStruct_arg0 *arg0, s32 arg1, char *arg2) {
+s32 audioMidiNodeCmd(UnkStruct_arg0 *arg0, s32 arg1, char *arg2) {
     UnkStruct_unk0 *temp_a0;
 
     switch (arg1) {

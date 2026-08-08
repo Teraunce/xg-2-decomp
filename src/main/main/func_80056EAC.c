@@ -1,5 +1,5 @@
 #include "ultra64.h"
-void func_80056EAC(Unk *arg0, Unk *arg1, Unk *arg2) {
+void mtxCatF(Unk *arg0, Unk *arg1, Unk *arg2) {
     Unk sp_buf[8];
     Unk *sp = sp_buf; /* $sp base — local stack byte-pointer */
     f32 sp3C;
@@ -68,7 +68,7 @@ void func_80056EAC(Unk *arg0, Unk *arg1, Unk *arg2) {
     var_a2->unk3C = (f32) ((arg0->unk30 * arg1->unkC) + (arg0->unk34 * arg1->unk1C) + (arg0->unk38 * arg1->unk2C) + (arg0->unk3C * arg1->unk3C));
 }
 
-void func_800576FC(Unk *arg0, Unk *arg1, Unk *arg2) {
+void mtxXfmPoint3(Unk *arg0, Unk *arg1, Unk *arg2) {
     arg2->unk0 = (f32) ((arg0->unk0 * arg1->unk0) + (arg0->unk10 * arg1->unk4) + (arg0->unk20 * arg1->unk8) + arg0->unk30);
     arg2->unk4 = (f32) ((arg0->unk4 * arg1->unk0) + (arg0->unk14 * arg1->unk4) + (arg0->unk24 * arg1->unk8) + arg0->unk34);
     arg2->unk8 = (f32) ((arg0->unk8 * arg1->unk0) + (arg0->unk18 * arg1->unk4) + (arg0->unk28 * arg1->unk8) + arg0->unk38);

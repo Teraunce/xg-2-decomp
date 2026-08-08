@@ -5,7 +5,7 @@ extern s32 D_8017D2F8;
 extern s32 D_8017DA58;
 extern s32 D_8017DA5A;
 
-void func_8005AFC4(void) {
+void audioInitFreqTable(void) {
     s16 *temp_a1;
     s16 *temp_s0_3;
     s16 *temp_s2;

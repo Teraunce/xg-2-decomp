@@ -2,7 +2,7 @@
 #include "audio.h"
 
 /*
- * func_80062CE8 — Build and submit an RSP audio colour/mixer command.
+ * sfxMixCmd — Build and submit an RSP audio colour/mixer command.
  *
  * Reads phase / timer from gSfxPhase (gSfxPhase) and gSfxFadeTimer
  * (gSfxFadeTimer) to derive volume/pan byte arguments, then calls
@@ -43,7 +43,7 @@ extern u32 D_80092D04;      /* packed audio params: bytes used as RGBA */
 
 void rdpSetFogColor(s32 a0, s32 a1, s32 a2, s32 a3);  /* RSP DL audio command */
 
-void func_80062CE8(void) {
+void sfxMixCmd(void) {
     u32  packed = D_80092D04;
     s32  byte1  = (s32)((packed >> 8)  & 0xFF);   /* mid-low byte  → a2 */
     s32  byte2  = (s32)((packed >> 16) & 0xFF);   /* mid-high byte → a3 */

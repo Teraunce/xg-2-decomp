@@ -1,15 +1,15 @@
 #include "ultra64.h"
 
 /*
- * func_80080DC4 — per-frame audio node update dispatcher (nonmatching).
+ * audioSeqUpdate — per-frame audio node update dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — dispatches via jr through jtbl_8004CDF0 (24 entries,
  * index = (u16)obj->0x38, range check < 0x18). m2c marks any function containing
  * jr-from-table as nonmatching.
  *
- * This is the direct sibling of func_8007F5C4: same prologue layout, same loop
+ * This is the direct sibling of audioNodeUpdate: same prologue layout, same loop
  * structure, same s5 = a0+0x48 sub-struct, same loop-epilogue via osStopTimer.
- * Where func_8007F5C4 handles one class of audio objects, this handles another.
+ * Where audioNodeUpdate handles one class of audio objects, this handles another.
  *
  * Normal ABI: a0 = Unk *obj. All s-registers and fs0 saved; $sp reduced 0xD0.
  * sp+0x50 = obj+0x38 (pointer to current node's type-field block, cached early).
@@ -27,7 +27,7 @@
  * case 0:
  *   Decode audio command from s2->0x18 via midiDecodeEvent(s5, sp+0x88).
  *   Sub-dispatch on (s16)sp+0x88:
- *     == 1: func_800805A4(sp+0x50); audioStreamTick(s2)
+ *     == 1: audioRspDispatch(sp+0x50); audioStreamTick(s2)
  *     == 3: midiProcessTempo(sp+0x88); audioStreamTick(s2)
  *     == 4: s2->0x2C=2; osSetTimer(s5, cmd=0x10, a2=0x7FFFFFFF)
  *     else: (no action, advance)
@@ -120,4 +120,4 @@
  *   sfxPlayLoopAtEntity(s2->0x14, s1+4, (s32)vol);
  *   osSetTimer(s5, cmd=0x17/s1/s4/s0, a2=s3);
  */
-void func_80080DC4(void) { /* nonmatching — see asm stub */ }
+void audioSeqUpdate(void) { /* nonmatching — see asm stub */ }

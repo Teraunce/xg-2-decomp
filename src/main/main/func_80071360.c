@@ -2,7 +2,7 @@
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);       /* extern */
 extern Unk D_801887D0;
 
-void func_80071360(s32 arg0) {
+void contPakHandlerStatus(s32 arg0) {
     Unk *var_a0;
     s32 temp_v0;
     s32 var_v1;

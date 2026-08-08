@@ -19,7 +19,7 @@ extern s32 gGameState;
 extern s32 D_80092A94;
 extern s32 D_8017C950;
 
-s32 func_8005D9C0(f32 arg0, f32 arg1, f32 arg3, f32 arg4, f32 arg5, f32 *arg6, s32 *arg7, s32 *arg8, s32 *arg9, char *arg10) {
+s32 sfxComputeSpatialImpl(f32 arg0, f32 arg1, f32 arg3, f32 arg4, f32 arg5, f32 *arg6, s32 *arg7, s32 *arg8, s32 *arg9, char *arg10) {
     f32 sp58;
     f32 sp54;
     f32 sp50;

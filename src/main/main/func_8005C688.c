@@ -1,8 +1,8 @@
 #include "ultra64.h"
 void audioQueueDispatchGetter(void *, u32, u32);                  /* extern */
-void func_8005D178();                                  /* extern */
+void midiQueueProcess();                                  /* extern */
 s32 osVirtualToPhysical(u32);                             /* extern */
-u32 func_80082900(u32, void *, s32, s16);              /* extern */
+u32 audioBuildFrame(u32, void *, s32, s16);              /* extern */
 extern s32 D_800769A8;
 extern s32 D_800777C8;
 extern s32 D_80077898;
@@ -24,7 +24,7 @@ extern u16 D_801808E2;
 extern Unk D_801808E4;
 extern s32 D_801808E8;
 
-void func_8005C688(void) {
+void audioFrameBuild(void) {
     s32 sp10;
     s16 *temp_a1;
     s16 temp_v0;
@@ -47,7 +47,7 @@ void func_8005C688(void) {
     if (!((*temp_s1 + (*temp_a1 * 4)) & 0x1FFF)) {
         *temp_a1 = (u16) *temp_a1 + 0x10;
     }
-    temp_v0_2 = func_80082900(D_80180880, &sp10, D_801808E8, *temp_a1);
+    temp_v0_2 = audioBuildFrame(D_80180880, &sp10, D_801808E8, *temp_a1);
     D_80180880 = temp_v0_2;
     if ((u32) (D_8017F434 + 0x4E20) < temp_v0_2) {
         M2C_BREAK(0);
@@ -63,10 +63,10 @@ void func_8005C688(void) {
     D_80180884->unk30 = (u32) D_8017F434;
     D_80180884->unk34 = (s32) (((s32) (temp_v0_2 - D_8017F434) >> 3) * 8);
     audioQueueDispatchGetter(D_80180884, temp_v0_2, D_8017F434);
-    func_8005D178();
+    midiQueueProcess();
 }
 
-void func_8005C88C(s32 arg0) {
+void audioSetCallback(s32 arg0) {
     gAudioCallback = arg0;
     if ((gAudioStatus != 0) && (gAudioStatus != 4)) {
         gAudioStatus = 3;

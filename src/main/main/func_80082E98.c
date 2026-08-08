@@ -7,10 +7,10 @@ typedef struct {
 
 void audioNodeInit(void *, void *, void *, s32);
 extern s32 audioNodeSetProp;
-extern s32 func_80085FEC;
+extern s32 audioTimerNodeCmd;
 
-void func_80082E98(UnkStruct_arg0 *arg0) {
-    audioNodeInit(arg0, &func_80085FEC, &audioNodeSetProp, 3);
+void audioTimerNodeInit(UnkStruct_arg0 *arg0) {
+    audioNodeInit(arg0, &audioTimerNodeCmd, &audioNodeSetProp, 3);
     arg0->unk14 = 0;
     arg0->unk18 = 1;
 }

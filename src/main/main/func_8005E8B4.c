@@ -4,7 +4,7 @@
 extern s32 D_80181648;
 
 /*
- * func_8005E8B4 — collision/geometry sub-dispatcher (nonmatching).
+ * geomCollisionDispatch — collision/geometry sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — three reasons:
  *
@@ -26,9 +26,9 @@ extern s32 D_80181648;
  * Six FP register pairs (fs0–fs5) are saved, indicating heavy floating-point
  * work.  Function size: 0xC74 bytes.
  */
-void func_8005E8B4(void) { /* nonmatching — see asm stub */ }
+void geomCollisionDispatch(void) { /* nonmatching — see asm stub */ }
 
 s32 func_8005F528(void) {
-    func_8005F530();
+    audioQueueStopAll();
     return D_80181648;
 }

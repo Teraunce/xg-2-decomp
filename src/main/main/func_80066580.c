@@ -3,7 +3,7 @@ extern f32 D_8004C2F0;
 extern s32 D_80093318;
 
 /*
- * func_80066580 — scene-object sub-dispatcher (nonmatching).
+ * sceneObjectDispatch — scene-object sub-dispatcher (nonmatching).
  *
  * PERMANENTLY NONMATCHING — two reasons:
  *
@@ -17,11 +17,11 @@ extern s32 D_80093318;
  *
  * Function size: 0x474 bytes.
  */
-void func_80066580(void) { /* nonmatching — see asm stub */ }
+void sceneObjectDispatch(void) { /* nonmatching — see asm stub */ }
 
 /* D_800669F4: rodata/jtbl — defined in .s file */
 
-void func_80066A60(Unk *arg0, s32 arg1, s32 arg2) {
+void audioSetBeatPos(Unk *arg0, s32 arg1, s32 arg2) {
     s32 var_a1;
     s32 var_v0;
     s32 var_v0_2;

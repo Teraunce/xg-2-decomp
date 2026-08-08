@@ -4,9 +4,9 @@ typedef struct {
     /* 0x60 */ s32 unk60;
 } UnkStruct_arg0;
 
-s32 func_8008A7A0(UnkStruct_arg0*, u8, u16*, u8);             /* extern */
+s32 contPakReadPage(UnkStruct_arg0*, u8, u16*, u8);             /* extern */
 
-s32 func_8008A568(UnkStruct_arg0 *arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u16 *arg5, s32 arg6) {
+s32 contPakReadChain(UnkStruct_arg0 *arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u16 *arg5, s32 arg6) {
     u16 sp24;
     u16 sp20;
     s32 sp1C;
@@ -34,7 +34,7 @@ s32 func_8008A568(UnkStruct_arg0 *arg0, s32 arg1, u8 arg2, s32 arg3, u8 arg4, u1
     if (arg6 == 1) {
         *(u16*)(s32)(arg1 + (arg2 * 2)) = 3;
     }
-    sp1C = func_8008A7A0(arg0, arg2, arg3, arg4);
+    sp1C = contPakReadPage(arg0, arg2, arg3, arg4);
     if (sp1C != 0) {
         return sp1C;
     }
@@ -46,7 +46,7 @@ loop_17:
         sp20 = sp24;
         sp24 = *(u16*)(s32)(arg1 + (unksp25 * 2));
         *(u16*)(s32)(arg1 + (unksp21 * 2)) = 3;
-        sp1C = func_8008A7A0(arg0, unksp21, arg3, arg4);
+        sp1C = contPakReadPage(arg0, unksp21, arg3, arg4);
         if (sp1C != 0) {
             return sp1C;
         }

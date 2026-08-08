@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
-void func_8008CEB8(s32, u32 *);                          /* extern */
+void osEPiRawReadIoCart(s32, u32 *);                          /* extern */
 void bzero(s32, s32);                           /* extern */
 extern char *D_8009649C;
 extern char *D_8018C208;
@@ -28,7 +28,7 @@ void **osEPiGetDomainInfo(void) {
     } else {
         D_8018C20C = 0;
         D_8018C214 = 0xB0000000;
-        func_8008CEB8(0, &sp1C);
+        osEPiRawReadIoCart(0, &sp1C);
         D_8018C20D = sp1C & 0xFF;
         D_8018C210 = (sp1C >> 8) & 0xFF;
         D_8018C20E = (sp1C >> 0x10) & 0xF;

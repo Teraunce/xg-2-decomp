@@ -2,7 +2,7 @@
 void __osPiRawWriteIo(s32*, s32);                          /* extern */
 void piWriteByteUnaligned(s32, s32);                          /* extern */
 
-void func_8007544C(s32 arg0, s32 arg1, u32 arg2) {
+void piSetBytes(s32 arg0, s32 arg1, u32 arg2) {
     s32 temp_a0;
     s32 temp_a0_2;
     s32 var_a0;

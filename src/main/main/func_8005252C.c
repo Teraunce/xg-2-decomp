@@ -1,10 +1,10 @@
 #include "ultra64.h"
-void func_8004E594(void *);                           /* extern */
-void func_8004E5D8(void *);                            /* extern */
-void func_8004EF78(void *, void *, s32);                 /* extern */
-void func_8004F2F0(Unk*);                            /* extern */
+void sfxEntityInit(void *);                           /* extern */
+void velStateInit(void *);                            /* extern */
+void entitySlotReset(void *, void *, s32);                 /* extern */
+void sfxEntryReset(Unk*);                            /* extern */
 s32 vec3Normalize(void *, void *, void *);            /* extern */
-void func_800576FC(Unk*, Unk*, Unk*);                 /* extern */
+void mtxXfmPoint3(Unk*, Unk*, Unk*);                 /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);            /* extern */
 void mtxLookAt(void *, s32, s32, s32, s32, s32, s32); /* extern */
 s32 func_800EEC78(void *, f32, f32, f32, void *);     /* extern */
@@ -18,7 +18,7 @@ extern f32 D_8004BC6C;
 extern s32 D_8017C958;
 extern s32 D_80184580;
 
-void func_8005252C(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
+void entitySpawn(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
     f32 sp88;
     f32 sp84;
     f32 sp80;
@@ -56,14 +56,14 @@ void func_8005252C(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
         sp70 = temp_s2->unk34;
         sp74 = temp_s2->unk38;
         sp78 = temp_s2->unk3C;
-        func_800576FC(&sp20, &sp70, &sp80);
+        mtxXfmPoint3(&sp20, &sp70, &sp80);
         arg0->unk10 = (f32) (arg2->unk0 + sp80);
         arg0->unk14 = (f32) (arg2->unk4 + sp84);
         arg0->unk18 = (f32) (arg2->unk8 + sp88);
         sp70 = temp_s2->unk40;
         sp74 = temp_s2->unk44;
         sp78 = temp_s2->unk48;
-        func_800576FC(&sp20, &sp70, &sp80);
+        mtxXfmPoint3(&sp20, &sp70, &sp80);
         arg0->unk1C = (f32) (arg2->unk0 + sp80);
         arg0->unk20 = (f32) (arg2->unk4 + sp84);
         arg0->unk40 = 0;
@@ -134,10 +134,10 @@ void func_8005252C(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
         arg0->unk8 = (f32) (temp_ft1_2 + ((arg0->unk18 - temp_ft1_2) * D_8004BC64));
         arg0->unk110 = 0;
         arg0->unk188 = 0;
-        func_8004E594(temp_s2_2);
-        func_8004E5D8(arg0 + 0x298);
+        sfxEntityInit(temp_s2_2);
+        velStateInit(arg0 + 0x298);
         temp_s0 = arg0 + 0x3B0;
-        func_8004EF78(temp_s1, temp_s0, arg3);
+        entitySlotReset(temp_s1, temp_s0, arg3);
         func_800F1604(temp_s0, temp_s1, &sp60);
         arg0->unk450 = 0;
         arg0->unk454 = -1;
@@ -221,10 +221,10 @@ void func_8005252C(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
         arg0->unk548 = 0;
         arg0->unk558 = 0;
         arg0->unk55C = 0;
-        func_8004F2F0(arg0 + 0x118);
-        func_8004F2F0(arg0 + 0x150);
-        func_8004F2F0(arg0 + 0x468);
-        func_8004F2F0(arg0 + 0x4A0);
+        sfxEntryReset(arg0 + 0x118);
+        sfxEntryReset(arg0 + 0x150);
+        sfxEntryReset(arg0 + 0x468);
+        sfxEntryReset(arg0 + 0x4A0);
         arg0->unk4D8 = 0;
         arg0->unk4DC = 0;
         arg0->unk564 = 0;

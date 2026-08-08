@@ -1,11 +1,11 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8004EE5C (initial). */
+/* Warning: missing "jr $ra" in last block of trackNodeFindNearestGetter (initial). */
 
 extern s32 D_80091FD0;
 extern s32 D_8017CC60;
 extern Unk *D_8017CCB8;
 
-void func_8004EC88(f32 *arg0, s32 *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
+void trackNodeSearchNearest(f32 *arg0, s32 *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
     f32 temp_ft0;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -29,7 +29,7 @@ loop_1:
     if (temp_v1 != var_s0) {
         var_v0_2 = var_s0 * 8;
         if (*(((s32) (((Unk *)((char *)(s32)temp_s1 + temp_v1 * 0x38))->unk16 & 0xF800) >> 0xB) + &D_8017CC60) == 0) {
-            func_8004EC88(arg0, arg1, arg2, arg3, arg4, (s32) temp_a0->unk18);
+            trackNodeSearchNearest(arg0, arg1, arg2, arg3, arg4, (s32) temp_a0->unk18);
             goto block_4;
         }
     } else {
@@ -60,7 +60,7 @@ block_4:
     }
 }
 
-char *func_8004EE5C(void) {
-    func_8004EE64(0.0f, 0.0f, 0.0f);
+char *trackNodeFindNearestGetter(void) {
+    trackNodeFindNearest(0.0f, 0.0f, 0.0f);
     return D_8017CCB8;
 }

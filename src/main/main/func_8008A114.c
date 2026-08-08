@@ -12,7 +12,7 @@ s32 crc5Calc(s32);                             /* extern */
 extern s32 D_8018ADB8;
 extern s32 D_8018ADF4;
 
-void func_8008A114(s32 arg0, u16 arg1) {
+void siSetupReadCmd(s32 arg0, u16 arg1) {
     Unk *sp = (Unk*)0;
     UnkStruct_sp44 *sp44;
     s8 sp42;

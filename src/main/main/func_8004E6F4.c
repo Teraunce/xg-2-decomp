@@ -2,7 +2,7 @@
 void **overlayDecompress(void *);                       /* extern */
 extern s32 D_8004B8B0;
 
-char *func_8004E6F4(s32 arg0) {
+char *audioLoadWavetable(s32 arg0) {
     Unk *temp_v0;
 
     temp_v0 = *overlayDecompress((arg0 * 0x10) + &D_8004B8B0);

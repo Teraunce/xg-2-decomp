@@ -1,5 +1,5 @@
 #include "ultra64.h"
-/* Warning: missing "jr $ra" in last block of func_8005AB28 (initial). */
+/* Warning: missing "jr $ra" in last block of audioGetRspCount (initial). */
 
 void audioRspSubmit(Unk *);                       /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
@@ -27,6 +27,6 @@ void viSwapBuffers(Unk *arg0) {
     }
 }
 
-s32 func_8005AB28(void) {
+s32 audioGetRspCount(void) {
     return D_8017CDF8;
 }

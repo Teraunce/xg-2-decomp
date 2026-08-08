@@ -1,21 +1,21 @@
 #include "ultra64.h"
 void __osTimerInsert(Unk*, void**);                       /* extern */
 char *audioHeapAlloc(s32, s32, s32, s32, s32);              /* extern */
-void func_80082E98(void *);                               /* extern */
-void func_80082EDC(void *, s32, s32);                     /* extern */
-void func_80082F30(void *, s32, s32);                     /* extern */
-void func_80082F84(Unk*, s32);                          /* extern */
-s32 func_8008300C(void *, s32, s32);                     /* extern */
+void audioTimerNodeInit(void *);                               /* extern */
+void audioNoteWriteNodeInit(void *, s32, s32);                     /* extern */
+void audioMixNodeInit(void *, s32, s32);                     /* extern */
+void audioVoiceNodeInit(Unk*, s32);                          /* extern */
+s32 audioAdpcmNodeInit(void *, s32, s32);                     /* extern */
 void audioMidiNodeInit(Unk*, s32);                          /* extern */
-void func_80083638(void *, s32, void *);                         /* extern */
-s32 func_80084188(Unk*, s32, s32);                       /* extern */
-s32 func_800843AC(void *, s32, char*);                       /* extern */
+void audioAdpcmNodeCmd(void *, s32, void *);                         /* extern */
+s32 audioMixNodeCmd(Unk*, s32, s32);                       /* extern */
+s32 audioMidiNodeCmd(void *, s32, char*);                       /* extern */
 s32 audioNoteWrite(Unk*, s32, s32);                       /* extern */
-void func_80085068(s32);                       /* extern */
+void audioNodeCmdGetter(s32);                       /* extern */
 s32 audioNodeSetProp(Unk*, s32, s32);                       /* extern */
-s32 func_800865F8(Unk*, s16, s32, s32);            /* extern */
+s32 audioVoiceGeomInit(Unk*, s16, s32, s32);            /* extern */
 
-void func_80082B98(Unk *arg0, Unk *arg1) {
+void audioSynthChannelInit(Unk *arg0, Unk *arg1) {
     char *sp5C;
     char *sp48;
     char *temp_v0;
@@ -39,15 +39,15 @@ void func_80082B98(Unk *arg0, Unk *arg1) {
     arg0->unk24 = (s32) arg1->unk10;
     temp_v0 = audioHeapAlloc(0, 0, temp_s7, 1, 0x1C);
     sp5C = temp_v0;
-    func_80082E98(temp_v0);
+    audioTimerNodeInit(temp_v0);
     arg0->unk38 = sp5C;
     arg0->unk34 = audioHeapAlloc(0, 0, temp_s7, 1, 0x4C);
     arg0->unk40 = 1;
-    func_80082F30(arg0->unk34, audioHeapAlloc(0, 0, temp_s7, arg1->unk4, 4), arg1->unk4);
+    audioMixNodeInit(arg0->unk34, audioHeapAlloc(0, 0, temp_s7, arg1->unk4, 4), arg1->unk4);
     arg0->unk30 = audioHeapAlloc(0, 0, temp_s7, 1, 0x20);
-    func_80082EDC(arg0->unk30, audioHeapAlloc(0, 0, temp_s7, arg1->unk4, 4), arg1->unk4);
+    audioNoteWriteNodeInit(arg0->unk30, audioHeapAlloc(0, 0, temp_s7, arg1->unk4, 4), arg1->unk4);
     if (arg1->unk1C != 0) {
-        func_800865F8(arg0, 0, arg1, temp_s7);
+        audioVoiceGeomInit(arg0, 0, arg1, temp_s7);
     } else {
         audioNoteWrite(arg0->unk30, 2, arg0->unk34);
     }
@@ -68,13 +68,13 @@ void func_80082B98(Unk *arg0, Unk *arg1) {
         do {
             __osTimerInsert(var_s0, sp48);
             var_s0->unk8 = 0;
-            func_8008300C(var_s3, arg0->unk24, temp_s7);
-            func_80083638(var_s3, 1, 0);
-            func_80082F84(var_s2, temp_s7);
-            func_80085068(1);
+            audioAdpcmNodeInit(var_s3, arg0->unk24, temp_s7);
+            audioAdpcmNodeCmd(var_s3, 1, 0);
+            audioVoiceNodeInit(var_s2, temp_s7);
+            audioNodeCmdGetter(1);
             audioMidiNodeInit(var_s1, temp_s7);
-            func_800843AC(var_s1, 1, var_s2);
-            func_80084188(arg0->unk34, 2, var_s1);
+            audioMidiNodeCmd(var_s1, 1, var_s2);
+            audioMixNodeCmd(arg0->unk34, 2, var_s1);
             var_s0->unkC = (void *) (var_s0 + 0x8C);
             var_s4 += 1;
             var_s0 += 0xDC;

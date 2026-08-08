@@ -7,7 +7,7 @@ typedef struct {
 
 void osSetTimer(void**, s32, s32);                  /* extern */
 
-void func_800826F8(UnkStruct_arg0 *arg0, s8 arg1) {
+void midiSetExpression(UnkStruct_arg0 *arg0, s8 arg1) {
     s8 sp28;
     s32 sp24;
     s16 sp20;

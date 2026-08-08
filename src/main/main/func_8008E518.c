@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 osSendMesg(Unk*, s32, s32);                  /* extern */
-s32 func_8008E628(Unk*, s32, s32);                  /* extern */
-s32 func_8008E778();                                /* extern */
+s32 osSendMesgImpl(Unk*, s32, s32);                  /* extern */
+s32 piGetHandle();                                /* extern */
 extern s32 D_80096480;
 
 s32 spTaskSubmit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
@@ -22,9 +22,9 @@ s32 spTaskSubmit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     arg0->unk10 = arg5;
     arg0->unk14 = 0;
     if (arg1 == 1) {
-        var_v0 = func_8008E628(func_8008E778(), arg0, 0);
+        var_v0 = osSendMesgImpl(piGetHandle(), arg0, 0);
     } else {
-        var_v0 = osSendMesg(func_8008E778(), arg0, 0);
+        var_v0 = osSendMesg(piGetHandle(), arg0, 0);
     }
     return var_v0;
 }

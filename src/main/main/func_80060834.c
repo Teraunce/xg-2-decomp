@@ -10,13 +10,13 @@ extern s32 D_80178458;
 extern s32 D_8017C808;
 extern Unk D_80181E40;
 extern Unk *D_801821E8;
-extern s32 func_800602A0;
+extern s32 frameDispatchThread;
 
-void func_80060834(s32 arg0) {
+void frameThreadInit(s32 arg0) {
     osCreateMesgQueue(&D_80174730, &D_8017C808, 0x20);
     D_80181E40.unk0 = arg0;
     D_80181E40.unk4 = &D_80174730;
-    osCreateThread(&D_80178458, 5, &func_800602A0, &D_80181E40, &D_80178450, 8);
+    osCreateThread(&D_80178458, 5, &frameDispatchThread, &D_80181E40, &D_80178450, 8);
     osStartThread(&D_80178458);
 }
 

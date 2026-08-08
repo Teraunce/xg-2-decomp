@@ -4,7 +4,7 @@ void guMtxScaleF2L(Unk*, Unk*);                          /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 void mtxLookAt(Unk*, f32, f32, f32, f32, f32, f32); /* extern */
 void guLookAt(s32, s32, s32, s32, f32, f32, f32, f32, f32, f32); /* extern */
-void func_8007A6D8(char *, s32, s32, f32, f32, f32, f32, f32, f32, f32); /* extern */
+void guLookAtHilite(char *, s32, s32, f32, f32, f32, f32, f32, f32, f32); /* extern */
 void guMtxXfm(void *, f32, f32, f32, f32 *, f32 *, f32 *); /* extern */
 extern f32 D_8004C404;
 extern f32 D_8004C408;
@@ -162,7 +162,7 @@ void func_8006AE78(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     sp104 = arg1->unk1C;
     sp108 = arg1->unk20;
     vec3Cross(&spF0, &sp100, &sp110);
-    func_8007A6D8(&sp120, 0, 0, 0.0f, sp110, sp114, sp118, arg1->unk18, arg1->unk1C, arg1->unk20);
+    guLookAtHilite(&sp120, 0, 0, 0.0f, sp110, sp114, sp118, arg1->unk18, arg1->unk1C, arg1->unk20);
     temp_t0 = D_80173CC0 + 8;
     D_80173CC0->unk0 = 0xDC08000A;
     temp_v1 = (D_8017C114 << 6) + ((gPlayerList << 5) + &D_8017C1B0);

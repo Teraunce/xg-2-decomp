@@ -15,7 +15,7 @@ s32 contPakReadNoteDir(UnkStruct_arg0*);                          /* extern */
 s32 contPakRepairId(Unk*);                          /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);            /* extern */
 
-s32 func_8008B708(UnkStruct_arg0 *arg0, s32 *arg1, s32 *arg2) {
+s32 contPakReadDir(UnkStruct_arg0 *arg0, s32 *arg1, s32 *arg2) {
     s32 sp44;
     s32 sp40;
     s32 sp20;

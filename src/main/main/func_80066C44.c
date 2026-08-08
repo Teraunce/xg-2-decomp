@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void safeCopy(u32, u32, u32);                       /* extern */
-void func_80066A60(Unk*, s32, s32);                       /* extern */
+void audioSetBeatPos(Unk*, s32, s32);                       /* extern */
 extern s32 D_80093318;
 extern s32 D_80173C18;
 extern Unk *D_80173CC0;
@@ -136,8 +136,8 @@ loop_2:
     D_80182EA8.unk10F0 = (s32) D_80182EA8.unkB14;
     D_80182EA8.unk10F4 = (s32) D_80182EA8.unkB18;
     do {
-        func_80066A60(var_s0, var_s1_3, 1);
-        func_80066A60(var_s2, var_s1_3, 1);
+        audioSetBeatPos(var_s0, var_s1_3, 1);
+        audioSetBeatPos(var_s2, var_s1_3, 1);
         var_s2 += 0x5C;
         var_s1_3 += 1;
         var_s0 += 0x5C;
@@ -145,11 +145,11 @@ loop_2:
     var_s1_4 = 0;
     var_s0_2 = &D_80183D10;
     do {
-        func_80066A60(var_s0_2, var_s1_4, 0);
+        audioSetBeatPos(var_s0_2, var_s1_4, 0);
         var_s1_4 += 1;
         var_s0_2 += 0x5C;
     } while (var_s1_4 < 7);
-    func_80066A60(&D_801845E0, 0, 0);
+    audioSetBeatPos(&D_801845E0, 0, 0);
     var_s1_5 = 0;
     var_s0_3 = &D_80182EA8;
     var_s2_2 = &D_80182EA8 + 0x1114;
@@ -160,7 +160,7 @@ loop_2:
     D_80182EA8.unk16D4 = 1;
     D_80182EA8.unk110C = (s32) D_80182EA8.unkB18;
     do {
-        func_80066A60(var_s2_2, var_s1_5, 1);
+        audioSetBeatPos(var_s2_2, var_s1_5, 1);
         var_s0_3->unk1118 = -1;
         var_s0_3 += 0x5C;
         var_s1_5 += 1;

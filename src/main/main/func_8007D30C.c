@@ -14,11 +14,11 @@ s32 __osGetCount();                                /* extern */
 s32 osSendMesg(Unk*, s32, s32);                       /* extern */
 void __osTimerSetCompare(s32, u32);                          /* extern */
 u32 __osTimerEnqueue(void*);                            /* extern */
-void func_8007D678();                              /* extern */
+void setCOP0Compare();                              /* extern */
 extern void **gOSMsgQueuePtr;
 extern s32 D_80189A98;
 
-void func_8007D30C(void) {
+void __osTimerHandler(void) {
     UnkStruct_sp24 *sp24;
     s32 sp20;
     u32 sp1C;
@@ -36,7 +36,7 @@ loop_1:
         temp_t9 = *gOSMsgQueuePtr;
         sp24 = temp_t9;
         if ((void*)temp_t9 == (void*)gOSMsgQueuePtr) {
-            func_8007D678();
+            setCOP0Compare();
             D_80189A98 = 0;
             return;
         }

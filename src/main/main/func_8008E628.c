@@ -8,7 +8,7 @@ extern Unk *__osRunningThread;
 extern s32 D_80096480;
 extern s32 D_80096488;
 
-s32 func_8008E628(Unk *arg0, s32 arg1, s32 arg2) {
+s32 osSendMesgImpl(Unk *arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
     s32 temp_t7;
 
@@ -38,14 +38,14 @@ block_5:
     return 0;
 }
 
-s32 func_8008E778(void) {
+s32 piGetHandle(void) {
     if (D_80096480 == 0) {
         return 0;
     }
     return D_80096488;
 }
 
-s32 func_8008E7A8(s32 arg0, s32 arg1, s32 arg2) {
+s32 memmove(s32 arg0, s32 arg1, s32 arg2) {
     s16 temp_v0_11;
     s16 temp_v0_3;
     s16 temp_v1;
@@ -347,11 +347,11 @@ void bzero(s32 arg0, s32 arg1) {
     }
 }
 
-s64 func_8008EB58(u64 arg0, s32 arg1, s64 arg2, s32 arg3) {
+s64 __ashrdi3(u64 arg0, s32 arg1, s64 arg2, s32 arg3) {
     return (s64) (arg0 >> arg2) >> 0x20;
 }
 
-s64 func_8008EB84(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
+s64 __umoddi3(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
     return (s64) (arg0 % arg2) >> 0x20;
 }
 
@@ -359,15 +359,15 @@ s64 __udivdi3(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
     return (s64) (arg0 / arg2) >> 0x20;
 }
 
-s64 func_8008EBFC(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
+s64 __ashldi3(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
     return (s64) (arg0 << arg2) >> 0x20;
 }
 
-s64 func_8008EC28(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
+s64 __moddi3(u64 arg0, s32 arg1, u64 arg2, s32 arg3) {
     return (s64) (arg0 % arg2) >> 0x20;
 }
 
-s64 func_8008EC64(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
+s64 __divdi3(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
     if ((arg2 == -1) && (arg0 == (1 << 0x3F))) {
         M2C_BREAK(6);
     }

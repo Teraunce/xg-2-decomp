@@ -14,7 +14,7 @@ extern s32 D_8017C954;
 extern s32 gSfxInputTable;
 extern s32 D_8017CDF0;
 
-void func_80053F00(s32 arg0) {
+void sfxProcessInput(s32 arg0) {
     s32 var_a0;
     s32 var_a2;
     s32 temp_a0;

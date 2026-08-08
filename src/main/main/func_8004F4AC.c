@@ -2,15 +2,15 @@
 u16 *gfxGetWritePtr();                               /* extern */
 s32 heap_alloc_default(s32, s32);                        /* extern */
 void overlayNodeMark(Unk*);                            /* extern */
-void func_80056A90(Unk*, s32, s32, s32);                   /* extern */
-s32 func_80057C20(Unk*, Unk*, Unk*, Unk*);                /* extern */
+void mtxIdentInit(Unk*, s32, s32, s32);                   /* extern */
+s32 triComputeNormal(Unk*, Unk*, Unk*, Unk*);                /* extern */
 s32 func_8013BDF4(s32);                               /* extern */
 extern f32 D_8004BBF8;
 extern s32 gColorSwapMode;
 extern s32 D_80091FD0;
 extern char *D_80174BF8;
 
-void func_8004F4AC(Unk *arg0, s32 arg1) {
+void renderNodeSetup(Unk *arg0, s32 arg1) {
     s32 saved_reg_s7;
     s32 sp30;
     f32 sp28;
@@ -282,7 +282,7 @@ void func_8004F4AC(Unk *arg0, s32 arg1) {
                         var_a1_3 = temp_a3_2 + (var_a2 * 0x10);
                         var_a2_2 = var_t0 * 0x10;
                     }
-                    func_80057C20(var_a0_5, var_a1_3, temp_a3_2 + var_a2_2, temp_s5 + (temp_s0 * 0xC));
+                    triComputeNormal(var_a0_5, var_a1_3, temp_a3_2 + var_a2_2, temp_s5 + (temp_s0 * 0xC));
                     var_s6_2 += 1;
                 }
                 temp_v0_6 = (temp_s0 * 0xC) + temp_s5;
@@ -378,16 +378,16 @@ block_97:
             }
         }
     }
-    func_80056A90(arg0 + 0x60, 0, 0, 0);
-    func_80056A90(arg0 + 0xA0, 0, 0, 0);
-    func_80056A90(arg0 + 0xE0, 0, 0, 0);
-    func_80056A90(arg0 + 0x120, 0, 0, 0);
+    mtxIdentInit(arg0 + 0x60, 0, 0, 0);
+    mtxIdentInit(arg0 + 0xA0, 0, 0, 0);
+    mtxIdentInit(arg0 + 0xE0, 0, 0, 0);
+    mtxIdentInit(arg0 + 0x120, 0, 0, 0);
     if (gColorSwapMode != 0) {
         func_8013BDF4(arg0->unk5C);
     }
 }
 
-void func_8004FC94(void) {
+void entityListPrune(void) {
     char *var_a0;
     Unk *var_v1;
 
