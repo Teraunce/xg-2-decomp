@@ -3,7 +3,7 @@ s32 osSetIntMask(s32);                             /* extern */
 void __osTimerUnlink(Unk*);                               /* extern */
 void __osTimerInsert(Unk*, void**);                       /* extern */
 
-void func_8007E6C4(Unk *arg0) {
+void osTimerQueueReload(Unk *arg0) {
     s32 sp2C;
     char *temp_s1;
     char *var_s0;

@@ -26,7 +26,7 @@ extern Unk *D_80173CC0;
 extern s32 D_8017C118;
 extern s32 D_8017C7F0;
 
-void func_800693BC(Unk *arg0, Unk *arg1) {
+void cameraMatrixBuild(Unk *arg0, Unk *arg1) {
     s32 spA0;
     s32 sp60;
     s32 sp20;

@@ -6,7 +6,7 @@ extern u32 gSfxAllocCount;
 extern s32 gSfxChannelState;
 extern s32 gSfxHeap;
 
-s32 func_800625C8(char *arg1) {
+s32 sfxChannelDispatch(char *arg1) {
     Unk *var_v1;
     s32 temp_a0;
     s32 temp_s2;

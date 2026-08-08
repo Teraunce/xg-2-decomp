@@ -19,7 +19,7 @@ extern s32 *D_8017C8A8;
 extern s32 D_8017C930;
 extern s32 D_8017CA44;
 
-void func_8006CF98(Unk *arg0) {
+void gfxDLFrameSetup(Unk *arg0) {
     s32 *temp_a1;
     Unk *temp_a1_3;
     Unk *temp_s0;

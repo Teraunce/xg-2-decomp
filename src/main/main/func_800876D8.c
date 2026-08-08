@@ -9,7 +9,7 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 extern UnkStruct_D_80095644 *gVIConfig;
 
-void func_800876D8(s32 arg0) {
+void viSetOutput(s32 arg0) {
     s32 sp1C;
 
     sp1C = osDisableInt();

@@ -6,7 +6,7 @@ extern s32 D_8004B650;
 extern s32 D_8004B654;
 extern char *D_801823E8;
 
-void func_80063CD8(void) {
+void rdpDataLoad(void) {
     s32 temp_s0;
     s32 temp_s1;
     s32 var_t0;

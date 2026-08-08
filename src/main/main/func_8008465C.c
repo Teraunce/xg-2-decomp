@@ -4,7 +4,7 @@ s16 audioCalcRatio(f64, s32);                             /* extern */
 extern s32 D_80095470;
 extern s32 D_8009556E;
 
-char *func_8008465C(void) {
+char *audioBuildVoice(void) {
     s16 *saved_reg_s0 = NULL; /* implicit $s0 set by caller */
     Unk *saved_reg_s3 = NULL; /* implicit $s3 set by caller */
     s32 saved_reg_s5 = 0; /* implicit $s5 set by caller */

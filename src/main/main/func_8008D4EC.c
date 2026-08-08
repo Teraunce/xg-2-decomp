@@ -14,7 +14,7 @@ extern s32 D_A4600028;
 extern s32 D_A460002C;
 extern s32 D_A4600030;
 
-void **func_8008D4EC(void) {
+void **aiDmaInit(void) {
     s32 sp1C;
     s32 temp_v0;
 

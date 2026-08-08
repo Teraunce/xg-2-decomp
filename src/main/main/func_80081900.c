@@ -3,7 +3,7 @@ void midiDecodeEvent(Unk*, Unk*);                     /* extern */
 extern f64 D_8004CE58;
 extern f64 D_8004CE60;
 
-void func_80081900(Unk *arg0, Unk *arg1, u32 arg2) {
+void midiSeqStep(Unk *arg0, Unk *arg1, u32 arg2) {
     s16 sp50;
     s32 sp4C;
     u32 sp44;

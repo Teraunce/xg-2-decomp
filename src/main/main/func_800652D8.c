@@ -16,7 +16,7 @@ s32 sfxGetState();                                  /* extern */
 extern s32 D_80182E78;
 extern s32 D_80182E80;
 
-void func_800652D8(void **arg0) {
+void sfxStateRdpSync(void **arg0) {
     UnkStruct_temp_v0 *temp_v0;
     UnkStruct_temp_v0_2 *temp_v0_2;
     UnkStruct_temp_v0_3 *temp_v0_3;

@@ -9,7 +9,7 @@ extern s32 D_80093F60;
 extern s8 D_80189168;
 extern s8 D_8018916A;
 
-void func_8007583C(void) {
+void sramHwInit(void) {
     s32 temp_a0;
     s32 temp_s0;
 

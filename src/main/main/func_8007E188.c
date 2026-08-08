@@ -4,7 +4,7 @@ void midiTrackInit(Unk*, char*);                         /* extern */
 extern f64 D_8004C9C8;
 extern f64 D_8004C9D0;
 
-void func_8007E188(Unk *arg0, Unk *arg1, u32 arg2) {
+void midiSeqLoad(Unk *arg0, Unk *arg1, u32 arg2) {
     s16 sp140;
     s32 sp58;
     s32 sp54;

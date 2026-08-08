@@ -44,7 +44,7 @@ extern s32 D_8017C968;
 extern s32 D_80185D78;
 extern s32 D_80185DB8;
 
-void func_80067DB4(s32 arg0, f32 arg1, f32 arg3) {
+void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     char *sp148;
     s32 *sp144;
     s32 *sp140;

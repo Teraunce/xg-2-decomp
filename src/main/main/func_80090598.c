@@ -1,13 +1,13 @@
 #include "ultra64.h"
 s32 byteCopy(s32, void *, s32);                       /* extern */
 s32 intDiv(s32, s32);                            /* extern */
-void func_80090028();                                  /* extern */
+void vsprintfFloat();                                  /* extern */
 extern s32 D_8004D0D8;
 extern s32 D_8004D120;
 extern s32 D_8004D124;
 extern f64 D_8004D130;
 
-void func_80090598(Unk *arg0, u8 arg1) {
+void vsprintfGHandler(Unk *arg0, u8 arg1) {
     s32 sp78;
     u8 spB1;
     s8 spB0;
@@ -225,5 +225,5 @@ loop_51:
             }
         }
     }
-    func_80090028();
+    vsprintfFloat();
 }

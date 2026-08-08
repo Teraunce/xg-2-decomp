@@ -18,7 +18,7 @@ extern s32 D_8017C948;
 extern s32 D_801887B8;
 extern Unk D_801887D0;
 
-void func_800705F0(s32 arg0) {
+void sfxEntityHandler(s32 arg0) {
     char *var_a0;
     char *var_s0;
     s32 temp_v0;

@@ -30,7 +30,7 @@ extern s8 D_80185DBC;
 extern s8 D_80185DBD;
 extern s8 D_80185DBE;
 
-void func_800676DC(s32 arg0) {
+void gameRaceRender(s32 arg0) {
     f32 sp88;
     f32 sp84;
     f32 sp80;

@@ -12,7 +12,7 @@ extern s32 D_801845E0;
 extern s32 D_80184640;
 extern Unk D_8018DBC8;
 
-void func_80066C44(void) {
+void gameStateSync(void) {
     char *var_s0;
     char *var_s0_2;
     Unk *var_s0_3;

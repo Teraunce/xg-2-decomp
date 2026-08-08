@@ -1,7 +1,7 @@
 #include "ultra64.h"
 u64 u64DivImpl(s32, s32, s32, s32);              /* extern */
 
-u64 func_80061C70(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+u64 s64Div(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 var_a0_2;
     s32 var_a1;
     s32 var_a2;

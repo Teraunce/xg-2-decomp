@@ -13,7 +13,7 @@ extern s32 D_801786B8;
 extern s32 D_8017C118;
 extern s32 D_8017C7F0;
 
-void func_80068D2C(s32 arg0, f32 arg1) {
+void trackEntityRender(s32 arg0, f32 arg1) {
     s32 sp68;
     char *sp64;
     s32 sp60;

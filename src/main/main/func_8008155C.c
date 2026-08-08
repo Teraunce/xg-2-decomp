@@ -6,7 +6,7 @@ void pendingFlushEnqueue(void *, void *);                       /* extern */
 extern s32 gPendingFlushFlag;
 extern s32 audioSeqUpdate;
 
-void func_8008155C(Unk *arg0, Unk *arg1) {
+void audioSeqNodeInit(Unk *arg0, Unk *arg1) {
     s32 sp2C;
     char *temp_v0;
     char *var_v1;

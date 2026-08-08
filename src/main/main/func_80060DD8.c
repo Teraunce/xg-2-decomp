@@ -6,7 +6,7 @@ extern u32 gLineTexPtr;
 extern s32 D_80178690;
 extern Unk *D_801821E8;
 
-void func_80060DD8(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, u32 arg10, u32 arg11, u32 arg12, u32 arg13, s32 arg14) {
+void renderLineRectEx(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, u32 arg10, u32 arg11, u32 arg12, u32 arg13, s32 arg14) {
     s16 temp_a1;
     s16 temp_a1_2;
     s16 temp_a1_3;

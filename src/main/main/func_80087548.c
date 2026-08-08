@@ -3,7 +3,7 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 extern Unk *gVIConfig;
 
-void func_80087548(f32 arg0) {
+void viSetRefresh(f32 arg0) {
     s32 temp_v0;
 
     temp_v0 = osDisableInt();

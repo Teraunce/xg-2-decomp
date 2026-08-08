@@ -2,7 +2,7 @@
 void __osPiRawWriteIo(s32*, s32);                          /* extern */
 s32 __osPiRawReadIo(s32*);                             /* extern */
 
-void func_800752E8(s32 arg0, s32 arg1) {
+void piWriteByte(s32 arg0, s32 arg1) {
     s32 temp_s0;
     s32 temp_s2;
 

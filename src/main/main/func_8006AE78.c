@@ -30,7 +30,7 @@ extern s32 D_8017C118;
 extern s32 D_8017C1B0;
 extern s32 D_8017C7F0;
 
-void func_8006AE78(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
+void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 sp120;
     f32 sp118;
     f32 sp114;

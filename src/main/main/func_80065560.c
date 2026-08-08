@@ -3,7 +3,7 @@ u8 *fontGetCharWidth(u16, s32 *, s32);                   /* extern */
 extern Unk D_80182E88;
 extern s32 D_80182EA4;
 
-s32 func_80065560(u16 *arg0) {
+s32 fontStringWidth(u16 *arg0) {
     s32 sp10;
     s32 temp_s0;
     s32 var_s0;

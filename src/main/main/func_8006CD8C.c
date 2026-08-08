@@ -33,7 +33,7 @@ extern s32 D_80190810;
 extern s32 D_801928A0;
 extern s32 D_801A28A0;
 
-char *func_8006CD8C(UnkStruct_arg0 *arg0) {
+char *sfxRspTaskRun(UnkStruct_arg0 *arg0) {
     char *var_v0;
     char *temp_a2;
     char *temp_s0;

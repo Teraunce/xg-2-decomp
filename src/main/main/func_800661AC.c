@@ -8,7 +8,7 @@ extern Unk D_80182E8C;
 extern s16 D_80182E92;
 extern u16 D_80182E94;
 
-void func_800661AC(s32 arg0, s32 arg1) {
+void rdpTrackLayout(s32 arg0, s32 arg1) {
     s16 var_s0;
     s16 var_s0_2;
     s16 var_v0;

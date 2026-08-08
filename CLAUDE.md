@@ -19,7 +19,7 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Files compiling with zero errors (IDO 7.1) | **453** |
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
-| Named functions (proper identifiers) | **639** |
+| Named functions (proper identifiers) | **702** |
 | Named data globals applied | **97** |
 | ROM byte-exact match | ✅ yes |
 
@@ -547,6 +547,37 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
 58. **Named 5 additional functions** — forty-third batch: entity (`entitySpawn`), GFX
     (`gfxFrameSetup`), matrix (`mtxSetFromVectorsNeg`, `cameraSetupMtx`), RSP
     (`rspDrainMesgQueue`). Applied 5 replacements across 5 files. Total named: **623**.
+63. **Named 3 additional functions** — forty-eighth batch: printf formatting
+    (`vsprintfFloat`, `vsprintfGHandler`), string util (`u16StrTrimEnd`).
+    Applied 5 replacements across 3 files. Total named: **702**.
+    3 unnamed functions remain (implicit-register stubs: `func_80086904`,
+    `func_80087EB8`, `func_8008FFA0` — all use $at/$t6/$t7/$v0 from callers,
+    cannot be reliably named without broader context).
+62. **Named 16 additional functions** — forty-seventh batch: camera (`cameraMatrixBuild`,
+    `cameraViewRender`, `cameraHiliteRender`), render (`trackEntityRender`,
+    `gfxDLFrameSetup`, `gfxDLEnd`, `renderTexLineWW`), SFX RSP (`sfxRspTaskRun`,
+    `sfxRspTaskRunLen`), SFX entity (`sfxEntityHandler`), controller pak
+    (`contPakThreadInit`), handler (`entityHandlerSetup`, `entityHandlerSetupEx`),
+    PI IO (`piReadByte`, `piWriteByte`), PI lock (`__piLockGetter`).
+    Applied 16 replacements across 16 files. Total named: **699**.
+    6 unnamed functions remain (implicit-register stubs + unresolved).
+61. **Named 24 additional functions** — forty-sixth batch: SRAM (`sramHwInit`,
+    `sramReadStatus`, `sramWriteName`, `sramWriteNote`, `sramErase`, `sramReadBuf`,
+    `sramWriteBuf`, `sramPiDmaStep`), math/trig (`cosInt`, `mtxIdentSetPos`, `s64Mod`),
+    audio/MIDI (`midiSeqLoad`, `osTimerQueueReload`, `audioTimerSetDecay`,
+    `audioTimerSetAttack`, `audioSeqNodeInit`, `midiSeqStep`, `audioBuildVoice`),
+    VI (`viSetRefresh`, `viSetGamma`, `viSetOutput`), utility (`isUnaligned`, `sprintf`),
+    AI DMA (`aiDmaInit`).
+    Applied 24 replacements across 24 files. Total named: **683**.
+60. **Named 20 additional functions** — forty-fifth batch: render (`renderLineRect`,
+    `renderLineRectEx`, `renderTrackCurves`), math (`s64Div`), SFX format
+    (`sfxFormatName3`, `sfxFormatName4`, `sfxFormatName5`), SFX playback
+    (`sfxChannelDispatch`, `sfxSpawnSample`, `sfxStateRdpSync`,
+    `sfxTableInitGetter`, `sfxLoadSampleGetter`), game (`gameMenuRender`,
+    `gameStateSync`, `gameRaceRender`, `gameCameraSetup`), RDP (`rdpDataLoad`,
+    `rdpTrackLayout`, `rdpDrawString`), font (`fontStringWidth`).
+    Applied 20 replacements across 20 files. Fixed 2 GETTER_NOJR stubs
+    (`sfxTableInitGetter`, `sfxLoadSampleGetter`). Total named: **659**.
 59. **Named 16 additional functions** — forty-fourth batch: entity (`entityPhysicsInit`),
     render (`renderNodeSetup`), memory (`mainPoolAlloc`), audio subsystem
     (`audioSystemInit`, `audioRspDoneGetter`, `audioFrameBuild`, `audioTimerAcquire`),

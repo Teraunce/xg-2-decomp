@@ -1,5 +1,5 @@
 #include "ultra64.h"
-s32 func_8008ED50(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
+s32 s64Mod(s64 arg0, s32 arg1, s64 arg2, s32 arg3) {
     s64 sp0;
     s64 temp_hi;
 

@@ -3,7 +3,7 @@ s32 intDisable();                                /* extern */
 void intRestore(s32);                               /* extern */
 s32 sramStartDma(s32, s32, s32);                    /* extern */
 
-s32 func_80075D9C(s32 arg0) {
+s32 sramErase(s32 arg0) {
     s32 temp_s1;
     s32 var_s0;
 

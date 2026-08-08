@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void osSetTimer(void**, s32, s32);                     /* extern */
 
-void func_8007EA68(s32 arg0, s32 arg1) {
+void audioTimerSetDecay(s32 arg0, s32 arg1) {
     s32 sp1C;
     s16 sp18;
 

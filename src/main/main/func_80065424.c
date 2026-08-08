@@ -8,7 +8,7 @@ extern u16 D_80182414;
 extern s32 D_80182418;
 extern s16 D_80182458;
 
-void func_80065424(s32 arg0) {
+void renderTrackCurves(s32 arg0) {
     s32 temp_s0;
     s32 var_s0;
     s32 var_s1;

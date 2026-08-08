@@ -6,7 +6,7 @@ extern s32 D_80173BC4;
 extern Unk *D_80173CC0;
 extern s32 D_8017C118;
 
-void func_800701C8(void) {
+void gfxDLEnd(void) {
     Unk *temp_a0;
     Unk *temp_a1;
     Unk *temp_v0;

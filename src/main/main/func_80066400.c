@@ -11,7 +11,7 @@ extern s32 D_80182E84;
 extern Unk D_80182E8C;
 extern u16 D_80182E94;
 
-void func_80066400(s32 arg0, s32 arg1, u16 *arg2) {
+void rdpDrawString(s32 arg0, s32 arg1, u16 *arg2) {
     s32 sp14;
     s32 sp10;
     s32 temp_v0_3;

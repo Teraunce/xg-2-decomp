@@ -10,7 +10,7 @@ extern s32 D_A4600010;
 extern s32 D_A5000508;
 extern s32 D_A5000510;
 
-s32 func_8008D5B0(void) {
+s32 sramPiDmaStep(void) {
     s32 sp3C;
     s32 sp38;
     s32 sp34;

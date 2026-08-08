@@ -35,7 +35,7 @@ extern s32 D_8017C1B0;
 extern s32 D_8017C7F0;
 extern s32 D_80182EA8;
 
-void func_80069A60(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7) {
+void cameraViewRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7) {
     f32 *sp1A0;
     s32 sp160;
     f32 sp158;

@@ -8,7 +8,7 @@ typedef struct {
 
 void guMtxIdent(char *);                         /* extern */
 
-void func_8007B7D8(UnkStruct_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3) {
+void mtxIdentSetPos(UnkStruct_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3) {
     guMtxIdent(arg0);
     arg0->unk30 = arg1;
     arg0->unk34 = arg2;

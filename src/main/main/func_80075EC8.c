@@ -4,7 +4,7 @@ void intRestore(s32);                               /* extern */
 void piWriteBytes(s32, u8*, u32);                       /* extern */
 s32 sramStartDma(s32, s32, s32);                  /* extern */
 
-s32 func_80075EC8(s32 arg0, s32 arg1, u32 arg2) {
+s32 sramWriteBuf(s32 arg0, s32 arg1, u32 arg2) {
     s32 temp_s4;
     s32 temp_v0;
     s32 var_s2;

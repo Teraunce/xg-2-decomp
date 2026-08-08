@@ -5,7 +5,7 @@ void copyU16Array(void *);                            /* extern */
 extern f64 D_8004C0E0;
 extern s32 gHexDigits;
 
-void func_80065648(Unk *arg0) {
+void u16StrTrimEnd(Unk *arg0) {
     u16 *var_a0;
 
     var_a0 = arg0;

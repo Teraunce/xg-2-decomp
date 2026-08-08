@@ -11,7 +11,7 @@ extern s32 D_801887B8;
 extern Unk D_801887D0;
 extern s32 contPakHandlerWait;
 
-void func_80070B24(s32 arg0) {
+void contPakThreadInit(s32 arg0) {
     D_80188770 = arg0;
     osCreateMesgQueue(&D_801887A0, &D_80188780, 8);
     osCreateMesgQueue(&D_801887B8, &D_80188774, 1);
