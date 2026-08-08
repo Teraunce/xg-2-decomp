@@ -5,10 +5,10 @@ s32 osEPiStartDma(Unk*, s32, s32, s32, s32);               /* extern */
 void piDmaNotify();                                  /* extern */
 void sramDmaStep();                               /* static */
 extern s32 osIntMask;
-extern s32 D_8018C2FC;
-extern s32 D_A4600010;
-extern s32 D_A5000508;
-extern s32 D_A5000510;
+extern s32 gSramPiHandle;
+extern s32 PI_STATUS_REG;
+extern s32 SRAM_STATUS_REG;
+extern s32 SRAM_ADDR_REG;
 
 s32 sramPiDmaStep(void) {
     s32 sp3C;
@@ -28,28 +28,28 @@ s32 sramPiDmaStep(void) {
     sp30 = temp_t7;
     temp_t0 = temp_t7 + (((Unk*)0 /* implicit $t6 */)->unk1A * 0x24);
     sp2C = temp_t0 + 0x18;
-    sp38 = D_A4600010;
+    sp38 = PI_STATUS_REG;
     if (sp38 & 1) {
         osIntMask &= ~0x800;
         temp_t0->unk18 = 0x1D;
         piDmaNotify();
         goto block_59;
     }
-    sp38 = D_A4600010;
+    sp38 = PI_STATUS_REG;
     if (sp38 & 3) {
         do {
-            sp38 = D_A4600010;
+            sp38 = PI_STATUS_REG;
         } while (sp38 & 3);
     }
-    sp3C = D_A5000508;
+    sp3C = SRAM_STATUS_REG;
     if (sp3C & 0x02000000) {
-        sp38 = D_A4600010;
+        sp38 = PI_STATUS_REG;
         if (sp38 & 3) {
             do {
-                sp38 = D_A4600010;
+                sp38 = PI_STATUS_REG;
             } while (sp38 & 3);
         }
-        D_A5000510 = sp30->unk10 | 0x01000000;
+        SRAM_ADDR_REG = sp30->unk10 | 0x01000000;
         sp2C->unk0 = 0;
         return 0;
     }
@@ -57,16 +57,16 @@ s32 sramPiDmaStep(void) {
         goto block_59;
     }
     if (sp3C & 0x08000000) {
-        sp38 = D_A4600010;
+        sp38 = PI_STATUS_REG;
         if (sp38 & 3) {
             do {
-                sp38 = D_A4600010;
+                sp38 = PI_STATUS_REG;
             } while (sp38 & 3);
         }
-        sp3C = D_A5000508;
+        sp3C = SRAM_STATUS_REG;
         sp2C->unk0 = 0x16;
         piDmaNotify();
-        D_A4600010 = 2;
+        PI_STATUS_REG = 2;
         osIntMask |= 0x100401;
         goto block_59;
     }
@@ -76,7 +76,7 @@ s32 sramPiDmaStep(void) {
                 sp2C->unk0 = 0x18;
                 sramDmaStep();
             } else {
-                D_A4600010 = 2;
+                PI_STATUS_REG = 2;
                 osIntMask |= 0x100401;
                 sp2C->unk0 = 0;
                 piDmaNotify();
@@ -84,7 +84,7 @@ s32 sramPiDmaStep(void) {
         } else {
             sp2C->unk4 = (s32) (sp2C->unk4 + sp2C->unkC);
             sp30->unk8 = (s32) (sp30->unk8 + 1);
-            osEPiStartDma(D_8018C2FC, 1, 0x05000400, sp2C->unk4, sp2C->unkC);
+            osEPiStartDma(gSramPiHandle, 1, 0x05000400, sp2C->unk4, sp2C->unkC);
         }
         goto block_59;
     }
@@ -104,7 +104,7 @@ s32 sramPiDmaStep(void) {
         }
         sp2C->unk4 = (s32) (sp2C->unk4 + sp2C->unkC);
 block_27:
-        sp34 = D_A5000510;
+        sp34 = SRAM_ADDR_REG;
         if (((sp34 & 0x200000) && (sp34 & 0x400000)) || (sp34 & 0x02000000)) {
             if ((u32) sp2C->unk10 >= 4U) {
                 if ((sp30->unk4 != 3) || (sp30->unk8 >= 0x53)) {
@@ -133,12 +133,12 @@ block_36:
                 sp30->unk40 = (s32) (sp30->unk40 - sp30->unk48);
                 sp2C->unk0 = 0x16;
             } else {
-                D_A4600010 = 2;
+                PI_STATUS_REG = 2;
                 osIntMask |= 0x100401;
                 sp30->unk0 = 2;
                 sp2C->unk0 = 0;
             }
-            osEPiStartDma(D_8018C2FC, 0, 0x05000000, sp2C->unk8, sp2C->unkC * 4);
+            osEPiStartDma(gSramPiHandle, 0, 0x05000000, sp2C->unk8, sp2C->unkC * 4);
             goto block_59;
         }
         if ((sp30->unk8 == -1) && (sp30->unk4 == 2) && (sp30->unk6 == 1)) {
@@ -163,7 +163,7 @@ block_51:
                 sramDmaStep();
                 goto block_59;
             }
-            osEPiStartDma(D_8018C2FC, 0, 0x05000400, sp2C->unk4, sp2C->unkC);
+            osEPiStartDma(gSramPiHandle, 0, 0x05000400, sp2C->unk4, sp2C->unkC);
             sp2C->unk0 = 0;
             return 1;
         }

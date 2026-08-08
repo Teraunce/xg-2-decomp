@@ -4,7 +4,7 @@ void audioQueuePlay(s32, f32, s32, s8, s32);           /* extern */
 void audioQueueStop(s32);                               /* extern */
 s32 audioQueueFind(s32, f32*, s32*, s32*);                    /* extern */
 s32 sfxComputeSpatial(f32, f32, s32, s32, f32, f32, f32 *, s32 *, s32 *, s32 *, s32); /* extern */
-extern s32 D_80092844;
+extern s32 gSfxSpatialCount;
 
 void sfxPositionalUpdate(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
     s32 sp34;
@@ -21,7 +21,7 @@ void sfxPositionalUpdate(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 arg4, s32
                 audioQueuePlay(*arg5, arg3, arg4, sp30, sp34);
                 return;
             }
-            if (D_80092844 < 0x1A) {
+            if (gSfxSpatialCount < 0x1A) {
                 goto block_5;
             }
             goto block_8;

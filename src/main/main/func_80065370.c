@@ -2,9 +2,9 @@
 /* Warning: missing "jr $ra" in last block of sfxGetState (initial). */
 
 s32 sfxGetState();                                /* static */
-extern s32 D_80182E78;
-extern s32 D_80182E80;
-extern s32 D_80182EA0;
+extern s32 gRdpSyncDone;
+extern s32 gTextFontId;
+extern s32 gTextVisible;
 
 void sfxRenderBegin(void **arg0, s32 arg1) {
     Unk *temp_v0;
@@ -24,10 +24,10 @@ void sfxRenderBegin(void **arg0, s32 arg1) {
     *arg0 = temp_v0_3 + 8;
     temp_v0_3->unk0 = 0xFC121824;
     temp_v0_3->unk4 = 0xFF33FFFF;
-    D_80182E80 = 1;
-    D_80182E78 = arg1;
+    gTextFontId = 1;
+    gRdpSyncDone = arg1;
 }
 
 s32 sfxGetState(void) {
-    return D_80182EA0;
+    return gTextVisible;
 }

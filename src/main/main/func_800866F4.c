@@ -1,8 +1,8 @@
 #include "ultra64.h"
 extern s32 gAiClock;
-extern s32 D_A4500008;
-extern s32 D_A4500010;
-extern s32 D_A4500014;
+extern s32 AI_CONTROL;
+extern s32 AI_DACRATE;
+extern s32 AI_BITRATE;
 
 s32 osAiSetFrequency(void) {
     s32 var_a2;
@@ -17,8 +17,8 @@ s32 osAiSetFrequency(void) {
     if (var_a2 >= 0x11) {
         var_a2 = 0x10;
     }
-    D_A4500010 = temp_a1 - 1;
-    D_A4500014 = var_a2 - 1;
-    D_A4500008 = 1;
+    AI_DACRATE = temp_a1 - 1;
+    AI_BITRATE = var_a2 - 1;
+    AI_CONTROL = 1;
     return (s32) gAiClock / (s32) temp_a1;
 }

@@ -12,10 +12,10 @@ extern s32 gRSPTaskB;
 extern char *gFrameWait;
 extern s32 gFrameState;
 extern char *gDLSavePtr;
-extern u8 D_8016DBD0;
-extern s32 D_8016DF70;
-extern s32 D_801A3000;
-extern s32 D_803DA400;
+extern u8 gRspGeomBuf;
+extern s32 gRspDmaMesgQueue;
+extern s32 gDLWriteBuf;
+extern s32 gDLBufEnd;
 
 void rspReadBytes(s32 arg0, u8 *arg1, s32 arg2) {
     s32 sp38;
@@ -34,15 +34,15 @@ void rspReadBytes(s32 arg0, u8 *arg1, s32 arg2) {
     var_s1 = arg1;
     temp_s4 = var_s3 & 0x3F;
     if (temp_s4 != 0) {
-        osWritebackInvalDCache(&D_8016DBD0, 0x40);
-        spTaskSubmit(&sp20, 0, 0, var_s3 & ~0x3F, &D_8016DBD0, 0x40, &D_8016DF70);
-        osRecvMesg(&D_8016DF70, &sp38, 1);
+        osWritebackInvalDCache(&gRspGeomBuf, 0x40);
+        spTaskSubmit(&sp20, 0, 0, var_s3 & ~0x3F, &gRspGeomBuf, 0x40, &gRspDmaMesgQueue);
+        osRecvMesg(&gRspDmaMesgQueue, &sp38, 1);
         temp_a1 = var_s2 + temp_s4;
         var_v1 = temp_s4;
         if (temp_a1 < 0x41) {
             if (var_v1 < temp_a1) {
                 do {
-                    temp_v0 = (&D_8016DBD0)[var_v1];
+                    temp_v0 = (&gRspGeomBuf)[var_v1];
                     var_v1 += 1;
                     *var_s1 = temp_v0;
                     var_s1 += 1;
@@ -53,7 +53,7 @@ void rspReadBytes(s32 arg0, u8 *arg1, s32 arg2) {
                 do {
                     var_s2 -= 1;
                     var_s3 += 1;
-                    temp_v0_2 = (&D_8016DBD0)[var_v1];
+                    temp_v0_2 = (&gRspGeomBuf)[var_v1];
                     var_v1 += 1;
                     *var_s1 = temp_v0_2;
                     var_s1 += 1;
@@ -65,8 +65,8 @@ void rspReadBytes(s32 arg0, u8 *arg1, s32 arg2) {
     } else {
 block_8:
         osWritebackInvalDCache(var_s1, var_s2);
-        spTaskSubmit(&sp20, 0, 0, var_s3, var_s1, var_s2, &D_8016DF70);
-        osRecvMesg(&D_8016DF70, &sp38, 1);
+        spTaskSubmit(&sp20, 0, 0, var_s3, var_s1, var_s2, &gRspDmaMesgQueue);
+        osRecvMesg(&gRspDmaMesgQueue, &sp38, 1);
     }
 }
 
@@ -83,7 +83,7 @@ void dlResetPtr(void) {
         gDLWritePtr = gDLBase;
         return;
     }
-    gDLWritePtr = &D_801A3000;
+    gDLWritePtr = &gDLWriteBuf;
 }
 
 char *gfxGetWritePtr(void) {
@@ -137,7 +137,7 @@ char *frameAlloc(s32 arg0) {
     }
     temp_a0_2 = gDLWritePtr + temp_a0;
     temp_v0 = gDLWritePtr;
-    if ((s32) &D_803DA400 >= (s32) temp_a0_2) {
+    if ((s32) &gDLBufEnd >= (s32) temp_a0_2) {
         gDLWritePtr = temp_a0_2;
         return temp_v0;
     }

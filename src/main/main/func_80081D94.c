@@ -25,9 +25,9 @@
  * s1 node: *s1+0=s32 root; +4=s32 valA (-1=invalid); +8=s32 valB;
  *           +C=u8 vol-mul; +D=u8 pitch-mul
  *
- * D_8004CE68: f64 constant loaded into $fs0 at entry; used in c.lt.d
- * D_8004CE98: f64 lower-bound clamp for rate
- * D_8004CEA0: f32 substitute rate when rate < lower bound
+ * gS32MaxF64: f64 constant loaded into $fs0 at entry; used in c.lt.d
+ * gSfxRateClampLo: f64 lower-bound clamp for rate
+ * gSfxRateSubst: f32 substitute rate when rate < lower bound
  */
 
 void  sfxNoteAssign(void *a, void *b, void *c);
@@ -42,9 +42,9 @@ void  sfxStopAtEntity(void *a, void *b);
 void  audioTimerResched(void);
 s32   osStopTimer(void *a, void *b);
 
-extern f64 D_8004CE68;
-extern f64 D_8004CE98;
-extern f32 D_8004CEA0;
+extern f64 gS32MaxF64;
+extern f64 gSfxRateClampLo;
+extern f32 gSfxRateSubst;
 
 /* nonmatching: jtbl_8004CE70 switch + bnel/beql branch-likely + FPU */
 void audioTimerDispatch(Unk *obj) {
@@ -121,7 +121,7 @@ next_frame:
 
         raw  = *(s32 *)*(void **)s1;
         fv0  = (f64)((f32)raw / ft0);
-        a2   = (fv0 < D_8004CE68) ? (s32)fv0 : 0x7FFFFFFF;
+        a2   = (fv0 < gS32MaxF64) ? (s32)fv0 : 0x7FFFFFFF;
         pkt_cmd = 6;
         pkt_sub = s5;
         osSetTimer(s7, &pkt_cmd, a2);
@@ -137,7 +137,7 @@ next_frame:
         fv1  = *(f32 *)((u8 *)s5 + 0x24);
         raw  = *(s32 *)((u8 *)*(void **)s1 + 8);
         fv0  = (f64)((f32)raw / fv1);
-        s0   = (fv0 < D_8004CE68) ? (s32)fv0 : 0x7FFFFFFF;
+        s0   = (fv0 < gS32MaxF64) ? (s32)fv0 : 0x7FFFFFFF;
 
         sfxPlayAtEntity(*(void **)((u8 *)obj + 0x38), s5, 0, s0);
         if (s0 != 0) {
@@ -183,13 +183,13 @@ next_frame:
         goto lbl_epilogue;
 
     /* ------------------------------------------------------------------ */
-    /* Case 4: update playback rate; clamp below D_8004CE98; send.        */
+    /* Case 4: update playback rate; clamp below gSfxRateClampLo; send.        */
     /* ------------------------------------------------------------------ */
     case 4:
         ft0 = *(f32 *)((u8 *)s4 + 8);
         *(f32 *)((u8 *)s5 + 0x24) = ft0;
-        if ((f64)ft0 < D_8004CE98) {
-            ft0 = D_8004CEA0;
+        if ((f64)ft0 < gSfxRateClampLo) {
+            ft0 = gSfxRateSubst;
             *(f32 *)((u8 *)s5 + 0x24) = ft0;
         }
         if (*(s32 *)((u8 *)s5 + 0x28) != fp) goto lbl_epilogue;
@@ -212,7 +212,7 @@ next_frame:
         fv1 = *(f32 *)((u8 *)s5 + 0x24);
         raw = *(s32 *)((u8 *)a3 + 4);
         fv0 = (f64)((f32)raw / fv1);
-        s0  = (fv0 < D_8004CE68) ? (s32)fv0 : 0x7FFFFFFF;
+        s0  = (fv0 < gS32MaxF64) ? (s32)fv0 : 0x7FFFFFFF;
         sfxPlayAtEntity(*(void **)((u8 *)obj + 0x38), s5, a2, s0);
         pkt_cmd = (s16)fp;
         pkt_sub = s5;

@@ -4,12 +4,12 @@
 s32 fontGetCharWidth(u16, s32 *, s32 *);               /* extern */
 void rdpTextLayout(s32, u8**, s32);                     /* extern */
 s32 sfxGetVolLevel(s32, s32);                          /* extern */
-extern u16 D_80182E68;
-extern u16 D_80182E74;
-extern s16 D_80182E76;
-extern s32 D_80182E84;
-extern Unk D_80182E8C;
-extern u16 D_80182E94;
+extern u16 gTrackSegLen;
+extern u16 gTextCurX;
+extern s16 gTextCurY;
+extern s32 gSfxFilterVal;
+extern Unk gGlyphSize;
+extern u16 gTextLayoutX;
 
 void rdpDrawString(s32 arg0, s32 arg1, u16 *arg2) {
     s32 sp14;
@@ -29,23 +29,23 @@ void rdpDrawString(s32 arg0, s32 arg1, u16 *arg2) {
             if ((var_v1 == 0xA) || (var_v1 == 0xD)) {
                 sfxGetVolLevel(arg0, arg1);
                 rdpTextLayout(arg0, arg1, *var_s1 != 0xA);
-                D_80182E74 = D_80182E94;
-                if ((D_80182E76 + D_80182E8C.unk0) >= 0x100) {
-                    D_80182E76 = 0xFF;
+                gTextCurX = gTextLayoutX;
+                if ((gTextCurY + gGlyphSize.unk0) >= 0x100) {
+                    gTextCurY = 0xFF;
                 } else {
-                    D_80182E76 = (u16) D_80182E76 + D_80182E8C.unk2;
+                    gTextCurY = (u16) gTextCurY + gGlyphSize.unk2;
                 }
             } else {
                 temp_v0_3 = fontGetCharWidth(*var_s1, &sp10, &sp14);
                 if (temp_v0_3 == 0) {
                     sfxGetVolLevel(arg0, arg1);
                 }
-                temp_v0_4 = (D_80182E68 * 0x10) + arg1;
+                temp_v0_4 = (gTrackSegLen * 0x10) + arg1;
                 temp_v0_4->unk0 = temp_v0_3;
                 temp_v0_4->unk4 = sp14;
                 temp_v0_4->unk8 = sp10;
-                temp_v0_4->unkC = (s32) D_80182E84;
-                D_80182E68 += 1;
+                temp_v0_4->unkC = (s32) gSfxFilterVal;
+                gTrackSegLen += 1;
             }
             var_s1 += 2;
             temp_v0_2 = *var_s1;

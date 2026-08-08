@@ -2,21 +2,21 @@
 /* Warning: missing "jr $ra" in last block of sfxRaceSetupGetter (initial). */
 
 s32 sfxQueueCmd(s16, f32, s32, s8, s32);               /* extern */
-extern f32 D_8004BE94;
+extern f32 gSfxRaceParamA;
 extern s32 gTrackNodeCount;
-extern s32 D_80092B48;
+extern s32 gRaceOrderTbl;
 extern s32 gGameFlags;
-extern s32 D_80173C28;
-extern s32 D_8017C958;
-extern s32 D_80181588;
-extern s32 D_80181648;
-extern s32 D_8018164C;
-extern s32 D_80181658;
-extern s32 D_80181668;
-extern s32 D_80181678;
-extern s32 D_80181688;
-extern s32 D_80182EA8;
-extern s32 D_80184580;
+extern s32 gRaceMax;
+extern s32 gRaceActive;
+extern s32 gSfxListenerPos;
+extern s32 gRacePhase;
+extern s32 gSfxEntityHandle;
+extern s32 gRaceEntityBufD;
+extern s32 gRaceEntityBufC;
+extern s32 gRaceEntityBufB;
+extern s32 gRaceEntityBufA;
+extern s32 gRaceCtx;
+extern s32 gGameMode;
 
 void sfxRaceSetup(s32 arg0) {
     Unk *var_s0;
@@ -34,17 +34,17 @@ void sfxRaceSetup(s32 arg0) {
     s32 var_v1;
 
     if (arg0 != 0) {
-        D_80181648 = 1;
-    } else if (D_80184580 == 0xE) {
-        D_80181648 = 4;
+        gRacePhase = 1;
+    } else if (gGameMode == 0xE) {
+        gRacePhase = 4;
     } else {
-        D_80181648 = D_80173C28;
+        gRacePhase = gRaceMax;
     }
     var_s1 = 0;
-    if (D_80181648 > 0) {
-        temp_fs0 = D_8004BE94;
-        var_s2 = &D_80182EA8;
-        var_s0 = &D_80181588;
+    if (gRacePhase > 0) {
+        temp_fs0 = gSfxRaceParamA;
+        var_s2 = &gRaceCtx;
+        var_s0 = &gSfxListenerPos;
         do {
             var_s0->unk0 = 0;
             var_s0->unk4 = 0;
@@ -65,7 +65,7 @@ void sfxRaceSetup(s32 arg0) {
                 var_s0->unk1C = sfxQueueCmd(5, temp_fs0, 0, 0x40, 0);
             } else if (((Unk *)var_s2->unk16F8)->unk8 < 0xD) {
                 if (gGameFlags & 0x400) {
-                    if (D_8017C958 == 0) {
+                    if (gRaceActive == 0) {
                         var_v0 = 0x4B;
                         var_s0->unk24 = 1;
                     } else {
@@ -76,50 +76,50 @@ block_14:
                     var_s0->unk20 = 0;
                     var_s0->unk24 = 1;
                     var_s0->unk28 = 2;
-                    var_v0 = *((((Unk *)var_s2->unk16F8)->unk8 % 13) + &D_80092B48) + 3;
+                    var_v0 = *((((Unk *)var_s2->unk16F8)->unk8 % 13) + &gRaceOrderTbl) + 3;
                 }
                 var_s0->unk2C = var_v0;
             }
             var_s2 += 4;
             var_s1 += 1;
             var_s0 += 0x30;
-        } while (var_s1 < D_80181648);
+        } while (var_s1 < gRacePhase);
     }
     var_s1_2 = 7;
     if (arg0 == 0) {
-        var_v0_2 = &D_80181688 + 0x1C;
+        var_v0_2 = &gRaceEntityBufA + 0x1C;
         do {
             *var_v0_2 = 0;
             var_s1_2 -= 1;
             var_v0_2 -= 4;
         } while (var_s1_2 >= 0);
-        if ((D_80184580 != 0xE) && (D_80184580 != 2)) {
-            var_a0 = 4 - D_80181648;
+        if ((gGameMode != 0xE) && (gGameMode != 2)) {
+            var_a0 = 4 - gRacePhase;
             if (var_a0 < 0) {
                 var_a0 = 0;
             }
-            var_v1 = gTrackNodeCount - D_80181648;
+            var_v1 = gTrackNodeCount - gRacePhase;
             if (var_a0 < var_v1) {
                 var_v1 = var_a0;
             }
-            D_8018164C = var_v1;
+            gSfxEntityHandle = var_v1;
         } else {
-            D_8018164C = 0;
+            gSfxEntityHandle = 0;
         }
         var_s1_3 = 0;
-        if (D_8018164C > 0) {
-            var_a1 = &D_80181658;
-            var_a0_2 = &D_80181678;
-            var_v1_2 = &D_80181668;
+        if (gSfxEntityHandle > 0) {
+            var_a1 = &gRaceEntityBufD;
+            var_a0_2 = &gRaceEntityBufB;
+            var_v1_2 = &gRaceEntityBufC;
             do {
-                *var_v1_2 = D_80181648 + var_s1_3;
+                *var_v1_2 = gRacePhase + var_s1_3;
                 *var_a0_2 = 0;
                 *var_a1 = 0;
                 var_a1 += 4;
                 var_a0_2 += 4;
                 var_s1_3 += 1;
                 var_v1_2 += 4;
-            } while (var_s1_3 < D_8018164C);
+            } while (var_s1_3 < gSfxEntityHandle);
         }
     }
 }
@@ -127,5 +127,5 @@ block_14:
 void geomCollisionDispatch(void);  /* forward: GETTER_NOJR fallthrough */
 s32 sfxRaceSetupGetter(void) {
     geomCollisionDispatch();  /* GETTER_NOJR: pre-loads state, falls into geomCollisionDispatch */
-    return D_80181648;
+    return gRacePhase;
 }

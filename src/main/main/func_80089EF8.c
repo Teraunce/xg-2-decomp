@@ -6,8 +6,8 @@ void __siUnlock();                                  /* extern */
 u8 crc8Calc(u8*);                           /* extern */
 void siSetupReadCmd(s32, u16);                          /* extern */
 s32 contPakProbe(s32, s32);                        /* extern */
-extern s8 D_8018AD68;
-extern s32 D_8018ADB8;
+extern s8 gSiLocked;
+extern s32 gSiReadBuf;
 
 s32 osContPakRead(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
     Unk *sp = NULL; /* $sp base — used as Unk byte-ptr into local stack (nonmatching) */
@@ -28,17 +28,17 @@ s32 osContPakRead(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
     char *temp_t9;
 
     sp5C = 0;
-    sp54 = &D_8018ADB8;
+    sp54 = &gSiReadBuf;
     sp28 = 2;
     __siLock();
-    D_8018AD68 = 2;
+    gSiLocked = 2;
     siSetupReadCmd(arg1, arg2);
-    sp5C = osSiRawStartDma(1, &D_8018ADB8);
+    sp5C = osSiRawStartDma(1, &gSiReadBuf);
     osRecvMesg(arg0, 0, 1);
 loop_1:
-    sp5C = osSiRawStartDma(0, &D_8018ADB8);
+    sp5C = osSiRawStartDma(0, &gSiReadBuf);
     osRecvMesg(arg0, 0, 1);
-    sp54 = &D_8018ADB8;
+    sp54 = &gSiReadBuf;
     if (arg1 != 0) {
         sp58 = 0;
         if (arg1 > 0) {

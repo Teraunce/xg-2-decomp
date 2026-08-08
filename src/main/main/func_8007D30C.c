@@ -16,7 +16,7 @@ void __osTimerSetCompare(s32, u32);                          /* extern */
 u32 __osTimerEnqueue(void*);                            /* extern */
 void setCOP0Compare();                              /* extern */
 extern void **gOSMsgQueuePtr;
-extern s32 D_80189A98;
+extern s32 gTimerBase;
 
 void __osTimerHandler(void) {
     UnkStruct_sp24 *sp24;
@@ -37,12 +37,12 @@ loop_1:
         sp24 = temp_t9;
         if ((void*)temp_t9 == (void*)gOSMsgQueuePtr) {
             setCOP0Compare();
-            D_80189A98 = 0;
+            gTimerBase = 0;
             return;
         }
         sp20 = __osGetCount();
-        sp1C = sp20 - D_80189A98;
-        D_80189A98 = sp20;
+        sp1C = sp20 - gTimerBase;
+        gTimerBase = sp20;
         temp_t6 = sp24->unk10;
         if ((temp_t6 >= 0U) && ((temp_t6 > 0U) || (sp1C < (u32) sp24->unk14))) {
             sp18 = sp24 + 0x10;

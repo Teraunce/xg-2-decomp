@@ -26,10 +26,10 @@ s32  osDisableInt(void);
 void osRestoreInt(s32);
 
 /*
- * D_8007C758 — default thread return address.  When the thread entry function
+ * gThreadExitStub — default thread return address.  When the thread entry function
  * returns, execution falls here (typically a cleanup / self-terminate stub).
  */
-extern s32 D_8007C758;
+extern s32 gThreadExitStub;
 
 /*
  * __osAllThreadList — creation-order all-threads list head (address 0x800952AC,
@@ -58,8 +58,8 @@ void osCreateThread(OSThread *arg0, OSId arg1, u32 arg2, s32 arg3, u32 arg4, OSP
     *(s32 *)&arg0->context.sp        = (s32)(((s32)arg4 >> 0x1F) - (arg4 < 0x10U));     /* high word */
 
     /* context.ra — return address when entry function exits */
-    *(s32 *)&arg0->context.ra        = (s32)((s32)&D_8007C758 >> 0x1F);  /* high word */
-    *((s32 *)&arg0->context.ra + 1)  = (s32)&D_8007C758;                  /* low  word */
+    *(s32 *)&arg0->context.ra        = (s32)((s32)&gThreadExitStub >> 0x1F);  /* high word */
+    *((s32 *)&arg0->context.ra + 1)  = (s32)&gThreadExitStub;                  /* low  word */
 
     arg0->context.sr          = 0xFF03;         /* CP0 Status: IE + coprocessor enables */
     arg0->context.mi_intr_mask = (u32)((u32)(0x3FFF01 & 0x3F0000) >> 0x10); /* 0x3F */

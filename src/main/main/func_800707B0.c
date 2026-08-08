@@ -3,17 +3,17 @@
 /* -------------------------------------------------------------------------
  * contPakEventLoop — game event-queue dispatcher (0x35C bytes, nonmatching).
  *
- * Processes pending command entries from D_801887D0's event ring.  Each
+ * Processes pending command entries from gHandlerCtx's event ring.  Each
  * entry has a stride of 0x2C bytes; entry->unk0 (cmd 1-7) selects one of
  * seven action functions to call with &gSfxChannelState as the first arg.
  *
- * Outer loop: calls osSetEventMesg(5, D_80188770, D_8017C890) each frame.
- * Inner poll: calls osRecvMesg(&D_801887B8, NULL, 1) until
- *   D_801887D0.unk160 >= 0.
+ * Outer loop: calls osSetEventMesg(5, gContPakMesgQueue, gViMsg) each frame.
+ * Inner poll: calls osRecvMesg(&gEntityMesgQueue, NULL, 1) until
+ *   gHandlerCtx.unk160 >= 0.
  * After dispatch, loops back if frame index < s4_limit.
  *
  * Non-standard entry: caller's $v0 is used as an init flag:
- *   $v0 == 0 → s4_limit = D_80188930   (run for that many frames)
+ *   $v0 == 0 → s4_limit = gHandlerFrameLimit   (run for that many frames)
  *   $v0 != 0 → s4_limit = -1           (no limit / always loop)
  * Cannot be expressed in C; function is permanently nonmatching.
  *
@@ -32,16 +32,16 @@ void osSetEventMesg(s32 arg0, s32 arg1, s32 arg2);
 s32  osRecvMesg(Unk *arg0, s32 *arg1, s32 arg2);
 s32  sfxHasEntity(void *entity);
 
-extern Unk D_801887D0;  /* game state; cmd entries at +0, stride 0x2C */
-extern Unk D_801887B8;  /* CD08 queue object */
+extern Unk gHandlerCtx;  /* game state; cmd entries at +0, stride 0x2C */
+extern Unk gEntityMesgQueue;  /* CD08 queue object */
 extern s32 gSfxChannelState;  /* scene/world context */
-extern s32 D_80188770;  /* event table base */
-extern s32 D_80188930;  /* frame limit (used when init flag $v0==0) */
-extern s32 D_80093EF8;  /* global counter, cleared on entry */
+extern s32 gContPakMesgQueue;  /* event table base */
+extern s32 gHandlerFrameLimit;  /* frame limit (used when init flag $v0==0) */
+extern s32 gHandlerResult;  /* global counter, cleared on entry */
 extern s32 gInitFlag;  /* set to 1 each frame */
-extern s32 D_8017C890;  /* scene config */
+extern s32 gViMsg;  /* scene config */
 extern s32 gSessionActive;  /* secondary queue flag */
-extern s32 D_801887A0;  /* secondary queue object */
+extern s32 gHandlerMsgQueue;  /* secondary queue object */
 
 void contPakEventLoop(void *arg0) {
     /* nonmatching: uses caller's $v0 as non-standard init flag;
@@ -54,24 +54,24 @@ void contPakEventLoop(void *arg0) {
     /* init flag from $v0 (not expressible in C) — stub assumes $v0 != 0 */
     s4_limit = -1;
 
-    D_80093EF8 = 0;
+    gHandlerResult = 0;
     gInitFlag = 1;
 
     do {
         /* frame tick */
-        osSetEventMesg(5, D_80188770, D_8017C890);
+        osSetEventMesg(5, gContPakMesgQueue, gViMsg);
         gInitFlag = 1;
-        idx = D_801887D0.unk160;
+        idx = gHandlerCtx.unk160;
 
         /* inner poll: wait for valid state (idx >= 0) */
         while (idx < 0) {
-            osRecvMesg(&D_801887B8, NULL, 1);
-            idx = D_801887D0.unk160;
+            osRecvMesg(&gEntityMesgQueue, NULL, 1);
+            idx = gHandlerCtx.unk160;
         }
 
         /* process entity if still active */
         if (sfxHasEntity(arg0) != 0) {
-            entry = (Unk *)((char *)&D_801887D0 + idx * 0x2C);
+            entry = (Unk *)((char *)&gHandlerCtx + idx * 0x2C);
             cmd = *(s32 *)entry;   /* entry->unk0 = cmd type */
 
             if ((u32)(cmd - 1) < 7U) {  /* cmd 1-7 */
@@ -115,7 +115,7 @@ void contPakEventLoop(void *arg0) {
         /* secondary queue drain (when gSessionActive != 0) */
         if (gSessionActive != 0) {
             do {
-                osRecvMesg((Unk *)&D_801887A0, NULL, 1);
+                osRecvMesg((Unk *)&gHandlerMsgQueue, NULL, 1);
             } while (gSessionActive != 0);
         }
 

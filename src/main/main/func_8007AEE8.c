@@ -19,7 +19,7 @@ typedef struct {
 f32 cosf(f32);                             /* extern */
 void guMtxIdent(f32);                               /* extern */
 f32 sinf(f32);                             /* extern */
-extern f64 D_8004C868;
+extern f64 gAudioPeriodConst;
 
 void guPerspectiveF(char *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp20;
@@ -43,7 +43,7 @@ void guPerspectiveF(char *arg0, s16 *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
     UnkStruct_var_v0 *var_v0;
 
     guMtxIdent(arg2);
-    temp_fa1 = (f32) ((f64) arg2 * D_8004C868);
+    temp_fa1 = (f32) ((f64) arg2 * gAudioPeriodConst);
     temp_fa0 = temp_fa1 / 2.0f;
     sp1C = temp_fa0;
     sp20 = cosf(temp_fa0);

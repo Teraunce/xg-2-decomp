@@ -2,10 +2,10 @@
 s32 byteCopy(s32, void *, s32);                       /* extern */
 s32 intDiv(s32, s32);                            /* extern */
 void vsprintfFloat();                                  /* extern */
-extern s32 D_8004D0D8;
-extern s32 D_8004D120;
-extern s32 D_8004D124;
-extern f64 D_8004D130;
+extern s32 gAudioFreqTableF;
+extern s32 gAudioWavetable3;
+extern s32 gAudioWavetable2;
+extern f64 gAudioPitchScaleD;
 
 void vsprintfGHandler(Unk *arg0, u8 arg1) {
     s32 sp78;
@@ -78,9 +78,9 @@ void vsprintfGHandler(Unk *arg0, u8 arg1) {
     }
     if (var_v0 > 0) {
         if (var_v0 == 2) {
-            var_a1 = &D_8004D120;
+            var_a1 = &gAudioWavetable3;
         } else {
-            var_a1 = &D_8004D124;
+            var_a1 = &gAudioWavetable2;
         }
         arg0->unk14 = 3;
         byteCopy(arg0->unk8, var_a1, 3);
@@ -105,7 +105,7 @@ void vsprintfGHandler(Unk *arg0, u8 arg1) {
                 do {
                     temp_t9 = var_v0_2 >> 1;
                     if (var_v0_2 & 1) {
-                        var_fs0 *= *(&D_8004D0D8 + (var_v1 * 8));
+                        var_fs0 *= *(&gAudioFreqTableF + (var_v1 * 8));
                     }
                     var_v0_2 = (s16) temp_t9;
                     var_v1 += 1;
@@ -122,7 +122,7 @@ void vsprintfGHandler(Unk *arg0, u8 arg1) {
                     do {
                         temp_t6 = var_v0_3 >> 1;
                         if (var_v0_3 & 1) {
-                            var_fv0 *= *(&D_8004D0D8 + (var_v1_2 * 8));
+                            var_fv0 *= *(&gAudioFreqTableF + (var_v1_2 * 8));
                         }
                         var_v0_3 = (s16) temp_t6;
                         var_v1_2 += 1;
@@ -145,7 +145,7 @@ loop_47:
             var_s5_2 = var_s5 + 8;
             var_s1 = (s32) var_fs0;
             if (var_s4 > 0) {
-                var_fs0 = (var_fs0 - (f64) var_s1) * D_8004D130;
+                var_fs0 = (var_fs0 - (f64) var_s1) * gAudioPitchScaleD;
             }
             var_s0 = 8;
             if (var_s1 > 0) {

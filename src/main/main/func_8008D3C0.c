@@ -3,19 +3,19 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 void osEPiRawReadIoCart(s32, u32 *);                          /* extern */
 void bzero(s32, s32);                           /* extern */
-extern char *D_8009649C;
-extern char *D_8018C208;
-extern s8 D_8018C20C;
-extern s8 D_8018C20D;
-extern s8 D_8018C20E;
-extern s8 D_8018C210;
-extern s8 D_8018C211;
-extern s32 D_8018C214;
-extern s8 D_8018C28C;
-extern s8 D_8018C28D;
-extern s8 D_8018C28E;
-extern s8 D_8018C290;
-extern s32 D_8018C294;
+extern char *gSramDmaHead;
+extern char *gSramDmaNode;
+extern s8 gSramCmdByte;
+extern s8 gSramAddrLo;
+extern s8 gSramVersion;
+extern s8 gSramAddrMid;
+extern s8 gSramAddrHi;
+extern s32 gSramBase;
+extern s8 gSramLatInit;
+extern s8 gSramPgsInit;
+extern s8 gSramState;
+extern s8 gSramPwdInit;
+extern s32 gSramMmioBase;
 
 void **osEPiGetDomainInfo(void) {
     u32 sp1C;
@@ -26,29 +26,29 @@ void **osEPiGetDomainInfo(void) {
     if ((s32)0 /* implicit $t6 from caller */ == 0xB0000000) {
 
     } else {
-        D_8018C20C = 0;
-        D_8018C214 = 0xB0000000;
+        gSramCmdByte = 0;
+        gSramBase = 0xB0000000;
         osEPiRawReadIoCart(0, &sp1C);
-        D_8018C20D = sp1C & 0xFF;
-        D_8018C210 = (sp1C >> 8) & 0xFF;
-        D_8018C20E = (sp1C >> 0x10) & 0xF;
-        D_8018C20E = (sp1C >> 0x14) & 0xF;
-        D_8018C211 = 0;
-        bzero(&D_8018C208 + 0x14, 0x60);
+        gSramAddrLo = sp1C & 0xFF;
+        gSramAddrMid = (sp1C >> 8) & 0xFF;
+        gSramVersion = (sp1C >> 0x10) & 0xF;
+        gSramVersion = (sp1C >> 0x14) & 0xF;
+        gSramAddrHi = 0;
+        bzero(&gSramDmaNode + 0x14, 0x60);
         temp_v0 = osDisableInt();
-        D_8018C208 = D_8009649C;
+        gSramDmaNode = gSramDmaHead;
         sp18 = temp_v0;
-        D_8009649C = &D_8018C208;
+        gSramDmaHead = &gSramDmaNode;
         osRestoreInt(sp18);
     }
-    return &D_8018C208;
+    return &gSramDmaNode;
 }
 
 void func_8008D4A8(void) {
-    D_8018C28C = 2;
-    D_8018C294 = 0xA5000000;
-    D_8018C28D = 3;
-    D_8018C290 = 6;
-    D_8018C28E = 6;
-    D_8018C28E = 2;
+    gSramLatInit = 2;
+    gSramMmioBase = 0xA5000000;
+    gSramPgsInit = 3;
+    gSramPwdInit = 6;
+    gSramState = 6;
+    gSramState = 2;
 }

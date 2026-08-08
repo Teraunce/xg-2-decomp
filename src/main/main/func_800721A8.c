@@ -4,8 +4,8 @@ s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);     /* extern */
 void contPakScanNotes(s32, s32);                          /* extern */
 s32 contPakLoadSave(Unk*, u16, s32, s32, s32); /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
-extern s32 D_8018894C;
-extern Unk D_80188B5C;
+extern s32 gContPakSlots;
+extern Unk gContPakReadBuf;
 
 void contPakHandlerRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 sp48;
@@ -17,7 +17,7 @@ void contPakHandlerRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     char *temp_s3;
 
     /* Flowgraph is not reducible, falling back to gotos-only mode. */
-    temp_s0 = (arg2 * 0x2C) + &D_80188B5C;
+    temp_s0 = (arg2 * 0x2C) + &gContPakReadBuf;
     if (temp_s0->unk0 == 0) {
         goto block_3;
     }
@@ -30,12 +30,12 @@ void contPakHandlerRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         goto block_5;
     }
 block_3:
-    *(s32*)((char*)&D_80188B5C - 0x22C) = (s32) (*(s32*)((char*)&D_80188B5C - 0x22C) - 1);
+    *(s32*)((char*)&gContPakReadBuf - 0x22C) = (s32) (*(s32*)((char*)&gContPakReadBuf - 0x22C) - 1);
     return;
 block_4:
     var_s5 = 1;
 block_5:
-    temp_s2 = (arg1 * 0x68) + &D_8018894C;
+    temp_s2 = (arg1 * 0x68) + &gContPakSlots;
     temp_s3 = temp_s0 + 0x1A;
     temp_s1 = temp_s0 + 0x16;
     if (contPakLoadSave(temp_s2, temp_s0->unk14, temp_s0->unk10, temp_s3, temp_s1) != 0) {

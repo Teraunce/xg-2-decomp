@@ -1,5 +1,5 @@
 #include "ultra64.h"
-extern u8 D_8018AD69;
+extern u8 gSfxVoiceCount;
 
 void func_80087EB8(char *arg0) {
     Unk *spC;
@@ -26,6 +26,6 @@ void func_80087EB8(char *arg0) {
             spC += 8;
             sp0 = temp_t9;
             var_a0 += 6;
-        } while (temp_t9 < (s32) D_8018AD69);
+        } while (temp_t9 < (s32) gSfxVoiceCount);
     }
 }

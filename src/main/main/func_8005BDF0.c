@@ -3,12 +3,12 @@ s32 osVirtualToPhysical(u32);                             /* extern */
 void __osTimerUnlink(Unk*);                               /* extern */
 void __osTimerInsert(Unk*, void**);                       /* extern */
 s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);  /* extern */
-extern s32 D_800927D8;
-extern s32 D_8017EFC8;
-extern s32 D_8017F448;
-extern s32 D_801816A8;
-extern Unk D_80181E30;
-extern char *D_80181E34;
+extern s32 gAudioFrameIdx;
+extern s32 gAudioMesgQueue;
+extern s32 gAudioFrameBufs;
+extern s32 gAudioFrameCount;
+extern Unk gSfxBufList;
+extern char *gSfxMapCount;
 
 s32 audioDmaBufAlloc(s32 arg0, s32 arg1) {
     char *temp_a0;
@@ -23,7 +23,7 @@ s32 audioDmaBufAlloc(s32 arg0, s32 arg1) {
     Unk *var_s1;
 
     var_s0_2 = NULL;
-    var_s1 = D_80181E34;
+    var_s1 = gSfxMapCount;
     if (var_s1 != NULL) {
 loop_1:
         temp_v0 = var_s1->unk8;
@@ -36,28 +36,28 @@ loop_1:
                 }
                 goto loop_1;
             }
-            var_s1->unkC = (s32) D_801816A8;
+            var_s1->unkC = (s32) gAudioFrameCount;
             return osVirtualToPhysical((var_s1->unk10 + arg0) - var_s1->unk8);
         }
         goto block_4;
     }
 block_4:
-    temp_s1 = D_80181E30.unk8;
+    temp_s1 = gSfxBufList.unk8;
     temp_a0 = temp_s1;
-    D_80181E30.unk8 = (void *) temp_s1->unk0;
+    gSfxBufList.unk8 = (void *) temp_s1->unk0;
     __osTimerUnlink(temp_a0);
     if (var_s0_2 != NULL) {
         __osTimerInsert(temp_s1, var_s0_2);
         var_s0 = arg0 & 1;
     } else {
-        temp_s0 = D_80181E30.unk4;
-        if (D_80181E30.unk4 != 0) {
-            D_80181E30.unk4 = temp_s1;
+        temp_s0 = gSfxBufList.unk4;
+        if (gSfxBufList.unk4 != 0) {
+            gSfxBufList.unk4 = temp_s1;
             temp_s1->unk0 = temp_s0;
             temp_s1->unk4 = 0;
             temp_s0->unk4 = temp_s1;
         } else {
-            D_80181E30.unk4 = temp_s1;
+            gSfxBufList.unk4 = temp_s1;
             temp_s1->unk0 = 0;
             temp_s1->unk4 = 0;
         }
@@ -66,9 +66,9 @@ block_4:
     temp_s3 = arg0 - var_s0;
     temp_s2 = temp_s1->unk10;
     temp_s1->unk8 = temp_s3;
-    temp_a0_2 = (D_800927D8 * 0x18) + &D_8017F448;
-    temp_s1->unkC = (s32) D_801816A8;
-    D_800927D8 += 1;
-    spTaskSubmit(temp_a0_2, 0, 0, temp_s3, temp_s2, 0x300, &D_8017EFC8);
+    temp_a0_2 = (gAudioFrameIdx * 0x18) + &gAudioFrameBufs;
+    temp_s1->unkC = (s32) gAudioFrameCount;
+    gAudioFrameIdx += 1;
+    spTaskSubmit(temp_a0_2, 0, 0, temp_s3, temp_s2, 0x300, &gAudioMesgQueue);
     return osVirtualToPhysical(temp_s2) + var_s0;
 }

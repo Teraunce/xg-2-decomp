@@ -3,7 +3,7 @@ typedef struct {
     /* 0x00 */ s32 unk0;
     /* 0x04 */ s32 unk4;
     /* 0x08 */ s32 unk8;
-} UnkStruct_D_80173CC0;
+} GfxCmd;
 typedef struct {
     /* 0x00 */ u8 pad00[0x30C];
     /* 0x30C */ s32 unk30C;
@@ -48,25 +48,25 @@ typedef struct {
 } UnkStruct_var_a0;
 
 s32 heap_alloc_default(s32);                               /* extern */
-extern f32 D_8004BC70;
-extern f32 D_8004BC74;
-extern f32 D_8004BC78;
+extern f32 gFogYScale;
+extern f32 gFogScale;
+extern f32 gFogClamp;
 extern s32 gTrackNodeCount;
 extern s32 gSetupDisplayList;
-extern s32 D_80170390;
-extern s32 D_80170880;
-extern s32 D_80173C18;
-extern UnkStruct_D_80173CC0 *D_80173CC0;
-extern u16 *D_80174720;
-extern s32 D_8017CA44;
-extern s32 D_80184580;
+extern s32 gMainHeapBase;
+extern s32 gTrackNodePool;
+extern s32 gScreenHeight;
+extern GfxCmd *gDLPtr;
+extern u16 *gBootCheck;
+extern s32 gScreenWidth;
+extern s32 gGameMode;
 
 void mainPoolAlloc(void) {
-    D_80170390 = heap_alloc_default(0x3EA90);
+    gMainHeapBase = heap_alloc_default(0x3EA90);
 }
 
 void func_80052BE0(void) {
-    if (*D_80174720 != 0x40) {
+    if (*gBootCheck != 0x40) {
         M2C_BREAK(0);
     }
 }
@@ -75,14 +75,14 @@ s32 func_80052C04(UnkStruct_arg0 *arg0) {
     UnkStruct_var_a0 *var_a0;
     s32 var_v1;
 
-    if ((arg0->unk30C > 0.0f) || (arg0->unk450 != 0) || (D_80184580 == 0xE)) {
+    if ((arg0->unk30C > 0.0f) || (arg0->unk450 != 0) || (gGameMode == 0xE)) {
         /* Duplicate return node #3. Try simplifying control flow for better match */
         return 0;
     }
-    if (D_80184580 == 0xB) {
+    if (gGameMode == 0xB) {
         var_v1 = 0;
         if (gTrackNodeCount > 0) {
-            var_a0 = &D_80170880;
+            var_a0 = &gTrackNodePool;
 loop_7:
             var_v1 += 1;
             if ((u32) (var_a0->unk588 - 4) >= 2U) {
@@ -104,18 +104,18 @@ void rdpSetFillColor(s32 arg0, s32 arg1, s32 arg2) {
     UnkStruct_temp_a3 *temp_a3;
 
     temp_a0 = ((arg0 << 8) & 0xF800) | ((arg1 * 8) & 0x7C0) | ((arg2 >> 2) & 0x3E) | 1;
-    temp_a3 = D_80173CC0 + 8;
-    D_80173CC0->unk0 = 0xE7000000;
-    D_80173CC0->unk4 = 0;
-    D_80173CC0 = temp_a3;
-    D_80173CC0 = temp_a3 + 8;
-    D_80173CC0->unk8 = 0xF7000000;
+    temp_a3 = gDLPtr + 8;
+    gDLPtr->unk0 = 0xE7000000;
+    gDLPtr->unk4 = 0;
+    gDLPtr = temp_a3;
+    gDLPtr = temp_a3 + 8;
+    gDLPtr->unk8 = 0xF7000000;
     temp_a3->unk4 = (s32) ((temp_a0 << 0x10) | temp_a0);
-    D_80173CC0 = temp_a3 + 0x10;
+    gDLPtr = temp_a3 + 0x10;
     temp_a3->unkC = 0x300000;
-    D_80173CC0 = temp_a3 + 0x18;
+    gDLPtr = temp_a3 + 0x18;
     temp_a3->unk10 = 0xE200001C;
-    D_80173CC0 = temp_a3 + 0x20;
+    gDLPtr = temp_a3 + 0x20;
     temp_a3->unk8 = 0xE3000A01;
     temp_a3->unk14 = 0;
     temp_a3->unk1C = 0;
@@ -123,9 +123,9 @@ void rdpSetFillColor(s32 arg0, s32 arg1, s32 arg2) {
     temp_a3->unk24 = 0;
     temp_a3->unk28 = 0xE3000A01;
     temp_a3->unk2C = 0;
-    D_80173CC0 = temp_a3 + 0x28;
-    temp_a3->unk18 = (s32) ((((D_8017CA44 - 1) & 0x3FF) << 0xE) | ((((D_80173C18 - 1) & 0x3FF) * 4) | 0xF6000000));
-    D_80173CC0 = temp_a3 + 0x30;
+    gDLPtr = temp_a3 + 0x28;
+    temp_a3->unk18 = (s32) ((((gScreenWidth - 1) & 0x3FF) << 0xE) | ((((gScreenHeight - 1) & 0x3FF) * 4) | 0xF6000000));
+    gDLPtr = temp_a3 + 0x30;
 }
 
 void func_80052D84(f32 arg0) {
@@ -138,36 +138,36 @@ void func_80052D84(f32 arg0) {
     s32 var_v0;
     UnkStruct_temp_a0 *temp_a0;
 
-    var_ft0 = arg0 * (f32) D_80173C18 * D_8004BC70;
-    temp_fv0 = (f32) ((s32) D_80173C18 / 2);
+    var_ft0 = arg0 * (f32) gScreenHeight * gFogYScale;
+    temp_fv0 = (f32) ((s32) gScreenHeight / 2);
     if (!(var_ft0 <= temp_fv0)) {
         var_ft0 = temp_fv0;
     }
-    var_fv0 = D_8004BC74 - (arg0 * D_8004BC74);
+    var_fv0 = gFogScale - (arg0 * gFogScale);
     temp_ft1 = (s32) var_ft0;
     if (!(var_fv0 >= 0.0f)) {
         var_fv0 = 0.0f;
     }
-    if (D_8004BC78 <= var_fv0) {
-        var_v0 = ((s32) (var_fv0 - D_8004BC78) | 0x80000000) << 8;
+    if (gFogClamp <= var_fv0) {
+        var_v0 = ((s32) (var_fv0 - gFogClamp) | 0x80000000) << 8;
     } else {
         var_v0 = (s32) var_fv0 << 8;
     }
     temp_a1 = (var_v0 & 0xF800) | 1;
-    temp_a0 = D_80173CC0 + 8;
-    D_80173CC0->unk0 = 0xE7000000;
-    D_80173CC0->unk4 = 0;
-    D_80173CC0 = temp_a0;
-    D_80173CC0 = temp_a0 + 8;
-    D_80173CC0->unk8 = 0xDE000000;
+    temp_a0 = gDLPtr + 8;
+    gDLPtr->unk0 = 0xE7000000;
+    gDLPtr->unk4 = 0;
+    gDLPtr = temp_a0;
+    gDLPtr = temp_a0 + 8;
+    gDLPtr->unk8 = 0xDE000000;
     temp_a0->unk4 = &gSetupDisplayList;
-    D_80173CC0 = temp_a0 + 0x10;
+    gDLPtr = temp_a0 + 0x10;
     temp_a0->unkC = 0x300000;
-    D_80173CC0 = temp_a0 + 0x18;
-    D_80173CC0 = temp_a0 + 0x20;
+    gDLPtr = temp_a0 + 0x18;
+    gDLPtr = temp_a0 + 0x20;
     temp_a0->unk18 = 0xF7000000;
     temp_a0->unk1C = (s32) ((temp_a1 << 0x10) | temp_a1);
-    D_80173CC0 = temp_a0 + 0x28;
+    gDLPtr = temp_a0 + 0x28;
     temp_a0->unk8 = 0xE3000A01;
     temp_a0->unk10 = 0xE200001C;
     temp_a0->unk14 = 0;
@@ -176,11 +176,11 @@ void func_80052D84(f32 arg0) {
     temp_a0->unk34 = 0;
     temp_a0->unk38 = 0xE3000A01;
     temp_a0->unk3C = 0;
-    temp_a1_2 = ((D_8017CA44 - 1) & 0x3FF) << 0xE;
+    temp_a1_2 = ((gScreenWidth - 1) & 0x3FF) << 0xE;
     temp_a0->unk20 = (s32) (temp_a1_2 | (((temp_ft1 & 0x3FF) * 4) | 0xF6000000));
-    D_80173CC0 = temp_a0 + 0x30;
-    D_80173CC0 = temp_a0 + 0x38;
-    temp_a0->unk28 = (s32) (temp_a1_2 | ((((D_80173C18 - 1) & 0x3FF) * 4) | 0xF6000000));
-    temp_a0->unk2C = (s32) (((D_80173C18 - (temp_ft1 + 1)) & 0x3FF) * 4);
-    D_80173CC0 = temp_a0 + 0x40;
+    gDLPtr = temp_a0 + 0x30;
+    gDLPtr = temp_a0 + 0x38;
+    temp_a0->unk28 = (s32) (temp_a1_2 | ((((gScreenHeight - 1) & 0x3FF) * 4) | 0xF6000000));
+    temp_a0->unk2C = (s32) (((gScreenHeight - (temp_ft1 + 1)) & 0x3FF) * 4);
+    gDLPtr = temp_a0 + 0x40;
 }

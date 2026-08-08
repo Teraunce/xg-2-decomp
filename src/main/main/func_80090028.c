@@ -5,7 +5,7 @@ typedef struct {
 } UnkStruct_temp_s1;
 
 s32 byteCopy(s32, u8 *, s32);                    /* extern */
-extern u8 D_8004D128;
+extern u8 gAudioWavetable;
 
 /* Warning: Gap in callee-saved word stack region.
  * Saved: [0x14, 0x1c, 0x24, 0x28], gap at: 0x20. */
@@ -42,7 +42,7 @@ void vsprintfFloat(void) {
     var_s3 = saved_reg_s3;
     var_s4 = saved_reg_s4 & 0xFF;
     if (var_s3 <= 0) {
-        var_s1 = &D_8004D128;
+        var_s1 = &gAudioWavetable;
         var_s3 = 1;
     }
     temp_v1 = var_s4;

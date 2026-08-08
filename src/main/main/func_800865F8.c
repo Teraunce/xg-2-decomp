@@ -4,8 +4,8 @@
 void audioGeomNodeInit(Unk*, Unk*, void*);                         /* extern */
 s32 audioNoteWrite(Unk*, s32, s32);                       /* extern */
 s32 audioNodeSetValue(s32*, s32, s32);                       /* extern */
-extern f32 D_8004CFA8;
-extern f32 D_8004CFAC;
+extern f32 gAudioRateD;
+extern f32 gAudioRateC;
 extern s32 gAiClock;
 
 s32 audioVoiceGeomInit(Unk *arg0, s16 arg1, s32 arg2, s32 arg3) {
@@ -29,9 +29,9 @@ f32 audioSemitoneRatio(s32 arg0) {
     var_a0 = arg0;
     var_fv1 = 1.0f;
     if (var_a0 >= 0) {
-        var_fv0 = D_8004CFA8;
+        var_fv0 = gAudioRateD;
     } else {
-        var_fv0 = D_8004CFAC;
+        var_fv0 = gAudioRateC;
         var_a0 = -var_a0;
     }
     if (var_a0 != 0) {

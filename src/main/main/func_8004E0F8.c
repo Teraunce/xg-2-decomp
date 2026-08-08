@@ -8,22 +8,22 @@ void osViSetMode(char*);                               /* extern */
 void osViSetYScale(s32);                                 /* extern */
 void viSetFieldBit(u8);                                 /* extern */
 void osEPiLoad(s32, char*, char*, s32);                    /* extern */
-extern s32 D_8016D9D0;
-extern s32 D_80170310;
-extern s32 D_80170378;
-extern s32 D_80170398;
-extern s32 D_801706B8;
+extern s32 gGameLoopStack;
+extern s32 gViModeStruct;
+extern s32 gEPiLoadSrc;
+extern s32 gEPiLoadDst;
+extern s32 gGameLoopThread;
 extern s32 gameMainLoop_setup;
 
 void gameMainThread(void) {
     viMgrInitGetter(0xFE);
-    viInit(&D_80170310, 0x140, 0xF0, 0, 0, 0, 0);
-    osViSetMode(&D_80170310);
+    viInit(&gViModeStruct, 0x140, 0xF0, 0, 0, 0, 0);
+    osViSetMode(&gViModeStruct);
     osViSetYScale(0x42);
     viSetFieldBit(1);
-    osEPiLoad(0x96, &D_80170378, &D_80170398, 0xC8);
-    osCreateThread(&D_801706B8, 3, &gameMainLoop_setup, 0, &D_8016D9D0, 0xA);
-    osStartThread(&D_801706B8);
+    osEPiLoad(0x96, &gEPiLoadSrc, &gEPiLoadDst, 0xC8);
+    osCreateThread(&gGameLoopThread, 3, &gameMainLoop_setup, 0, &gGameLoopStack, 0xA);
+    osStartThread(&gGameLoopThread);
     osSetThreadPri(0, 0);
 loop_1:
     goto loop_1;

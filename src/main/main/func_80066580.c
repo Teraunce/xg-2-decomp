@@ -1,6 +1,6 @@
 #include "ultra64.h"
-extern f32 D_8004C2F0;
-extern s32 D_80093318;
+extern f32 gEntityFieldF;
+extern s32 gSceneObjFuncTable;
 
 /*
  * sceneObjectDispatch — scene-object sub-dispatcher (nonmatching).
@@ -91,7 +91,7 @@ void audioSetBeatPos(Unk *arg0, s32 arg1, s32 arg2) {
         *var_a3_2 = var_a1 + 0x30;
         var_a3 = var_a3_2 + 1;
     } else {
-        var_v0_6 = *((arg1 * 4) + &D_80093318);
+        var_v0_6 = *((arg1 * 4) + &gSceneObjFuncTable);
         var_v1_2 = *var_v0_6;
         if (var_v1_2 != 0) {
             do {
@@ -117,5 +117,5 @@ void audioSetBeatPos(Unk *arg0, s32 arg1, s32 arg2) {
     arg0->unk24 = arg2;
     arg0->unk50 = 8;
     arg0->unk58 = 0;
-    arg0->unk54 = (f32) D_8004C2F0;
+    arg0->unk54 = (f32) gEntityFieldF;
 }

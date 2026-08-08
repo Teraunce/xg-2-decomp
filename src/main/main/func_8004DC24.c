@@ -2,8 +2,8 @@
 void viSetResolution(s32, s32);                          /* extern */
 void __osInvalICache_full(void);                             /* extern */
 extern s32 osMemSize;
-extern s32 D_80090E94;
-extern s32 D_80095650;
+extern s32 gContPortMap;
+extern s32 gContPortData;
 
 void viInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     s32 sp30;
@@ -73,7 +73,7 @@ void viInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg
 block_12:
         var_a2 = arg0;
     }
-    var_v0 = (*(var_a1 + &D_80090E94) * 0x50) + &D_80095650;
+    var_v0 = (*(var_a1 + &gContPortMap) * 0x50) + &gContPortData;
     temp_v1 = var_v0 + 0x50;
     do {
         var_a2->unk0 = (s32) var_v0->unk0;
@@ -83,7 +83,7 @@ block_12:
         var_v0 += 0x10;
         var_a2 += 0x10;
     } while ((char *)var_v0 != temp_v1);
-    if (*(var_a1 + &D_80090E94) == 0x10) {
+    if (*(var_a1 + &gContPortMap) == 0x10) {
         arg0->unk2C = 0x355;
         arg0->unk30 = 0x2C0268;
     }

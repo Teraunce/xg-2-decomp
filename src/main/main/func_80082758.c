@@ -7,7 +7,7 @@ typedef struct {
 } UnkStruct_arg0;
 
 void osSetTimer(void**, s32, s32);                  /* extern */
-extern f64 D_8004CEA8;
+extern f64 gAudioDmaDivisor;
 
 void midiSetController(UnkStruct_arg0 *arg0, s8 arg1) {
     s8 sp28;
@@ -25,5 +25,5 @@ void func_800827B8(void) {
 }
 
 s32 sfxComputePitch(UnkStruct_arg0 *arg0, s32 arg1) {
-    return (s32) (f32) (((f64) ((f32) arg1 * (f32) arg0->unk44) / D_8004CEA8) + 0.5) & ~0xF;
+    return (s32) (f32) (((f64) ((f32) arg1 * (f32) arg0->unk44) / gAudioDmaDivisor) + 0.5) & ~0xF;
 }

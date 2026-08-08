@@ -8,14 +8,14 @@ void osSetThreadPri(Unk*, s32);                            /* extern */
 void osStartThread(Unk*);                               /* extern */
 s32 osGetThreadPri(char*);                               /* extern */
 void piMgrInit();                                  /* extern */
-extern char *D_80096480;
-extern char *D_80096490;
-extern s32 D_800964B0;
-extern s32 D_8018B038;
-extern s32 D_8018B1E8;
-extern s32 D_8018C1E8;
-extern s32 D_8018C200;
-extern s32 D_8018D310;
+extern char *gFontData;
+extern char *gDmaCallbackPtr;
+extern s32 gFontInitDone;
+extern s32 gGfxDmaThread;
+extern s32 gGfxDmaStack;
+extern s32 gGfxDmaMesgQueue;
+extern s32 gGfxDmaMsg;
+extern s32 gFontMesgQueue;
 extern s32 osEPiStartDma_simple;
 extern s32 osEPiStartDma;
 extern s32 gfxDmaEventLoop;
@@ -26,13 +26,13 @@ void osEPiLoad(s32 arg0, char *arg1, char *arg2, s32 arg3) {
     s32 sp24;
     s32 temp_v0;
 
-    if (D_80096480 == NULL) {
+    if (gFontData == NULL) {
         osCreateMesgQueue(arg1, arg2, arg3);
-        osCreateMesgQueue(&D_8018C1E8, &D_8018C200, 1);
-        if (D_800964B0 == 0) {
+        osCreateMesgQueue(&gGfxDmaMesgQueue, &gGfxDmaMsg, 1);
+        if (gFontInitDone == 0) {
             piMgrInit();
         }
-        osSetEventMesg(8, &D_8018C1E8, 0x22222222);
+        osSetEventMesg(8, &gGfxDmaMesgQueue, 0x22222222);
         sp28 = -1;
         sp24 = osGetThreadPri(0);
         if (sp24 < arg0) {
@@ -40,16 +40,16 @@ void osEPiLoad(s32 arg0, char *arg1, char *arg2, s32 arg3) {
             osSetThreadPri(0, arg0);
         }
         temp_v0 = osDisableInt();
-        D_80096480 = (void *)1;
-        D_80096480 = &D_8018B038;
-        D_80096480 = &D_8018C1E8;
-        D_80096480 = arg1;
+        gFontData = (void *)1;
+        gFontData = &gGfxDmaThread;
+        gFontData = &gGfxDmaMesgQueue;
+        gFontData = arg1;
         sp2C = temp_v0;
-        D_80096490 = &D_8018D310;
-        D_80096490 = &osEPiStartDma_simple;
-        D_80096490 = &osEPiStartDma;
-        osCreateThread(&D_8018B038, 0, &gfxDmaEventLoop, &D_80096480, &D_8018B1E8 + 0x1000, arg0);
-        osStartThread(&D_8018B038);
+        gDmaCallbackPtr = &gFontMesgQueue;
+        gDmaCallbackPtr = &osEPiStartDma_simple;
+        gDmaCallbackPtr = &osEPiStartDma;
+        osCreateThread(&gGfxDmaThread, 0, &gfxDmaEventLoop, &gFontData, &gGfxDmaStack + 0x1000, arg0);
+        osStartThread(&gGfxDmaThread);
         osRestoreInt(sp2C);
         if (sp28 != -1) {
             osSetThreadPri(0, sp28);

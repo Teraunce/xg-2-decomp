@@ -2,14 +2,14 @@
 char *heap_alloc_default(s32);                             /* extern */
 void audioPlayCopySample(s32, s32, s32);                     /* extern */
 u32 *sfxFreeBlock(s32 arg0);                       /* static */
-extern s32 D_8004B658;
+extern s32 gAudioSampleBase;
 extern u32 *gSfxDefTable;
-extern Unk D_800E6E40;
-extern Unk *D_801823D0;
-extern u16 D_801823D4;
-extern Unk D_801823D8;
-extern char *D_801823DC;
-extern u32 D_801823E0;
+extern Unk gSfxStreamTable;
+extern Unk *gSfxChanPtr;
+extern u16 gSfxChanReady;
+extern Unk gSfxStreamCtx;
+extern char *gSfxStreamState;
+extern u32 gSfxFrameOut;
 extern s32 D_85388;
 
 void sfxTableInit(void) {
@@ -21,7 +21,7 @@ void sfxTableInit(void) {
     Unk *temp_v0_2;
 
     temp_v0 = heap_alloc_default(0x200);
-    D_801823D0 = temp_v0;
+    gSfxChanPtr = temp_v0;
     var_v1 = 0;
     var_v0 = 0 * 8;
     do {
@@ -31,17 +31,17 @@ void sfxTableInit(void) {
         temp_v0_2->unk4 = var_v1;
         var_v0 = var_v1 * 8;
     } while (var_v1 < 0x40U);
-    D_801823D4 = 1;
-    D_801823D0->unk1FC = 0;
-    D_801823D8.unk0 = 0;
-    D_801823D8.unk4 = &D_800E6E40;
-    D_800E6E40.unk0 = &D_85388;
-    D_800E6E40.unk4 = 0;
-    audioPlayCopySample(D_8004B658, 4, &D_801823E0);
-    temp_s0 = D_801823E0 * 0x10;
+    gSfxChanReady = 1;
+    gSfxChanPtr->unk1FC = 0;
+    gSfxStreamCtx.unk0 = 0;
+    gSfxStreamCtx.unk4 = &gSfxStreamTable;
+    gSfxStreamTable.unk0 = &D_85388;
+    gSfxStreamTable.unk4 = 0;
+    audioPlayCopySample(gAudioSampleBase, 4, &gSfxFrameOut);
+    temp_s0 = gSfxFrameOut * 0x10;
     temp_v0_3 = sfxFreeBlock(temp_s0);
     gSfxDefTable = temp_v0_3;
-    audioPlayCopySample(D_8004B658 + 8, temp_s0, temp_v0_3);
+    audioPlayCopySample(gAudioSampleBase + 8, temp_s0, temp_v0_3);
 }
 
 u16 sfxAllocBlock(s32 arg0) {
@@ -53,15 +53,15 @@ u16 sfxAllocBlock(s32 arg0) {
     u32 var_a0;
     Unk *temp_t0;
 
-    var_a3 = &D_801823D8;
-    temp_a2 = D_801823D4;
-    var_a1 = D_801823D8.unk4;
+    var_a3 = &gSfxStreamCtx;
+    temp_a2 = gSfxChanReady;
+    var_a1 = gSfxStreamCtx.unk4;
     if (temp_a2 == 0) {
         return 0U;
     }
-    temp_t0 = (temp_a2 * 8) + D_801823D0;
+    temp_t0 = (temp_a2 * 8) + gSfxChanPtr;
     var_a0 = (arg0 + 0xF) & ~0xF;
-    D_801823D4 = temp_t0->unk4;
+    gSfxChanReady = temp_t0->unk4;
     if (var_a0 < 8U) {
         var_a0 = 8;
     }
@@ -101,8 +101,8 @@ u32 *sfxFreeBlock(s32 arg0) {
     u32 temp_a1;
     u32 temp_v0;
 
-    var_a2 = &D_801823D8;
-    var_v1 = D_801823D8.unk4;
+    var_a2 = &gSfxStreamCtx;
+    var_v1 = gSfxStreamCtx.unk4;
     temp_a0 = (arg0 + 0xF) & ~0xF;
     if (var_v1 != NULL) {
 loop_1:
@@ -138,9 +138,9 @@ void sfxPlay(u16 arg0) {
     Unk *temp_v0_2;
     Unk *temp_v1;
 
-    var_a1 = &D_801823D8;
-    var_a0 = D_801823D8.unk4;
-    temp_v0 = ((arg0 & 0xFFFF) * 8) + D_801823D0;
+    var_a1 = &gSfxStreamCtx;
+    var_a0 = gSfxStreamCtx.unk4;
+    temp_v0 = ((arg0 & 0xFFFF) * 8) + gSfxChanPtr;
     temp_v1 = temp_v0->unk0;
     temp_v1->unk0 = (s32) temp_v0->unk4;
     if (var_a0 != 0) {
@@ -160,7 +160,7 @@ loop_2:
         temp_v1->unk0 = (s32) (temp_a2 + ((Unk*)(s32)var_a0)->unk0);
         var_a0 = ((Unk*)(s32)var_a0)->unk4;
     }
-    if (var_a1 == &D_801823D8) {
+    if (var_a1 == &gSfxStreamCtx) {
         var_a1->unk4 = temp_v1;
         goto block_13;
     }
@@ -173,9 +173,9 @@ block_13:
         var_a1->unk4 = (void *) var_a0;
         var_a1->unk0 = temp_a2_2 + temp_v1->unk0;
     }
-    temp_a0 = D_801823D4;
-    D_801823D4 = arg0;
-    temp_v0_2 = ((arg0 & 0xFFFF) * 8) + D_801823D0;
+    temp_a0 = gSfxChanReady;
+    gSfxChanReady = arg0;
+    temp_v0_2 = ((arg0 & 0xFFFF) * 8) + gSfxChanPtr;
     temp_v0_2->unk0 = 0;
     temp_v0_2->unk4 = temp_a0;
 }
@@ -188,7 +188,7 @@ void func_80063954(s32 *arg0, u32 *arg1, s32 *arg2) {
     u32 temp_v1;
     Unk *var_a3;
 
-    var_a3 = D_801823DC;
+    var_a3 = gSfxStreamState;
     *arg0 = 0;
     *arg1 = 0;
     *arg2 = 0;
@@ -206,14 +206,14 @@ void func_80063954(s32 *arg0, u32 *arg1, s32 *arg2) {
 }
 
 s32 sfxGetEntry(s32 arg0) {
-    return *(s32*)((char*)D_801823D0 + (arg0 & 0xFFFF) * 8);
+    return *(s32*)((char*)gSfxChanPtr + (arg0 & 0xFFFF) * 8);
 }
 
 s32 func_800639D0(s32 arg0) {
     s32 var_v0;
     Unk *temp_a0;
 
-    temp_a0 = ((arg0 & 0xFFFF) * 8) + D_801823D0;
+    temp_a0 = ((arg0 & 0xFFFF) * 8) + gSfxChanPtr;
     var_v0 = 0;
     if (temp_a0->unk0 != 0) {
         var_v0 = temp_a0->unk4;
@@ -222,7 +222,7 @@ s32 func_800639D0(s32 arg0) {
 }
 
 s32 func_800639FC(s32 arg0) {
-    return D_8004B658 + *((arg0 * 0x10) + gSfxDefTable);
+    return gAudioSampleBase + *((arg0 * 0x10) + gSfxDefTable);
 }
 
 s32 func_80063A20(s32 arg0) {

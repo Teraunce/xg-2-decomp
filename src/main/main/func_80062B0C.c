@@ -36,9 +36,9 @@
  *   gSfxRampStep      0x80092CF8  s32   per-call increment used in phase 0
  *   gSfxDecayStep     0x80092D00  s32   per-call decrement used in phase 2
  *   gSfxSavedState    0x80092B58  s32   saves gSfxPhase value at phase-1 entry
- *   D_80092CD8        0x80092CD8  void* secondary entity ptr (phase 1)
+ *   gSfxPhaseEntityPtr        0x80092CD8  void* secondary entity ptr (phase 1)
  *   gSfxSlotEnd       0x80092CE0  void* past-end sentinel for the heap iterator
- *   D_800E4118        0x800E4118  void* special handler-table sentinel pointer
+ *   gHandlerSentinel        0x800E4118  void* special handler-table sentinel pointer
  *   gHandlerTable        0x80093EE4  void* handler-table base pointer
  *   gSfxFadeTimer        0x801823B0  s32   same as gSfxFadeTimer (overlay alias)
  */
@@ -50,9 +50,9 @@ extern void *gSfxCurrentSlot;  /* 0x80092CCC */
 extern s32   gSfxRampStep;     /* 0x80092CF8 */
 extern s32   gSfxDecayStep;    /* 0x80092D00 */
 extern s32   gSfxSavedState;   /* 0x80092B58 */
-extern void *D_80092CD8;       /* secondary entity ptr */
+extern void *gSfxPhaseEntityPtr;       /* secondary entity ptr */
 extern void *gSfxSlotEnd;      /* 0x80092CE0 past-end sentinel */
-extern void *D_800E4118;       /* handler-table sentinel */
+extern void *gHandlerSentinel;       /* handler-table sentinel */
 extern void *gHandlerTable;       /* handler-table base */
 extern void *gSfxFadeTimer;       /* overlay alias: same storage as gSfxFadeTimer */
 
@@ -104,7 +104,7 @@ phase0:
         /* Walk every active heap entry. */
         {
             void *endSentinel = gSfxSlotEnd;
-            void *handlerSentinel = D_800E4118;
+            void *handlerSentinel = gHandlerSentinel;
             void *handlerBase = gHandlerTable;
             s32  *currentSlotPtr = (s32 *)&gSfxCurrentSlot;
 
@@ -142,9 +142,9 @@ phase1:
     if (slot == firstSlot) {
         /* Both ends resolve to the same entity — trigger secondary logic. */
         sfxPhaseHook();
-        if (D_80092CD8 != NULL) {
+        if (gSfxPhaseEntityPtr != NULL) {
             void *secondary = localeGet();
-            if (D_80092CD8 != secondary) {
+            if (gSfxPhaseEntityPtr != secondary) {
                 localeCheck();
             }
         }

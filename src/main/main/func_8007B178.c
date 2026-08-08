@@ -5,8 +5,8 @@ f32 cosf(f32);                             /* extern */
 void guMtxIdent(char*);                            /* extern */
 void vec3NormalizeF(f32 *, f32 *, f32 *);               /* extern */
 f32 sinf(f32);                             /* extern */
-extern f32 D_8004C878;
-extern f32 D_801897F8;
+extern f32 gMtxScaleConst;
+extern f32 gMtxScaleRef;
 
 void guRotateF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 sp34;
@@ -23,9 +23,9 @@ void guRotateF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 temp_fv1;
     f32 temp_fv1_2;
 
-    D_801897F8 = D_8004C878;
+    gMtxScaleRef = gMtxScaleConst;
     vec3NormalizeF(&arg2, &arg3, &arg4);
-    temp_fa0 = arg1 * D_801897F8;
+    temp_fa0 = arg1 * gMtxScaleRef;
     arg1 = temp_fa0;
     sp34 = sinf(temp_fa0);
     temp_fv0 = cosf(arg1);

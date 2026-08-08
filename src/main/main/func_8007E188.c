@@ -1,8 +1,8 @@
 #include "ultra64.h"
 void audioStreamSchedule(Unk*, Unk*);                        /* extern */
 void midiTrackInit(Unk*, char*);                         /* extern */
-extern f64 D_8004C9C8;
-extern f64 D_8004C9D0;
+extern f64 gAudioRspMul;
+extern f64 gAudioRspScale;
 
 void midiSeqLoad(Unk *arg0, Unk *arg1, u32 arg2) {
     s16 sp140;
@@ -78,7 +78,7 @@ s32 func_8007E2FC(Unk *arg0, f32 arg1, s32 arg2) {
     if (arg2 < 0) {
         var_ft3 += 4294967296.0;
     }
-    temp_ft2 = ((f64) arg1 * D_8004C9C8 * var_ft4) / var_ft3;
+    temp_ft2 = ((f64) arg1 * gAudioRspMul * var_ft4) / var_ft3;
     temp_ft4 = (s32) temp_ft2;
     if (0 /* cfc1 $v0, $31: FCR31 FPU status */ & 0x78) {
         if (!(0 /* cfc1 $v0, $31: FCR31 FPU status */ & 0x78)) {
@@ -107,7 +107,7 @@ f32 func_8007E3F8(Unk *arg0, s32 arg1, s32 arg2) {
     if (temp_t7 < 0) {
         var_ft4 += 4294967296.0f;
     }
-    return (f32) ((f64) ((f32) arg1 * var_ft3) / ((f64) var_ft4 * D_8004C9D0));
+    return (f32) ((f64) ((f32) arg1 * var_ft3) / ((f64) var_ft4 * gAudioRspScale));
 }
 
 s32 audioNoteMinTime(Unk *arg0, Unk *arg1) {

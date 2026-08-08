@@ -2,17 +2,17 @@
 s32 sfxQueueCmd(s32, s32, s32, s32, s32);                   /* extern */
 extern s32 gGameFlags;
 extern s32 gInitStateFlags;
-extern s32 D_8016DF88;
-extern s32 D_8016DFD8;
-extern s32 D_80173C38;
-extern s32 D_80173C3C;
-extern s32 D_80174BEC;
-extern s32 D_80174C28;
-extern s32 D_8017C1A8;
-extern s32 D_8017C940;
-extern s32 D_8017C954;
+extern s32 gSfxInputMask;
+extern s32 gSfxInputTable2;
+extern s32 gTrackReady;
+extern s32 gInputResetFlag;
+extern s32 gInputToggle;
+extern s32 gSceneReady;
+extern s32 gInputLevel;
+extern s32 gTrackTiltDir;
+extern s32 gTrackTilt;
 extern s32 gSfxInputTable;
-extern s32 D_8017CDF0;
+extern s32 gInputInitDone;
 
 void sfxProcessInput(s32 arg0) {
     s32 var_a0;
@@ -23,51 +23,51 @@ void sfxProcessInput(s32 arg0) {
     s8 temp_v1;
     u16 temp_v1_2;
 
-    var_v0 = *((arg0 * 4) + &D_8016DFD8);
+    var_v0 = *((arg0 * 4) + &gSfxInputTable2);
     if (var_v0 < 0) {
         var_v0 = -var_v0;
     }
     if (var_v0 < 0x19) {
         temp_v1 = ((Unk*)((char*)&gSfxInputTable + (arg0 * 6)))->unk3;
         if (temp_v1 >= 0x19) {
-            if (D_8017C954 > 0) {
+            if (gTrackTilt > 0) {
                 sfxQueueCmd(0x18, 0x3F800000, 0x10000, 0x40, 0);
-                var_v0_2 = D_8017C954 - 0xFF;
+                var_v0_2 = gTrackTilt - 0xFF;
                 goto block_9;
             }
-        } else if ((temp_v1 < -0x18) && (D_8017C954 < 0xFF)) {
+        } else if ((temp_v1 < -0x18) && (gTrackTilt < 0xFF)) {
             sfxQueueCmd(0x18, 0x3F800000, 0x10000, 0x40, 0);
-            var_v0_2 = D_8017C954 + 0xFF;
+            var_v0_2 = gTrackTilt + 0xFF;
 block_9:
-            D_8017C954 = var_v0_2;
+            gTrackTilt = var_v0_2;
         }
     }
     temp_v1_2 = *((arg0 * 6) + &gSfxInputTable);
-    temp_a0 = temp_v1_2 & ~*((arg0 * 4) + &D_8016DF88);
+    temp_a0 = temp_v1_2 & ~*((arg0 * 4) + &gSfxInputMask);
     if ((((temp_a0 & 0x20) && (temp_v1_2 & 0x10)) || ((temp_a0 & 0x10) && (temp_v1_2 & 0x20))) && (gGameFlags & 0x4000)) {
         sfxQueueCmd(0x19, 0x3F800000, 0x10000, 0x40, 0x20);
-        D_80174BEC = D_80174BEC == 0;
+        gInputToggle = gInputToggle == 0;
         return;
     }
-    if (*((arg0 * 6) + &gSfxInputTable) & ~*((arg0 * 4) + &D_8016DF88) & 0x9000) {
-        if (D_8017C1A8 < 0x80) {
+    if (*((arg0 * 6) + &gSfxInputTable) & ~*((arg0 * 4) + &gSfxInputMask) & 0x9000) {
+        if (gInputLevel < 0x80) {
             var_a0 = 0xF;
-            if (D_8017C954 < 0x80) {
+            if (gTrackTilt < 0x80) {
                 var_a2 = 0xC350;
-                D_8017C940 = 0;
+                gTrackTiltDir = 0;
                 goto block_27;
             }
             var_a0 = 0x19;
             var_a2 = 0x10000;
-            D_80173C38 = 0;
-            D_80173C3C = 0;
-            D_8017C1A8 = 0xFF;
-            D_8017C954 = 0xFF;
-        } else if (D_8017C954 < 0x80) {
-            if (D_8017CDF0 == 0) {
-                D_8017CDF0 = 1;
-                if (D_80173C38 == 0) {
-                    D_80174C28 = 1;
+            gTrackReady = 0;
+            gInputResetFlag = 0;
+            gInputLevel = 0xFF;
+            gTrackTilt = 0xFF;
+        } else if (gTrackTilt < 0x80) {
+            if (gInputInitDone == 0) {
+                gInputInitDone = 1;
+                if (gTrackReady == 0) {
+                    gSceneReady = 1;
                 }
             }
             var_a0 = 0x19;
@@ -76,8 +76,8 @@ block_9:
         } else {
             var_a0 = 0xF;
             var_a2 = 0xC350;
-            D_8017C940 = 0;
-            D_80173C38 = 0;
+            gTrackTiltDir = 0;
+            gTrackReady = 0;
 block_27:
             gInitStateFlags = 0;
         }

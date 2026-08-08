@@ -6,7 +6,7 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 extern s32 __osRunQueue;
 extern Unk *__osRunningThread;
-extern s32 D_A4600010;
+extern s32 PI_STATUS_REG;
 
 void __osPiWait(void) {
     s32 temp_s0;

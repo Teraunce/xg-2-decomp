@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
-extern f32 D_8004BDD8;
+extern f32 gGeomParamI;
 
 void mtxSetFromVectorsNeg(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp78;
@@ -39,6 +39,6 @@ void mtxSetFromVectorsNeg(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32
     arg0->unkC = 0;
     arg0->unk1C = 0;
     arg0->unk2C = 0;
-    arg0->unk3C = (f32) D_8004BDD8;
+    arg0->unk3C = (f32) gGeomParamI;
     arg0->unk28 = sp78;
 }

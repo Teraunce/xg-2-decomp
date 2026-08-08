@@ -13,8 +13,8 @@ typedef struct {
 } UnkStruct_temp_v0_3;
 
 s32 sfxGetState();                                  /* extern */
-extern s32 D_80182E78;
-extern s32 D_80182E80;
+extern s32 gRdpSyncDone;
+extern s32 gTextFontId;
 
 void sfxStateRdpSync(void **arg0) {
     UnkStruct_temp_v0 *temp_v0;
@@ -34,6 +34,6 @@ void sfxStateRdpSync(void **arg0) {
     *arg0 = temp_v0_3 + 8;
     temp_v0_3->unk0 = 0xFC119623;
     temp_v0_3->unk4 = 0xFF2FFFFF;
-    D_80182E80 = 0;
-    D_80182E78 = 0;
+    gTextFontId = 0;
+    gRdpSyncDone = 0;
 }

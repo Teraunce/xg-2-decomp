@@ -1,14 +1,14 @@
 #include "ultra64.h"
 f32 cosf(f32);                             /* cosf */
 f32 sinf(f32);                             /* sinf */
-extern f32 D_80189818;
+extern f32 gMtxScaleOut;
 
 /*
  * mtxEulerScaleF — build scaled Euler-angle (YXZ) rotation matrix (nonmatching).
  *
  * Called via GETTER preamble which loads a scale factor into $fv0/$f0.
  * At entry, arg2 ($fa1) and arg3 ($ft4/$f16, non-standard) are pre-multiplied
- * by scale_fv0, and scale_fv0 is stored to D_80189818.
+ * by scale_fv0, and scale_fv0 is stored to gMtxScaleOut.
  * scale_fv0 is not expressible as a standard C parameter.
  *
  * The matrix elements are all multiplied by arg4 (a uniform scale factor).
@@ -24,7 +24,7 @@ void mtxEulerScaleF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     f32 temp_fs1;
     f32 temp_fv0;
 
-    /* arg2 *= scale_fv0; arg3 *= scale_fv0; D_80189818 = scale_fv0; (at entry) */
+    /* arg2 *= scale_fv0; arg3 *= scale_fv0; gMtxScaleOut = scale_fv0; (at entry) */
     temp_fs0 = sinf(arg1);
     temp_fs1 = cosf(arg1);
     sp40 = sinf(arg2);

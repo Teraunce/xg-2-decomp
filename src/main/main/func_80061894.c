@@ -3,8 +3,8 @@ s32 func_80061ADC();                                  /* extern */
 s32 func_80061B28();                                  /* extern */
 s32 sfxGetEntry(s32);                             /* extern */
 extern u16 gLocaleIdx;
-extern Unk D_80092CB0;
-extern s32 D_80092CB4;
+extern Unk gRandState;
+extern s32 gRandInitB;
 
 s32 sfxMapId(s32 arg0) {
     s32 temp_v0;
@@ -27,9 +27,9 @@ s32 sfxMapId(s32 arg0) {
 }
 
 void func_80061904(s32 arg0) {
-    D_80092CB0.unk0 = 0;
-    D_80092CB0.unk4 = 0;
-    D_80092CB4 = arg0;
+    gRandState.unk0 = 0;
+    gRandState.unk4 = 0;
+    gRandInitB = arg0;
 }
 
 s32 sfxRandNext(void) {
@@ -38,12 +38,12 @@ s32 sfxRandNext(void) {
     u32 temp_v0;
     u32 temp_v1;
 
-    temp_v1 = (D_80092CB0.unk4 * 0x41C64E6D) + 0x3039;
-    temp_v0 = MULTU_HI(D_80092CB0.unk4, 0x41C64E6D) + (D_80092CB0.unk0 * 0x41C64E6D) + (temp_v1 < 0x3039U);
+    temp_v1 = (gRandState.unk4 * 0x41C64E6D) + 0x3039;
+    temp_v0 = MULTU_HI(gRandState.unk4, 0x41C64E6D) + (gRandState.unk0 * 0x41C64E6D) + (temp_v1 < 0x3039U);
     temp_a0 = ((temp_v0 << 0xF) | (temp_v1 >> 0x11)) ^ (temp_v0 >> 0x1B);
     temp_a1 = (temp_v1 << 0xF) ^ ((temp_v1 >> 0x1B) | (temp_v0 << 5));
-    D_80092CB0.unk0 = temp_a0;
-    D_80092CB0.unk4 = temp_a1;
+    gRandState.unk0 = temp_a0;
+    gRandState.unk4 = temp_a1;
     return (temp_a1 >> 4) | (temp_a0 << 0x1C);
 }
 

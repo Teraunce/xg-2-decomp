@@ -1,8 +1,8 @@
 #include "ultra64.h"
 s32 osVirtualToPhysical(u32);             /* extern */
 s16 audioCalcRatio(f64, s32);                             /* extern */
-extern s32 D_80095470;
-extern s32 D_8009556E;
+extern s32 gAudioEnvTblPos;
+extern s32 gAudioEnvTblNeg;
 
 char *audioBuildVoice(void) {
     s16 *saved_reg_s0 = NULL; /* implicit $s0 set by caller */
@@ -38,9 +38,9 @@ char *audioBuildVoice(void) {
     temp_v0->unkC = (s32) (((temp_v1 + 0x800) & 0xFFFF) | ((temp_v1 + 0x6C0) << 0x10));
     if (saved_reg_s3->unk38 != 0) {
         saved_reg_s3->unk38 = 0;
-        saved_reg_s3->unk28 = (s16) ((s32) (*(&D_80095470 + (saved_reg_s3->unk18 * 2)) * saved_reg_s3->unk1A) >> 0xF);
+        saved_reg_s3->unk28 = (s16) ((s32) (*(&gAudioEnvTblPos + (saved_reg_s3->unk18 * 2)) * saved_reg_s3->unk1A) >> 0xF);
         saved_reg_s3->unk26 = audioCalcRatio((f64)saved_reg_s3->unk28, saved_reg_s3->unk34);
-        saved_reg_s3->unk2E = (s16) ((s32) (*(&D_8009556E + -(saved_reg_s3->unk18 * 2)) * saved_reg_s3->unk1A) >> 0xF);
+        saved_reg_s3->unk2E = (s16) ((s32) (*(&gAudioEnvTblNeg + -(saved_reg_s3->unk18 * 2)) * saved_reg_s3->unk1A) >> 0xF);
         saved_reg_s3->unk2C = audioCalcRatio((f64)saved_reg_s3->unk2E, saved_reg_s3->unk34);
         temp_v0->unk10 = (s32) ((saved_reg_s3->unk1C & 0xFFFF) | 0x09060000);
         temp_s4->unk4 = 0;

@@ -8,8 +8,8 @@
  * triggers and contPakReadEntry for path/action queries; may retry the switch
  * with a new command code returned by contPakReadEntry.
  *
- * Writes to D_801887D0[entity_idx*4].unk31C (entity state slot) and
- * D_801887D0->unk168 (shared cleared flag).
+ * Writes to gHandlerCtx[entity_idx*4].unk31C (entity state slot) and
+ * gHandlerCtx->unk168 (shared cleared flag).
  *
  * Returns 1 on "keep waiting", 0 on "done / transition".
  *
@@ -23,12 +23,12 @@ s32  handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);
 s32  handlerPostSfxCmd(s32, s32);
 s32  contPakReadEntry(void *);
 
-extern Unk D_801887D0;   /* game state struct; stride 0x2C per cmd entry */
+extern Unk gHandlerCtx;   /* game state struct; stride 0x2C per cmd entry */
 
 /* Helper: set entity state and clear shared flag, return 0. */
 static s32 set_state3(s32 entity_idx) {
-    ((s32 *)&D_801887D0)[entity_idx + 0x31C/4] = 3;
-    D_801887D0.unk168 = 0;
+    ((s32 *)&gHandlerCtx)[entity_idx + 0x31C/4] = 3;
+    gHandlerCtx.unk168 = 0;
     return 0;
 }
 
@@ -50,18 +50,18 @@ retry:
 
     /* ---- case 2: set entity state to 6, return 1 ---- */
     case 2:
-        ((s32 *)&D_801887D0)[entity_idx + 0x31C/4] = 6;
+        ((s32 *)&gHandlerCtx)[entity_idx + 0x31C/4] = 6;
         return 1;
 
     /* ---- case 3: query animation; on success retry with new cmd ---- */
     case 3: {
         s32 result;
-        if (D_801887D0.unk170 == 0) {
+        if (gHandlerCtx.unk170 == 0) {
             /* unk170 not yet set: ask for animation slot */
             result = handlerPostCmd(0x3F, entity_idx, 0x52, 0x50, 0x36, 0, 0);
             if (result == 0)  return 1;            /* still waiting */
             if (result != 1) return set_state3(entity_idx); /* error → state 3 */
-            D_801887D0.unk170 = 1;
+            gHandlerCtx.unk170 = 1;
         } else {
             /* unk170 already set: check progress */
             result = handlerPostCmd(0x40, entity_idx, 0x53, 0x36, 0, 0, 0);
@@ -69,7 +69,7 @@ retry:
         }
         /* both paths converge here: query path command */
         {
-            void *base = (char *)&D_801887D0 + 0x17C + entity_idx * 0x68;
+            void *base = (char *)&gHandlerCtx + 0x17C + entity_idx * 0x68;
             cmd = contPakReadEntry(base);
             if (cmd != 0) {
                 goto retry;
@@ -89,8 +89,8 @@ retry:
         }
         if (result == 2) {                             /* transition */
             /* set entity state to 4 */
-            ((s32 *)&D_801887D0)[entity_idx + 0x31C/4] = 4;
-            D_801887D0.unk168 = 0;
+            ((s32 *)&gHandlerCtx)[entity_idx + 0x31C/4] = 4;
+            gHandlerCtx.unk168 = 0;
             return 0;
         }
         return 0;                                      /* any other result */

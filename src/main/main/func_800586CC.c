@@ -8,9 +8,9 @@ void guTranslateF(s32, f32, f32, f32);                  /* extern */
 void func_8005A214(Unk *arg0, Unk *arg1, s32 arg2); /* static */
 s32 func_8005A33C();                                  /* static */
 s32 func_8005A47C(s32);                               /* static */
-extern f32 D_8004BDDC;
-extern f32 D_8004BDE0;
-extern f32 D_8004BDE4;
+extern f32 gSfxVolScale;
+extern f32 gSfxInterpConst;
+extern f32 gSfxInterpScale;
 extern Unk gViewportTimestamp;
 
 void cameraSetupMtx(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
@@ -75,25 +75,25 @@ void cameraSetupMtx(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     spDC = 1;
     spF8 = 0;
     spFC = 0;
-    temp_ft2 = (s32) (sp50 * D_8004BDDC);
-    temp_ft2_2 = (s32) (sp54 * D_8004BDDC);
-    temp_ft2_3 = (s32) (sp58 * D_8004BDDC);
+    temp_ft2 = (s32) (sp50 * gSfxVolScale);
+    temp_ft2_2 = (s32) (sp54 * gSfxVolScale);
+    temp_ft2_3 = (s32) (sp58 * gSfxVolScale);
     spC0 = (temp_ft2 & 0xFFFF0000) | ((u32) temp_ft2_2 >> 0x10);
     spC4 = temp_ft2_3 & 0xFFFF0000;
     spE0 = (temp_ft2 << 0x10) | (temp_ft2_2 & 0xFFFF);
     spE4 = temp_ft2_3 << 0x10;
-    temp_ft2_4 = (s32) (sp60 * D_8004BDDC);
-    temp_ft2_5 = (s32) (sp64 * D_8004BDDC);
+    temp_ft2_4 = (s32) (sp60 * gSfxVolScale);
+    temp_ft2_5 = (s32) (sp64 * gSfxVolScale);
     spC8 = (temp_ft2_4 & 0xFFFF0000) | ((u32) temp_ft2_5 >> 0x10);
     spE8 = (temp_ft2_4 << 0x10) | (temp_ft2_5 & 0xFFFF);
-    temp_ft2_6 = (s32) (sp68 * D_8004BDDC);
-    temp_ft2_7 = (s32) (sp70 * D_8004BDDC);
-    temp_ft2_8 = (s32) (sp74 * D_8004BDDC);
+    temp_ft2_6 = (s32) (sp68 * gSfxVolScale);
+    temp_ft2_7 = (s32) (sp70 * gSfxVolScale);
+    temp_ft2_8 = (s32) (sp74 * gSfxVolScale);
     spD0 = (temp_ft2_7 & 0xFFFF0000) | ((u32) temp_ft2_8 >> 0x10);
     spCC = temp_ft2_6 & 0xFFFF0000;
     spEC = temp_ft2_6 << 0x10;
     spF0 = (temp_ft2_7 << 0x10) | (temp_ft2_8 & 0xFFFF);
-    temp_ft2_9 = (s32) (sp78 * D_8004BDDC);
+    temp_ft2_9 = (s32) (sp78 * gSfxVolScale);
     temp_a3 = temp_ft2_9 & 0xFFFF0000;
     spD4 = temp_a3;
     spF4 = temp_ft2_9 << 0x10;
@@ -128,7 +128,7 @@ s32 func_800589DC(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 f32 func_80058A00(f32 arg0, f32 arg1, f32 arg2) {
-    return ((arg2 * arg1) + (arg0 * (D_8004BDE0 - arg2))) * D_8004BDE4;
+    return ((arg2 * arg1) + (arg0 * (gSfxInterpConst - arg2))) * gSfxInterpScale;
 }
 
 /* D_80059234: rodata/jtbl — defined in .s file */

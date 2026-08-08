@@ -1,32 +1,32 @@
 #include "ultra64.h"
 void __osInvalICache_full(void);                             /* extern */
 extern s32 gPlayerList;
-extern s32 D_80093358;
-extern s32 D_80173BC4;
-extern Unk *D_80173CC0;
-extern s32 D_8017C118;
+extern s32 gOverlayDL2;
+extern s32 gOverlayState;
+extern Unk *gDLPtr;
+extern s32 gRenderIdx;
 
 void gfxDLEnd(void) {
     Unk *temp_a0;
     Unk *temp_a1;
     Unk *temp_v0;
 
-    if (D_80173BC4 == 2) {
-        temp_a0 = D_80173CC0;
-        D_80173CC0 += 8;
+    if (gOverlayState == 2) {
+        temp_a0 = gDLPtr;
+        gDLPtr += 8;
         temp_a0->unk0 = 0xDE000000;
-        temp_a0->unk4 = &D_80093358;
+        temp_a0->unk4 = &gOverlayDL2;
     }
-    temp_a1 = D_80173CC0;
-    temp_v0 = D_80173CC0 + 8;
+    temp_a1 = gDLPtr;
+    temp_v0 = gDLPtr + 8;
     temp_a1->unk0 = 0xE9000000;
-    D_80173CC0 = temp_v0;
-    D_80173CC0 = temp_v0 + 8;
+    gDLPtr = temp_v0;
+    gDLPtr = temp_v0 + 8;
     temp_a1->unk4 = 0;
-    D_80173CC0->unk8 = 0xDF000000;
+    gDLPtr->unk8 = 0xDF000000;
     temp_v0->unk4 = 0;
     __osInvalICache_full();
-    D_8017C118 = 0;
+    gRenderIdx = 0;
     gPlayerList ^= 1;
 }
 

@@ -17,16 +17,16 @@
  * Allocates a 0x6828-byte (26,664-byte) stack frame — the largest in the
  * project.  Address range: 0x80076344 – 0x80079F24 (0x3BE0 bytes / ~3983
  * disassembly lines).  Contains five jump tables in its rodata:
- *   jtbl_80076520, D_800769A8, D_800777C8, D_80077898, D_80078A28.
+ *   jtbl_80076520, gAudioRspData, gAudioUcode, gAudioUcodeEnd, gSfxUcodeEnd.
  */
 void renderMainDispatch(void) { /* nonmatching — see asm stub */ }
 
 /* jtbl_80076520: rodata/jtbl — defined in .s file */
 
-/* D_800769A8: rodata/jtbl — defined in .s file */
+/* gAudioRspData: rodata/jtbl — defined in .s file */
 
-/* D_800777C8: rodata/jtbl — defined in .s file */
+/* gAudioUcode: rodata/jtbl — defined in .s file */
 
-/* D_80077898: rodata/jtbl — defined in .s file */
+/* gAudioUcodeEnd: rodata/jtbl — defined in .s file */
 
-/* D_80078A28: rodata/jtbl — defined in .s file */
+/* gSfxUcodeEnd: rodata/jtbl — defined in .s file */

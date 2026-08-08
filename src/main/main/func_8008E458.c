@@ -1,12 +1,12 @@
 #include "ultra64.h"
 void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 s32 osSendMesg(Unk*, s32, s32);                         /* extern */
-extern s32 D_800964B0;
-extern s32 D_8018D308;
-extern s32 D_8018D310;
+extern s32 gFontInitDone;
+extern s32 gFontMsg;
+extern s32 gFontMesgQueue;
 
 void piMgrInit(void) {
-    D_800964B0 = 1;
-    osCreateMesgQueue(&D_8018D310, &D_8018D308, 1);
-    osSendMesg(&D_8018D310, 0, 0);
+    gFontInitDone = 1;
+    osCreateMesgQueue(&gFontMesgQueue, &gFontMsg, 1);
+    osSendMesg(&gFontMesgQueue, 0, 0);
 }

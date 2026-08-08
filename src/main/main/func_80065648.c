@@ -2,7 +2,7 @@
 /* Warning: missing "jr $ra" in last block of rdpFormatFloatGetter (initial). */
 
 void copyU16Array(void *);                            /* extern */
-extern f64 D_8004C0E0;
+extern f64 gFmtScaleD;
 extern s32 gHexDigits;
 
 void u16StrTrimEnd(Unk *arg0) {

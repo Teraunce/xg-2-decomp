@@ -7,10 +7,10 @@ s32 siReadBlocking(s32);                               /* extern */
 void contGetInputPort(s32);                               /* extern */
 s32 siQueryControllers(s32, u8*);                       /* extern */
 s32 contPakBuildMap(s32, Unk*, s32);                /* extern */
-extern s32 D_801887A0;
-extern Unk D_801887D0;
-extern s32 D_8018AD28;
-extern s32 D_80192860;
+extern s32 gHandlerMsgQueue;
+extern Unk gHandlerCtx;
+extern s32 gSiCmdBuf;
+extern s32 gContInput;
 
 void contPakHandlerDetect(s32 *arg0) {
     u8 sp10;
@@ -21,16 +21,16 @@ void contPakHandlerDetect(s32 *arg0) {
     s32 var_s1;
     char *var_s4;
 
-    osWritebackDCache(&D_80192860, 0x10);
-    siReadBlocking(&D_801887A0);
-    osRecvMesg(&D_801887A0, 0, 1);
-    osWritebackInvalDCache(&D_8018AD28, 0x40);
-    contGetInputPort(&D_80192860);
-    if (siQueryControllers(&D_801887A0, &sp10) == 0) {
+    osWritebackDCache(&gContInput, 0x10);
+    siReadBlocking(&gHandlerMsgQueue);
+    osRecvMesg(&gHandlerMsgQueue, 0, 1);
+    osWritebackInvalDCache(&gSiCmdBuf, 0x40);
+    contGetInputPort(&gContInput);
+    if (siQueryControllers(&gHandlerMsgQueue, &sp10) == 0) {
         var_s1 = 0;
-        var_s0 = &D_801887D0;
-        var_s4 = &D_801887D0 + 0x17C;
-        var_s3 = &D_80192860;
+        var_s0 = &gHandlerCtx;
+        var_s4 = &gHandlerCtx + 0x17C;
+        var_s3 = &gContInput;
         var_s2 = arg0;
         do {
             if ((((s32) sp10 >> var_s1) & 1) && (*var_s2 != 0)) {
@@ -42,7 +42,7 @@ void contPakHandlerDetect(s32 *arg0) {
 block_10:
                     entityClearSlots(var_s1, 1);
                     if (var_s0->unk31C == 5) {
-                        if (contPakBuildMap(&D_801887A0, var_s4, var_s1) != 0) {
+                        if (contPakBuildMap(&gHandlerMsgQueue, var_s4, var_s1) != 0) {
                             var_s0->unk33C = 1;
                         } else {
                             var_s0->unk33C = 0;
@@ -58,5 +58,5 @@ block_10:
             var_s2 += 0x24;
         } while (var_s1 < 4);
     }
-    D_801887D0.unk160 = (s32) (D_801887D0.unk160 - 1);
+    gHandlerCtx.unk160 = (s32) (gHandlerCtx.unk160 - 1);
 }

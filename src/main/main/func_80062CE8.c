@@ -10,7 +10,7 @@
  * mix/colour command.
  *
  * Logic summary:
- *   arg_bytes = low bytes of D_80092D04  (byte0 = bits[7:0], byte2 = bits[23:16])
+ *   arg_bytes = low bytes of gAudioPackedParams  (byte0 = bits[7:0], byte2 = bits[23:16])
  *
  *   if gSfxPhase == 0 and gSfxRampStep == 0:
  *       if gSfxFadeTimer < 0:   a0 = 0                 (silence)
@@ -25,26 +25,26 @@
  *       if gSfxPhase == 1:  a0 = 0xFF,  a1 = (byte0 & 0xFF)
  *
  *   Then calls rdpSetFogColor(a0, a1, a2, a3) where a1/a2/a3 come from
- *   the bytes of D_80092D04.
+ *   the bytes of gAudioPackedParams.
  *
  * Globals:
  *   gSfxPhase        0x801823A8  s32
  *   gSfxFadeTimer    0x801823B0  s32
  *   gSfxRampStep     0x80092CF8  s32   (phase-0 ramp increment)
  *   gSfxDecayStep    0x80092D00  s32   (phase-2 decay decrement)
- *   D_80092D04       0x80092D04  u32   packed RGBA audio params
+ *   gAudioPackedParams       0x80092D04  u32   packed RGBA audio params
  */
 
 extern s32 gSfxPhase;       /* 0x801823A8 */
 extern s32 gSfxFadeTimer;   /* 0x801823B0 */
 extern s32 gSfxRampStep;    /* 0x80092CF8 */
 extern s32 gSfxDecayStep;   /* 0x80092D00 */
-extern u32 D_80092D04;      /* packed audio params: bytes used as RGBA */
+extern u32 gAudioPackedParams;      /* packed audio params: bytes used as RGBA */
 
 void rdpSetFogColor(s32 a0, s32 a1, s32 a2, s32 a3);  /* RSP DL audio command */
 
 void sfxMixCmd(void) {
-    u32  packed = D_80092D04;
+    u32  packed = gAudioPackedParams;
     s32  byte1  = (s32)((packed >> 8)  & 0xFF);   /* mid-low byte  → a2 */
     s32  byte2  = (s32)((packed >> 16) & 0xFF);   /* mid-high byte → a3 */
     s32  byte0  = (s32)(packed & 0xFF);            /* low byte      → a1 (phase-1) */

@@ -3,8 +3,8 @@ void renderLineStrip(void **);                   /* extern */
 extern s32 gLineVtxBuf;
 extern Unk gLineVtxIdx;
 extern u32 gLineTexPtr;
-extern s32 D_80178690;
-extern Unk *D_801821E8;
+extern s32 gLineVtxBase;
+extern Unk *gLineTexBase;
 
 void renderLineRect(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u32 arg8, u32 arg9, u32 arg10, u32 arg11) {
     s16 temp_a0;
@@ -20,7 +20,7 @@ void renderLineRect(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, 
 
     if (gLineVtxBuf == 0) {
         gLineVtxIdx.unk0 = 0U;
-        gLineVtxBuf = D_80178690;
+        gLineVtxBuf = gLineVtxBase;
     }
     temp_a1 = arg6 << 5;
     temp_v1 = gLineVtxBuf + (gLineVtxIdx.unk0 * 0x10);
@@ -70,15 +70,15 @@ void renderLineRect(s32 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, 
     temp_v1_4->unk3A = temp_a0_2;
     temp_v1_4->unk3C = (s8) arg11;
     temp_v1_4->unk3F = (s8) (arg11 >> 0x18);
-    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkC = (s8) (gLineVtxIdx.unk3 + 3);
-    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkD = (s8) (gLineVtxIdx.unk3 + 2);
-    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkE = (s8) (gLineVtxIdx.unk3 + 1);
-    ((Unk*)((char*)D_801821E8 + gLineTexPtr * 0x10))->unkF = (u8) gLineVtxIdx.unk3;
+    ((Unk*)((char*)gLineTexBase + gLineTexPtr * 0x10))->unkC = (s8) (gLineVtxIdx.unk3 + 3);
+    ((Unk*)((char*)gLineTexBase + gLineTexPtr * 0x10))->unkD = (s8) (gLineVtxIdx.unk3 + 2);
+    ((Unk*)((char*)gLineTexBase + gLineTexPtr * 0x10))->unkE = (s8) (gLineVtxIdx.unk3 + 1);
+    ((Unk*)((char*)gLineTexBase + gLineTexPtr * 0x10))->unkF = (u8) gLineVtxIdx.unk3;
     temp_v1_5 = gLineTexPtr + 1;
     gLineTexPtr = temp_v1_5;
     temp_a1_2 = gLineVtxIdx.unk0 + 4;
     gLineVtxIdx.unk0 = temp_a1_2;
-    D_80178690 += 0x40;
+    gLineVtxBase += 0x40;
     if ((temp_v1_5 >= 0x20U) || (temp_a1_2 >= 0x1DU)) {
         renderLineStrip((void **)arg0);
     }

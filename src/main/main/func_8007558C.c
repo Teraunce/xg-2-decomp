@@ -5,9 +5,9 @@ void piCopyBytes(s32, s32, u32);                     /* extern */
 void piWriteBytes(s32, u8*, u32);                     /* extern */
 void piSetBytes(s32, s32, u32);                       /* extern */
 void piMoveBytes(s32, s32, s32);                     /* extern */
-extern u32 D_80093F48;
-extern s32 D_80093F4C;
-extern s32 D_8F188E48;
+extern u32 gSramBlockTable;
+extern s32 gSramBlockMap;
+extern s32 gSramPhysBase;
 
 void sramBlockRead(s32 arg0) {
     s32 temp_a0;
@@ -25,24 +25,24 @@ void sramBlockRead(s32 arg0) {
     var_s1 = __osPiRawReadIo(0xB1FFFFF4);
     var_s3 = __osPiRawReadIo(0xB1FFFFF8);
     if (var_s1 > 0xEFFFFFFFU) {
-        var_s1 = (u32) (var_s1 + &D_8F188E48);
+        var_s1 = (u32) (var_s1 + &gSramPhysBase);
     }
     if (var_s3 != 0) {
         do {
             var_a0 = 0;
-            if ((u32) D_80093F48 < var_s1) {
+            if ((u32) gSramBlockTable < var_s1) {
                 var_v1 = 0;
                 do {
                     var_v1 += 8;
                     var_a0 += 1;
-                } while ((u32) *(&D_80093F48 + var_v1) < var_s1);
+                } while ((u32) *(&gSramBlockTable + var_v1) < var_s1);
             }
             temp_a0 = var_a0 * 8;
-            var_s0 = *(&D_80093F48 + temp_a0) - (var_s1 - 1);
+            var_s0 = *(&gSramBlockTable + temp_a0) - (var_s1 - 1);
             if (var_s3 < var_s0) {
                 var_s0 = var_s3;
             }
-            temp_v1 = *(&D_80093F4C + temp_a0);
+            temp_v1 = *(&gSramBlockMap + temp_a0);
             if (temp_v1 & arg0) {
                 if (temp_v1 & 4) {
                     var_a0_2 = var_s1;

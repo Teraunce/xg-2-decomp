@@ -25,7 +25,7 @@ s32 sfxIsBusy();                                /* extern */
 void osSpSetStatus(s32);                                 /* extern */
 s32 osSpSetPcIfHalted(s32);                               /* extern */
 s32 osSpRawStartDma(s32, s32, s32, s32);               /* extern */
-extern s32 D_A0000000;
+extern s32 gPhysMemBase;
 
 void sfxLoadUcode(UnkStruct_arg0 *arg0) {
     UnkStruct_sp1C *sp1C;
@@ -36,7 +36,7 @@ void sfxLoadUcode(UnkStruct_arg0 *arg0) {
         sp1C->unk1C = (s32) sp1C->unk3C;
         arg0->unk4 = (s32) (arg0->unk4 & ~1);
         if (sp1C->unk4 & 4) {
-            sp1C->unk10 = (s32) *(s32*)(s32)((arg0->unk38 + 0xBFC) | (s32) &D_A0000000);
+            sp1C->unk10 = (s32) *(s32*)(s32)((arg0->unk38 + 0xBFC) | (s32) &gPhysMemBase);
         }
     }
     osWritebackDCache(sp1C, 0x40);

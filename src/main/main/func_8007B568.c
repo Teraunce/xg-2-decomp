@@ -1,14 +1,14 @@
 #include "ultra64.h"
 void guMtxF2L(char*, char*);                          /* extern */
 void guScaleF(void *, f32, f32, s32);                  /* extern */
-extern f32 D_8004C848;
-extern Unk D_8004C898;
-extern f64 D_8004C8C0;
-extern f64 D_8004C8C8;
-extern f64 D_8004C8D0;
-extern f32 D_8004C8D8;
-extern s32 D_80094A60;
-extern s32 D_8009525E;
+extern f32 gPitchMaxF;
+extern Unk gTrigCoeffs;
+extern f64 gPitchCoeffC;
+extern f64 gPitchCoeffA;
+extern f64 gPitchCoeffB;
+extern f32 gPitchReturnF;
+extern s32 gPitchTblPos;
+extern s32 gPitchTblNeg;
 
 /*
  * guScale — nonmatching.
@@ -38,31 +38,31 @@ f32 sinf(f32 arg0) {
         temp_fv1_2 = (f64) arg0;
         if (temp_t6 >= 0xE6) {
             temp_fa0_2 = temp_fv1_2 * temp_fv1_2;
-            return (f32) ((temp_fv1_2 * temp_fa0_2 * (D_8004C898.unk8 + (((((D_8004C898.unk20 * temp_fa0_2) + D_8004C898.unk18) * temp_fa0_2) + D_8004C898.unk10) * temp_fa0_2))) + temp_fv1_2);
+            return (f32) ((temp_fv1_2 * temp_fa0_2 * (gTrigCoeffs.unk8 + (((((gTrigCoeffs.unk20 * temp_fa0_2) + gTrigCoeffs.unk18) * temp_fa0_2) + gTrigCoeffs.unk10) * temp_fa0_2))) + temp_fv1_2);
         }
         return arg0;
     }
     if (temp_t6 < 0x136) {
         temp_fv1_3 = (f64) arg0;
-        temp_fv0 = temp_fv1_3 * D_8004C8C0;
+        temp_fv0 = temp_fv1_3 * gPitchCoeffC;
         if (temp_fv0 >= 0.0) {
             var_v0 = (s32) (temp_fv0 + 0.5);
         } else {
             var_v0 = (s32) (temp_fv0 - 0.5);
         }
         temp_fv0_2 = (f64) var_v0;
-        temp_fv1 = (temp_fv1_3 - (temp_fv0_2 * D_8004C8C8)) - (temp_fv0_2 * D_8004C8D0);
+        temp_fv1 = (temp_fv1_3 - (temp_fv0_2 * gPitchCoeffA)) - (temp_fv0_2 * gPitchCoeffB);
         temp_fa0 = temp_fv1 * temp_fv1;
-        temp_fa1 = D_8004C898.unk8 + (((((D_8004C898.unk20 * temp_fa0) + D_8004C898.unk18) * temp_fa0) + D_8004C898.unk10) * temp_fa0);
+        temp_fa1 = gTrigCoeffs.unk8 + (((((gTrigCoeffs.unk20 * temp_fa0) + gTrigCoeffs.unk18) * temp_fa0) + gTrigCoeffs.unk10) * temp_fa0);
         if (!(var_v0 & 1)) {
             return (f32) ((temp_fv1 * temp_fa0 * temp_fa1) + temp_fv1);
         }
         return -(f32) ((temp_fv1 * temp_fa0 * temp_fa1) + temp_fv1);
     }
     if (arg0 != arg0) {
-        return D_8004C848;
+        return gPitchMaxF;
     }
-    return D_8004C8D8;
+    return gPitchReturnF;
 }
 
 s16 sinInt(s32 arg0) {
@@ -71,9 +71,9 @@ s16 sinInt(s32 arg0) {
 
     temp_t8 = ((u32) (arg0 & 0xFFFF) >> 4) & 0xFFFF;
     if (temp_t8 & 0x400) {
-        var_v1 = *(&D_8009525E + -((temp_t8 & 0x3FF) * 2));
+        var_v1 = *(&gPitchTblNeg + -((temp_t8 & 0x3FF) * 2));
     } else {
-        var_v1 = *(&D_80094A60 + ((temp_t8 & 0x3FF) * 2));
+        var_v1 = *(&gPitchTblPos + ((temp_t8 & 0x3FF) * 2));
     }
     if (temp_t8 & 0x800) {
         return (s16) (var_v1 * -1);

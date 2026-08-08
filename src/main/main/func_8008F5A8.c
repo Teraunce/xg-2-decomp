@@ -1,11 +1,11 @@
 #include "ultra64.h"
 s32 byteArrayFind(void *, u8);                         /* extern */
 void gbiCmdDispatch();                                  /* extern */
-extern s32 D_8004CFD8;
-extern s32 D_8004CFDC;
-extern s32 D_8004CFE4;
-extern u8 D_800964C0;
-extern u8 D_800964E4;
+extern s32 gContPakTypeTbl2;
+extern s32 gContPakTypeTable;
+extern s32 gContPakFlagTbl;
+extern u8 gContPakDataBuf2;
+extern u8 gContPakDataBuf;
 
 s32 vsprintfCore(s32 (*arg0)(s32, u8 *, s32, u8 *), s32 arg1, u8 *arg2, s32 arg3) {
     u8 spD4;
@@ -95,13 +95,13 @@ block_9:
         return spCC;
     }
     spD0 = 0;
-    temp_v0_5 = byteArrayFind(&D_8004CFDC, var_s2->unk1);
+    temp_v0_5 = byteArrayFind(&gContPakTypeTable, var_s2->unk1);
     var_s0_2 = temp_v0_5;
     if (temp_v0_5 != 0) {
         do {
             var_s2_2 += 1;
-            spD0 |= *(&D_8004CFE4 + ((s32*)(s32)var_s0_2 - &D_8004CFDC));
-            temp_v0_6 = byteArrayFind(&D_8004CFDC, var_s2_2->unk0);
+            spD0 |= *(&gContPakFlagTbl + ((s32*)(s32)var_s0_2 - &gContPakTypeTable));
+            temp_v0_6 = byteArrayFind(&gContPakTypeTable, var_s2_2->unk0);
             var_s0_2 = temp_v0_6;
         } while (temp_v0_6 != 0);
     }
@@ -159,7 +159,7 @@ loop_29:
             }
         }
     }
-    if (byteArrayFind(&D_8004CFD8, var_a1_2) != 0) {
+    if (byteArrayFind(&gContPakTypeTbl2, var_a1_2) != 0) {
         temp_t9_2 = var_s2_2->unk0;
         var_s2_2 += 1;
         spD4 = temp_t9_2;
@@ -183,7 +183,7 @@ loop_42:
                 var_s0_3 = 0x20;
             }
             if (var_s0_3 > 0) {
-                temp_v0_7 = arg0(var_s3, &D_800964C0, var_s0_3, NULL);
+                temp_v0_7 = arg0(var_s3, &gContPakDataBuf2, var_s0_3, NULL);
                 var_s3 = temp_v0_7;
                 if (temp_v0_7 != 0) {
                     spCC += var_s0_3;
@@ -220,7 +220,7 @@ loop_55:
                 var_s0_4 = 0x20;
             }
             if (var_s0_4 > 0) {
-                temp_v0_9 = arg0(var_s3, &D_800964E4, var_s0_4, NULL);
+                temp_v0_9 = arg0(var_s3, &gContPakDataBuf, var_s0_4, NULL);
                 var_s3 = temp_v0_9;
                 if (temp_v0_9 != 0) {
                     spCC += var_s0_4;
@@ -257,7 +257,7 @@ loop_68:
                 var_s0_5 = 0x20;
             }
             if (var_s0_5 > 0) {
-                temp_v0_11 = arg0(var_s3, &D_800964E4, var_s0_5, NULL);
+                temp_v0_11 = arg0(var_s3, &gContPakDataBuf, var_s0_5, NULL);
                 var_s3 = temp_v0_11;
                 if (temp_v0_11 != 0) {
                     spCC += var_s0_5;
@@ -294,7 +294,7 @@ loop_81:
                 var_s0_6 = 0x20;
             }
             if (var_s0_6 > 0) {
-                temp_v0_13 = arg0(var_s3, &D_800964E4, var_s0_6, NULL);
+                temp_v0_13 = arg0(var_s3, &gContPakDataBuf, var_s0_6, NULL);
                 var_s3 = temp_v0_13;
                 if (temp_v0_13 != 0) {
                     spCC += var_s0_6;
@@ -321,7 +321,7 @@ loop_91:
                 var_s0_7 = 0x20;
             }
             if (var_s0_7 > 0) {
-                temp_v0_14 = arg0(var_s3, &D_800964C0, var_s0_7, NULL);
+                temp_v0_14 = arg0(var_s3, &gContPakDataBuf2, var_s0_7, NULL);
                 var_s3 = temp_v0_14;
                 if (temp_v0_14 != 0) {
                     spCC += var_s0_7;

@@ -1,10 +1,10 @@
 #include "ultra64.h"
 s32 sfxComputeFreqOffset(Unk*);                          /* extern */
-extern s32 D_80092F40;
-extern Unk *D_801823E8;
-extern Unk *D_801823EC;
-extern Unk *D_801823F0;
-extern s32 D_80182EA4;
+extern s32 gRenderCtxBuf;
+extern Unk *gFontGlyphPtr;
+extern Unk *gFontRange;
+extern Unk *gFontTable;
+extern s32 gTextBaseX;
 
 s32 fontGetCharWidth(u16 arg0, s32 *arg1, s32 *arg2) {
     Unk *var_s0;
@@ -24,21 +24,21 @@ s32 fontGetCharWidth(u16 arg0, s32 *arg1, s32 *arg2) {
 
     temp_a1 = arg0 & 0xFFFF;
     if (temp_a1 != 0x20) {
-        if ((D_801823EC != NULL) && (D_801823F0 != NULL) && (temp_a1 >= (u16) D_801823EC->unk0) && ((s32) temp_a1 < (D_801823EC->unk0 + D_801823EC->unk2))) {
-            *arg1 = (s32) (D_80182EA4 << 0x10) / (s32) D_801823F0->unk1;
+        if ((gFontRange != NULL) && (gFontTable != NULL) && (temp_a1 >= (u16) gFontRange->unk0) && ((s32) temp_a1 < (gFontRange->unk0 + gFontRange->unk2))) {
+            *arg1 = (s32) (gTextBaseX << 0x10) / (s32) gFontTable->unk1;
             if (arg2 != NULL) {
                 *arg2 = 0;
             }
-            var_v1 = D_801823F0->unk4;
-            var_v0 = temp_a1 - D_801823EC->unk0;
+            var_v1 = gFontTable->unk4;
+            var_v0 = temp_a1 - gFontRange->unk0;
             goto block_19;
         }
         var_a1 = 0;
-        if (D_801823E8->unk0 != 0) {
+        if (gFontGlyphPtr->unk0 != 0) {
             temp_s4 = arg0 & 0xFFFF;
             var_a2 = 0;
 loop_10:
-            temp_s1 = D_801823E8->unk4 + var_a2;
+            temp_s1 = gFontGlyphPtr->unk4 + var_a2;
             if (temp_s4 >= (u16) temp_s1->unk0) {
                 var_s3 = 0;
                 if ((s32) temp_s4 < (temp_s1->unk0 + temp_s1->unk2)) {
@@ -54,10 +54,10 @@ loop_10:
                             var_s0_2 += 1;
                         } while (var_s0_2 < (u16) temp_s1->unk4);
                     }
-                    D_801823EC = temp_s1;
+                    gFontRange = temp_s1;
                     temp_a0 = temp_s1->unk8 + (var_s3 * 8);
-                    D_801823F0 = temp_a0;
-                    *arg1 = (s32) (D_80182EA4 << 0x10) / (s32) temp_a0->unk1;
+                    gFontTable = temp_a0;
+                    *arg1 = (s32) (gTextBaseX << 0x10) / (s32) temp_a0->unk1;
                     if (arg2 != NULL) {
                         *arg2 = 0;
                     }
@@ -71,14 +71,14 @@ block_19:
 block_21:
             var_a1 += 1;
             var_a2 += 0xC;
-            if (var_a1 >= (u16) D_801823E8->unk0) {
+            if (var_a1 >= (u16) gFontGlyphPtr->unk0) {
                 goto block_22;
             }
             goto loop_10;
         }
 block_22:
         var_a1_2 = 0;
-        var_s0 = &D_80092F40;
+        var_s0 = &gRenderCtxBuf;
 loop_23:
         var_a1_2 += 1;
         if ((arg0 & 0xFFFF) == var_s0->unk0) {

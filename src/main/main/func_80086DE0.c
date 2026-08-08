@@ -9,14 +9,14 @@ void osStartThread(Unk*);                               /* extern */
 void osMsgQueueInit();                                  /* extern */
 s32 osGetThreadPri(char*);                               /* extern */
 void osViInit();                                  /* extern */
-extern char *D_800955C0;
-extern s32 D_800955D0;
-extern s32 D_80189AE8;
-extern s32 D_80189C98;
-extern s32 D_8018AC98;
-extern s32 D_8018ACB0;
-extern s16 D_8018ACC8;
-extern s16 D_8018ACE0;
+extern char *gViCfgPtr;
+extern s32 gViFrameState;
+extern s32 gViThread;
+extern s32 gViStack;
+extern s32 gNmiMesgQueue;
+extern s32 gNmiMsgBuf;
+extern s16 gNmiMsg;
+extern s16 gNmiMsg2;
 extern s32 viMgrThread;
 
 void viMgrInit(s32 arg0) {
@@ -27,15 +27,15 @@ void viMgrInit(s32 arg0) {
 
     if ((s32)0 /* implicit $t6 from caller */ == 0) {
         osMsgQueueInit();
-        osCreateMesgQueue(&D_8018AC98, &D_8018ACB0, 5);
-        D_8018ACC8 = 0xD;
-        D_8018ACC8 = 0;
-        D_8018ACC8 = 0;
-        D_8018ACE0 = 0xE;
-        D_8018ACE0 = 0;
-        D_8018ACE0 = 0;
-        osSetEventMesg(7, &D_8018AC98, &D_8018ACC8);
-        osSetEventMesg(3, &D_8018AC98, &D_8018ACE0);
+        osCreateMesgQueue(&gNmiMesgQueue, &gNmiMsgBuf, 5);
+        gNmiMsg = 0xD;
+        gNmiMsg = 0;
+        gNmiMsg = 0;
+        gNmiMsg2 = 0xE;
+        gNmiMsg2 = 0;
+        gNmiMsg2 = 0;
+        osSetEventMesg(7, &gNmiMesgQueue, &gNmiMsg);
+        osSetEventMesg(3, &gNmiMesgQueue, &gNmiMsg2);
         sp28 = -1;
         sp24 = osGetThreadPri(0);
         if (sp24 < arg0) {
@@ -43,17 +43,17 @@ void viMgrInit(s32 arg0) {
             osSetThreadPri(0, arg0);
         }
         temp_v0 = osDisableInt();
-        D_800955C0 = (void *)1;
-        D_800955C0 = &D_80189AE8;
-        D_800955C0 = &D_8018AC98;
-        D_800955C0 = &D_8018AC98;
+        gViCfgPtr = (void *)1;
+        gViCfgPtr = &gViThread;
+        gViCfgPtr = &gNmiMesgQueue;
+        gViCfgPtr = &gNmiMesgQueue;
         sp2C = temp_v0;
-        D_800955D0 = 0;
-        D_800955D0 = 0;
-        D_800955D0 = 0;
-        osCreateThread(&D_80189AE8, 0, &viMgrThread, &D_800955C0, &D_80189C98 + 0x1000, arg0);
+        gViFrameState = 0;
+        gViFrameState = 0;
+        gViFrameState = 0;
+        osCreateThread(&gViThread, 0, &viMgrThread, &gViCfgPtr, &gViStack + 0x1000, arg0);
         osViInit();
-        osStartThread(&D_80189AE8);
+        osStartThread(&gViThread);
         osRestoreInt(sp2C);
         if (sp28 != -1) {
             osSetThreadPri(0, sp28);

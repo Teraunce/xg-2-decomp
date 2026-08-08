@@ -23,8 +23,8 @@
  *   gSfxHeap          0x80182348  SfxSortEntry[]
  *   gSfxInputTable    0x8017CA08  SfxInputEntry[4]
  *   gSfxChannelState  0x801820D8  SfxChannelState[4]
- *   D_8004C028        0x8004C02C  f32  — volume scale factor A (rodata)
- *   D_8004C02C        0x8004C02C  f32  — volume scale factor B (rodata)
+ *   gVolScaleA        0x8004C02C  f32  — volume scale factor A (rodata)
+ *   gVolScaleB        0x8004C02C  f32  — volume scale factor B (rodata)
  */
 
 extern s32           gSfxActiveCount;          /* 0x80092CB8 */
@@ -39,8 +39,8 @@ extern SfxSortEntry  gSfxHeap[];               /* 0x80182348 */
 extern SfxInputEntry gSfxInputTable[4];        /* 0x8017CA08 */
 extern SfxChannelState gSfxChannelState[4];    /* 0x801820D8 */
 
-extern f32 D_8004C028;   /* rodata: volume multiplier for active-channel fade */
-extern f32 D_8004C02C;   /* rodata: volume multiplier for counter-expired fade */
+extern f32 gVolScaleA;   /* rodata: volume multiplier for active-channel fade */
+extern f32 gVolScaleB;   /* rodata: volume multiplier for counter-expired fade */
 
 s32 sfxSlotResolve(s32);  /* slot resolver (sfxLookupName.c) */
 
@@ -227,7 +227,7 @@ void sfxUpdateChannels(void) {
          * When out->decrement > 0: clear bits 0xFFF0FFFF from flags,
          *   decrement the counter.
          * When counter expires (reaches 0): apply volScale multiplier to
-         *   decrement, reset counter = trunc(volScale * D_8004C02C).
+         *   decrement, reset counter = trunc(volScale * gVolScaleB).
          */
         if (out->decrement > 0) {
             out->flags &= 0xFFF0FFFF;
@@ -235,8 +235,8 @@ void sfxUpdateChannels(void) {
         } else {
             if (out->flags != 0) {
                 if (out->flags & 0x000F0000) {
-                    out->output = (s32)(volScale * D_8004C028);
-                    out->decrement = (s32)(volScale * D_8004C028);
+                    out->output = (s32)(volScale * gVolScaleA);
+                    out->decrement = (s32)(volScale * gVolScaleA);
                 }
             }
         }
@@ -249,7 +249,7 @@ void sfxUpdateChannels(void) {
             out->counter = cnt;
             if (cnt <= 0) {
                 out->output  = out->soundId;
-                out->counter = (s32)(volScale * D_8004C02C);
+                out->counter = (s32)(volScale * gVolScaleB);
                 inp += 6;  /* advance to next group (matches addiu $t0, $t0, 6 in asm) */
                 continue;
             }

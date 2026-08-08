@@ -49,7 +49,7 @@ void  sfxStopAtEntity(void *a, void *b);
 void  sfxPlayAtEntity(void *a, void *b, s32 c, s32 d);
 void  sfxPlayLoopAtEntity(void *a, void *b, f32 c);
 
-extern f32 D_8004CC0C;
+extern f32 gAudioNodeConst;
 
 /* nonmatching: jtbl_8004CB5C/CBBC switch + audioRspDispatchNode non-std ABI */
 void audioNodeUpdate(Unk *obj) {

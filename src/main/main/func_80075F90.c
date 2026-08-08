@@ -5,10 +5,10 @@ s32 sramStartDma(s32, s32, s32);                    /* extern */
 static void exceptionVectors(void);                      /* static, forward decl */
 void cacheInvalDcache();                               /* static */
 void cacheInvalIcache();                               /* static */
-extern s32 D_80000000;
-extern s32 D_80001FF0;
-extern s32 D_80003FE0;
-extern s32 D_80189180;
+extern s32 gExcBase;
+extern s32 gTlbFlushEnd0;
+extern s32 gTlbFlushEnd1;
+extern s32 gSramInitVal;
 
 s32 sramStartDmaSafe(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
@@ -56,7 +56,7 @@ void osExceptionInstall(void) {
     } while (var_t0 != (char*)exceptionVectors + 0x14);
     var_t0_2 = (char*)exceptionVectors + 0x38;
     var_t1_2 = (s32*)((char*)exceptionVectors + 0x4C);
-    var_t2_2 = &D_80000000;
+    var_t2_2 = &gExcBase;
     do {
         temp_t5_2 = *(s32*)var_t0_2;
         var_t0_2 += 4;
@@ -66,27 +66,27 @@ void osExceptionInstall(void) {
     } while (var_t0_2 != (char*)exceptionVectors + 0x4C);
     cacheInvalDcache();
     cacheInvalIcache();
-    D_80189180 = -0x802;
+    gSramInitVal = -0x802;
 }
 
 void cacheInvalDcache(void) {
     char *var_t0;
 
-    var_t0 = &D_80001FF0;
+    var_t0 = &gTlbFlushEnd0;
     do {
         /* cache 0x1, ($t0) — D-cache invalidate index */
         var_t0 += 0x10;
-    } while (var_t0 != (char*)&D_80001FF0);
+    } while (var_t0 != (char*)&gTlbFlushEnd0);
 }
 
 void cacheInvalIcache(void) {
     char *var_t0;
 
-    var_t0 = &D_80003FE0;
+    var_t0 = &gTlbFlushEnd1;
     do {
         /* cache 0x0, ($t0) — I-cache invalidate index */
         var_t0 += 0x20;
-    } while (var_t0 != (char*)&D_80003FE0);
+    } while (var_t0 != (char*)&gTlbFlushEnd1);
 }
 
 s32 getCOP0Status(void) {

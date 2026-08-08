@@ -9,23 +9,23 @@ void contGetInputPort(s32);                               /* extern */
 s32 contPakSiDmaRead(void *);                             /* extern */
 s32 contPakSiWrite(void *);                             /* extern */
 s32 contPakBuildMap(s32, Unk*, s32);                   /* extern */
-extern s32 D_800925C8;
-extern s32 D_80093EFC;
-extern s32 D_80093F00;
+extern s32 gContPakInitFlag;
+extern s32 gContPakDirCount;
+extern s32 gContPakDirId;
 extern s32 gInitStateFlags;
-extern s32 D_80093F08;
-extern s32 D_80173C28;
-extern s32 D_8017C890;
-extern s32 D_8017C940;
-extern s32 D_80182EA8;
-extern char *D_80188770;
-extern s32 D_801887A0;
-extern s32 D_801887D0;
-extern s32 D_8018894C;
-extern s32 D_80188E24;
-extern s32 D_80188E28;
-extern s32 D_8018AD28;
-extern s32 D_80192860;
+extern s32 gContPakActionFlag;
+extern s32 gRaceMax;
+extern s32 gViMsg;
+extern s32 gTrackTiltDir;
+extern s32 gRaceCtx;
+extern char *gContPakMesgQueue;
+extern s32 gHandlerMsgQueue;
+extern s32 gHandlerCtx;
+extern s32 gContPakSlots;
+extern s32 gContPakDetected;
+extern s32 gContPakEntrySize;
+extern s32 gSiCmdBuf;
+extern s32 gContInput;
 
 void contPakUpdate(s32 arg0) {
     s32 sp14;
@@ -47,22 +47,22 @@ void contPakUpdate(s32 arg0) {
     u32 var_v0;
 
     var_fp = 0;
-    osSetEventMesg(5, &D_801887A0, &D_8017C890);
+    osSetEventMesg(5, &gHandlerMsgQueue, &gViMsg);
     if (arg0 != 0) {
         gInitStateFlags = 1;
     }
     var_s4 = 0;
-    var_s1 = &D_801887D0;
-    var_s5 = &D_8018894C;
-    var_s7 = &D_80192860;
+    var_s1 = &gHandlerCtx;
+    var_s5 = &gContPakSlots;
+    var_s7 = &gContInput;
     sp10 = 0;
     sp14 = 0;
     do {
         if (var_s1->unk31C == 5) {
-            if ((gInitStateFlags != 0) || (D_800925C8 != 0)) {
+            if ((gInitStateFlags != 0) || (gContPakInitFlag != 0)) {
                 var_s0 = 0;
-                if (D_80093F08 == 0) {
-                    if (contPakBuildMap(&D_801887A0, var_s5, var_s4) != 0) {
+                if (gContPakActionFlag == 0) {
+                    if (contPakBuildMap(&gHandlerMsgQueue, var_s5, var_s4) != 0) {
                         var_s1->unk33C = 1;
                     } else {
                         var_s1->unk33C = 0;
@@ -71,7 +71,7 @@ void contPakUpdate(s32 arg0) {
                     var_s0 = 0;
                 }
                 do {
-                    if (contPakSiDmaRead(sp14 + &D_8018894C) != 0) {
+                    if (contPakSiDmaRead(sp14 + &gContPakSlots) != 0) {
                         var_s1->unk33C = 1;
                     }
                     var_s0 += 1;
@@ -83,7 +83,7 @@ void contPakUpdate(s32 arg0) {
                     var_v1 = 0;
                 } else if (arg0 != 0) {
                     var_v1 = 0;
-                } else if (D_8017C940 != 0) {
+                } else if (gTrackTiltDir != 0) {
                     var_v1 = 0;
                 } else {
                     if (var_s1->unk36C > 0) {
@@ -102,16 +102,16 @@ block_32:
                     var_s1->unk35C = (s32) (var_s1->unk35C - 1);
                 }
                 if (var_s1->unk33C != 0) {
-                    if ((D_80093EFC >= 0xF) && (D_80093F00 == var_s4)) {
+                    if ((gContPakDirCount >= 0xF) && (gContPakDirId == var_s4)) {
                         if (var_fp == 0) {
-                            osWritebackDCache(&D_80192860, 0x10);
+                            osWritebackDCache(&gContInput, 0x10);
                             var_fp = 1;
-                            siReadBlocking(&D_801887A0);
-                            osRecvMesg(&D_801887A0, 0, 1);
-                            osWritebackInvalDCache(&D_8018AD28, 0x40);
-                            contGetInputPort(&D_80192860);
+                            siReadBlocking(&gHandlerMsgQueue);
+                            osRecvMesg(&gHandlerMsgQueue, 0, 1);
+                            osWritebackInvalDCache(&gSiCmdBuf, 0x40);
+                            contGetInputPort(&gContInput);
                         }
-                        if ((void *)(((Unk*)((char*)&D_80192860 + sp10))->unk2 & 1) && (contPakBuildMap(&D_801887A0, var_s5, var_s4) == 0)) {
+                        if ((void *)(((Unk*)((char*)&gContInput + sp10))->unk2 & 1) && (contPakBuildMap(&gHandlerMsgQueue, var_s5, var_s4) == 0)) {
                             var_s1->unk33C = 0;
                             var_s1->unk32C = 1;
                             goto block_71;
@@ -143,14 +143,14 @@ block_32:
                 }
             }
         } else {
-            if ((D_80093EFC >= 0xF) && (D_80093F00 == var_s4)) {
+            if ((gContPakDirCount >= 0xF) && (gContPakDirId == var_s4)) {
                 if (var_fp == 0) {
-                    osWritebackDCache(&D_80192860, 0x10);
+                    osWritebackDCache(&gContInput, 0x10);
                     var_fp = 1;
-                    siReadBlocking(&D_801887A0);
-                    osRecvMesg(&D_801887A0, 0, 1);
-                    osWritebackInvalDCache(&D_8018AD28, 0x40);
-                    contGetInputPort(&D_80192860);
+                    siReadBlocking(&gHandlerMsgQueue);
+                    osRecvMesg(&gHandlerMsgQueue, 0, 1);
+                    osWritebackInvalDCache(&gSiCmdBuf, 0x40);
+                    contGetInputPort(&gContInput);
                 }
                 if (var_s7->unk2 & 2) {
                     var_s1->unk34C = 1;
@@ -158,7 +158,7 @@ block_32:
                 if (var_s7->unk2 & 1) {
                     if (var_s1->unk34C == 0) {
                         temp_v0 = var_s1->unk31C;
-                        var_a0 = &D_801887A0;
+                        var_a0 = &gHandlerMsgQueue;
                         if (temp_v0 != 0) {
                             if (temp_v0 == 1) {
                                 goto block_67;
@@ -168,7 +168,7 @@ block_32:
                         }
                     } else {
 block_67:
-                        var_a0 = &D_801887A0;
+                        var_a0 = &gHandlerMsgQueue;
 block_68:
                         if (contPakBuildMap(var_a0, var_s5, var_s4) == 0) {
                             var_s1->unk32C = 0;
@@ -195,24 +195,24 @@ block_72:
         sp10 += 4;
         sp14 += 0x68;
     } while (var_s4 < 4);
-    temp_v0_2 = D_80093EFC + 1;
-    D_80093EFC = temp_v0_2;
+    temp_v0_2 = gContPakDirCount + 1;
+    gContPakDirCount = temp_v0_2;
     var_a3 = 0;
     if (temp_v0_2 >= 0x10) {
-        D_80093EFC = 0;
-        temp_v0_3 = D_80093F00 + 1;
-        D_80093F00 = temp_v0_3;
+        gContPakDirCount = 0;
+        temp_v0_3 = gContPakDirId + 1;
+        gContPakDirId = temp_v0_3;
         if (temp_v0_3 >= 4) {
-            D_80093F00 = 0;
+            gContPakDirId = 0;
         } else {
             var_a3 = 0;
         }
     }
-    if ((gInitStateFlags != 0) || (D_800925C8 != 0)) {
+    if ((gInitStateFlags != 0) || (gContPakInitFlag != 0)) {
         var_a3 = 1;
     }
-    D_80093F08 = var_a3;
-    osSetEventMesg(5, D_80188770, &D_8017C890);
+    gContPakActionFlag = var_a3;
+    osSetEventMesg(5, gContPakMesgQueue, &gViMsg);
 }
 
 void func_800732D8(Unk *arg0, s32 arg1, s32 arg2) {
@@ -222,10 +222,10 @@ void func_800732D8(Unk *arg0, s32 arg1, s32 arg2) {
     Unk *temp_a0;
 
     temp_a3 = arg0->unk560;
-    if ((temp_a3 >= 0) && (temp_a3 < D_80173C28) && (arg0->unk450 == 0)) {
-        temp_a3_2 = ((Unk*)(s32)((Unk*)((char*)&D_80182EA8 + (temp_a3 * 4)))->unk16F8)->unk4;
+    if ((temp_a3 >= 0) && (temp_a3 < gRaceMax) && (arg0->unk450 == 0)) {
+        temp_a3_2 = ((Unk*)(s32)((Unk*)((char*)&gRaceCtx + (temp_a3 * 4)))->unk16F8)->unk4;
         if (temp_a3_2 < 4U) {
-            temp_a0 = (Unk*)((char*)&D_801887D0 + (temp_a3_2 * 4));
+            temp_a0 = (Unk*)((char*)&gHandlerCtx + (temp_a3_2 * 4));
             if (temp_a0->unk35C < arg1) {
                 temp_a0->unk35C = arg1;
                 var_v0 = arg1 * 3;
@@ -267,8 +267,8 @@ void func_800733EC(Unk *arg0, s32 arg1) {
     arg0->unk0 = (s32)(temp_v0_2 + 8);
     temp_v0_2->unk0 = 0xE3000C00;
     temp_v0_2->unk4 = 0x80000;
-    D_80188E24 = 1;
-    D_80188E28 = arg1;
+    gContPakDetected = 1;
+    gContPakEntrySize = arg1;
 }
 
 void func_80073444(s32 arg0, s32 arg1, u16 *arg2, u16 *arg3, u16 *arg4, u16 *arg5) {

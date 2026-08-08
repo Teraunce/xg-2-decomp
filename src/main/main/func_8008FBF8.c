@@ -3,8 +3,8 @@ u64 __umoddi3(s32, s32, s32, s32);              /* extern */
 u64 __udivdi3(s32, s32, s32, s32);              /* extern */
 s32 byteCopy(s32, void *, s32);                  /* extern */
 void __divmoddi3(void *, s32, u32, s32, u32);        /* extern */
-extern s32 D_80096510;
-extern s32 D_80096524;
+extern s32 gPakBuf0;
+extern s32 gPakBuf1;
 
 void fmtIntBuf(Unk *arg0, s32 arg1) {
     s32 sp54;
@@ -43,9 +43,9 @@ void fmtIntBuf(Unk *arg0, s32 arg1) {
 
     temp_v0 = arg1 & 0xFF;
     if (temp_v0 == 0x58) {
-        var_s3 = &D_80096524;
+        var_s3 = &gPakBuf1;
     } else {
-        var_s3 = &D_80096510;
+        var_s3 = &gPakBuf0;
     }
     var_s0 = 0x18;
     if (temp_v0 == 0x6F) {

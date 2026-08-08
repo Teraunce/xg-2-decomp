@@ -1,7 +1,7 @@
 #include "ultra64.h"
 f32 sqrtfWrap(f32);                             /* extern */
 void guMtxIdent(char *);                         /* extern */
-extern f64 D_8004C858;
+extern f64 gRotClamp;
 
 void guLookAtHiliteF(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10) {
     f32 temp_fa1;
@@ -61,45 +61,45 @@ void guLookAtHiliteF(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
     arg9 *= temp_fa1_2;
     temp_fa0 = (f64) temp_fs3_2 * 128.0;
     arg10 *= temp_fa1_2;
-    if (temp_fa0 < D_8004C858) {
+    if (temp_fa0 < gRotClamp) {
         var_fv0 = temp_fa0;
     } else {
-        var_fv0 = D_8004C858;
+        var_fv0 = gRotClamp;
     }
     temp_fa0_2 = (f64) temp_fs4_2 * 128.0;
     arg1->unk8 = (s8) (s32) var_fv0;
-    if (temp_fa0_2 < D_8004C858) {
+    if (temp_fa0_2 < gRotClamp) {
         var_fv0_2 = temp_fa0_2;
     } else {
-        var_fv0_2 = D_8004C858;
+        var_fv0_2 = gRotClamp;
     }
     temp_fa0_3 = (f64) temp_fs5_2 * 128.0;
     arg1->unk9 = (s8) (s32) var_fv0_2;
-    if (temp_fa0_3 < D_8004C858) {
+    if (temp_fa0_3 < gRotClamp) {
         var_fv0_3 = temp_fa0_3;
     } else {
-        var_fv0_3 = D_8004C858;
+        var_fv0_3 = gRotClamp;
     }
     arg1->unkA = (s8) (s32) var_fv0_3;
     temp_fa0_4 = (f64) arg8 * 128.0;
-    if (temp_fa0_4 < D_8004C858) {
+    if (temp_fa0_4 < gRotClamp) {
         var_fv0_4 = temp_fa0_4;
     } else {
-        var_fv0_4 = D_8004C858;
+        var_fv0_4 = gRotClamp;
     }
     arg1->unk18 = (s8) (s32) var_fv0_4;
     temp_fa0_5 = (f64) arg9 * 128.0;
-    if (temp_fa0_5 < D_8004C858) {
+    if (temp_fa0_5 < gRotClamp) {
         var_fv0_5 = temp_fa0_5;
     } else {
-        var_fv0_5 = D_8004C858;
+        var_fv0_5 = gRotClamp;
     }
     arg1->unk19 = (s8) (s32) var_fv0_5;
     temp_fa0_6 = (f64) arg10 * 128.0;
-    if (temp_fa0_6 < D_8004C858) {
+    if (temp_fa0_6 < gRotClamp) {
         var_fv0_6 = temp_fa0_6;
     } else {
-        var_fv0_6 = D_8004C858;
+        var_fv0_6 = gRotClamp;
     }
     arg1->unk0 = 0;
     arg1->unk1 = 0;

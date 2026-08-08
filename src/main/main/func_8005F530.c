@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void audioQueueStop(s32);                               /* extern */
-extern s32 D_80181588;
+extern s32 gSfxListenerPos;
 
 void audioQueueStopAll(void) {
     Unk *var_s0;
@@ -9,7 +9,7 @@ void audioQueueStopAll(void) {
 
     var_s1 = 0;
     if ((s32)0 /* implicit $v0 from caller */ > 0) {
-        var_s0 = &D_80181588;
+        var_s0 = &gSfxListenerPos;
         do {
             var_s1 += 1;
             audioQueueStop(var_s0->unk10);

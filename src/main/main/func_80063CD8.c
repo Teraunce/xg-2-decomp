@@ -2,9 +2,9 @@
 void gfxSpTaskWait(s32, s32, s32);                  /* extern */
 char *heap_alloc_default(s32);                           /* extern */
 void rdpStateInit(void);                             /* extern */
-extern s32 D_8004B650;
-extern s32 D_8004B654;
-extern char *D_801823E8;
+extern s32 gFontRomAddr;
+extern s32 gFontRomSize;
+extern char *gFontGlyphPtr;
 
 void rdpDataLoad(void) {
     s32 temp_s0;
@@ -19,12 +19,12 @@ void rdpDataLoad(void) {
     Unk *temp_v1;
     Unk *var_a0;
 
-    temp_s1 = D_8004B654;
-    temp_s0 = D_8004B650;
+    temp_s1 = gFontRomSize;
+    temp_s0 = gFontRomAddr;
     temp_v0 = heap_alloc_default(temp_s1);
-    D_801823E8 = temp_v0;
+    gFontGlyphPtr = temp_v0;
     gfxSpTaskWait(temp_s0, temp_v0, temp_s1);
-    var_a0 = D_801823E8;
+    var_a0 = gFontGlyphPtr;
     var_s1 = 0;
     var_a0->unk4 = (void *) (var_a0 + var_a0->unk4);
     if (var_a0->unk0 != 0) {

@@ -3,7 +3,7 @@
 
 s32 u16StrLen(Unk*);                             /* extern */
 void intToAsciiStr(Unk*, s32);                               /* extern */
-extern f64 D_8004C0E8;
+extern f64 gTexLineParamE8;
 
 void rdpFormatFloat(s32 arg0) {
     f64 temp_fv1;
@@ -12,7 +12,7 @@ void rdpFormatFloat(s32 arg0) {
     Unk *temp_s0_2;
 
     /* arg_fv1 passed in $fv1/$f2/$f3 (f64) by caller — non-standard calling convention */
-    temp_fv1 = 0.0 /* arg_fv1 */ + D_8004C0E8;
+    temp_fv1 = 0.0 /* arg_fv1 */ + gTexLineParamE8;
     var_s1 = (s32) temp_fv1;
     intToAsciiStr(arg0, (s32) temp_fv1 / 100);
     if (var_s1 < 0) {

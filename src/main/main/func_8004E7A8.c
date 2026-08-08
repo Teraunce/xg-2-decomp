@@ -1,9 +1,9 @@
 #include "ultra64.h"
 s32 *overlayDecompress(void *);                         /* extern */
-extern s32 D_8004B7B0;
+extern s32 gOverlayTable;
 
 s32 overlayGetEntry(s32 arg0) {
-    return *overlayDecompress((arg0 * 0x10) + &D_8004B7B0);
+    return *overlayDecompress((arg0 * 0x10) + &gOverlayTable);
 }
 
 void sfxChannelClear(char *arg0) {
@@ -37,7 +37,7 @@ void sfxChannelClear(char *arg0) {
  * viModeConfig — video mode configuration dispatch.
  *
  * Reads gGameState (0-6), jumps via jtbl_8004BB20, and fills the
- * D_8017C968 VideoModeConfig struct with resolution/FP-scale values.
+ * gVideoMode VideoModeConfig struct with resolution/FP-scale values.
  * Each of the 7 cases writes different dimensions and float coefficients.
  *
  *   mode 0: 320×240 (NTSC standard)
@@ -85,16 +85,16 @@ typedef struct {
 } VideoModeConfig;
 
 extern s32 gGameState;          /* current video mode index (0-6) */
-extern VideoModeConfig D_8017C968; /* video mode config struct */
+extern VideoModeConfig gVideoMode; /* video mode config struct */
 
 /* fp scale constants per mode, stored in rodata (entry.s dlabel section) */
-extern f32 D_8004BB3C, D_8004BB40, D_8004BB44, D_8004BB48, D_8004BB4C, D_8004BB50;
-extern f32 D_8004BB54, D_8004BB58, D_8004BB5C;
-extern f32 D_8004BB60, D_8004BB64, D_8004BB68;
-extern f32 D_8004BB6C, D_8004BB70, D_8004BB74, D_8004BB78;
-extern f32 D_8004BB7C, D_8004BB80, D_8004BB84, D_8004BB88;
-extern f32 D_8004BB8C, D_8004BB90, D_8004BB94, D_8004BB98, D_8004BB9C;
-extern f32 D_8004BBA0, D_8004BBA4, D_8004BBA8, D_8004BBAC, D_8004BBB0;
+extern f32 gViTimingE, gViTimingF, gViRegPair2A, gViRegPair2B, gViRegPair2C, gViRegPair2D;
+extern f32 gViRegPair0A, gViRegPair0B2, gViRegPair2E;
+extern f32 gViRegPair0A2, gViRegPair0B, gViRegPair2F;
+extern f32 gViTimingA, gViTimingB, gViTimingG, gViTimingH;
+extern f32 gViTimingC, gViTimingD, gViRegPair2G, gViRegPair2H;
+extern f32 gViRegPair1A, gViRegPair0C, gViRegPair0C2, gViRegPair1B, gViRegPair2I;
+extern f32 gViRegPair0D, gViRegPair1C, gViRegPair0E, gViRegPair1D, gViRegPair2J;
 
 void viModeConfig(void) {
     VideoModeConfig *p;
@@ -105,7 +105,7 @@ void viModeConfig(void) {
         return;
     }
 
-    p = &D_8017C968;
+    p = &gVideoMode;
 
     switch (mode) {
     case 0: /* 320x240 NTSC */
@@ -113,92 +113,92 @@ void viModeConfig(void) {
         p->unk04 = 0;
         p->unk08 = 0x140;
         p->unk0C = 0xF0;
-        p->unk10 = D_8004BB3C; p->unk14 = D_8004BB40;
-        p->unk18 = D_8004BB3C; p->unk1C = D_8004BB40;
+        p->unk10 = gViTimingE; p->unk14 = gViTimingF;
+        p->unk18 = gViTimingE; p->unk1C = gViTimingF;
         p->unk20 = 0x79; p->unk24 = 0xC0;
         p->unk28 = 0x4C; p->unk2C = 0x24;
-        p->unk30 = D_8004BB44; p->unk34 = D_8004BB48;
-        p->unk38 = D_8004BB4C; p->unk3C = D_8004BB50;
+        p->unk30 = gViRegPair2A; p->unk34 = gViRegPair2B;
+        p->unk38 = gViRegPair2C; p->unk3C = gViRegPair2D;
         break;
     case 1: /* 320x120 half-height */
         p->unk00 = 0; p->unk04 = 0;
         p->unk08 = 0x140; p->unk0C = 0x78;
-        p->unk10 = D_8004BB54; p->unk14 = D_8004BB58;
-        p->unk18 = D_8004BB54; p->unk1C = D_8004BB58;
+        p->unk10 = gViRegPair0A; p->unk14 = gViRegPair0B2;
+        p->unk18 = gViRegPair0A; p->unk1C = gViRegPair0B2;
         p->unk20 = 0;
         p->unk24 = 0x78; p->unk28 = 0x140; p->unk2C = 0x78;
-        p->unk30 = D_8004BB54; p->unk34 = D_8004BB58;
-        p->unk38 = D_8004BB54; p->unk3C = D_8004BB5C;
+        p->unk30 = gViRegPair0A; p->unk34 = gViRegPair0B2;
+        p->unk38 = gViRegPair0A; p->unk3C = gViRegPair2E;
         break;
     case 2: /* 160x240 half-width */
         p->unk00 = 0; p->unk04 = 0;
         p->unk08 = 0xA0; p->unk0C = 0xF0;
-        p->unk10 = D_8004BB60; p->unk14 = D_8004BB64;
-        p->unk18 = D_8004BB60; p->unk1C = D_8004BB64;
+        p->unk10 = gViRegPair0A2; p->unk14 = gViRegPair0B;
+        p->unk18 = gViRegPair0A2; p->unk1C = gViRegPair0B;
         p->unk20 = 0xA0; p->unk24 = 0;
         p->unk28 = 0xA0; p->unk2C = 0xF0;
-        p->unk30 = D_8004BB60; p->unk34 = D_8004BB64;
-        p->unk38 = D_8004BB68; p->unk3C = D_8004BB64;
+        p->unk30 = gViRegPair0A2; p->unk34 = gViRegPair0B;
+        p->unk38 = gViRegPair2F; p->unk3C = gViRegPair0B;
         break;
     case 3: /* 160x120 quad-viewport */
         p->unk00 = 0; p->unk04 = 0;
         p->unk08 = 0xA0; p->unk0C = 0x78;
-        p->unk10 = D_8004BB6C; p->unk14 = D_8004BB70;
-        p->unk18 = D_8004BB6C; p->unk1C = D_8004BB70;
+        p->unk10 = gViTimingA; p->unk14 = gViTimingB;
+        p->unk18 = gViTimingA; p->unk1C = gViTimingB;
         p->unk20 = 0xA0; p->unk24 = 0;
         p->unk28 = 0xA0; p->unk2C = 0x78;
-        p->unk30 = D_8004BB6C; p->unk34 = D_8004BB70;
-        p->unk38 = D_8004BB74; p->unk3C = D_8004BB70;
+        p->unk30 = gViTimingA; p->unk34 = gViTimingB;
+        p->unk38 = gViTimingG; p->unk3C = gViTimingB;
         p->unk40 = 0;
         p->unk44 = 0x78; p->unk48 = 0xA0; p->unk4C = 0x78;
-        p->unk50 = D_8004BB6C; p->unk54 = D_8004BB70;
-        p->unk58 = D_8004BB6C; p->unk5C = D_8004BB78;
+        p->unk50 = gViTimingA; p->unk54 = gViTimingB;
+        p->unk58 = gViTimingA; p->unk5C = gViTimingH;
         p->unk60 = 0xA0; p->unk64 = 0x78;
         p->unk68 = 0xA0; p->unk6C = 0x78;
-        p->unk70 = D_8004BB6C; p->unk74 = D_8004BB70;
-        p->unk78 = D_8004BB74; p->unk7C = D_8004BB78;
+        p->unk70 = gViTimingA; p->unk74 = gViTimingB;
+        p->unk78 = gViTimingG; p->unk7C = gViTimingH;
         break;
     case 4: /* 160x120 dual-viewport */
         p->unk00 = 0; p->unk04 = 0;
         p->unk08 = 0xA0; p->unk0C = 0x78;
-        p->unk10 = D_8004BB7C; p->unk14 = D_8004BB80;
-        p->unk18 = D_8004BB7C; p->unk1C = D_8004BB80;
+        p->unk10 = gViTimingC; p->unk14 = gViTimingD;
+        p->unk18 = gViTimingC; p->unk1C = gViTimingD;
         p->unk20 = 0xA0; p->unk24 = 0;
         p->unk28 = 0xA0; p->unk2C = 0x78;
-        p->unk30 = D_8004BB7C; p->unk34 = D_8004BB80;
-        p->unk38 = D_8004BB84; p->unk3C = D_8004BB80;
+        p->unk30 = gViTimingC; p->unk34 = gViTimingD;
+        p->unk38 = gViRegPair2G; p->unk3C = gViTimingD;
         p->unk40 = 0;
         p->unk44 = 0x78; p->unk48 = 0xA0; p->unk4C = 0x78;
-        p->unk50 = D_8004BB7C; p->unk54 = D_8004BB80;
-        p->unk58 = D_8004BB7C; p->unk5C = D_8004BB88;
+        p->unk50 = gViTimingC; p->unk54 = gViTimingD;
+        p->unk58 = gViTimingC; p->unk5C = gViRegPair2H;
         break;
     case 5: /* 320x120 alt */
         p->unk00 = 0; p->unk04 = 0;
         p->unk08 = 0x140; p->unk0C = 0x78;
-        p->unk10 = D_8004BB8C; p->unk14 = D_8004BB90;
-        p->unk18 = D_8004BB8C; p->unk1C = D_8004BB90;
+        p->unk10 = gViRegPair1A; p->unk14 = gViRegPair0C;
+        p->unk18 = gViRegPair1A; p->unk1C = gViRegPair0C;
         p->unk20 = 0; p->unk24 = 0x78;
         p->unk28 = 0xA0; p->unk2C = 0x78;
-        p->unk30 = D_8004BB94; p->unk34 = D_8004BB90;
-        p->unk38 = D_8004BB94; p->unk3C = D_8004BB98;
+        p->unk30 = gViRegPair0C2; p->unk34 = gViRegPair0C;
+        p->unk38 = gViRegPair0C2; p->unk3C = gViRegPair1B;
         p->unk40 = 0xA0; p->unk44 = 0x78;
         p->unk48 = 0xA0; p->unk4C = 0x78;
-        p->unk50 = D_8004BB94; p->unk54 = D_8004BB90;
-        p->unk58 = D_8004BB9C; p->unk5C = D_8004BB98;
+        p->unk50 = gViRegPair0C2; p->unk54 = gViRegPair0C;
+        p->unk58 = gViRegPair2I; p->unk5C = gViRegPair1B;
         break;
     case 6: /* 160x240 alt */
         p->unk00 = 0; p->unk04 = 0;
         p->unk08 = 0xA0; p->unk0C = 0xF0;
-        p->unk10 = D_8004BBA0; p->unk14 = D_8004BBA4;
-        p->unk18 = D_8004BBA0; p->unk1C = D_8004BBA4;
+        p->unk10 = gViRegPair0D; p->unk14 = gViRegPair1C;
+        p->unk18 = gViRegPair0D; p->unk1C = gViRegPair1C;
         p->unk20 = 0xA0; p->unk24 = 0;
         p->unk28 = 0xA0; p->unk2C = 0x78;
-        p->unk30 = D_8004BBA0; p->unk34 = D_8004BBA8;
-        p->unk38 = D_8004BBAC; p->unk3C = D_8004BBA8;
+        p->unk30 = gViRegPair0D; p->unk34 = gViRegPair0E;
+        p->unk38 = gViRegPair1D; p->unk3C = gViRegPair0E;
         p->unk40 = 0xA0; p->unk44 = 0x78;
         p->unk48 = 0xA0; p->unk4C = 0x78;
-        p->unk50 = D_8004BBA0; p->unk54 = D_8004BBA8;
-        p->unk58 = D_8004BBAC; p->unk5C = D_8004BBB0;
+        p->unk50 = gViRegPair0D; p->unk54 = gViRegPair0E;
+        p->unk58 = gViRegPair1D; p->unk5C = gViRegPair2J;
         break;
     }
 }

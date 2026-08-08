@@ -11,12 +11,12 @@ s32 func_800EEC78(void *, f32, f32, f32, void *);     /* extern */
 s32 func_800F1604(void *, void *, void *);               /* extern */
 s32 func_801114CC(void *, s32);                       /* extern */
 s32 func_801304A8(void *);                          /* extern */
-extern s32 D_8004BC60;
-extern f32 D_8004BC64;
-extern f32 D_8004BC68;
-extern f32 D_8004BC6C;
-extern s32 D_8017C958;
-extern s32 D_80184580;
+extern s32 gEntityUpVecY;
+extern f32 gEntityLerp;
+extern f32 gEntityInitF;
+extern f32 gEntitySpawnScale;
+extern s32 gRaceActive;
+extern s32 gGameMode;
 
 void entitySpawn(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
     f32 sp88;
@@ -51,7 +51,7 @@ void entitySpawn(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
 
     temp_s2 = arg0->unkC;
     if (temp_s2 != NULL) {
-        temp_fs0 = D_8004BC60;
+        temp_fs0 = gEntityUpVecY;
         mtxLookAt(&sp20, arg1->unk0, arg1->unk4, arg1->unk8, 0, temp_fs0, 0);
         sp70 = temp_s2->unk34;
         sp74 = temp_s2->unk38;
@@ -125,13 +125,13 @@ void entitySpawn(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
         temp_fa0 = arg0->unk1C;
         temp_ft3 = arg0->unk20;
         temp_ft1_2 = arg0->unk24;
-        temp_fa0_2 = temp_fa0 + ((arg0->unk10 - temp_fa0) * D_8004BC64);
+        temp_fa0_2 = temp_fa0 + ((arg0->unk10 - temp_fa0) * gEntityLerp);
         temp_s2_2 = arg0 + 0x190;
         temp_s1 = arg0 + 0x1C;
         arg0->unk448 = 0;
         arg0->unk0 = temp_fa0_2;
-        arg0->unk4 = (f32) (temp_ft3 + ((arg0->unk14 - temp_ft3) * D_8004BC64));
-        arg0->unk8 = (f32) (temp_ft1_2 + ((arg0->unk18 - temp_ft1_2) * D_8004BC64));
+        arg0->unk4 = (f32) (temp_ft3 + ((arg0->unk14 - temp_ft3) * gEntityLerp));
+        arg0->unk8 = (f32) (temp_ft1_2 + ((arg0->unk18 - temp_ft1_2) * gEntityLerp));
         arg0->unk110 = 0;
         arg0->unk188 = 0;
         sfxEntityInit(temp_s2_2);
@@ -149,19 +149,19 @@ void entitySpawn(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
         if (arg0->unk588 == 1) {
             var_v0 = 6;
         } else {
-            var_v0 = D_80184580;
+            var_v0 = gGameMode;
             if (var_v0 != 1) {
                 var_v0 = 3;
             }
         }
         arg0->unk2E0 = var_v0;
         arg0->unk2E4 = var_v0;
-        if (D_8017C958 != 0) {
+        if (gRaceActive != 0) {
             arg0->unk64C = 1;
         } else {
             arg0->unk64C = 0;
         }
-        if (D_8017C958 != 0) {
+        if (gRaceActive != 0) {
             arg0->unk64C = 1;
         } else {
             arg0->unk64C = 0;
@@ -185,22 +185,22 @@ void entitySpawn(Unk *arg0, Unk *arg1, Unk *arg2, s32 arg3) {
             var_v1_2 -= 1;
             var_a0_2 -= 4;
         } while (var_v1_2 >= 0);
-        if (D_80184580 != 4) {
+        if (gGameMode != 4) {
             arg0->unk2CC = 0;
         } else {
             arg0->unk2CC = 0x2A30;
         }
         temp_s4 = arg0 + 0x334;
-        temp_fs0_2 = D_8004BC6C;
+        temp_fs0_2 = gEntitySpawnScale;
         arg0->unk2D0 = 0;
         arg0->unk2D4 = 0;
         arg0->unk2D8 = 0;
         arg0->unk324 = 0x3C;
-        arg0->unk318 = (f32) D_8004BC68;
+        arg0->unk318 = (f32) gEntityInitF;
         arg0->unk320 = 0;
         arg0->unk350 = 0;
         arg0->unk34C = -1;
-        arg0->unk30C = (f32) D_8004BC68;
+        arg0->unk30C = (f32) gEntityInitF;
         arg0->unk308 = 0;
         arg0->unk334 = 0.0f;
         arg0->unk338 = 0.0f;

@@ -3,17 +3,17 @@ void entityListPrune(void);                              /* extern */
 s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 s32 func_800FDD50(f32 *, f32 *, f32 *, f32 *, s32, f32 *); /* extern */
-extern f32 D_8004BBFC;
-extern f32 D_8004BC00;
-extern f32 D_8004BC04;
-extern f32 D_8004BC08;
-extern f32 D_8004BC0C;
+extern f32 gTrackNodeRenderA;
+extern f32 gTrackNodeRenderB;
+extern f32 gTrackNodeRenderC;
+extern f32 gTrackNodeRenderD;
+extern f32 gTrackFriction;
 extern s32 gColorSwapMode;
-extern s32 D_80091FD0;
-extern s32 D_800B332C;
-extern s32 D_8017CC80;
-extern Unk *D_8017CCB8;
-extern Unk D_80182EA8;
+extern s32 gEntityFlagMask;
+extern s32 gSfxInitFlag;
+extern s32 gEntityActive;
+extern Unk *gCurRenderNode;
+extern Unk gRaceCtx;
 
 void trackNodeRender(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
     f32 spA8;
@@ -56,26 +56,26 @@ void trackNodeRender(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
 
     var_s6 = 0;
     var_s3 = arg2;
-    temp_fs3 = D_8004BC00;
-    spA8 = D_8004BBFC;
-    temp_fs2 = D_8004BC04;
-    *(((s32) (((Unk *)((char *)(s32)arg0 + arg2 * 0x38))->unk16 << 0x10) >> 0x1B) + &D_8017CC80) = 1;
+    temp_fs3 = gTrackNodeRenderB;
+    spA8 = gTrackNodeRenderA;
+    temp_fs2 = gTrackNodeRenderC;
+    *(((s32) (((Unk *)((char *)(s32)arg0 + arg2 * 0x38))->unk16 << 0x10) >> 0x1B) + &gEntityActive) = 1;
     var_v0 = var_s3 * 8;
 loop_1:
     temp_a2 = ((Unk *)((char *)(s32)arg0 + (var_v0 - var_s3) * 8))->unk18;
-    if ((temp_a2 != var_s3) && (temp_v1 = (Unk *)((char *)(s32)arg0 + temp_a2 * 0x38), (*(((s32) (temp_v1->unk16 << 0x10) >> 0x1B) + &D_8017CC80) == 0))) {
+    if ((temp_a2 != var_s3) && (temp_v1 = (Unk *)((char *)(s32)arg0 + temp_a2 * 0x38), (*(((s32) (temp_v1->unk16 << 0x10) >> 0x1B) + &gEntityActive) == 0))) {
         if (*(s32*)((char*)temp_v1 - 20)== 0x8000) {
             trackNodeRender(arg0, arg1, temp_a2, arg3);
         }
     }
     temp_s2 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
-    temp_s2->unk12 = (u16) ((Unk *)((char *)temp_s2 + (D_80182EA8.unk16E0 % 3) * 2))->unk2C;
+    temp_s2->unk12 = (u16) ((Unk *)((char *)temp_s2 + (gRaceCtx.unk16E0 % 3) * 2))->unk2C;
     if (gColorSwapMode != 0) {
         temp_s2->unk0 = (s32) -temp_s2->unk0;
         temp_s2->unkC = (u16) -(s32) temp_s2->unkC;
     }
-    if (D_800B332C == 0) {
-        if (temp_s2->unk16 & (D_80091FD0 * 4)) {
+    if (gSfxInitFlag == 0) {
+        if (temp_s2->unk16 & (gEntityFlagMask * 4)) {
             sp30 = (f32) (temp_s2->unk38 - temp_s2->unk0);
             sp34 = (f32) (temp_s2->unk3C - temp_s2->unk4);
             sp38 = (f32) (temp_s2->unk40 - temp_s2->unk8);
@@ -112,17 +112,17 @@ loop_1:
                 spA8 = temp_ft2;
             }
             temp_s0 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
-            temp_s0->unk32 = (s16) (s32) (temp_ft2 + D_8004BC08);
-            sp40 -= sp10 * D_8004BC0C;
-            sp48 -= sp18 * D_8004BC0C;
-            sp44 -= sp14 * D_8004BC0C;
+            temp_s0->unk32 = (s16) (s32) (temp_ft2 + gTrackNodeRenderD);
+            sp40 -= sp10 * gTrackFriction;
+            sp48 -= sp18 * gTrackFriction;
+            sp44 -= sp14 * gTrackFriction;
             func_800FDD50(&sp18, &sp14, &sp50, &sp40, 0x14, &sp70);
-            if ((s32)spA4 == D_8017CCB8->unk8) {
+            if ((s32)spA4 == gCurRenderNode->unk8) {
                 temp_s0->unk34 = 0;
             } else {
                 temp_s0->unk34 = spA4;
             }
-            if ((var_s6 == 0) && ((u32) (D_80182EA8.unk16D8 - 1) < 2U) && (spA4 != NULL) && (spA4->unk5C == 0x63)) {
+            if ((var_s6 == 0) && ((u32) (gRaceCtx.unk16D8 - 1) < 2U) && (spA4 != NULL) && (spA4->unk5C == 0x63)) {
                 var_v1 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
                 var_a0 = var_s3;
                 if (*(s32*)((char*)var_v1 - 20)!= 0x8000) {

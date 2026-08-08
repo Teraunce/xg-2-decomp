@@ -5,8 +5,8 @@ s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 void osStartThread(Unk*);                               /* extern */
 extern Unk *__osRunningThread;
-extern s32 D_80096480;
-extern s32 D_80096488;
+extern s32 gFontData;
+extern s32 gPiHandleCount;
 
 s32 osSendMesgImpl(Unk *arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
@@ -39,10 +39,10 @@ block_5:
 }
 
 s32 piGetHandle(void) {
-    if (D_80096480 == 0) {
+    if (gFontData == 0) {
         return 0;
     }
-    return D_80096488;
+    return gPiHandleCount;
 }
 
 s32 memmove(s32 arg0, s32 arg1, s32 arg2) {

@@ -6,33 +6,33 @@ void rdpRunSetupDL(void**);                               /* extern */
 void gfxAddSyncCmd(void**);                               /* extern */
 void sfxRenderBegin(void**, s32);                            /* extern */
 void sceneDispatch(s32, s32, s32);                    /* extern */
-extern s32 D_8004C050;
-extern s32 D_8004C058;
-extern s32 D_80173CC0;
-extern s32 D_801823C4;
-extern s32 D_801823C8;
+extern s32 gTexLineParam50;
+extern s32 gTexLineParam58;
+extern s32 gDLPtr;
+extern s32 gSfxBlockedFlag;
+extern s32 gSfxTimer;
 
 void gameMenuRender(void) {
     char *var_a1;
     s32 var_a3;
     s32 temp_t2;
 
-    rdpRunSetupDL(&D_80173CC0);
-    if (D_801823C4 != 0) {
-        sfxRenderBegin(&D_80173CC0, 0);
+    rdpRunSetupDL(&gDLPtr);
+    if (gSfxBlockedFlag != 0) {
+        sfxRenderBegin(&gDLPtr, 0);
         sfxMapId(0x48);
-        var_a1 = &D_8004C050;
+        var_a1 = &gTexLineParam50;
         var_a3 = 0x10;
     } else {
         temp_t2 = sfxMapId(0x69);
-        var_a1 = &D_8004C058;
-        if ((D_801823C8 * 3) < 0) {
+        var_a1 = &gTexLineParam58;
+        if ((gSfxTimer * 3) < 0) {
 
         }
         var_a3 = 5;
     }
     sceneDispatch(var_a1, 0, var_a3);
-    gfxAddSyncCmd(&D_80173CC0);
+    gfxAddSyncCmd(&gDLPtr);
 }
 
 void sfxTableInit(void);  /* forward: GETTER_NOJR fallthrough */

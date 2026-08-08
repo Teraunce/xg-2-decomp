@@ -6,7 +6,7 @@ void sfxPlay(u16);                               /* extern */
 s32 sfxGetEntry(s32);                             /* extern */
 s32 sfxDispatchSample(s32, s32);                        /* extern */
 extern s32 gSfxDefTable;
-extern s32 D_801823E0;
+extern s32 gSfxFrameOut;
 
 s32 sfxSpawnSample(u32 arg0) {
     s32 temp_s0;
@@ -31,6 +31,6 @@ block_4:
 
 s32 sfxLoadSample(u32);  /* forward: GETTER_NOJR fallthrough */
 s32 sfxLoadSampleGetter(void) {
-    sfxLoadSample(0);  /* GETTER_NOJR: pre-loads D_801823E0 into $v0, falls into sfxLoadSample */
-    return D_801823E0;
+    sfxLoadSample(0);  /* GETTER_NOJR: pre-loads gSfxFrameOut into $v0, falls into sfxLoadSample */
+    return gSfxFrameOut;
 }

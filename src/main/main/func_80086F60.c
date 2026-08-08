@@ -6,11 +6,11 @@ void osTimerHandlerGetter();                                  /* extern */
 char *osViGetCurrentFramebuffer();                              /* extern */
 void osViSwapBuffer();                                  /* extern */
 extern char *__osRunningThread;
-extern s32 D_80189A88;
-extern u32 D_80189A8C;
-extern u32 D_80189A90;
-extern s32 D_80189A94;
-extern u16 D_8018ACF8;
+extern s32 gTimerHi;
+extern u32 gTimerCount;
+extern u32 gTimerPrev;
+extern s32 gOsTimerLen;
+extern u16 gTimerElapsed;
 
 void viMgrThread(char *arg0) {
     Unk *sp34;
@@ -29,9 +29,9 @@ void viMgrThread(char *arg0) {
     sp28 = 0;
     sp34 = osViGetCurrentFramebuffer();
     temp_t7 = sp34->unk2;
-    D_8018ACF8 = temp_t7;
+    gTimerElapsed = temp_t7;
     if (temp_t7 == 0) {
-        D_8018ACF8 = 1;
+        gTimerElapsed = 1;
     }
     sp30 = arg0;
 loop_3:
@@ -39,30 +39,30 @@ loop_3:
     temp_s0 = *sp2C;
     if (temp_s0 == 0xD) {
         osViSwapBuffer();
-        temp_t3 = D_8018ACF8 - 1;
-        D_8018ACF8 = temp_t3;
+        temp_t3 = gTimerElapsed - 1;
+        gTimerElapsed = temp_t3;
         if (!(temp_t3 & 0xFFFF)) {
             sp34 = osViGetCurrentFramebuffer();
             temp_t6 = sp34->unk10;
             if (temp_t6 != 0) {
                 osSendMesg(temp_t6, sp34->unk14, 0);
             }
-            D_8018ACF8 = sp34->unk2;
+            gTimerElapsed = sp34->unk2;
         }
-        D_80189A94 += 1;
+        gOsTimerLen += 1;
         if (sp28 != 0) {
             sp24 = __osGetCount();
-            D_80189A88 = 0;
-            D_80189A8C = sp24;
+            gTimerHi = 0;
+            gTimerCount = sp24;
             sp28 = 0;
         }
-        sp24 = D_80189A90;
-        D_80189A90 = __osGetCount();
-        temp_t8 = D_80189A90 - sp24;
-        temp_t5 = temp_t8 + D_80189A8C;
-        D_80189A88 += temp_t5 < (u32) D_80189A8C;
+        sp24 = gTimerPrev;
+        gTimerPrev = __osGetCount();
+        temp_t8 = gTimerPrev - sp24;
+        temp_t5 = temp_t8 + gTimerCount;
+        gTimerHi += temp_t5 < (u32) gTimerCount;
         sp24 = temp_t8;
-        D_80189A8C = temp_t5;
+        gTimerCount = temp_t5;
         goto loop_3;
     }
     if (temp_s0 != 0xE) {

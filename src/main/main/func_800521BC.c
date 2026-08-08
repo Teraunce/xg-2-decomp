@@ -2,15 +2,15 @@
 char *gfxGetWritePtr();                              /* extern */
 s32 *frameAlloc(s32, s32, void *, void *);         /* extern */
 s32 func_800524B8(s32);                               /* extern */
-extern s32 D_8004B9C8;
-extern s32 D_80091FD8;
-extern s32 D_80091FF8;
-extern char *D_80173D0C;
-extern char *D_80174BE8;
-extern s32 *D_80174BF8;
-extern char *D_80178698;
-extern char *D_801786A8;
-extern char *D_8017CCBC;
+extern s32 gGfxSetupTable;
+extern s32 gTrackDL4;
+extern s32 gTrackDL3;
+extern char *gRdpTilePtr2;
+extern char *gRdpTilePtr;
+extern s32 *gTrackNodePtr;
+extern char *gTrackRenderPtr;
+extern char *gRenderWritePtr;
+extern char *gGfxWriteTick;
 
 void gfxFrameSetup(s32 arg0) {
     s32 sp20;
@@ -43,9 +43,9 @@ void gfxFrameSetup(s32 arg0) {
     Unk *temp_v0_8;
     Unk *temp_v0_9;
 
-    D_8017CCBC = gfxGetWritePtr();
+    gGfxWriteTick = gfxGetWritePtr();
     temp_v0 = gfxGetWritePtr();
-    D_801786A8 = temp_v0;
+    gRenderWritePtr = temp_v0;
     temp_v0_2 = temp_v0 + 8;
     temp_v0_3 = temp_v0_2 + 8;
     sp10 = 0xF5100080;
@@ -64,12 +64,12 @@ void gfxFrameSetup(s32 arg0) {
     temp_v0_14 = temp_v0_13 + 8;
     temp_v0_15 = temp_v0_14 + 8;
     sp1C = 0xF5000480;
-    D_80174BE8 = temp_v0_15;
+    gRdpTilePtr = temp_v0_15;
     temp_v0_16 = temp_v0_15 + 8;
     temp_v0_17 = temp_v0_16 + 8;
     sp20 = 0xFC117E04;
     temp_v0->unk0 = 0xFD100000;
-    temp_v0->unk4 = &D_80091FF8;
+    temp_v0->unk4 = &gTrackDL3;
     temp_v0_18 = temp_v0_17 + 8;
     temp_v0->unk8 = 0xF5100080;
     temp_v0_2->unk4 = 0x07014050;
@@ -83,7 +83,7 @@ void gfxFrameSetup(s32 arg0) {
     temp_v0_6->unk4 = 0x01114050;
     temp_v0_6->unk8 = 0xF2000000;
     temp_v0_7->unk4 = 0x0107C07C;
-    temp_v0_8->unk4 = &D_80091FD8;
+    temp_v0_8->unk4 = &gTrackDL4;
     temp_v0_7->unk8 = 0xFD100000;
     temp_v0_8->unk8 = 0xE8000000;
     temp_v0_9->unk4 = 0;
@@ -101,10 +101,10 @@ void gfxFrameSetup(s32 arg0) {
     temp_v0_15->unk4 = 0;
     temp_v0_15->unk8 = 0xF2000000;
     temp_v0_16->unk4 = 0x01000000;
-    D_80173D0C = temp_v0_18;
+    gRdpTilePtr2 = temp_v0_18;
     temp_v0_19 = temp_v0_18 + 8;
     temp_v0_20 = temp_v0_19 + 8;
-    D_80178698 = temp_v0_20;
+    gTrackRenderPtr = temp_v0_20;
     temp_v0_21 = temp_v0_20 + 8;
     temp_v0_22 = temp_v0_21 + 8;
     temp_v0_23 = temp_v0_22 + 8;
@@ -125,7 +125,7 @@ void gfxFrameSetup(s32 arg0) {
     frameAlloc((temp_v0_23 + 8) - temp_v0, 0xF2000000, temp_v0_23, temp_v0_20);
     temp_v0_24 = frameAlloc(0x88, 0, NULL, NULL);
     *temp_v0_24 = 0;
-    D_80174BF8 = temp_v0_24;
+    gTrackNodePtr = temp_v0_24;
     func_800524B8(arg0);
 }
 
@@ -134,13 +134,13 @@ void gfxFrameSetup(s32 arg0) {
  *
  * Allocates a 0x88-byte block via frameAlloc, sets up a linked-list node,
  * then polls sfxGetRunning in a tight loop until it returns 0.  On success,
- * resolves a symbol via D_80174BF8, calls trackEdgeProcess, then accounts for
- * elapsed time (D_8017CCBC delta) via gfxGetWritePtr.
+ * resolves a symbol via gTrackNodePtr, calls trackEdgeProcess, then accounts for
+ * elapsed time (gGfxWriteTick delta) via gfxGetWritePtr.
  * Branch back to function start (bnez $s1, func_80052490) caused m2c to fail.
  * ------------------------------------------------------------------------- */
 s32  sfxGetRunning(void);               /* extern */
 void trackEdgeProcess(Unk*);               /* extern */
-extern s32 D_8017CCB8;
+extern s32 gCurRenderNode;
 
 void func_80052490(s32 arg0) {
     /* nonmatching: self-loop (do { alloc+poll } while (sfxGetRunning() != 0)) */

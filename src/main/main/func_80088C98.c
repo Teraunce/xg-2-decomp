@@ -6,8 +6,8 @@ void __siUnlock();                                  /* extern */
 void siSetupWriteCmd(s32, u16, u8*);                     /* extern */
 u8 crc8Calc(u8*);                             /* extern */
 s32 contPakProbe(s32, s32);                        /* extern */
-extern s8 D_8018AD68;
-extern s32 D_8018ADB8;
+extern s8 gSiLocked;
+extern s32 gSiReadBuf;
 
 s32 osContPakWrite(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
     s32 sp5C;
@@ -24,20 +24,20 @@ s32 osContPakWrite(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
     u8 sp2E; s32 sp52;
 
     sp5C = 0;
-    sp54 = &D_8018ADB8;
+    sp54 = &gSiReadBuf;
     sp28 = 2;
     if ((arg4 != 1) && ((s32) arg2 < 7) && (arg2 != 0)) {
         return 0;
     }
     __siLock();
-    D_8018AD68 = 3;
+    gSiLocked = 3;
     siSetupWriteCmd(arg1, arg2, arg3);
-    sp5C = osSiRawStartDma(1, &D_8018ADB8);
+    sp5C = osSiRawStartDma(1, &gSiReadBuf);
     osRecvMesg(arg0, 0, 1);
 loop_5:
-    sp5C = osSiRawStartDma(0, &D_8018ADB8);
+    sp5C = osSiRawStartDma(0, &gSiReadBuf);
     osRecvMesg(arg0, 0, 1);
-    sp54 = &D_8018ADB8;
+    sp54 = &gSiReadBuf;
     if (arg1 != 0) {
         sp58 = 0;
         if (arg1 > 0) {

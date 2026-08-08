@@ -5,8 +5,8 @@ typedef struct {
 } UnkStruct_arg0;
 
 s32 osSpGetStatus();                                /* static */
-extern s32 D_800955C0;
-extern s32 D_A4040010;
+extern s32 gViCfgPtr;
+extern s32 SP_STATUS_REG;
 
 s32 osSpTaskYield(UnkStruct_arg0 *arg0) {
     s32 sp1C;
@@ -26,10 +26,10 @@ s32 osSpTaskYield(UnkStruct_arg0 *arg0) {
 }
 
 s32 osSpGetStatus(void) {
-    return D_A4040010;
+    return SP_STATUS_REG;
 }
 
 void viMgrInit(void);  /* forward: GETTER_NOJR fallthrough */
 void viMgrInitGetter(void) {
-    viMgrInit();  /* GETTER_NOJR: loads D_800955C0 into $t6, falls into viMgrInit */
+    viMgrInit();  /* GETTER_NOJR: loads gViCfgPtr into $t6, falls into viMgrInit */
 }

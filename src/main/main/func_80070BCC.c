@@ -2,15 +2,15 @@
 void sfxHeapInsert(void *, s32, s32);                         /* extern */
 s32 sfxGetAllocEntity();                                /* extern */
 extern s32 gHandlerTable;
-extern Unk D_801887D0;
+extern Unk gHandlerCtx;
 
 void gameHandlerSetup(s32 arg1, s32 arg2) {
-    D_801887D0.unk174 = arg2;
-    D_801887D0.unk178 = sfxGetAllocEntity();
-    D_801887D0.unk168 = 1;
-    D_801887D0.unk16C = 0;
-    D_801887D0.unk170 = 0;
-    D_801887D0.unk0 = arg1;
-    D_801887D0.unk160 = 0;
+    gHandlerCtx.unk174 = arg2;
+    gHandlerCtx.unk178 = sfxGetAllocEntity();
+    gHandlerCtx.unk168 = 1;
+    gHandlerCtx.unk16C = 0;
+    gHandlerCtx.unk170 = 0;
+    gHandlerCtx.unk0 = arg1;
+    gHandlerCtx.unk160 = 0;
     sfxHeapInsert(&gHandlerTable, -1, 1);
 }

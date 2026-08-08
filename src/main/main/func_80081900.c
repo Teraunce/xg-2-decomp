@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void midiDecodeEvent(Unk*, Unk*);                     /* extern */
-extern f64 D_8004CE58;
-extern f64 D_8004CE60;
+extern f64 gAudioPeriodMul;
+extern f64 gAudioPeriodScale;
 
 void midiSeqStep(Unk *arg0, Unk *arg1, u32 arg2) {
     s16 sp50;
@@ -60,7 +60,7 @@ s32 func_80081A20(Unk *arg0, f32 arg1, s32 arg2) {
     if (arg2 < 0) {
         var_ft1 += 4294967296.0;
     }
-    temp_ft2 = ((f64) arg1 * D_8004CE58 * (f64) arg0->unk18) / var_ft1;
+    temp_ft2 = ((f64) arg1 * gAudioPeriodMul * (f64) arg0->unk18) / var_ft1;
     temp_ft4 = (s32) temp_ft2;
     if (0 /* cfc1 $v0, $31: FCR31 FPU status */ & 0x78) {
         if (!(0 /* cfc1 $v0, $31: FCR31 FPU status */ & 0x78)) {
@@ -82,5 +82,5 @@ f32 func_80081B04(Unk *arg0, s32 arg1, s32 arg2) {
     if (arg2 < 0) {
         var_ft3 += 4294967296.0f;
     }
-    return (f32) ((f64) ((f32) arg1 * var_ft3) / ((f64) (f32) arg0->unk18 * D_8004CE60));
+    return (f32) ((f64) ((f32) arg1 * var_ft3) / ((f64) (f32) arg0->unk18 * gAudioPeriodScale));
 }

@@ -3,18 +3,18 @@
 
 void audioSetCallback(s32);                                 /* extern */
 extern s32 gAudioStatus;
-extern s32 D_80092804;
-extern s32 D_80092818;
-extern s32 D_8009281C;
-extern s32 D_80092824;
+extern s32 gAudioOutputRate;
+extern s32 gAudioRateA;
+extern s32 gAudioRateB;
+extern s32 gAudioSynthReady;
 
 void audioResetCallback(void) {
     audioSetCallback(-1);
 }
 
 void audioSetTrack(s32 arg0) {
-    D_80092804 = arg0;
-    D_80092824 = 1;
+    gAudioOutputRate = arg0;
+    gAudioSynthReady = 1;
 }
 
 void audioSetRates(s32 arg0, s32 arg1) {
@@ -27,7 +27,7 @@ void audioSetRates(s32 arg0, s32 arg1) {
 
     var_a0 = arg0;
     var_a1 = arg1;
-    D_80092818 = 0x10000;
+    gAudioRateA = 0x10000;
     temp_a2 = var_a0 > 0x10000;
     var_v0 = var_a0;
     if (temp_a2 != 0) {
@@ -37,9 +37,9 @@ void audioSetRates(s32 arg0, s32 arg1) {
         if (temp_a2 != 0) {
             var_a0 = 0x10000;
         }
-        D_80092818 = 0x10000 / var_a0;
+        gAudioRateA = 0x10000 / var_a0;
     }
-    D_8009281C = 0x10000;
+    gAudioRateB = 0x10000;
     temp_a0 = var_a1 > 0x10000;
     var_v0_2 = var_a1;
     if (temp_a0 != 0) {
@@ -49,7 +49,7 @@ void audioSetRates(s32 arg0, s32 arg1) {
         if (temp_a0 != 0) {
             var_a1 = 0x10000;
         }
-        D_8009281C = 0x10000 / var_a1;
+        gAudioRateB = 0x10000 / var_a1;
     }
 }
 

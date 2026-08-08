@@ -22,8 +22,8 @@ typedef struct {
 } UnkStruct_arg1;
 
 s16 trackNodeFindNearestGetter(f32, f32, s32);                   /* extern */
-extern f32 D_8004BBB8;
-extern f32 D_8004BBBC;
+extern f32 gEntitySlotInitA;
+extern f32 gEntitySlotInitB;
 
 void entitySlotReset(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     s16 var_v0;
@@ -42,6 +42,6 @@ void entitySlotReset(UnkStruct_arg0 *arg0, UnkStruct_arg1 *arg1, s32 arg2) {
     arg1->unk3C = 0;
     arg1->unk54 = 0;
     arg1->unk58 = 0;
-    arg1->unk40 = (f32) D_8004BBB8;
-    arg1->unk50 = (f32) D_8004BBBC;
+    arg1->unk40 = (f32) gEntitySlotInitA;
+    arg1->unk50 = (f32) gEntitySlotInitB;
 }

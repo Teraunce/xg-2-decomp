@@ -4,13 +4,13 @@ void audioQueuePlay(s32, f32, s32, s8, s32);           /* extern */
 void audioQueueStop(s32);                               /* extern */
 s32 audioQueueFind(s32, f32*, s32*, s32*);                    /* extern */
 s32 sfxComputeSpatial(f32, f32, s32, s32, f32, f32, f32 *, s32 *, s32 *, s32 *, s32); /* extern */
-extern f32 D_8004BE84;
-extern f32 D_8004BE88;
-extern f32 D_8004BE8C;
-extern f32 D_8004BE90;
+extern f32 gSfxFreqParamA;
+extern f32 gSfxFreqParamB;
+extern f32 gSfxFreqThresh;
+extern f32 gSfxFreqScale;
 extern s32 gEntityPool;
-extern s32 D_80092844;
-extern s32 D_8017C950;
+extern s32 gSfxSpatialCount;
+extern s32 gRaceCtrlCount;
 
 void sfxPositionalUpdateDoppler(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
     s32 sp34;
@@ -23,7 +23,7 @@ void sfxPositionalUpdateDoppler(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 ar
     sp30 = 0x40;
     sp34 = 0;
     if (sfxComputeSpatial(arg0->unk0, arg0->unk4, arg0->unk8, arg1->unk0, arg1->unk4, arg1->unk8, &arg3, &arg4, &sp30, &sp34, 0) != 0) {
-        temp_fv1 = (arg3 * D_8004BE84) + (arg3 * D_8004BE88);
+        temp_fv1 = (arg3 * gSfxFreqParamA) + (arg3 * gSfxFreqParamB);
         arg3 = temp_fv1;
         temp_a0 = *arg5;
         if (temp_a0 != 0) {
@@ -31,7 +31,7 @@ void sfxPositionalUpdateDoppler(Unk *arg0, Unk *arg1, s32 arg2, f32 arg3, s32 ar
                 audioQueuePlay(*arg5, arg3, arg4, sp30, sp34);
                 return;
             }
-            if (D_80092844 < 0x1A) {
+            if (gSfxSpatialCount < 0x1A) {
                 var_a1 = arg3;
                 goto block_7;
             }
@@ -62,9 +62,9 @@ s32 entityFindNearest(f32 arg0, f32 arg1, f32 arg2, s32 *arg3, s32 *arg4) {
     Unk *temp_v0;
 
     var_a0 = 0;
-    var_ft1 = D_8004BE8C;
+    var_ft1 = gSfxFreqThresh;
     var_a1 = NULL;
-    if (D_8017C950 > 0) {
+    if (gRaceCtrlCount > 0) {
         var_v1 = &gEntityPool;
         do {
             temp_fv0 = var_v1->unkC - arg0;
@@ -77,7 +77,7 @@ s32 entityFindNearest(f32 arg0, f32 arg1, f32 arg2, s32 *arg3, s32 *arg4) {
                 var_ft1 = temp_fv0_2;
             }
             var_v1 += 0x228;
-        } while (var_a0 < D_8017C950);
+        } while (var_a0 < gRaceCtrlCount);
     }
     if (var_a1 == NULL) {
         return 0;
@@ -85,7 +85,7 @@ s32 entityFindNearest(f32 arg0, f32 arg1, f32 arg2, s32 *arg3, s32 *arg4) {
     *arg4 = var_a1->unk218 / 3;
     temp_v0 = var_a1->unkD0;
     if (temp_v0 != NULL) {
-        *arg3 = (s32) ((f32) *arg3 * (D_8004BE90 - temp_v0->unk648));
+        *arg3 = (s32) ((f32) *arg3 * (gSfxFreqScale - temp_v0->unk648));
     }
     return 1;
 }

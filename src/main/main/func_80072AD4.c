@@ -15,11 +15,11 @@ s32 contPakFetchNote(void *, s32, void *);              /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
-extern s32 D_80093EC8;
-extern s32 D_80093ECC;
-extern Unk D_801887D0;
-extern s32 D_80188938;
-extern s32 D_80188940;
+extern s32 gContPakNoteAttr;
+extern s32 gContPakSaveData;
+extern Unk gHandlerCtx;
+extern s32 gContPakHandlerPhase;
+extern s32 gContPakResult;
 
 void contPakCreateNote(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     u16 sp44;
@@ -43,28 +43,28 @@ void contPakCreateNote(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32)) {
     temp_s1 = sfxGetEntry(temp_s0) + temp_v0;
     arg3(temp_s0_2);
     *(s32*)((char*)temp_s1 - 4)= calcHash(temp_s0_2, temp_v0 - 4);
-    D_80188940 = 0;
+    gContPakResult = 0;
 loop_1:
-    D_801887D0.unk168 = 1;
-    temp_s0_3 = (arg1 * 4) + &D_801887D0;
+    gHandlerCtx.unk168 = 1;
+    temp_s0_3 = (arg1 * 4) + &gHandlerCtx;
     if ((temp_s0_3->unk31C != 2) || (temp_s0_3->unk34C != 0)) {
         entityClearSlots(arg1, 2);
         if (temp_s0_3->unk31C != 2) {
-            D_801887D0.unk168 = 0;
+            gHandlerCtx.unk168 = 0;
         }
     }
-    if (D_801887D0.unk168 != 0) {
-        temp_s0_4 = (arg1 * 0x68) + (&D_801887D0 + 0x17C);
-        temp_v0_3 = contPakReadNote(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp40);
+    if (gHandlerCtx.unk168 != 0) {
+        temp_s0_4 = (arg1 * 0x68) + (&gHandlerCtx + 0x17C);
+        temp_v0_3 = contPakReadNote(temp_s0_4, gContPakNoteCode, gGameID, &gContPakSaveData, &gContPakNoteAttr, &sp40);
         switch (temp_v0_3) {                        /* irregular */
         case 0:
             if (entityStepState(contPakFetchNote(temp_s0_4, sp40, &sp20), arg1, temp_v0) == 0) {
-                if (D_801887D0.unk168 != 0) {
+                if (gHandlerCtx.unk168 != 0) {
                     if (sp20 != temp_v0) {
-                        if (entityStepState(contPakLoadSave(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8), arg1, temp_v0) == 0) {
-                            if (D_801887D0.unk168 != 0) {
+                        if (entityStepState(contPakLoadSave(temp_s0_4, gContPakNoteCode, gGameID, &gContPakSaveData, &gContPakNoteAttr), arg1, temp_v0) == 0) {
+                            if (gHandlerCtx.unk168 != 0) {
                             case 5:
-                                if (entityStepState(contPakAllocNote(temp_s0_4, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, temp_v0, &sp40), arg1, temp_v0) == 0) {
+                                if (entityStepState(contPakAllocNote(temp_s0_4, gContPakNoteCode, gGameID, &gContPakSaveData, &gContPakNoteAttr, temp_v0, &sp40), arg1, temp_v0) == 0) {
                                     goto block_20;
                                 }
                                 goto loop_1;
@@ -75,9 +75,9 @@ loop_1:
                     }
 block_19:
 block_20:
-                    if (D_801887D0.unk168 != 0) {
-                        if (entityStepState(contPakWriteNote((arg1 * 0x68) + (&D_801887D0 + 0x17C), sp40, 1, 0, temp_v0, sfxGetEntry(sp44)), arg1, temp_v0) == 0) {
-                            if (D_801887D0.unk168 == 0) {
+                    if (gHandlerCtx.unk168 != 0) {
+                        if (entityStepState(contPakWriteNote((arg1 * 0x68) + (&gHandlerCtx + 0x17C), sp40, 1, 0, temp_v0, sfxGetEntry(sp44)), arg1, temp_v0) == 0) {
+                            if (gHandlerCtx.unk168 == 0) {
                                 goto block_23;
                             }
                         } else {
@@ -95,7 +95,7 @@ block_20:
             break;
         default:
             if (entityStepState(temp_v0_3, arg1, temp_v0) == 0) {
-                D_80188938 = 0;
+                gContPakHandlerPhase = 0;
                 goto block_19;
             }
             goto loop_1;
@@ -106,5 +106,5 @@ block_24:
         handlerPostCmd(0x56, arg1, 0, 0, 0, 0, 0);
     }
     sfxPlay(sp44);
-    D_801887D0.unk160 = (s32) (D_801887D0.unk160 - 1);
+    gHandlerCtx.unk160 = (s32) (gHandlerCtx.unk160 - 1);
 }

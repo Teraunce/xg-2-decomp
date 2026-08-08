@@ -1,11 +1,11 @@
 #include "ultra64.h"
 s32 vec3Normalize(f32, f32 *, f32 *);                 /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
-extern f32 D_8004BDC4;
-extern f32 D_8004BDC8;
-extern f32 D_8004BDCC;
-extern f32 D_8004BDD0;
-extern f32 D_8004BDD4;
+extern f32 gGeomParamD;
+extern f32 gGeomParamE;
+extern f32 gGeomParamF;
+extern f32 gGeomParamG;
+extern f32 gGeomParamH;
 
 void mtxLookAt(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp78;
@@ -34,13 +34,13 @@ void mtxLookAt(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 
     temp_ft3 = -arg3;
     sp78 = temp_ft3;
     if ((temp_ft1 == 0.0f) && (temp_ft2 == 0.0f) && (temp_ft3 == 0.0f)) {
-        sp78 = D_8004BDC4;
+        sp78 = gGeomParamD;
     }
     if (sp60 == 0.0f) {
         var_a0 = &sp70;
         if (sp64 == 0.0f) {
             if (sp68 == 0.0f) {
-                sp64 = D_8004BDC8;
+                sp64 = gGeomParamE;
                 goto block_8;
             }
         }
@@ -51,7 +51,7 @@ block_8:
     vec3Cross(var_a0, &sp60, &sp50);
     var_ft0 = sqrtf((sp50 * sp50) + (sp54 * sp54) + (sp58 * sp58));
     if (var_ft0 == 0.0f) {
-        sp68 += D_8004BDCC;
+        sp68 += gGeomParamF;
         vec3Cross(&sp60, &sp50, &sp54);
         var_ft0 = sqrtf((sp50 * sp50) + (sp54 * sp54) + (sp58 * sp58));
     }
@@ -61,7 +61,7 @@ block_8:
     vec3Cross(&sp50, &sp60, &sp64);
     var_ft0_2 = sqrtf((sp60 * sp60) + (sp64 * sp64) + (sp68 * sp68));
     if (var_ft0_2 == 0.0f) {
-        sp74 += D_8004BDD0;
+        sp74 += gGeomParamG;
         vec3Cross(&sp50, &sp60, &sp64);
         var_ft0_2 = sqrtf((sp60 * sp60) + (sp64 * sp64) + (sp68 * sp68));
     }
@@ -83,6 +83,6 @@ block_8:
     arg0->unk30 = 0.0f;
     arg0->unk34 = 0.0f;
     arg0->unk38 = 0.0f;
-    arg0->unk3C = (f32) D_8004BDD4;
+    arg0->unk3C = (f32) gGeomParamH;
     arg0->unk28 = sp78;
 }

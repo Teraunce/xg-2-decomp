@@ -2,10 +2,10 @@
 /* Warning: missing "jr $ra" in last block of gameModeResetGetter (initial). */
 
 void audioQueuePlay(s32, f32, s32, s8, s32);           /* extern */
-extern f32 D_8004BF48;
-extern f32 D_8004BF4C;
-extern f32 D_8004BF50;
-extern Unk D_80181588;
+extern f32 gCamAvgScale;
+extern f32 gCamAvgClamp;
+extern f32 gSfxListenerScale;
+extern Unk gSfxListenerPos;
 
 void audioPlayNormalized(f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6) {
     Unk *var_s0;
@@ -22,19 +22,19 @@ void audioPlayNormalized(f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32 a
     var_ft0 = arg2;
     var_ft1 = arg3;
     var_ft3 = arg4;
-    temp_fv1 = (var_ft2 + var_ft0 + var_ft1 + var_ft3) * D_8004BF48;
-    if (D_8004BF4C < temp_fv1) {
+    temp_fv1 = (var_ft2 + var_ft0 + var_ft1 + var_ft3) * gCamAvgScale;
+    if (gCamAvgClamp < temp_fv1) {
         var_ft2 /= temp_fv1;
         var_ft0 /= temp_fv1;
         var_ft1 /= temp_fv1;
         var_ft3 /= temp_fv1;
     }
     var_s1 = 0;
-    var_s0 = &D_80181588;
-    D_80181588.unk0 = (s32) (var_ft2 * D_8004BF50);
-    D_80181588.unk4 = (s32) (var_ft0 * D_8004BF50);
-    D_80181588.unk8 = (s32) (var_ft1 * D_8004BF50);
-    D_80181588.unkC = (s32) (var_ft3 * D_8004BF50);
+    var_s0 = &gSfxListenerPos;
+    gSfxListenerPos.unk0 = (s32) (var_ft2 * gSfxListenerScale);
+    gSfxListenerPos.unk4 = (s32) (var_ft0 * gSfxListenerScale);
+    gSfxListenerPos.unk8 = (s32) (var_ft1 * gSfxListenerScale);
+    gSfxListenerPos.unkC = (s32) (var_ft3 * gSfxListenerScale);
     do {
         temp_a0 = var_s0->unk10;
         temp_a2 = var_s0->unk0;

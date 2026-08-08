@@ -4,7 +4,7 @@
 f32 cosf(f32);                             /* cosf */
 void guMtxIdent(Unk*);                           /* extern */
 f32 sinf(f32);                             /* sinf */
-extern f32 D_80189808;
+extern f32 gMtxScaleOut2;
 
 /*
  * mtxEulerRotF — build Euler-angle (YXZ) rotation matrix (nonmatching).
@@ -12,7 +12,7 @@ extern f32 D_80189808;
  * Called via GETTER preamble (mtxEulerRotGetter) which loads a scale factor into
  * $fv0/$f0. At function entry, arg2 and arg3 are pre-multiplied by scale_fv0
  * (via `mul.s $fa1,$fa1,$fv0` and `mul.s $ft4,$ft4,$fv0`), and scale_fv0 is
- * stored to D_80189808. scale_fv0 is not expressible as a standard C parameter.
+ * stored to gMtxScaleOut2. scale_fv0 is not expressible as a standard C parameter.
  *
  * arg1 = yaw   ($fa0/$f12), unscaled
  * arg2 = pitch ($fa1/$f14), scaled at entry

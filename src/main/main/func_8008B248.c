@@ -5,8 +5,8 @@ s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
 void siInitPollCmd(s32);                                 /* extern */
 s32 contParsePollRespGetter(void *, s32 (*)[]);                    /* extern */
-extern u8 D_8018AD69;
-extern s32 D_8018ADB8;
+extern u8 gSfxVoiceCount;
+extern s32 gSiReadBuf;
 
 s32 siQueryControllers(s32 arg0, u8 *arg1) {
     Unk *sp = (Unk*)0;
@@ -27,30 +27,30 @@ s32 siQueryControllers(s32 arg0, u8 *arg1) {
     __siLock();
     do {
         siInitPollCmd(0);
-        sp3C = osSiRawStartDma(1, &D_8018ADB8);
+        sp3C = osSiRawStartDma(1, &gSiReadBuf);
         osRecvMesg(arg0, &sp38, 1);
-        sp3C = osSiRawStartDma(0, &D_8018ADB8);
+        sp3C = osSiRawStartDma(0, &gSiReadBuf);
         osRecvMesg(arg0, &sp38, 1);
         contParsePollRespGetter(&sp37, (s32 (*)[]) (void*) &sp24[0]);
         sp20 = 0;
-        if ((s32) D_8018AD69 > 0) {
+        if ((s32) gSfxVoiceCount > 0) {
 loop_2:
             if (!((sp + (sp20 * 4))->unk26 & 4)) {
                 sp18 -= 1;
             } else {
                 temp_t5 = sp20 + 1;
                 sp20 = temp_t5;
-                if (temp_t5 < (s32) D_8018AD69) {
+                if (temp_t5 < (s32) gSfxVoiceCount) {
                     goto loop_2;
                 }
             }
         }
-        if (D_8018AD69 == sp20) {
+        if (gSfxVoiceCount == sp20) {
             sp18 = 0;
         }
     } while (sp18 > 0);
     sp20 = 0;
-    if ((s32) D_8018AD69 > 0) {
+    if ((s32) gSfxVoiceCount > 0) {
         do {
             temp_t4 = &(&sp24[0])[sp20];
             if ((temp_t4->unk3 == 0) && (temp_t4->unk2 & 1)) {
@@ -58,7 +58,7 @@ loop_2:
             }
             temp_t5_2 = sp20 + 1;
             sp20 = temp_t5_2;
-        } while (temp_t5_2 < (s32) D_8018AD69);
+        } while (temp_t5_2 < (s32) gSfxVoiceCount);
     }
     __siUnlock();
     *arg1 = sp1F;

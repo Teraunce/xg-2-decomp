@@ -16,7 +16,7 @@ typedef struct {
 
 s32 osVirtualToPhysical(u32);                             /* extern */
 s32 memmove(s32, s32, s32);                       /* extern */
-extern s32 D_80189AA8;
+extern s32 gViThreadCtx;
 
 char *spTaskLoad(s32 arg0) {
     UnkStruct_sp1C *sp1C;
@@ -28,8 +28,8 @@ char *spTaskLoad(s32 arg0) {
     s32 temp_t7;
     s32 temp_t8;
 
-    sp1C = &D_80189AA8;
-    memmove(arg0, &D_80189AA8, 0x40);
+    sp1C = &gViThreadCtx;
+    memmove(arg0, &gViThreadCtx, 0x40);
     temp_t8 = sp1C->unk10;
     if (temp_t8 != 0) {
         sp1C->unk10 = osVirtualToPhysical(temp_t8);

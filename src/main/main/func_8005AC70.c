@@ -2,12 +2,12 @@
 void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void viSwapBuffers(Unk*);                               /* extern */
 s32 audioGetRspCount();                                  /* extern */
-extern s32 D_8017CE08;
-extern s16 D_8017D2EE;
-extern s32 D_8017D2F8;
-extern s16 D_8017D7DC;
-extern s32 D_8017DA58;
-extern s32 D_80190000;
+extern s32 gTrackEdgeData;
+extern s16 gSfxStreamEnd;
+extern s32 gTrackEdgeTable;
+extern s16 gSfxStreamPos;
+extern s32 gAudioStreamBuf;
+extern s32 gAudioDmaBuf;
 
 void audioDecodeLZSS(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
     u32 sp1038;
@@ -54,7 +54,7 @@ void audioDecodeLZSS(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
                 if (sp1034 >= sp1038) {
                     viSwapBuffers(&sp1028);
                 }
-                temp_v0 = *(sp1034 + (sp1030 << 0xA) + &D_80190000);
+                temp_v0 = *(sp1034 + (sp1030 << 0xA) + &gAudioDmaBuf);
                 sp1034 += 1;
                 var_s4 = temp_v0 | 0xFF00;
                 var_v0_2 = var_s4 & 1;
@@ -67,7 +67,7 @@ void audioDecodeLZSS(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
                 }
                 var_s0 = (var_s0 + 1) & 0xFFF;
                 var_s3 += 1;
-                temp_v0_2 = *(sp1034 + (sp1030 << 0xA) + &D_80190000);
+                temp_v0_2 = *(sp1034 + (sp1030 << 0xA) + &gAudioDmaBuf);
                 sp1034 += 1;
                 *var_a0 = temp_v0_2;
                 *var_s2 = temp_v0_2;
@@ -76,14 +76,14 @@ void audioDecodeLZSS(s32 arg0, u8 *arg1, s32 arg2, s32 arg3) {
                 if (sp1034 >= sp1038) {
                     viSwapBuffers(&sp1028);
                 }
-                temp_a0 = *(sp1034 + (sp1030 << 0xA) + &D_80190000);
+                temp_a0 = *(sp1034 + (sp1030 << 0xA) + &gAudioDmaBuf);
                 temp_v1 = sp1034 + 1;
                 sp1034 = temp_v1;
                 if (temp_v1 >= sp1038) {
                     viSwapBuffers(&sp1028);
                 }
                 var_a1 = 0;
-                temp_v0_3 = *(sp1034 + (sp1030 << 0xA) + &D_80190000);
+                temp_v0_3 = *(sp1034 + (sp1030 << 0xA) + &gAudioDmaBuf);
                 temp_s1 = temp_a0 | ((temp_v0_3 & 0xF0) * 0x10);
                 temp_a0_2 = (temp_v0_3 & 0xF) + 2;
                 sp1034 += 1;
@@ -124,9 +124,9 @@ void audioInitDecodeTable(void) {
     do {
         temp_v0_2 = var_v0 >> 0x10;
         temp_a0 = temp_v0_2 * 2;
-        *(temp_a0 + &D_8017CE08) = 1;
-        *(temp_a0 + &D_8017DA58) = var_t0 + 0x273;
-        *(((temp_v0_2 + 0x273) * 2) + &D_8017D2F8) = var_t0;
+        *(temp_a0 + &gTrackEdgeData) = 1;
+        *(temp_a0 + &gAudioStreamBuf) = var_t0 + 0x273;
+        *(((temp_v0_2 + 0x273) * 2) + &gTrackEdgeTable) = var_t0;
         temp_v0 = var_t0 + 1;
         var_t0 = temp_v0;
         var_v0 = var_t0 << 0x10;
@@ -137,14 +137,14 @@ void audioInitDecodeTable(void) {
         temp_a2 = (s32) (var_t1 << 0x10) >> 0xF;
         temp_a3 = var_t0_2 * 2;
         temp_v0_4 = (var_t0_2 + 1) * 2;
-        *(temp_a2 + &D_8017CE08) = *(temp_a3 + &D_8017CE08) + *(temp_v0_4 + &D_8017CE08);
-        *(temp_a2 + &D_8017DA58) = var_t0_2;
-        *(temp_v0_4 + &D_8017D2F8) = var_t1;
+        *(temp_a2 + &gTrackEdgeData) = *(temp_a3 + &gTrackEdgeData) + *(temp_v0_4 + &gTrackEdgeData);
+        *(temp_a2 + &gAudioStreamBuf) = var_t0_2;
+        *(temp_v0_4 + &gTrackEdgeTable) = var_t1;
         temp_v0_3 = var_t1 + 1;
-        *(temp_a3 + &D_8017D2F8) = var_t1;
+        *(temp_a3 + &gTrackEdgeTable) = var_t1;
         var_t1 = temp_v0_3;
         var_t0_2 += 2;
     } while (temp_v0_3 < 0x273);
-    D_8017D2EE = 0xFFFF;
-    D_8017D7DC = 0;
+    gSfxStreamEnd = 0xFFFF;
+    gSfxStreamPos = 0;
 }

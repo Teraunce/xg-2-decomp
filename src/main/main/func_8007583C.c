@@ -4,10 +4,10 @@ void intRestore(s32);                               /* extern */
 void __osPiRawWriteIo(s32*, s32);                              /* extern */
 void osExceptionInstall();                                  /* extern */
 extern u32 osTvType;
-extern s32 D_80093F50;
-extern s32 D_80093F60;
-extern s8 D_80189168;
-extern s8 D_8018916A;
+extern s32 gSramPhysAddr;
+extern s32 gSramMappedAddr;
+extern s8 gSramInit;
+extern s8 gSramReady;
 
 void sramHwInit(void) {
     s32 temp_a0;
@@ -17,13 +17,13 @@ void sramHwInit(void) {
     osExceptionInstall();
     __osPiRawWriteIo(0xB1FFFFF0, 0);
     __osPiRawWriteIo(0xB1FFFFFC, 0);
-    D_80189168 = 1;
-    D_8018916A = 0xFF;
+    gSramInit = 1;
+    gSramReady = 0xFF;
     if ((u32) osTvType > 0x3FFFFFU) {
         temp_a0 = osTvType - 1;
         if (!(osTvType & 0x1FFFF) & ((u32) osTvType <= 0x02000000U)) {
-            D_80093F50 = temp_a0 - 0x80000000;
-            D_80093F60 = temp_a0 + 0xA0000000;
+            gSramPhysAddr = temp_a0 - 0x80000000;
+            gSramMappedAddr = temp_a0 + 0xA0000000;
         }
     }
     intRestore(temp_s0);

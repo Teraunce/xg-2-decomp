@@ -1,7 +1,7 @@
 #include "ultra64.h"
 s32 osVirtualToPhysical(u32);                       /* extern */
-extern f64 D_8004CF60;
-extern f32 D_8004CF68;
+extern f64 gAudioNodeClampFD;
+extern f32 gAudioNodeClampF;
 
 s32 audioVoiceNodeCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg4) {
     char *sp48;
@@ -27,8 +27,8 @@ s32 audioVoiceNodeCmd(Unk *arg0, s16 *arg1, s32 arg2, s32 arg4) {
         var_a1 = temp_v0 + 8;
         temp_v0->unk4 = (s32) ((*arg1 << 0x10) | ((arg2 * 2) & 0xFFFF));
     } else {
-        if (D_8004CF60 < (f64) arg0->unk18) {
-            arg0->unk18 = (f32) D_8004CF68;
+        if (gAudioNodeClampFD < (f64) arg0->unk18) {
+            arg0->unk18 = (f32) gAudioNodeClampF;
         }
         arg0->unk18 = (f32) (s32) (arg0->unk18 * 32768.0f);
         arg0->unk18 = (f32) (arg0->unk18 / 32768.0f);

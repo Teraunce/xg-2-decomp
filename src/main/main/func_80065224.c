@@ -1,8 +1,8 @@
 #include "ultra64.h"
 void rdpStateInit();                                  /* extern */
-extern s32 D_800930A8;
-extern s32 D_801823F4;
-extern s32 D_80182404;
+extern s32 gSfxDL;
+extern s32 gFontCacheKey;
+extern s32 gGlyphCacheIdx;
 
 void rdpRunSetupDL(void **arg0) {
     Unk *temp_v0;
@@ -10,8 +10,8 @@ void rdpRunSetupDL(void **arg0) {
     temp_v0 = *arg0;
     *arg0 = temp_v0 + 8;
     temp_v0->unk0 = 0xDE000000;
-    temp_v0->unk4 = &D_800930A8;
+    temp_v0->unk4 = &gSfxDL;
     rdpStateInit();
-    D_801823F4 = 0;
-    D_80182404 = -1;
+    gFontCacheKey = 0;
+    gGlyphCacheIdx = -1;
 }

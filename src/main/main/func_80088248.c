@@ -1,6 +1,6 @@
 #include "ultra64.h"
-extern s32 D_8018AD28;
-extern u8 D_8018AD69;
+extern s32 gSiCmdBuf;
+extern u8 gSfxVoiceCount;
 
 void contParseReadResp(u8 *arg0, char *arg1) {
     Unk *sp14;
@@ -13,7 +13,7 @@ void contParseReadResp(u8 *arg0, char *arg1) {
 
     var_a1 = arg1;
     sp7 = 0;
-    sp14 = &D_8018AD28;
+    sp14 = &gSiCmdBuf;
     sp8 = 0;
     if ((s32)0 /* implicit $t7 from caller */ > 0) {
         do {
@@ -29,7 +29,7 @@ void contParseReadResp(u8 *arg0, char *arg1) {
             sp14 += 8;
             sp8 = temp_t7;
             var_a1 += 4;
-        } while (temp_t7 < (s32) D_8018AD69);
+        } while (temp_t7 < (s32) gSfxVoiceCount);
     }
     *arg0 = sp7;
 }

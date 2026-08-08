@@ -1,7 +1,7 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of func_8005F528 (initial). */
 
-extern s32 D_80181648;
+extern s32 gRacePhase;
 
 /*
  * geomCollisionDispatch — collision/geometry sub-dispatcher (nonmatching).
@@ -30,5 +30,5 @@ void geomCollisionDispatch(void) { /* nonmatching — see asm stub */ }
 
 s32 func_8005F528(void) {
     audioQueueStopAll();
-    return D_80181648;
+    return gRacePhase;
 }

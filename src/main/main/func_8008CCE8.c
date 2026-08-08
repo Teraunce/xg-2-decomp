@@ -4,11 +4,11 @@
 s32 osContPakWrite(s32, s32, u16, s32, s32);           /* extern */
 s32 osContPakRead(s32, s32, u16, u8*);                /* extern */
 void contPakBuildCmd(s32, u16, u8*, void *);               /* extern */
-extern s32 D_8018ADF8;
-extern s32 D_8018AEF8;
-extern s32 D_8018AFF8;
-extern s32 D_8018B018;
-extern s32 D_A4600010;
+extern s32 gContPakDmaBufA;
+extern s32 gContPakDmaBufB;
+extern s32 gContPakCmdBufA;
+extern s32 gContPakCmdBufB;
+extern s32 PI_STATUS_REG;
 
 s32 contPakBuildMap(s32 arg0, Unk *arg1, s32 arg2) {
     Unk *sp = (Unk*)0;
@@ -47,17 +47,17 @@ s32 contPakBuildMap(s32 arg0, Unk *arg1, s32 arg2) {
     }
     sp44 = 0;
     do {
-        *(&D_8018B018 + sp44) = 1;
-        *(&D_8018AFF8 + sp44) = 0;
+        *(&gContPakCmdBufB + sp44) = 1;
+        *(&gContPakCmdBufA + sp44) = 0;
         temp_t9 = sp44 + 1;
         sp44 = temp_t9;
     } while (temp_t9 < 0x20);
-    contPakBuildCmd(arg2, 0x600, &D_8018B018, (arg2 << 6) + &D_8018AEF8);
-    contPakBuildCmd(arg2, 0x600, &D_8018AFF8, (arg2 << 6) + &D_8018ADF8);
+    contPakBuildCmd(arg2, 0x600, &gContPakCmdBufB, (arg2 << 6) + &gContPakDmaBufB);
+    contPakBuildCmd(arg2, 0x600, &gContPakCmdBufA, (arg2 << 6) + &gContPakDmaBufA);
     return 0;
 }
 
 s32 osEPiRawReadIo_cart(s32, s32 *, s32);              /* extern */
 s32 osEPiRawReadIoCart(s32 arg0, s32 *arg1) {
-    return osEPiRawReadIo_cart(arg0, arg1, D_A4600010);  /* GETTER_NOJR: preloads D_A4600010→$a2 */
+    return osEPiRawReadIo_cart(arg0, arg1, PI_STATUS_REG);  /* GETTER_NOJR: preloads PI_STATUS_REG→$a2 */
 }

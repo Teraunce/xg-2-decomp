@@ -1,7 +1,7 @@
 #include "ultra64.h"
-extern s32 D_8018AD28;
-extern s32 D_8018AD64;
-extern u8 D_8018AD69;
+extern s32 gSiCmdBuf;
+extern s32 gSiWriteReady;
+extern u8 gSfxVoiceCount;
 
 void siInitControllerReadCmd(s32 arg0) {
     Unk *spC;
@@ -19,12 +19,12 @@ void siInitControllerReadCmd(s32 arg0) {
 
     sp0 = 0;
     do {
-        *(&D_8018AD28 + (sp0 * 4)) = 0;
+        *(&gSiCmdBuf + (sp0 * 4)) = 0;
         temp_t9 = sp0 + 1;
         sp0 = temp_t9;
     } while (temp_t9 < 0x10);
-    D_8018AD64 = 1;
-    spC = &D_8018AD28;
+    gSiWriteReady = 1;
+    spC = &gSiCmdBuf;
     sp4 = 0xFF;
     sp5 = 1;
     sp6 = 3;
@@ -34,14 +34,14 @@ void siInitControllerReadCmd(s32 arg0) {
     spA = 0xFF;
     spB = 0xFF;
     sp0 = 0;
-    if ((s32) D_8018AD69 > 0) {
+    if ((s32) gSfxVoiceCount > 0) {
         do {
             spC->unk0 = (s32) ((Unk*)&sp4)->unk0;
             spC->unk4 = (s32) ((Unk*)&sp4)->unk4;
             temp_t7 = sp0 + 1;
             sp0 = temp_t7;
             spC += 8;
-        } while (temp_t7 < (s32) D_8018AD69);
+        } while (temp_t7 < (s32) gSfxVoiceCount);
     }
     spC->unk0 = 0xFE;
 }

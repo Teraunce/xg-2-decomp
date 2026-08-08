@@ -2,12 +2,12 @@
 s32 osSendMesg(Unk*, s32, s32);                  /* extern */
 s32 osSendMesgImpl(Unk*, s32, s32);                  /* extern */
 s32 piGetHandle();                                /* extern */
-extern s32 D_80096480;
+extern s32 gFontData;
 
 s32 spTaskSubmit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     s32 var_v0;
 
-    if (D_80096480 == 0) {
+    if (gFontData == 0) {
         return -1;
     }
     if (arg2 == 0) {

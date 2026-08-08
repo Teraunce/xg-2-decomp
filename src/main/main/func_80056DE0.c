@@ -1,5 +1,5 @@
 #include "ultra64.h"
-extern f32 D_8004BD9C;
+extern f32 gMtxPackInitF;
 
 /*
  * rdpMtxPackRow — pack RDP command words from truncated float values (nonmatching).
@@ -42,7 +42,7 @@ void mtxNodeInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk30 = 0;
     arg0->unk34 = 0;
     arg0->unk38 = 0;
-    arg0->unk3C = (f32) D_8004BD9C;
+    arg0->unk3C = (f32) gMtxPackInitF;
 }
 
 /* -------------------------------------------------------------------------

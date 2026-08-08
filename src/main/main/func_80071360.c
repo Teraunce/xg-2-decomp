@@ -1,6 +1,6 @@
 #include "ultra64.h"
 s32 handlerPostCmd(s32, s32, s32, s32, s32, s32, s32);       /* extern */
-extern Unk D_801887D0;
+extern Unk gHandlerCtx;
 
 void contPakHandlerStatus(s32 arg0) {
     Unk *var_a0;
@@ -9,7 +9,7 @@ void contPakHandlerStatus(s32 arg0) {
 
     var_v1 = 0;
     if (arg0 > 0) {
-        var_a0 = &D_801887D0;
+        var_a0 = &gHandlerCtx;
 loop_2:
         temp_v0 = var_a0->unk31C;
         if (temp_v0 != 2) {
@@ -24,9 +24,9 @@ loop_2:
         }
     } else {
 block_5:
-        if (D_801887D0.unk170 != 0) {
+        if (gHandlerCtx.unk170 != 0) {
             handlerPostCmd(0x51, arg0, 0, 0, 0, 0, 0);
-            D_801887D0.unk170 = 0;
+            gHandlerCtx.unk170 = 0;
             return;
         }
         handlerPostCmd(0x41, arg0, 0, 0, 0, 0, 0);

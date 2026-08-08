@@ -11,14 +11,14 @@ s32 __osGetSR();                                /* static */
 s32 __osGetFpcsr(s32);                               /* static */
 void __osSetSR(s32);                            /* static */
 void __osInitTLB();                               /* static */
-extern s32 D_80000000;
+extern s32 gExcBase;
 extern s32 osMemSize;
 extern s32 osResetType;
 extern s32 osVersion;
 extern u32 gCpuClockHi;
 extern s32 gCpuClock;
 extern s32 gAiClock;
-extern s32 D_80189828;
+extern s32 gMtxScaleFlag;
 extern Unk __osException;
 
 void osInitialize(void) {
@@ -31,7 +31,7 @@ void osInitialize(void) {
     u32 temp_t9;
 
     sp30 = 0;
-    D_80189828 = 1;
+    gMtxScaleFlag = 1;
     __osSetSR(__osGetSR() | 0x20000000);
     __osGetFpcsr(0x01000800);
     if (osEPiRawReadIo(0x1FC007FC, &sp34) != 0) {
@@ -44,10 +44,10 @@ void osInitialize(void) {
 
         } while (osEPiRawWriteIo(0x1FC007FC, sp34 | 8) != 0);
     }
-    D_80000000 = __osException.unk0;
-    D_80000000 = __osException.unk4;
-    D_80000000 = __osException.unk8;
-    D_80000000 = __osException.unkC;
+    gExcBase = __osException.unk0;
+    gExcBase = __osException.unk4;
+    gExcBase = __osException.unk8;
+    gExcBase = __osException.unkC;
     (( Unk*)0x80000080)->unk0 = (s32) __osException.unk0;
     (( Unk*)0x80000080)->unk4 = (s32) __osException.unk4;
     (( Unk*)0x80000080)->unk8 = (s32) __osException.unk8;

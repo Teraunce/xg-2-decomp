@@ -9,8 +9,8 @@ typedef struct {
 } UnkStruct_var_t5;
 
 s32 crc5Calc(s32);                             /* extern */
-extern s32 D_8018ADB8;
-extern s32 D_8018ADF4;
+extern s32 gSiReadBuf;
+extern s32 gContPakDmaReady;
 
 void siSetupWriteCmd(s32 arg0, u16 arg1, u8 *arg2) {
     Unk *sp = (Unk*)0;
@@ -31,14 +31,14 @@ void siSetupWriteCmd(s32 arg0, u16 arg1, u8 *arg2) {
     s8 *temp_t8;
     Unk *var_t6;
 
-    sp44 = &D_8018ADB8;
+    sp44 = &gSiReadBuf;
     sp18 = 0;
     do {
-        *(&D_8018ADB8 + (sp18 * 4)) = 0;
+        *(&gSiReadBuf + (sp18 * 4)) = 0;
         temp_t0 = sp18 + 1;
         sp18 = temp_t0;
     } while (temp_t0 < 0x10);
-    D_8018ADF4 = 1;
+    gContPakDmaReady = 1;
     sp1C = 0xFF;
     sp1D = 0x23;
     sp1E = 1;

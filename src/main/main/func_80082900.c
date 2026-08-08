@@ -1,6 +1,6 @@
 #include "ultra64.h"
 void sfxFlushTimers(Unk*);                            /* extern */
-extern f64 D_8004CEB0;
+extern f64 gAudioPitchConst;
 extern char *gPendingFlushFlag;
 
 char *audioBuildFrame(char *arg0, s32 *arg1, s32 arg2, s32 arg3) {
@@ -45,7 +45,7 @@ char *audioBuildFrame(char *arg0, s32 *arg1, s32 arg2, s32 arg3) {
     temp_v0 = spB4->unk10;
     temp_s1->unk1C = temp_v0;
     if ((temp_v0 - temp_s1->unk20) < var_s3) {
-        temp_fs0 = D_8004CEB0;
+        temp_fs0 = gAudioPitchConst;
         do {
             var_s0 = 0x7FFFFFFF;
             temp_s1->unk1C = (s32) (temp_s1->unk1C & ~0xF);

@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void trackNodeSearchNearest(f32 *, s32 *, f32, f32, f32, s32);  /* extern */
-extern f32 D_8004BBB4;
-extern s32 D_8017CC60;
+extern f32 gTrackSearchDist;
+extern s32 gEntityVisited;
 
 s32 trackNodeFindNearest(f32 arg0, f32 arg1, f32 arg2) {
     s32 sp1C;
@@ -17,7 +17,7 @@ s32 trackNodeFindNearest(f32 arg0, f32 arg1, f32 arg2) {
     if (temp_a0 == NULL) {
         return -1;
     }
-    var_v0 = &D_8017CC60 + 0x1F;
+    var_v0 = &gEntityVisited + 0x1F;
     do {
         *var_v0 = 0;
         var_v1 -= 1;
@@ -40,7 +40,7 @@ loop_5:
 block_8:
         sp1C = 0;
     }
-    sp18 = D_8004BBB4;
+    sp18 = gTrackSearchDist;
     trackNodeSearchNearest(&sp18, &sp1C, arg0, arg1, arg2, sp1C);
     return sp1C;
 }

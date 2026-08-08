@@ -1,10 +1,10 @@
 #include "ultra64.h"
 /* Warning: missing "jr $ra" in last block of contParsePollRespGetter (initial). */
 
-extern s8 D_8018AD68;
-extern u8 D_8018AD69;
-extern s32 D_8018ADB8;
-extern s32 D_8018ADF4;
+extern s8 gSiLocked;
+extern u8 gSfxVoiceCount;
+extern s32 gSiReadBuf;
+extern s32 gContPakDmaReady;
 
 void siInitPollCmd(s32 arg0) {
     Unk *spC;
@@ -22,15 +22,15 @@ void siInitPollCmd(s32 arg0) {
     s8 temp_a0;
 
     temp_a0 = arg0 & 0xFF;
-    D_8018AD68 = temp_a0;
+    gSiLocked = temp_a0;
     sp0 = 0;
     do {
-        *(&D_8018ADB8 + (sp0 * 4)) = 0;
+        *(&gSiReadBuf + (sp0 * 4)) = 0;
         temp_t9 = sp0 + 1;
         sp0 = temp_t9;
     } while (temp_t9 < 0x10);
-    D_8018ADF4 = 1;
-    spC = &D_8018ADB8;
+    gContPakDmaReady = 1;
+    spC = &gSiReadBuf;
     sp4 = 0xFF;
     sp5 = 1;
     sp6 = 3;
@@ -40,14 +40,14 @@ void siInitPollCmd(s32 arg0) {
     spA = 0xFF;
     spB = 0xFF;
     sp0 = 0;
-    if ((s32) D_8018AD69 > 0) {
+    if ((s32) gSfxVoiceCount > 0) {
         do {
             spC->unk0 = (s32) ((Unk*)&sp4)->unk0;
             spC->unk4 = (s32) ((Unk*)&sp4)->unk4;
             temp_t7 = sp0 + 1;
             sp0 = temp_t7;
             spC += 8;
-        } while (temp_t7 < (s32) D_8018AD69);
+        } while (temp_t7 < (s32) gSfxVoiceCount);
     }
     spC->unk0 = 0xFE;
 }

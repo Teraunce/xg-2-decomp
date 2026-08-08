@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void guMtxF2L(char*, char*);                          /* extern */
 void guMtxIdent(char*);                               /* extern */
-extern f32 D_8004C8E8;
+extern f32 gEulerScaleConst;
 
 void guTranslateF(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     f32 sp60;
@@ -18,5 +18,5 @@ void guTranslateF(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
 void mtxEulerScaleF(void);  /* forward: GETTER_NOJR fallthrough */
 void mtxEulerScaleFGetter(f32 arg1, s32 arg2, s32 arg3) {
-    mtxEulerScaleF();  /* GETTER_NOJR: loads D_8004C8E8 into $fv0, scales $fa0, falls into mtxEulerScaleF */
+    mtxEulerScaleF();  /* GETTER_NOJR: loads gEulerScaleConst into $fv0, scales $fa0, falls into mtxEulerScaleF */
 }

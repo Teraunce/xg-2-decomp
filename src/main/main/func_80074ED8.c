@@ -2,7 +2,7 @@
 s32 func_80074FA8();                                  /* extern */
 s32 getCOP0Status();                                /* extern */
 void setCOP0Status();                              /* extern */
-extern s32 D_80188E40;
+extern s32 gContPakWaitCnt;
 
 void intRestore(s32 arg0) {
     setCOP0Status(getCOP0Status() | arg0);
@@ -27,19 +27,19 @@ s32 __osPiRawReadIo(s32 *arg0) {
 }
 
 void __osPiResetCount(void) {
-    D_80188E40 = 0;
+    gContPakWaitCnt = 0;
     func_80074FA8();
 }
 
 /* -------------------------------------------------------------------------
  * __osPiWaitForCount — PI DMA busy-wait counter.
  *
- * Increments D_80188E40 each iteration and spins until D_80188E40 >= arg0.
+ * Increments gContPakWaitCnt each iteration and spins until gContPakWaitCnt >= arg0.
  * The branch-to-self pattern (bnez __osPiWaitForCount) caused m2c to fail;
  * translated here as a simple do-while.
  * ------------------------------------------------------------------------- */
 void __osPiWaitForCount(s32 arg0) {
     do {
-        D_80188E40++;
-    } while (D_80188E40 < arg0);
+        gContPakWaitCnt++;
+    } while (gContPakWaitCnt < arg0);
 }

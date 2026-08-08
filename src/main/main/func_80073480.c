@@ -2,27 +2,27 @@
 void gfxAddLineTex(s32, s8, s8, u16, u16, u16); /* extern */
 void gfxAddLineVtx(s32, s16, s16, s32, s32, s32, s32, s32, u32, u32, u32, u32); /* extern */
 void renderLineStrip(void**);                            /* extern */
-extern f32 D_8004C788;
-extern f32 D_8004C78C;
-extern f64 D_8004C790;
-extern f64 D_8004C798;
-extern f32 D_8004C7A0;
-extern f32 D_8004C7A4;
-extern f64 D_8004C7A8;
-extern f64 D_8004C7B0;
-extern f32 D_8004C7B8;
-extern f32 D_8004C7BC;
-extern f64 D_8004C7C0;
-extern f64 D_8004C7C8;
-extern f32 D_80178694;
-extern f32 D_8017869C;
-extern char *D_80188E20;
-extern s32 D_80188E24;
-extern s16 D_80188E2A;
-extern s32 D_80188E2C;
-extern s32 D_80188E30;
-extern s32 D_80188E34;
-extern s32 D_80188E38;
+extern f32 gTrackCurveCoeffF;
+extern f32 gTrackCurveCoeffE;
+extern f64 gTrackCurveStepD;
+extern f64 gTrackCurveStepC;
+extern f32 gTrackCurveCoeffD;
+extern f32 gTrackCurveCoeffC;
+extern f64 gTrackCurveStepB;
+extern f64 gTrackCurveStepA;
+extern f32 gTrackCurveCoeffB;
+extern f32 gTrackCurveCoeffA;
+extern f64 gTrackCurveStepY;
+extern f64 gTrackCurveStepX;
+extern f32 gTexScaleX;
+extern f32 gTexScaleY;
+extern char *gContPakCurEntry;
+extern s32 gContPakDetected;
+extern s16 gLineStripBright;
+extern s32 gLineStripFlagA;
+extern s32 gLineStripFlagB;
+extern s32 gLineStripFlagC;
+extern s32 gLineStripFlagD;
 
 void renderTexLine(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5, u32 arg6, s32 arg7) {
     f32 *sp50;
@@ -247,8 +247,8 @@ void renderTexLine(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5,
         var_s6 = 0;
         if (arg7 == 0) {
             temp_a2 = arg1 + temp_s7->unkC + 8;
-            if (temp_a2 != D_80188E20) {
-                if (D_80188E20 == NULL) {
+            if (temp_a2 != gContPakCurEntry) {
+                if (gContPakCurEntry == NULL) {
                     temp_v0 = *arg0;
                     *arg0 = temp_v0 + 8;
                     temp_v0->unk0 = 0xE7000000;
@@ -282,36 +282,36 @@ void renderTexLine(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5,
                 *arg0 = temp_v0_8 + 8;
                 temp_v0_8->unk0 = 0xE7000000;
                 temp_v0_8->unk4 = 0;
-                D_80188E20 = temp_a2;
+                gContPakCurEntry = temp_a2;
                 var_s6 = 0;
             }
         }
         var_s1 = arg1 + temp_s7->unk10;
         if (temp_s7->unk8 != 0) {
             sp38 = (s32) arg3;
-            var_t3 = &D_80178694;
-            temp_fs1 = D_8004C788;
-            temp_fs0 = D_8004C78C;
+            var_t3 = &gTexScaleX;
+            temp_fs1 = gTrackCurveCoeffF;
+            temp_fs0 = gTrackCurveCoeffE;
             sp3C = (s32) (s16) arg4;
             do {
                 var_fv1 = (f64) arg5;
                 if ((s32) arg5 < 0) {
-                    var_fv1 += D_8004C790;
+                    var_fv1 += gTrackCurveStepD;
                 }
                 var_fv1_2 = (f64) arg6;
                 temp_s2 = sp38 + (s32) ((f32) var_s1->unk4 * (f32) var_fv1 * temp_fs1);
                 if ((s32) arg6 < 0) {
-                    var_fv1_2 += D_8004C798;
+                    var_fv1_2 += gTrackCurveStepC;
                 }
                 temp_a3 = var_s1->unk0;
                 temp_a1 = var_s1 + 8;
                 temp_s4 = (u32) ((temp_a3 * arg5) + 0x3FFF) >> 0xE;
                 temp_s5 = (u32) ((var_s1->unk2 * arg6) + 0x3FFF) >> 0xE;
                 temp_s3 = sp3C + (s32) ((f32) var_s1->unk6 * (f32) var_fv1_2 * temp_fs1);
-                if (D_80188E24 != 0) {
+                if (gContPakDetected != 0) {
                     sp50 = var_t3;
                     gfxAddLineTex(temp_a1, 4, arg7, (s32) temp_a3, (s32) var_s1->unk2, 0);
-                    gfxAddLineVtx(arg0, (s32) (temp_s2 << 0xE) >> 0x10, (s32) (temp_s3 << 0xE) >> 0x10, (s32) (temp_s4 << 0xE) >> 0x10, (s32) (temp_s5 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1->unk0, (s32) (s16) var_s1->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
+                    gfxAddLineVtx(arg0, (s32) (temp_s2 << 0xE) >> 0x10, (s32) (temp_s3 << 0xE) >> 0x10, (s32) (temp_s4 << 0xE) >> 0x10, (s32) (temp_s5 << 0xE) >> 0x10, (s32) gLineStripBright, (s32) (s16) var_s1->unk0, (s32) (s16) var_s1->unk2, gLineStripFlagA, gLineStripFlagB, gLineStripFlagC, gLineStripFlagD);
                 } else {
                     if (arg7 != 0) {
                         temp_v0_9 = *arg0;
@@ -407,7 +407,7 @@ void renderTexLine(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5,
                     } else {
                         var_v1_4 = 0xE4000000;
                     }
-                    temp_ft1_2 = (s32) ((f32) (temp_s3 + temp_s5) * D_8017869C);
+                    temp_ft1_2 = (s32) ((f32) (temp_s3 + temp_s5) * gTexScaleY);
                     if ((s16) temp_ft1_2 > 0) {
                         var_v1_4 |= (s16) temp_ft1_2 & 0xFFF;
                     }
@@ -419,7 +419,7 @@ void renderTexLine(s32 **arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4, u32 arg5,
                         var_v0_3 = 0;
                     }
                     var_v1_5 = var_v0_3;
-                    temp_ft1_4 = (s32) ((f32) temp_s3 * D_8017869C);
+                    temp_ft1_4 = (s32) ((f32) temp_s3 * gTexScaleY);
                     if ((s16) temp_ft1_4 > 0) {
                         var_v1_5 |= (s16) temp_ft1_4 & 0xFFF;
                     }
@@ -451,10 +451,10 @@ block_47:
                     } else {
                         var_a1 = 0;
                     }
-                    temp_fv1_2 = (f32) temp_s3 * D_8017869C;
+                    temp_fv1_2 = (f32) temp_s3 * gTexScaleY;
                     var_v0_6 = var_a1;
                     if (temp_fv1_2 < 0.0f) {
-                        temp_ft1_7 = (s32) ((f32) sp34 / D_8017869C);
+                        temp_ft1_7 = (s32) ((f32) sp34 / gTexScaleY);
                         if ((s16) temp_ft1_7 < 0) {
                             var_v0_7 = (s32) ((s16) (s32) temp_fv1_2 * (s16) temp_ft1_7) >> 7;
                             if (var_v0_7 < 0) {
@@ -478,7 +478,7 @@ block_47:
                     } else {
                         var_a0 = (s32) (temp_fv0 - temp_fs0) | 0x80000000;
                     }
-                    temp_fv0_2 = (f32) sp34 / D_8017869C;
+                    temp_fv0_2 = (f32) sp34 / gTexScaleY;
                     if (!(temp_fs0 <= temp_fv0_2)) {
                         var_v0_8 = (s32) temp_fv0_2 & 0xFFFF;
                     } else {
@@ -497,8 +497,8 @@ block_47:
         var_s6_2 = 0;
         if (arg7 == 0) {
             temp_a2_2 = arg1 + temp_s7->unkC + 8;
-            if (temp_a2_2 != D_80188E20) {
-                if (D_80188E20 == NULL) {
+            if (temp_a2_2 != gContPakCurEntry) {
+                if (gContPakCurEntry == NULL) {
                     temp_v0_25 = *arg0;
                     *arg0 = temp_v0_25 + 8;
                     temp_v0_25->unk0 = 0xE7000000;
@@ -532,36 +532,36 @@ block_47:
                 *arg0 = temp_v0_32 + 8;
                 temp_v0_32->unk0 = 0xE7000000;
                 temp_v0_32->unk4 = 0;
-                D_80188E20 = temp_a2_2;
+                gContPakCurEntry = temp_a2_2;
                 var_s6_2 = 0;
             }
         }
         var_s1_2 = arg1 + temp_s7->unk10;
         if (temp_s7->unk8 != 0) {
             sp40 = (s32) arg3;
-            var_t3_2 = &D_80178694;
-            temp_fs1_2 = D_8004C7A0;
-            temp_fs0_2 = D_8004C7A4;
+            var_t3_2 = &gTexScaleX;
+            temp_fs1_2 = gTrackCurveCoeffD;
+            temp_fs0_2 = gTrackCurveCoeffC;
             sp44 = (s32) (s16) arg4;
             do {
                 var_fv1_3 = (f64) arg5;
                 if ((s32) arg5 < 0) {
-                    var_fv1_3 += D_8004C7A8;
+                    var_fv1_3 += gTrackCurveStepB;
                 }
                 var_fv1_4 = (f64) arg6;
                 temp_s2_2 = sp40 + (s32) ((f32) var_s1_2->unk4 * (f32) var_fv1_3 * temp_fs1_2);
                 if ((s32) arg6 < 0) {
-                    var_fv1_4 += D_8004C7B0;
+                    var_fv1_4 += gTrackCurveStepA;
                 }
                 temp_a3_2 = var_s1_2->unk0;
                 temp_a1_4 = var_s1_2 + 8;
                 temp_s4_2 = (u32) ((temp_a3_2 * arg5) + 0x3FFF) >> 0xE;
                 temp_s5_2 = (u32) ((var_s1_2->unk2 * arg6) + 0x3FFF) >> 0xE;
                 temp_s3_2 = sp44 + (s32) ((f32) var_s1_2->unk6 * (f32) var_fv1_4 * temp_fs1_2);
-                if (D_80188E24 != 0) {
+                if (gContPakDetected != 0) {
                     sp50 = var_t3_2;
                     gfxAddLineTex(temp_a1_4, 8, arg7, (s32) temp_a3_2, (s32) var_s1_2->unk2, 0);
-                    gfxAddLineVtx(arg0, (s32) (temp_s2_2 << 0xE) >> 0x10, (s32) (temp_s3_2 << 0xE) >> 0x10, (s32) (temp_s4_2 << 0xE) >> 0x10, (s32) (temp_s5_2 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1_2->unk0, (s32) (s16) var_s1_2->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
+                    gfxAddLineVtx(arg0, (s32) (temp_s2_2 << 0xE) >> 0x10, (s32) (temp_s3_2 << 0xE) >> 0x10, (s32) (temp_s4_2 << 0xE) >> 0x10, (s32) (temp_s5_2 << 0xE) >> 0x10, (s32) gLineStripBright, (s32) (s16) var_s1_2->unk0, (s32) (s16) var_s1_2->unk2, gLineStripFlagA, gLineStripFlagB, gLineStripFlagC, gLineStripFlagD);
                 } else {
                     if (arg7 != 0) {
                         temp_v0_33 = *arg0;
@@ -657,7 +657,7 @@ block_47:
                     } else {
                         var_v1_9 = 0xE4000000;
                     }
-                    temp_ft1_9 = (s32) ((f32) (temp_s3_2 + temp_s5_2) * D_8017869C);
+                    temp_ft1_9 = (s32) ((f32) (temp_s3_2 + temp_s5_2) * gTexScaleY);
                     if ((s16) temp_ft1_9 > 0) {
                         var_v1_9 |= (s16) temp_ft1_9 & 0xFFF;
                     }
@@ -669,7 +669,7 @@ block_47:
                         var_v0_12 = 0;
                     }
                     var_v1_10 = var_v0_12;
-                    temp_ft1_11 = (s32) ((f32) temp_s3_2 * D_8017869C);
+                    temp_ft1_11 = (s32) ((f32) temp_s3_2 * gTexScaleY);
                     if ((s16) temp_ft1_11 > 0) {
                         var_v1_10 |= (s16) temp_ft1_11 & 0xFFF;
                     }
@@ -701,10 +701,10 @@ block_113:
                     } else {
                         var_a1_2 = 0;
                     }
-                    temp_fv1_4 = (f32) temp_s3_2 * D_8017869C;
+                    temp_fv1_4 = (f32) temp_s3_2 * gTexScaleY;
                     var_v0_15 = var_a1_2;
                     if (temp_fv1_4 < 0.0f) {
-                        temp_ft1_14 = (s32) ((f32) sp34 / D_8017869C);
+                        temp_ft1_14 = (s32) ((f32) sp34 / gTexScaleY);
                         if ((s16) temp_ft1_14 < 0) {
                             var_v0_16 = (s32) ((s16) (s32) temp_fv1_4 * (s16) temp_ft1_14) >> 7;
                             if (var_v0_16 < 0) {
@@ -728,7 +728,7 @@ block_113:
                     } else {
                         var_a0_2 = (s32) (temp_fv0_3 - temp_fs0_2) | 0x80000000;
                     }
-                    temp_fv0_4 = (f32) sp34 / D_8017869C;
+                    temp_fv0_4 = (f32) sp34 / gTexScaleY;
                     if (!(temp_fs0_2 <= temp_fv0_4)) {
                         var_v0_17 = (s32) temp_fv0_4 & 0xFFFF;
                     } else {
@@ -744,10 +744,10 @@ block_113:
             goto block_189;
         }
     } else {
-        var_v0_9 = &D_80188E24;
+        var_v0_9 = &gContPakDetected;
         if (temp_v1 == 0x10) {
             var_s1_3 = arg1 + temp_s7->unk10;
-            if (D_80188E20 != NULL) {
+            if (gContPakCurEntry != NULL) {
                 temp_v0_49 = *arg0;
                 *arg0 = temp_v0_49 + 8;
                 temp_v0_49->unk0 = 0xE7000000;
@@ -756,34 +756,34 @@ block_113:
                 *arg0 = temp_v0_50 + 8;
                 temp_v0_50->unk0 = 0xE3001001;
                 temp_v0_50->unk4 = 0;
-                D_80188E20 = NULL;
+                gContPakCurEntry = NULL;
             }
             var_s6_3 = 0;
             if (temp_s7->unk8 != 0) {
                 sp48 = (s32) arg3;
-                var_t3_3 = &D_80178694;
-                temp_fs1_3 = D_8004C7B8;
-                temp_fs0_3 = D_8004C7BC;
+                var_t3_3 = &gTexScaleX;
+                temp_fs1_3 = gTrackCurveCoeffB;
+                temp_fs0_3 = gTrackCurveCoeffA;
                 sp4C = (s32) (s16) arg4;
                 do {
                     var_fv1_5 = (f64) arg5;
                     if ((s32) arg5 < 0) {
-                        var_fv1_5 += D_8004C7C0;
+                        var_fv1_5 += gTrackCurveStepY;
                     }
                     var_fv1_6 = (f64) arg6;
                     temp_s2_3 = sp48 + (s32) ((f32) var_s1_3->unk4 * (f32) var_fv1_5 * temp_fs1_3);
                     if ((s32) arg6 < 0) {
-                        var_fv1_6 += D_8004C7C8;
+                        var_fv1_6 += gTrackCurveStepX;
                     }
                     temp_a3_3 = var_s1_3->unk0;
                     temp_a1_7 = var_s1_3 + 8;
                     temp_s4_3 = (u32) ((temp_a3_3 * arg5) + 0x3FFF) >> 0xE;
                     temp_s5_3 = (u32) ((var_s1_3->unk2 * arg6) + 0x3FFF) >> 0xE;
                     temp_s3_3 = sp4C + (s32) ((f32) var_s1_3->unk6 * (f32) var_fv1_6 * temp_fs1_3);
-                    if (D_80188E24 != 0) {
+                    if (gContPakDetected != 0) {
                         sp50 = var_t3_3;
                         gfxAddLineTex(temp_a1_7, 0x10, arg7, (s32) temp_a3_3, (s32) var_s1_3->unk2, 0);
-                        gfxAddLineVtx(arg0, (s32) (temp_s2_3 << 0xE) >> 0x10, (s32) (temp_s3_3 << 0xE) >> 0x10, (s32) (temp_s4_3 << 0xE) >> 0x10, (s32) (temp_s5_3 << 0xE) >> 0x10, (s32) D_80188E2A, (s32) (s16) var_s1_3->unk0, (s32) (s16) var_s1_3->unk2, D_80188E2C, D_80188E30, D_80188E34, D_80188E38);
+                        gfxAddLineVtx(arg0, (s32) (temp_s2_3 << 0xE) >> 0x10, (s32) (temp_s3_3 << 0xE) >> 0x10, (s32) (temp_s4_3 << 0xE) >> 0x10, (s32) (temp_s5_3 << 0xE) >> 0x10, (s32) gLineStripBright, (s32) (s16) var_s1_3->unk0, (s32) (s16) var_s1_3->unk2, gLineStripFlagA, gLineStripFlagB, gLineStripFlagC, gLineStripFlagD);
                     } else {
                         temp_v0_51 = *arg0;
                         *arg0 = temp_v0_51 + 8;
@@ -846,7 +846,7 @@ block_113:
                         } else {
                             var_v1_12 = 0xE4000000;
                         }
-                        temp_ft1_16 = (s32) ((f32) (temp_s3_3 + temp_s5_3) * D_8017869C);
+                        temp_ft1_16 = (s32) ((f32) (temp_s3_3 + temp_s5_3) * gTexScaleY);
                         if ((s16) temp_ft1_16 > 0) {
                             var_v1_12 |= (s16) temp_ft1_16 & 0xFFF;
                         }
@@ -858,7 +858,7 @@ block_113:
                             var_v0_20 = 0;
                         }
                         var_v1_13 = var_v0_20;
-                        temp_ft1_18 = (s32) ((f32) temp_s3_3 * D_8017869C);
+                        temp_ft1_18 = (s32) ((f32) temp_s3_3 * gTexScaleY);
                         if ((s16) temp_ft1_18 > 0) {
                             var_v1_13 |= (s16) temp_ft1_18 & 0xFFF;
                         }
@@ -890,10 +890,10 @@ block_171:
                         } else {
                             var_a1_4 = 0;
                         }
-                        temp_fv1_6 = (f32) temp_s3_3 * D_8017869C;
+                        temp_fv1_6 = (f32) temp_s3_3 * gTexScaleY;
                         var_v0_23 = var_a1_4;
                         if (temp_fv1_6 < 0.0f) {
-                            temp_ft1_21 = (s32) ((f32) sp34 / D_8017869C);
+                            temp_ft1_21 = (s32) ((f32) sp34 / gTexScaleY);
                             if ((s16) temp_ft1_21 < 0) {
                                 var_v0_24 = (s32) ((s16) (s32) temp_fv1_6 * (s16) temp_ft1_21) >> 7;
                                 if (var_v0_24 < 0) {
@@ -917,7 +917,7 @@ block_171:
                         } else {
                             var_a0_3 = (s32) (temp_fv0_5 - temp_fs0_3) | 0x80000000;
                         }
-                        temp_fv0_6 = (f32) sp34 / D_8017869C;
+                        temp_fv0_6 = (f32) sp34 / gTexScaleY;
                         if (!(temp_fs0_3 <= temp_fv0_6)) {
                             var_v0_25 = (s32) temp_fv0_6 & 0xFFFF;
                         } else {
@@ -930,7 +930,7 @@ block_171:
                 } while (var_s6_3 < (u16) temp_s7->unk8);
             }
 block_189:
-            var_v0_9 = &D_80188E24;
+            var_v0_9 = &gContPakDetected;
         }
     }
     if (*var_v0_9 != 0) {

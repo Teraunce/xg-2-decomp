@@ -2,35 +2,35 @@
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 void bzero(s32, s32);                           /* extern */
-extern char *D_8009649C;
-extern char *D_8018C288;
-extern u8 D_8018C28E;
-extern u8 D_8018C28F;
-extern u8 D_8018C290;
-extern s8 D_8018C291;
-extern char *D_8018C2FC;
-extern s32 D_A4600024;
-extern s32 D_A4600028;
-extern s32 D_A460002C;
-extern s32 D_A4600030;
+extern char *gSramDmaHead;
+extern char *gSramPiDmaCtx;
+extern u8 gSramState;
+extern u8 gSramRelease;
+extern u8 gSramPwdInit;
+extern s8 gSramCtrlB;
+extern char *gSramPiHandle;
+extern s32 PI_BSD_DOM1_LAT;
+extern s32 PI_BSD_DOM1_PWD;
+extern s32 PI_BSD_DOM1_PGS;
+extern s32 PI_BSD_DOM1_RLS;
 
 void **aiDmaInit(void) {
     s32 sp1C;
     s32 temp_v0;
 
-    D_8018C291 = 1;
-    D_A4600024 = 3;
-    D_A4600028 = (s32) D_8018C290;
-    D_A460002C = (s32) D_8018C28E;
-    D_A4600030 = (s32) D_8018C28F;
-    bzero(&D_8018C288 + 0x14, 0x60);
+    gSramCtrlB = 1;
+    PI_BSD_DOM1_LAT = 3;
+    PI_BSD_DOM1_PWD = (s32) gSramPwdInit;
+    PI_BSD_DOM1_PGS = (s32) gSramState;
+    PI_BSD_DOM1_RLS = (s32) gSramRelease;
+    bzero(&gSramPiDmaCtx + 0x14, 0x60);
     temp_v0 = osDisableInt();
-    D_8018C288 = D_8009649C;
-    D_8009649C = &D_8018C288;
+    gSramPiDmaCtx = gSramDmaHead;
+    gSramDmaHead = &gSramPiDmaCtx;
     sp1C = temp_v0;
-    D_8018C2FC = &D_8018C288;
+    gSramPiHandle = &gSramPiDmaCtx;
     osRestoreInt(sp1C);
-    return &D_8018C288;
+    return &gSramPiDmaCtx;
 }
 
 void func_8008D5A8(void) {

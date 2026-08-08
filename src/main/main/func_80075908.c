@@ -9,7 +9,7 @@
  * index = status - 0x10).  After dispatch, deasserts the control register at
  * 0xB1FFFFFC and waits for status to leave 1 before looping back.
  *
- * The loop exits only when case 1 (status 0x11) is seen AND D_8018916A != 0
+ * The loop exits only when case 1 (status 0x11) is seen AND gSramReady != 0
  * on re-entry to the top-of-loop check.
  *
  * Outer poll: wait until read(0xB1FFFFF0) != 0.
@@ -19,10 +19,10 @@
  * Jump table: jtbl_8004C7D0 (10 entries, index = status - 0x10):
  *   [0] default path (deassert)
  *   [1] s1 = 0 (sets exit condition), then default path
- *   [2] clear D_80189168/D_8018916A, mask D_80188FC0 bit0, update PLL
- *   [3] clear D_8018916A and D_80189168
- *   [4] set D_8018916A = 0xFF
- *   [5] clear D_8018916A
+ *   [2] clear gSramInit/gSramReady, mask gSramHwFlags bit0, update PLL
+ *   [3] clear gSramReady and gSramInit
+ *   [4] set gSramReady = 0xFF
+ *   [5] clear gSramReady
  *   [6] write packed colour bytes to 0xB1FE0000
  *   [7] sramBlockRead(2)
  *   [8] sramBlockRead(1)
@@ -38,9 +38,9 @@ void setCOP0Status(s32 arg0);
 void sramBlockRead(s32 arg0);
 void sramCopyData(void);
 
-extern s32 D_80188FC0;
-extern u8  D_80189168;
-extern u8  D_8018916A;
+extern s32 gSramHwFlags;
+extern u8  gSramInit;
+extern u8  gSramReady;
 
 void sramHwDispatch(void) {
     /* nonmatching: bnel/beql branch-likely idioms + jump table — see asm stub */
@@ -86,26 +86,26 @@ top:
                 s1 = 0;
                 break;
             case 2: {
-                s32 tmp = D_80188FC0 & -2;
-                D_80189168 = 0;
-                D_8018916A = 0;
-                D_80188FC0 = tmp;
+                s32 tmp = gSramHwFlags & -2;
+                gSramInit = 0;
+                gSramReady = 0;
+                gSramHwFlags = tmp;
                 setCOP0Status(getCOP0Status() & -2);
                 break;
             }
             case 3:
-                D_8018916A = 0;
-                D_80189168 = 0;
+                gSramReady = 0;
+                gSramInit = 0;
                 break;
             case 4:
-                D_8018916A = 0xFF;
+                gSramReady = 0xFF;
                 break;
             case 5:
-                D_8018916A = 0;
+                gSramReady = 0;
                 break;
             case 6:
                 __osPiRawWriteIo(0xB1FE0000,
-                    ((u32)D_8018916A << 24) | ((u32)D_80189168 << 16));
+                    ((u32)gSramReady << 24) | ((u32)gSramInit << 16));
                 break;
             case 7:
                 sramBlockRead(2);
@@ -132,12 +132,12 @@ done_wait:
         s1 = 1;
         goto top;
     }
-    /* beql: if D_8018916A == 0, set s1=1 and loop */
-    if (D_8018916A == 0) {
+    /* beql: if gSramReady == 0, set s1=1 and loop */
+    if (gSramReady == 0) {
         s1 = 1;
         goto top;
     }
-    /* D_8018916A != 0 and s1 == 0: clear status reg and return */
+    /* gSramReady != 0 and s1 == 0: clear status reg and return */
     __osPiRawWriteIo(0xB1FFFFF0, 0);
 }
 

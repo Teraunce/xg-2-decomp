@@ -12,10 +12,10 @@ s32 contPakFetchNote(void *, s32, void *);              /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
-extern s32 D_80093EC8;
-extern s32 D_80093ECC;
-extern Unk D_801887D0;
-extern s32 D_80188940;
+extern s32 gContPakNoteAttr;
+extern s32 gContPakSaveData;
+extern Unk gHandlerCtx;
+extern s32 gContPakResult;
 
 void contPakSaveNote(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32)) {
     s32 sp40;
@@ -29,8 +29,8 @@ void contPakSaveNote(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32)) {
     Unk *temp_s0;
     char *temp_s0_2;
 
-    D_80188940 = 0;
-    var_v0 = &D_801887D0;
+    gContPakResult = 0;
+    var_v0 = &gHandlerCtx;
 loop_1:
     var_v0->unk168 = 1;
     sp40 = -1;
@@ -41,30 +41,30 @@ loop_1:
             var_v0->unk168 = 0;
         }
     }
-    if (D_801887D0.unk168 != 0) {
-        temp_v0 = contPakReadNote((arg1 * 0x68) + (&D_801887D0 + 0x17C), gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp40);
+    if (gHandlerCtx.unk168 != 0) {
+        temp_v0 = contPakReadNote((arg1 * 0x68) + (&gHandlerCtx + 0x17C), gContPakNoteCode, gGameID, &gContPakSaveData, &gContPakNoteAttr, &sp40);
         if (temp_v0 != 0) {
             if (temp_v0 == 5) {
                 sp40 = -1;
                 goto block_12;
             }
-            var_v0 = &D_801887D0;
+            var_v0 = &gHandlerCtx;
             if (entityStepState(temp_v0, arg1, -1) == 0) {
-                D_801887D0.unk168 = 0;
+                gHandlerCtx.unk168 = 0;
                 goto block_12;
             }
             goto loop_1;
         }
 block_12:
-        if ((D_801887D0.unk168 != 0) && (sp40 >= 0)) {
-            temp_s0_2 = (arg1 * 0x68) + (&D_801887D0 + 0x17C);
-            var_v0 = &D_801887D0;
+        if ((gHandlerCtx.unk168 != 0) && (sp40 >= 0)) {
+            temp_s0_2 = (arg1 * 0x68) + (&gHandlerCtx + 0x17C);
+            var_v0 = &gHandlerCtx;
             if (entityStepState(contPakFetchNote(temp_s0_2, sp40, &sp20), arg1, -1) == 0) {
-                if (D_801887D0.unk168 != 0) {
+                if (gHandlerCtx.unk168 != 0) {
                     if (sp20 <= 0) {
-                        var_v0 = &D_801887D0;
+                        var_v0 = &gHandlerCtx;
                         if (handlerPostCmd(0x35, arg1, 0x52, 0x65, 0, 0, 0) != 0) {
-                            D_801887D0.unk168 = 0;
+                            gHandlerCtx.unk168 = 0;
                         } else {
                             goto loop_1;
                         }
@@ -74,9 +74,9 @@ block_12:
                         memsetBytes(sfxGetEntry(temp_s2), 0, sp20);
                         temp_v0_3 = sfxGetEntry(temp_s2);
                         if (entityStepState(contPakWriteNote(temp_s0_2, sp40, 0, 0, sp20, temp_v0_3), arg1, -1) == 0) {
-                            if ((D_801887D0.unk168 != 0) && ((void *)((temp_s1 = sp20 - 4, *(f32*)((char*)((s32)(temp_v0_3 + sp20)) - 4)!= calcHash(temp_v0_3, temp_s1))) || (arg2(temp_v0_3, temp_s1) == 0))) {
+                            if ((gHandlerCtx.unk168 != 0) && ((void *)((temp_s1 = sp20 - 4, *(f32*)((char*)((s32)(temp_v0_3 + sp20)) - 4)!= calcHash(temp_v0_3, temp_s1))) || (arg2(temp_v0_3, temp_s1) == 0))) {
                                 if (handlerPostCmd(0x35, arg1, 0x52, 0x65, 0, 0, 0) != 0) {
-                                    D_801887D0.unk168 = 0;
+                                    gHandlerCtx.unk168 = 0;
                                     goto block_27;
                                 }
                                 goto block_26;
@@ -96,5 +96,5 @@ block_26:
             }
         }
     }
-    D_801887D0.unk160 = (s32) (D_801887D0.unk160 - 1);
+    gHandlerCtx.unk160 = (s32) (gHandlerCtx.unk160 - 1);
 }

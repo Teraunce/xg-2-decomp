@@ -10,7 +10,7 @@
  * Outer loop (.L8008DE48):
  *   1. Dequeues an event from arg0->unk8 into sp44.
  *   2. If sp44->unk14 is valid (type 2, done=0 or 1): processes geometry
- *      data (adjusts vertex buffer, writes D_A4600010, etc.) [stubbed below].
+ *      data (adjusts vertex buffer, writes PI_STATUS_REG, etc.) [stubbed below].
  *   3. Dispatches on sp44->unk0 (event type 10-16) via jtbl_8004CFB8.
  *   4. If dispatch result == 0: drains arg0->unkC queue, releases event,
  *      loops; otherwise loops directly.
@@ -33,7 +33,7 @@ void osEPiRawReadIoGetter(void *arg0, s32 arg1, s32 arg2);
 void osEnableIntMask(s32 arg0);
 void __osPiWait(void);
 
-extern s32 D_A4600010;  /* RSP/RDP register */
+extern s32 PI_STATUS_REG;  /* RSP/RDP register */
 
 void gfxDmaEventLoop(Unk *arg0) {
     /* nonmatching: geometry update section and full loop body —
@@ -52,7 +52,7 @@ void gfxDmaEventLoop(Unk *arg0) {
             Unk *geo = (Unk *)(s32)sp44->unk14;
             if (geo->unk4 == 2 && (geo->unk14 == 0 || geo->unk14 == 1)) {
                 /* nonmatching: GPU geometry update (vertex stride calc,
-                 * polygon type check, D_A4600010 write, osEnableIntMask call).
+                 * polygon type check, PI_STATUS_REG write, osEnableIntMask call).
                  * See asm stub .L8008DE90–.L8008E070 for full impl. */
                 (void)sp30;
                 goto dispatch;

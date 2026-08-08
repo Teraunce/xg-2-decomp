@@ -4,10 +4,10 @@ s32 handlerPostSfxCmd(s32, s32);                            /* extern */
 void entityClearSlots(s32, s32);                       /* extern */
 s32 siQueryControllers(s32, u8*);                       /* extern */
 extern s32 gSfxChannelMute;
-extern s32 D_80174724;
-extern s32 D_801887A0;
-extern Unk D_801887D0;
-extern s32 D_80188938;
+extern s32 gViInited;
+extern s32 gHandlerMsgQueue;
+extern Unk gHandlerCtx;
+extern s32 gContPakHandlerPhase;
 
 void contPakHandlerInit(s32 *arg0) {
     u8 sp20;
@@ -30,12 +30,12 @@ void contPakHandlerInit(s32 *arg0) {
     s8 *var_v0_2;
     Unk *var_v0_3;
 
-    D_801887D0.unk164 = 0;
-    if (D_80174724 != 0) {
+    gHandlerCtx.unk164 = 0;
+    if (gViInited != 0) {
         handlerPostCmd(0x4B, 0, 0x4B, 0, 0, 0, 0);
     }
     var_s0 = 0;
-    var_v1 = &D_801887D0;
+    var_v1 = &gHandlerCtx;
     do {
         var_v1->unk31C = 0;
         var_v1->unk32C = 0;
@@ -48,11 +48,11 @@ void contPakHandlerInit(s32 *arg0) {
         var_v1 += 4;
     } while (var_s0 < 4);
 loop_4:
-    var_a0 = &D_801887A0;
+    var_a0 = &gHandlerMsgQueue;
 loop_5:
     if (siQueryControllers(var_a0, &sp20) == 0) {
         var_s0_2 = 0;
-        var_s1 = &D_801887D0;
+        var_s1 = &gHandlerCtx;
         var_s2 = arg0;
         do {
             if ((((s32) sp20 >> var_s0_2) & 1) && (*var_s2 != 0)) {
@@ -73,7 +73,7 @@ block_15:
             var_s2 += 0x24;
         } while (var_s0_2 < 4);
         var_s0_3 = 0;
-        var_v1_2 = &D_801887D0;
+        var_v1_2 = &gHandlerCtx;
 loop_18:
         if (*(var_s0_3 + &gSfxChannelMute) == 0) {
             var_s0_3 += 1;
@@ -87,7 +87,7 @@ block_28:
             var_v1_2 += 4;
             if (var_s0_3 >= 4) {
                 var_s0_4 = 0;
-                var_v1_3 = &D_801887D0;
+                var_v1_3 = &gHandlerCtx;
 loop_30:
                 temp_v0_2 = var_v1_3->unk31C;
                 if ((temp_v0_2 != 2) && (temp_v0_2 != 4)) {
@@ -123,7 +123,7 @@ block_34:
         case 1:
         case 4:
             if (handlerPostCmd(0x4A, var_s0_3, 0x52, 0x36, 0, 0, 0) != 0) {
-                var_v1_4 = &D_801887D0;
+                var_v1_4 = &gHandlerCtx;
             } else {
                 goto loop_4;
             }
@@ -131,15 +131,15 @@ block_34:
         }
     } else {
         var_s0_6 = 3;
-        var_v0_3 = &D_801887D0 + 0xC;
+        var_v0_3 = &gHandlerCtx + 0xC;
         do {
             var_v0_3->unk31C = 1;
             var_s0_6 -= 1;
             var_v0_3 -= 4;
         } while (var_s0_6 >= 0);
-        D_80188938 = 0;
+        gContPakHandlerPhase = 0;
 block_43:
-        var_v1_4 = &D_801887D0;
+        var_v1_4 = &gHandlerCtx;
     }
     var_v1_4->unk160 = (s32) (var_v1_4->unk160 - 1);
 }

@@ -5,13 +5,13 @@ void sfxFlushInactive();                                  /* extern */
 void rdpSetFogColor(s32, s32, s32, s32);                      /* extern */
 s32 func_800B1558(s32);                             /* extern */
 extern s32 gSfxSavedState;
-extern s32 D_80092BB8;
-extern u32 D_80092CA8;
-extern Unk *D_80173CC0;
-extern s32 D_80173D08;
-extern s32 D_80181E48;
-extern s32 D_80181E4C;
-extern u16 D_801822D8;
+extern s32 gSceneDL;
+extern u32 gAudioFrameTick;
+extern Unk *gDLPtr;
+extern s32 gLoopCount;
+extern s32 gSfxRaceReady;
+extern s32 gSfxRaceTimer;
+extern u16 gPerspMtx;
 
 void rdpFrameBegin(s32 arg0, s32 arg1) {
     s32 var_a0;
@@ -19,17 +19,17 @@ void rdpFrameBegin(s32 arg0, s32 arg1) {
     s32 var_v0;
     Unk *temp_v1;
 
-    temp_v1 = D_80173CC0 + 8;
-    D_80173CC0->unk0 = 0xDE000000;
-    D_80173CC0->unk4 = &D_80092BB8;
-    D_80173CC0 = temp_v1;
-    D_80173CC0 = temp_v1 + 8;
-    D_80173CC0->unk8 = 0xDB0E0000;
-    temp_v1->unk4 = (s32) D_801822D8;
-    if (D_80181E48 == 1) {
+    temp_v1 = gDLPtr + 8;
+    gDLPtr->unk0 = 0xDE000000;
+    gDLPtr->unk4 = &gSceneDL;
+    gDLPtr = temp_v1;
+    gDLPtr = temp_v1 + 8;
+    gDLPtr->unk8 = 0xDB0E0000;
+    temp_v1->unk4 = (s32) gPerspMtx;
+    if (gSfxRaceReady == 1) {
         goto block_25;
     }
-    switch (D_80181E48) {                           /* irregular */
+    switch (gSfxRaceReady) {                           /* irregular */
     case 0:
         if (((u32) (arg0 - 5) >= 2U) && (arg0 != 3)) {
             if (arg0 == 4) {
@@ -43,7 +43,7 @@ block_12:
             rdpSetFillColor(0, 0, 0);
 block_13:
             if (arg0 == 4) {
-                sfxUpdateHeap((u32) D_80092CA8 >= 5U);
+                sfxUpdateHeap((u32) gAudioFrameTick >= 5U);
             }
         }
         if (arg1 != 0) {
@@ -71,11 +71,11 @@ block_25:
         break;
     case 2:
         rdpSetFillColor(0, 0, 0);
-        if (func_800B1558(D_80173D08 - D_80181E4C) == 0) {
-            D_80181E48 = 3;
+        if (func_800B1558(gLoopCount - gSfxRaceTimer) == 0) {
+            gSfxRaceReady = 3;
         }
         break;
     }
     sfxFlushInactive();
-    D_80092CA8 += 1;
+    gAudioFrameTick += 1;
 }

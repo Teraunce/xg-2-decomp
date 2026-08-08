@@ -5,9 +5,9 @@ s32 func_80060310();                                  /* extern */
 s32 func_80060824(s32, void *);                            /* extern */
 void contPakUpdate(s32);                               /* extern */
 s32 osSendMesg(Unk*, s32, s32);                         /* extern */
-extern s32 D_80173C0C;
-extern s32 D_80173C40;
-extern s32 D_8017C108;
+extern s32 gContPakUpdateFlag;
+extern s32 gEventQueueSize;
+extern s32 gPiHandlerMsg;
 
 /*
  * frameDispatchThread — polling-loop dispatcher (nonmatching).
@@ -36,7 +36,7 @@ void func_800607E0(void) {
     s32 saved_reg_s1;
     s32 saved_reg_s2;
     rdpFrameBegin(saved_reg_s1, saved_reg_s0);
-    func_80060824(saved_reg_s2, &D_80173C40);
+    func_80060824(saved_reg_s2, &gEventQueueSize);
 }
 
 void func_80060800(void) {
@@ -45,7 +45,7 @@ void func_80060800(void) {
 
 void func_80060808(void) {
     s32 saved_reg_s2;
-    contPakUpdate(D_80173C0C != 0);
-    osSendMesg(saved_reg_s2, &D_8017C108, 0);
+    contPakUpdate(gContPakUpdateFlag != 0);
+    osSendMesg(saved_reg_s2, &gPiHandlerMsg, 0);
     func_80060310();
 }

@@ -2,23 +2,23 @@
 void entitySlotReset(void *, void *, s32);                 /* extern */
 s32 func_80097F10(void *, s32);                         /* extern */
 s32 func_800F1604(void *, f32 *, void *);                /* extern */
-extern f32 D_8004BBC0;
-extern f32 D_8004BBC4;
-extern f32 D_8004BBC8;
-extern f32 D_8004BBCC;
-extern f32 D_8004BBD0;
-extern f32 D_8004BBD4;
-extern f32 D_8004BBD8;
-extern f32 D_8004BBDC;
-extern f32 D_8004BBE0;
-extern f32 D_8004BBE4;
-extern f32 D_8004BBE8;
-extern f32 D_8004BBEC;
-extern f32 D_8004BBF0;
-extern f32 D_8004BBF4;
+extern f32 gViScreenSz;
+extern f32 gVelInitParamA;
+extern f32 gVelInitParamB;
+extern f32 gVelInitParamC;
+extern f32 gVelInitParamD;
+extern f32 gVelInitParamE;
+extern f32 gVelInitParamF;
+extern f32 gVelInitParamG;
+extern f32 gVelInitParamH;
+extern f32 gVelInitParamI;
+extern f32 gVelInitParamJ;
+extern f32 gVelInitParamK;
+extern f32 gVelInitParamL;
+extern f32 gVelInitParamM;
 extern s32 gGameFlags;
-extern s32 D_80093334;
-extern Unk D_80182EA8;
+extern s32 gRaceSlotCount;
+extern Unk gRaceCtx;
 
 void entityPhysicsInit(Unk *arg0, Unk *arg1, s32 arg3) {
     s32 sp20;
@@ -44,13 +44,13 @@ void entityPhysicsInit(Unk *arg0, Unk *arg1, s32 arg3) {
     arg0->unk20 = 0;
     arg0->unkB8 = 1;
     arg0->unkD0 = arg1;
-    arg0->unk0 = (f32) D_8004BBC0;
-    arg0->unk4 = (f32) D_8004BBC4;
-    arg0->unk8 = (f32) D_8004BBC8;
-    arg0->unkC = (f32) D_8004BBC0;
-    arg0->unk10 = (f32) D_8004BBCC;
-    arg0->unk14 = (f32) D_8004BBD0;
-    arg0->unk1C = (f32) D_8004BBD4;
+    arg0->unk0 = (f32) gViScreenSz;
+    arg0->unk4 = (f32) gVelInitParamA;
+    arg0->unk8 = (f32) gVelInitParamB;
+    arg0->unkC = (f32) gViScreenSz;
+    arg0->unk10 = (f32) gVelInitParamC;
+    arg0->unk14 = (f32) gVelInitParamD;
+    arg0->unk1C = (f32) gVelInitParamE;
     arg1->unk568 = arg0;
     do {
         temp_v0 = arg0 + var_a0;
@@ -69,33 +69,33 @@ void entityPhysicsInit(Unk *arg0, Unk *arg1, s32 arg3) {
     arg0->unk24 = 0;
     arg0->unk28 = 0;
     arg0->unk2C = 0;
-    arg0->unk130 = (f32) D_8004BBD8;
-    arg0->unk148 = (f32) D_8004BBDC;
-    if (D_80182EA8.unk16D8 == 0xE) {
-        var_a3 = MULT_HI(D_80093334, 0x38E38E39);
-        temp_a0 = D_80093334 % 9;
+    arg0->unk130 = (f32) gVelInitParamF;
+    arg0->unk148 = (f32) gVelInitParamG;
+    if (gRaceCtx.unk16D8 == 0xE) {
+        var_a3 = MULT_HI(gRaceSlotCount, 0x38E38E39);
+        temp_a0 = gRaceSlotCount % 9;
         switch (temp_a0) {                          /* irregular */
         case 2:
-            var_fv0 = D_8004BBE0;
+            var_fv0 = gVelInitParamH;
             arg0->unk1DC = 0;
 block_14:
             arg0->unk1F8 = var_fv0;
             break;
         case 6:
-            var_fv0 = D_8004BBE4;
+            var_fv0 = gVelInitParamI;
             arg0->unk1DC = 0;
             goto block_14;
         case 8:
             arg0->unk1DC = 0;
-            var_fv0 = D_8004BBE8;
+            var_fv0 = gVelInitParamJ;
             goto block_14;
         default:
             arg0->unk1DC = 4;
-            arg0->unk1F8 = (f32) D_8004BBEC;
+            arg0->unk1F8 = (f32) gVelInitParamK;
             break;
         }
     } else {
-        temp_fv1 = ((Unk*)((Unk*)((arg1->unk560 * 4) + &D_80182EA8)->unk16F8))->unk54;
+        temp_fv1 = ((Unk*)((Unk*)((arg1->unk560 * 4) + &gRaceCtx)->unk16F8))->unk54;
         arg0->unk1F8 = temp_fv1;
         if (gGameFlags & 8) {
             var_v0 = 5;
@@ -132,8 +132,8 @@ block_14:
     arg0->unk210 = 0;
     arg0->unk214 = 0;
     arg0->unk218 = 0;
-    arg0->unk204 = (f32) D_8004BBF0;
-    arg0->unk21C = (f32) D_8004BBF4;
+    arg0->unk204 = (f32) gVelInitParamL;
+    arg0->unk21C = (f32) gVelInitParamM;
 }
 
 void sfxEntryReset(Unk *arg0) {

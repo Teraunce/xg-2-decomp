@@ -1,7 +1,7 @@
 #include "ultra64.h"
 void osSendMesg(void *, int, int);
-extern int D_8018D310;
+extern int gFontMesgQueue;
 
 void __piUnlock(void) {
-    osSendMesg(&D_8018D310, 0, 0);
+    osSendMesg(&gFontMesgQueue, 0, 0);
 }

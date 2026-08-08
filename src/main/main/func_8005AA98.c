@@ -3,17 +3,17 @@
 
 void audioRspSubmit(Unk *);                       /* extern */
 s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
-extern s32 D_8016DF70;
-extern s32 D_8017CDF8;
+extern s32 gRspDmaMesgQueue;
+extern s32 gAudioDecodeCount;
 
 void viSwapBuffers(Unk *arg0) {
     s32 sp10;
     s32 temp_a1;
 
     if (arg0->unk14 != 0) {
-        if (D_8017CDF8 != 0) {
-            osRecvMesg(&D_8016DF70, &sp10, 1);
-            D_8017CDF8 -= 1;
+        if (gAudioDecodeCount != 0) {
+            osRecvMesg(&gRspDmaMesgQueue, &sp10, 1);
+            gAudioDecodeCount -= 1;
         }
         temp_a1 = arg0->unk4;
         arg0->unkC = 0;
@@ -28,5 +28,5 @@ void viSwapBuffers(Unk *arg0) {
 }
 
 s32 audioGetRspCount(void) {
-    return D_8017CDF8;
+    return gAudioDecodeCount;
 }

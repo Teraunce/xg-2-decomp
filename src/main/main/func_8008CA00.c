@@ -15,9 +15,9 @@ s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
-extern s8 D_8018AD68;
-extern s32 D_8018ADB8;
-extern s32 D_8018AEF8;
+extern s8 gSiLocked;
+extern s32 gSiReadBuf;
+extern s32 gContPakDmaBufB;
 
 s32 contPakSiWrite(UnkStruct_arg0 *arg0) {
     s32 sp4C;
@@ -33,14 +33,14 @@ s32 contPakSiWrite(UnkStruct_arg0 *arg0) {
     s32 sp42;
     char *temp_t7;
 
-    sp44 = &D_8018ADB8;
+    sp44 = &gSiReadBuf;
     __siLock();
-    D_8018AD68 = 3;
-    osSiRawStartDma(1, (arg0->unk8 << 6) + &D_8018AEF8);
+    gSiLocked = 3;
+    osSiRawStartDma(1, (arg0->unk8 << 6) + &gContPakDmaBufB);
     osRecvMesg(arg0->unk4, 0, 1);
-    sp48 = osSiRawStartDma(0, &D_8018ADB8);
+    sp48 = osSiRawStartDma(0, &gSiReadBuf);
     osRecvMesg(arg0->unk4, 0, 1);
-    sp44 = &D_8018ADB8;
+    sp44 = &gSiReadBuf;
     if (arg0->unk8 != 0) {
         sp4C = 0;
         if (arg0->unk8 > 0) {

@@ -1,8 +1,8 @@
 #include "ultra64.h"
 s32 viGetSyncByte();                                /* extern */
 s32 sfxNullReturn();                                /* static */
-extern s32 D_80091FD0;
-extern s32 D_8017C950;
+extern s32 gEntityFlagMask;
+extern s32 gRaceCtrlCount;
 
 s32 viGetSyncWord(void) {
     s32 temp_s0;
@@ -53,5 +53,5 @@ s32 sfxNullReturn(void) {
 }
 
 s32 sfxGetRunning(void) {
-    return D_8017C950;
+    return gRaceCtrlCount;
 }

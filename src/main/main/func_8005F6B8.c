@@ -6,22 +6,22 @@ void guMtxIdentL(s32);                               /* extern */
 void guMtxCat(s32, s32, s32);                     /* extern */
 void guOrtho(s32, s32, s32, s32, f32, f32, f32, f32);  /* extern */
 void guPerspective(void *, void *, s32, s32, f32, f32, f32);     /* extern */
-extern f32 D_8004BF58;
-extern f32 D_8004BF5C;
-extern f32 D_8004BF60;
-extern f32 D_8004BF64;
-extern s32 D_8004BF68;
-extern s32 D_8004BF6C;
-extern f32 D_8004BF70;
+extern f32 gCamNearClip;
+extern f32 gCamFarClip;
+extern f32 gCamPerspDist;
+extern f32 gCamPerspFar;
+extern s32 gLookAtEyeX;
+extern s32 gLookAtEyeY;
+extern f32 gCamUpVecY;
 extern s32 gSfxPendingSlot;
 extern s32 gInitStateFlags;
-extern s32 D_80181E48;
-extern s32 D_80181E4C;
-extern s32 D_80181E70;
-extern s32 D_80181EB0;
-extern s32 D_80182078;
+extern s32 gSfxRaceReady;
+extern s32 gSfxRaceTimer;
+extern s32 gLookMtxOut;
+extern s32 gLookMtxL;
+extern s32 gOrthoMtx;
 extern s32 gSfxChannelState;
-extern s32 D_801822D8;
+extern s32 gPerspMtx;
 
 void gameModeReset(void) {
     s32 sp68;
@@ -47,14 +47,14 @@ void gameModeReset(void) {
         var_a0 += 1;
         var_v1 += 0x24;
     } while (var_a0 < 4);
-    guMtxIdentL(&D_80181EB0);
-    temp_fs0 = D_8004BF60;
-    guOrtho(&D_80182078, 0, 0x43A00000, 0x43700000, 0.0f, D_8004BF58, D_8004BF5C, temp_fs0);
-    guPerspective(&sp28, &D_801822D8, 0x42040000, 0x3FAAAAAB, temp_fs0, D_8004BF64, temp_fs0);
-    guLookAt(&sp68, D_8004BF68, D_8004BF6C, 0xC3CB0000, D_8004BF68, D_8004BF6C, 0.0f, 0.0f, D_8004BF70, 0.0f);
-    guMtxCat(&sp68, &sp28, &D_80181E70);
-    D_80181E48 = 0;
-    D_80181E4C = 0;
+    guMtxIdentL(&gLookMtxL);
+    temp_fs0 = gCamPerspDist;
+    guOrtho(&gOrthoMtx, 0, 0x43A00000, 0x43700000, 0.0f, gCamNearClip, gCamFarClip, temp_fs0);
+    guPerspective(&sp28, &gPerspMtx, 0x42040000, 0x3FAAAAAB, temp_fs0, gCamPerspFar, temp_fs0);
+    guLookAt(&sp68, gLookAtEyeX, gLookAtEyeY, 0xC3CB0000, gLookAtEyeX, gLookAtEyeY, 0.0f, 0.0f, gCamUpVecY, 0.0f);
+    guMtxCat(&sp68, &sp28, &gLookMtxOut);
+    gSfxRaceReady = 0;
+    gSfxRaceTimer = 0;
     gSfxPendingSlot = -1;
     gInitStateFlags = 0;
 }

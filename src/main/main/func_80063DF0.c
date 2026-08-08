@@ -1,21 +1,21 @@
 #include "ultra64.h"
 s32 sfxFreeBlock(s32);                               /* extern */
-extern s32 D_801823EC;
-extern s32 D_801823F0;
-extern s32 D_80182408;
-extern s32 D_80182410;
-extern s32 D_80182E6C;
-extern s32 D_80182E70;
-extern s32 D_80182E84;
-extern s32 D_80182E88;
-extern s32 D_80182E8C;
-extern u32 D_80182E98;
-extern s32 D_80182EA0;
-extern u32 D_80182EA4;
+extern s32 gFontRange;
+extern s32 gFontTable;
+extern s32 gTextVertBuf;
+extern s32 gTextGlyphCoords;
+extern s32 gTrackColorKey;
+extern s32 gSfxPitchVal;
+extern s32 gSfxFilterVal;
+extern s32 gTextCharAdv;
+extern s32 gGlyphSize;
+extern u32 gTextIndent;
+extern s32 gTextVisible;
+extern u32 gTextBaseX;
 
 void sfxBufAlloc(void) {
-    D_80182408 = sfxFreeBlock(0x1800);
-    D_80182410 = sfxFreeBlock(0x300);
+    gTextVertBuf = sfxFreeBlock(0x1800);
+    gTextGlyphCoords = sfxFreeBlock(0x300);
 }
 
 void sfxFrameBegin(void) {
@@ -23,9 +23,9 @@ void sfxFrameBegin(void) {
 }
 
 void sfxSetPitch(s32 arg0) {
-    D_80182E70 = arg0 & 0xFF;
-    D_801823EC = 0;
-    D_801823F0 = 0;
+    gSfxPitchVal = arg0 & 0xFF;
+    gFontRange = 0;
+    gFontTable = 0;
 }
 
 void sfxSetFreq(s32 arg0) {
@@ -35,45 +35,45 @@ void sfxSetFreq(s32 arg0) {
     u32 temp_v0;
 
     temp_a0 = arg0 & 0xFF;
-    D_80182EA4 = temp_a0;
+    gTextBaseX = temp_a0;
     temp_a0_2 = temp_a0 >> 3;
-    D_80182E88 = -2;
+    gTextCharAdv = -2;
     temp_v1 = temp_a0_2 < 4U;
     if (temp_v1 != 0) {
         if ((s32) temp_a0_2 >= 2) {
             if (temp_v1 != 0) {
-                D_80182E98 = temp_a0_2;
+                gTextIndent = temp_a0_2;
             } else {
                 goto block_5;
             }
         } else {
-            D_80182E98 = 1;
+            gTextIndent = 1;
         }
     } else {
 block_5:
-        D_80182E98 = 3;
+        gTextIndent = 3;
     }
     temp_v0 = arg0 & 0xFF;
-    D_80182E8C = temp_v0 + (temp_v0 >> 1);
-    D_801823EC = 0;
-    D_801823F0 = 0;
+    gGlyphSize = temp_v0 + (temp_v0 >> 1);
+    gFontRange = 0;
+    gFontTable = 0;
 }
 
 void func_80063ED0(s8 arg0) {
-    D_80182E88 = (s32) arg0;
+    gTextCharAdv = (s32) arg0;
 }
 
 void func_80063EE4(s32 arg0) {
-    D_80182E8C = arg0 & 0xFF;
+    gGlyphSize = arg0 & 0xFF;
 }
 
 void sfxSetFilter(s32 arg0) {
-    D_80182E84 = arg0 | 0xFF000000;
-    D_80182E6C = 0xFF00FF;
+    gSfxFilterVal = arg0 | 0xFF000000;
+    gTrackColorKey = 0xFF00FF;
 }
 
 void sfxSetState(s32 arg0) {
-    D_80182EA0 = arg0;
+    gTextVisible = arg0;
 }
 
 s32 sfxComputeFreqOffset(Unk *arg0) {
@@ -82,15 +82,15 @@ s32 sfxComputeFreqOffset(Unk *arg0) {
     u8 temp_a1;
 
     temp_a1 = arg0->unk1;
-    if ((s32) temp_a1 < (s32) D_80182EA4) {
-        var_a0_2 = (D_80182EA4 - temp_a1) * 2;
-        if (arg0->unk0 != D_80182E70) {
+    if ((s32) temp_a1 < (s32) gTextBaseX) {
+        var_a0_2 = (gTextBaseX - temp_a1) * 2;
+        if (arg0->unk0 != gSfxPitchVal) {
             var_a0_2 += 0x100;
         }
         return var_a0_2;
     }
-    var_a0 = temp_a1 - D_80182EA4;
-    if (arg0->unk0 != D_80182E70) {
+    var_a0 = temp_a1 - gTextBaseX;
+    if (arg0->unk0 != gSfxPitchVal) {
         var_a0 += 0x100;
     }
     return var_a0;

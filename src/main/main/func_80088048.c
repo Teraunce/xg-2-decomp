@@ -12,12 +12,12 @@ u64 __udivdi3(s32, u32, s32, s32);                  /* extern */
 s32 __muldi3(s32, s32, s32, s32);                  /* extern */
 extern s32 gCpuClockHi;
 extern s32 gCpuClock;
-extern s32 D_80096380;
-extern s32 D_8018AD28;
-extern s8 D_8018AD68;
-extern u8 D_8018AD69;
-extern s32 D_8018AD90;
-extern s32 D_8018ADA8;
+extern s32 gSiInited;
+extern s32 gSiCmdBuf;
+extern s8 gSiLocked;
+extern u8 gSfxVoiceCount;
+extern s32 gSiDmaMesgQueue;
+extern s32 gSiMsg;
 
 s32 siReadControllers(char *arg0, s32 arg1, s32 arg2) {
     s32 sp7C;
@@ -38,10 +38,10 @@ s32 siReadControllers(char *arg0, s32 arg1, s32 arg2) {
     u64 temp_v0;
 
     sp78 = 0;
-    if (D_80096380 != 0) {
+    if (gSiInited != 0) {
         return 0;
     }
-    D_80096380 = 1;
+    gSiInited = 1;
     temp_ret = osGetTime();
     sp70 = temp_ret;
     sp74 = (u32) (u64) temp_ret;
@@ -61,16 +61,16 @@ s32 siReadControllers(char *arg0, s32 arg1, s32 arg2) {
         osSetTimerImpl(&sp50, sp30 - (s32)sp70, sp34 - sp74, 0, 0, (s32)&sp38, (s32)&sp7C);
         osRecvMesg(&sp38, &sp7C, 1);
     }
-    D_8018AD69 = 4;
+    gSfxVoiceCount = 4;
     siInitControllerReadCmd(0);
-    sp78 = osSiRawStartDma(1, &D_8018AD28);
+    sp78 = osSiRawStartDma(1, &gSiCmdBuf);
     osRecvMesg(arg0, &sp7C, 1);
-    sp78 = osSiRawStartDma(0, &D_8018AD28);
+    sp78 = osSiRawStartDma(0, &gSiCmdBuf);
     osRecvMesg(arg0, &sp7C, 1);
     contParseReadRespGetter(arg1, arg2);
-    D_8018AD68 = 0;
+    gSiLocked = 0;
     __siInit();
-    osCreateMesgQueue(&D_8018AD90, &D_8018ADA8, 1);
+    osCreateMesgQueue(&gSiDmaMesgQueue, &gSiMsg, 1);
     return sp78;
 }
 

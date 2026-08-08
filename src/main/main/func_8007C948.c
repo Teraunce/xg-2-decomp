@@ -2,9 +2,9 @@
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */
 s32 __osGetCount();                                /* static */
-extern s32 D_80189A88;
-extern u32 D_80189A8C;
-extern s32 D_80189A90;
+extern s32 gTimerHi;
+extern u32 gTimerCount;
+extern s32 gTimerPrev;
 
 s32 osGetTime(void) {
     s32 sp34;
@@ -15,9 +15,9 @@ s32 osGetTime(void) {
 
     temp_s0 = osDisableInt();
     sp34 = __osGetCount();
-    sp30 = sp34 - D_80189A90;
-    sp2C = D_80189A8C;
-    sp28 = D_80189A88;
+    sp30 = sp34 - gTimerPrev;
+    sp2C = gTimerCount;
+    sp28 = gTimerHi;
     osRestoreInt(temp_s0);
     return ((u32) (sp30 + sp2C) < sp2C) + sp28;
 }

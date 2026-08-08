@@ -6,29 +6,29 @@ void mtxLookAt(Unk*, f32, f32, f32, f32, f32, f32); /* extern */
 void guLookAt(s32, s32, s32, s32, f32, f32, f32, f32, f32, f32); /* extern */
 void guLookAtHilite(char *, s32, s32, f32, f32, f32, f32, f32, f32, f32); /* extern */
 void guMtxXfm(void *, f32, f32, f32, f32 *, f32 *, f32 *); /* extern */
-extern f32 D_8004C404;
-extern f32 D_8004C408;
-extern f32 D_8004C40C;
-extern f32 D_8004C410;
-extern f32 D_8004C414;
-extern f32 D_8004C418;
-extern f32 D_8004C41C;
-extern f32 D_8004C420;
-extern f32 D_8004C424;
-extern f32 D_8004C428;
-extern f32 D_8004C42C;
-extern f32 D_8004C430;
-extern f32 D_8004C434;
-extern f32 D_8004C438;
-extern f32 D_8004C43C;
-extern f32 D_8004C440;
+extern f32 gHiliteScaleF;
+extern f32 gHiliteClampA;
+extern f32 gHiliteCoeffK;
+extern f32 gHiliteCoeffL;
+extern f32 gHiliteCoeffJ;
+extern f32 gHiliteCoeffI;
+extern f32 gHiliteCoeffH;
+extern f32 gHiliteCoeffG;
+extern f32 gHiliteClampB;
+extern f32 gHiliteCoeffF;
+extern f32 gHiliteCoeffE;
+extern f32 gHiliteCoeffD;
+extern f32 gHiliteCoeffC;
+extern f32 gHiliteCoeffB;
+extern f32 gHiliteCoeffA;
+extern f32 gHiliteClampC;
 extern s32 gPlayerList;
-extern Unk *D_80173CC0;
-extern Unk *D_80178690;
-extern s32 D_8017C114;
-extern s32 D_8017C118;
-extern s32 D_8017C1B0;
-extern s32 D_8017C7F0;
+extern Unk *gDLPtr;
+extern Unk *gLineVtxBase;
+extern s32 gHiliteIdx;
+extern s32 gRenderIdx;
+extern s32 gPlayerInfoTable;
+extern s32 gRenderBase;
 
 void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 sp120;
@@ -117,31 +117,31 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     temp_fs0 = arg0->unk68;
     mtxLookAt(&sp70, arg0->unk30 - arg0->unk3C, arg0->unk34 - arg0->unk40, arg0->unk38 - arg0->unk44, temp_fs1, temp_fs2, temp_fs0);
     mtxCopyTranslate(&sp70, &sp30, arg0->unk3C - arg1->unk0, arg0->unk40 - arg1->unk4, arg0->unk44 - arg1->unk8);
-    guMtxScaleF2L(&sp30, D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
+    guMtxScaleF2L(&sp30, gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
     mtxLookAt(&sp70, arg0->unk0 - arg0->unkC, arg0->unk4 - arg0->unk10, arg0->unk8 - arg0->unk14, temp_fs1, temp_fs2, temp_fs0);
     mtxCopyTranslate(&sp70, &sp30, arg0->unkC - arg1->unk0, arg0->unk10 - arg1->unk4, arg0->unk14 - arg1->unk8);
-    guMtxScaleF2L(&sp30, D_8017C7F0 + ((D_8017C118 << 7) + 0x80) + (gPlayerList << 6));
+    guMtxScaleF2L(&sp30, gRenderBase + ((gRenderIdx << 7) + 0x80) + (gPlayerList << 6));
     mtxLookAt(&sp70, arg0->unk18 - arg0->unk24, arg0->unk1C - arg0->unk28, arg0->unk20 - arg0->unk2C, temp_fs1, temp_fs2, temp_fs0);
     mtxCopyTranslate(&sp70, &sp30, arg0->unk24 - arg1->unk0, arg0->unk28 - arg1->unk4, arg0->unk2C - arg1->unk8);
-    guMtxScaleF2L(&sp30, D_8017C7F0 + ((D_8017C118 << 7) + 0x100) + (gPlayerList << 6));
-    temp_v0 = D_80173CC0 + 8;
-    D_80173CC0->unk0 = 0xD9FFFFFF;
-    D_80173CC0->unk4 = 0x20000;
-    D_80173CC0 = temp_v0;
-    D_80173CC0 = temp_v0 + 8;
-    D_80173CC0->unk8 = 0xDB020000;
+    guMtxScaleF2L(&sp30, gRenderBase + ((gRenderIdx << 7) + 0x100) + (gPlayerList << 6));
+    temp_v0 = gDLPtr + 8;
+    gDLPtr->unk0 = 0xD9FFFFFF;
+    gDLPtr->unk4 = 0x20000;
+    gDLPtr = temp_v0;
+    gDLPtr = temp_v0 + 8;
+    gDLPtr->unk8 = 0xDB020000;
     temp_v0->unk4 = 0xA8;
-    D_80173CC0 = temp_v0 + 0x10;
+    gDLPtr = temp_v0 + 0x10;
     temp_v0->unkC = (s32) (arg3 + 8);
-    D_80173CC0 = temp_v0 + 0x18;
+    gDLPtr = temp_v0 + 0x18;
     temp_v0->unk14 = (s32) (arg3 + 0x18);
-    D_80173CC0 = temp_v0 + 0x20;
+    gDLPtr = temp_v0 + 0x20;
     temp_v0->unk1C = (s32) (arg3 + 0x28);
-    D_80173CC0 = temp_v0 + 0x28;
+    gDLPtr = temp_v0 + 0x28;
     temp_v0->unk24 = (s32) (arg3 + 0x38);
-    D_80173CC0 = temp_v0 + 0x30;
+    gDLPtr = temp_v0 + 0x30;
     temp_v0->unk2C = (s32) (arg3 + 0x48);
-    D_80173CC0 = temp_v0 + 0x38;
+    gDLPtr = temp_v0 + 0x38;
     temp_v0->unk34 = (s32) (arg3 + 0x58);
     temp_v0->unk3C = (s32) (arg3 + 0x68);
     temp_v0->unk8 = 0xDC08060A;
@@ -153,8 +153,8 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     temp_v0->unk38 = 0xDC08180A;
     temp_v0->unk40 = 0xDC081B0A;
     temp_v0->unk44 = arg3;
-    D_80173CC0 = temp_v0 + 0x40;
-    D_80173CC0 = temp_v0 + 0x48;
+    gDLPtr = temp_v0 + 0x40;
+    gDLPtr = temp_v0 + 0x48;
     spF0 = arg0->unk3C - arg1->unk0;
     spF4 = arg0->unk40 - arg1->unk4;
     spF8 = arg0->unk44 - arg1->unk8;
@@ -163,32 +163,32 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     sp108 = arg1->unk20;
     vec3Cross(&spF0, &sp100, &sp110);
     guLookAtHilite(&sp120, 0, 0, 0.0f, sp110, sp114, sp118, arg1->unk18, arg1->unk1C, arg1->unk20);
-    temp_t0 = D_80173CC0 + 8;
-    D_80173CC0->unk0 = 0xDC08000A;
-    temp_v1 = (D_8017C114 << 6) + ((gPlayerList << 5) + &D_8017C1B0);
-    D_80173CC0->unk4 = temp_v1;
-    D_80173CC0->unk8 = 0xDC08030A;
+    temp_t0 = gDLPtr + 8;
+    gDLPtr->unk0 = 0xDC08000A;
+    temp_v1 = (gHiliteIdx << 6) + ((gPlayerList << 5) + &gPlayerInfoTable);
+    gDLPtr->unk4 = temp_v1;
+    gDLPtr->unk8 = 0xDC08030A;
     temp_t0->unk4 = (void *) (temp_v1 + 0x10);
     temp_t0->unk8 = 0xDB060010;
-    temp_t0->unkC = (s32 *) D_80178690;
-    D_80178690->unk0 = 0xD7000002;
-    D_80178690->unk4 = 0x10000800;
-    D_80173CC0 = temp_t0;
-    D_8017C114 += 1;
-    D_80173CC0 = temp_t0 + 8;
-    D_80173CC0 = temp_t0 + 0x10;
-    D_80178690 += 8;
+    temp_t0->unkC = (s32 *) gLineVtxBase;
+    gLineVtxBase->unk0 = 0xD7000002;
+    gLineVtxBase->unk4 = 0x10000800;
+    gDLPtr = temp_t0;
+    gHiliteIdx += 1;
+    gDLPtr = temp_t0 + 8;
+    gDLPtr = temp_t0 + 0x10;
+    gLineVtxBase += 8;
     guLookAt(&spB0, 0, 0, 0, arg1->unkC - arg1->unk0, arg1->unk10 - arg1->unk4, arg1->unk14 - arg1->unk8, arg1->unk18, arg1->unk1C, arg1->unk20);
     guMtxXfm(&spB0, arg0->unk3C - arg1->unk0, arg0->unk40 - arg1->unk4, arg0->unk44 - arg1->unk8, &sp100, &sp104, &sp108);
-    temp_fv0 = -(sp108 + arg1->unkCC) * D_8004C404;
-    temp_a0 = D_80178690;
-    D_80178690 = temp_a0 + 8;
-    if (!(D_8004C408 <= temp_fv0)) {
+    temp_fv0 = -(sp108 + arg1->unkCC) * gHiliteScaleF;
+    temp_a0 = gLineVtxBase;
+    gLineVtxBase = temp_a0 + 8;
+    if (!(gHiliteClampA <= temp_fv0)) {
         var_v1 = (s32) temp_fv0;
         var_t4 = (s32 **)0x80180000;
     } else {
-        var_v1 = (s32) (temp_fv0 - D_8004C408) | 0x80000000;
-        var_t4 = &D_80178690;
+        var_v1 = (s32) (temp_fv0 - gHiliteClampA) | 0x80000000;
+        var_t4 = &gLineVtxBase;
     }
     temp_t3 = *var_t4;
     temp_a0->unk0 = ((var_v1 & 0xFFF) << 0xC) | 0xF2000000;
@@ -204,10 +204,10 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
         *var_t4 = temp_t3_2 + 0x10;
         *var_t4 = temp_t3_2 + 0x18;
         *var_t4 = temp_t3_2 + 0x20;
-        var_ft0 = D_8004C40C;
+        var_ft0 = gHiliteCoeffK;
         *var_t4 = temp_t3_2 + 0x28;
-        D_80173CC0->unk0 = 0xDB060018;
-        D_80173CC0->unk4 = temp_t3_2;
+        gDLPtr->unk0 = 0xDB060018;
+        gDLPtr->unk4 = temp_t3_2;
         temp_t3->unk8 = 0xFD100000;
         *var_t4 = temp_t3_2 + 0x30;
         temp_t3_2->unk8 = 0xE8000000;
@@ -222,19 +222,19 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
         temp_t3_2->unk2C = 0;
         temp_t3_2->unk4 = (s32) ((Unk *)arg0->unk6C)->unk28;
         temp_fv1 = arg0->unk70;
-        D_80173CC0 += 8;
-        if (D_8004C410 < temp_fv1) {
+        gDLPtr += 8;
+        if (gHiliteCoeffL < temp_fv1) {
             var_t5 = 0x100;
         }
-        if (D_8004C414 < temp_fv1) {
+        if (gHiliteCoeffJ < temp_fv1) {
             var_t5 = 0x200;
             var_t6 = 0;
-            var_ft0 = D_8004C418;
+            var_ft0 = gHiliteCoeffI;
         }
-        if (D_8004C41C < temp_fv1) {
+        if (gHiliteCoeffH < temp_fv1) {
             var_t5 = 0x300;
             var_t6 = 1;
-            var_ft0 = D_8004C420;
+            var_ft0 = gHiliteCoeffG;
         }
         *var_t4 = temp_t3_2 + 0x38;
         *var_t4 = temp_t3_2 + 0x40;
@@ -261,34 +261,34 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
         temp_t3_2->unk64 = 0x0107C03C;
         temp_t3_2->unk34 = (s32) (((Unk *)arg0->unk6C)->unk2C + var_t5);
         temp_fv0_2 = arg0->unk74 / var_ft0;
-        if (!(D_8004C424 <= temp_fv0_2)) {
+        if (!(gHiliteClampB <= temp_fv0_2)) {
             var_a0 = (s32) temp_fv0_2;
         } else {
-            var_a0 = (s32) (temp_fv0_2 - D_8004C424) | 0x80000000;
+            var_a0 = (s32) (temp_fv0_2 - gHiliteClampB) | 0x80000000;
         }
         var_t5_2 = 0;
         var_t6_2 = -1;
         temp_t3_2->unk68 = (s32) (((var_a0 & 0xFFF) << 0xC) | 0xF2000000);
         temp_a2->unk4 = 0x01000000;
-        var_ft0_2 = D_8004C428;
-        temp_t3_3 = D_80178690 + 8;
-        temp_a1 = D_80173CC0;
-        D_80178690->unk0 = 0xFC113280;
-        D_80178690->unk4 = -8;
+        var_ft0_2 = gHiliteCoeffF;
+        temp_t3_3 = gLineVtxBase + 8;
+        temp_a1 = gDLPtr;
+        gLineVtxBase->unk0 = 0xFC113280;
+        gLineVtxBase->unk4 = -8;
         temp_a0_2 = temp_t3_3 + 8;
-        D_80178690 = temp_t3_3;
-        D_80178690 = temp_a0_2;
-        D_80178690->unk8 = 0xDF000000;
+        gLineVtxBase = temp_t3_3;
+        gLineVtxBase = temp_a0_2;
+        gLineVtxBase->unk8 = 0xDF000000;
         temp_t3_3->unk4 = 0;
         temp_a1->unk4 = temp_a0_2;
-        D_80173CC0 += 8;
+        gDLPtr += 8;
         temp_a1->unk0 = 0xDB060020;
         temp_t3_3->unk8 = 0xFD100000;
-        D_80178690 = temp_t3_3 + 0x10;
-        D_80178690 = temp_t3_3 + 0x18;
-        D_80178690 = temp_t3_3 + 0x20;
-        D_80178690 = temp_t3_3 + 0x28;
-        D_80178690 = temp_t3_3 + 0x30;
+        gLineVtxBase = temp_t3_3 + 0x10;
+        gLineVtxBase = temp_t3_3 + 0x18;
+        gLineVtxBase = temp_t3_3 + 0x20;
+        gLineVtxBase = temp_t3_3 + 0x28;
+        gLineVtxBase = temp_t3_3 + 0x30;
         temp_t3_3->unk10 = 0xE8000000;
         temp_t3_3->unk1C = 0x07000000;
         temp_t3_3->unk14 = 0;
@@ -301,32 +301,32 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
         temp_t3_3->unk34 = 0;
         temp_t3_3->unkC = (s32) ((Unk *)arg0->unk6C)->unk28;
         temp_fv1_2 = arg0->unk78;
-        D_80178690 = temp_t3_3 + 0x38;
-        if (D_8004C42C < temp_fv1_2) {
+        gLineVtxBase = temp_t3_3 + 0x38;
+        if (gHiliteCoeffE < temp_fv1_2) {
             var_t5_2 = 0x100;
         }
-        if (D_8004C430 < temp_fv1_2) {
+        if (gHiliteCoeffD < temp_fv1_2) {
             var_t5_2 = 0x200;
             var_t6_2 = 0;
-            var_ft0_2 = D_8004C434;
+            var_ft0_2 = gHiliteCoeffC;
         }
-        if (D_8004C438 < temp_fv1_2) {
+        if (gHiliteCoeffB < temp_fv1_2) {
             var_t5_2 = 0x300;
             var_t6_2 = 1;
-            var_ft0_2 = D_8004C43C;
+            var_ft0_2 = gHiliteCoeffA;
         }
-        D_80178690 = temp_t3_3 + 0x40;
-        D_80178690 = temp_t3_3 + 0x48;
-        D_80178690 = temp_t3_3 + 0x50;
-        D_80178690 = temp_t3_3 + 0x58;
-        D_80178690 = temp_t3_3 + 0x60;
+        gLineVtxBase = temp_t3_3 + 0x40;
+        gLineVtxBase = temp_t3_3 + 0x48;
+        gLineVtxBase = temp_t3_3 + 0x50;
+        gLineVtxBase = temp_t3_3 + 0x58;
+        gLineVtxBase = temp_t3_3 + 0x60;
         temp_t3_3->unk38 = 0xFD100000;
-        D_80178690 = temp_t3_3 + 0x68;
+        gLineVtxBase = temp_t3_3 + 0x68;
         temp_a2_2 = temp_t3_3 + 0x70;
-        D_80178690 = temp_a2_2;
+        gLineVtxBase = temp_a2_2;
         temp_t3_3->unk40 = 0xF51000C0;
         temp_v1_3 = var_t6_2 & 0xF;
-        D_80178690 = temp_t3_3 + 0x78;
+        gLineVtxBase = temp_t3_3 + 0x78;
         temp_t3_3->unk44 = (s32) (temp_v1_3 | 0x07010050);
         temp_t3_3->unk48 = 0xE6000000;
         temp_t3_3->unk4C = 0;
@@ -340,37 +340,37 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
         temp_t3_3->unk6C = 0x0107C03C;
         temp_t3_3->unk3C = (s32) (((Unk *)arg0->unk6C)->unk2C + var_t5_2);
         temp_fv0_3 = arg0->unk7C / var_ft0_2;
-        if (!(D_8004C440 <= temp_fv0_3)) {
+        if (!(gHiliteClampC <= temp_fv0_3)) {
             var_v1_2 = (s32) temp_fv0_3;
         } else {
-            var_v1_2 = (s32) (temp_fv0_3 - D_8004C440) | 0x80000000;
+            var_v1_2 = (s32) (temp_fv0_3 - gHiliteClampC) | 0x80000000;
         }
         temp_t3_3->unk70 = (s32) (((var_v1_2 & 0xFFF) << 0xC) | 0xF2000000);
         temp_a2_2->unk4 = 0x01000000;
-        temp_v1_4 = D_80178690;
-        temp_a0_3 = D_80178690 + 8;
+        temp_v1_4 = gLineVtxBase;
+        temp_a0_3 = gLineVtxBase + 8;
         temp_v1_4->unk4 = -8;
-        D_80178690 = temp_a0_3;
-        D_80178690 = temp_a0_3 + 8;
+        gLineVtxBase = temp_a0_3;
+        gLineVtxBase = temp_a0_3 + 8;
         temp_v1_4->unk0 = 0xFC113280;
-        D_80178690->unk8 = 0xDF000000;
+        gLineVtxBase->unk8 = 0xDF000000;
         temp_a0_3->unk4 = 0;
     } else {
         *var_t4 = temp_t3_2 + 8;
-        temp_v0_2 = D_80173CC0 + 8;
-        D_80173CC0->unk0 = 0xDB060010;
-        D_80173CC0->unk4 = temp_t3_2;
-        D_80173CC0 = temp_v0_2;
-        D_80173CC0 = temp_v0_2 + 8;
-        D_80173CC0->unk8 = 0xDB060020;
+        temp_v0_2 = gDLPtr + 8;
+        gDLPtr->unk0 = 0xDB060010;
+        gDLPtr->unk4 = temp_t3_2;
+        gDLPtr = temp_v0_2;
+        gDLPtr = temp_v0_2 + 8;
+        gDLPtr->unk8 = 0xDB060020;
         temp_v0_2->unk4 = temp_t3_2;
         temp_t3->unk8 = 0xDF000000;
         temp_t3_2->unk4 = 0;
     }
-    temp_a2_3 = D_80178690;
-    D_80173CC0->unk0 = 0xDB06001C;
-    D_80173CC0->unk4 = temp_a2_3;
-    D_80173CC0 += 8;
+    temp_a2_3 = gLineVtxBase;
+    gDLPtr->unk0 = 0xDB06001C;
+    gDLPtr->unk4 = temp_a2_3;
+    gDLPtr += 8;
     if (arg2 == 0xFF) {
         var_v1_3 = temp_a2_3 + 8;
         temp_a2_3->unk0 = 0xFC127FFF;
@@ -380,101 +380,101 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
         temp_a2_3->unk0 = 0xFC1217FF;
         var_v0 = -0x1C8;
     }
-    D_80178690 = var_v1_3;
+    gLineVtxBase = var_v1_3;
     temp_a2_3->unk4 = var_v0;
-    temp_a0_4 = D_80178690;
-    D_80178690 += 8;
+    temp_a0_4 = gLineVtxBase;
+    gLineVtxBase += 8;
     temp_a0_4->unk0 = 0xDF000000;
     temp_a0_4->unk4 = 0;
     if ((arg2 != 0) && (arg2 != 0xFF)) {
-        temp_v1_5 = D_80173CC0;
-        temp_t1 = D_80173CC0 + 8;
+        temp_v1_5 = gDLPtr;
+        temp_t1 = gDLPtr + 8;
         temp_v1_5->unk0 = 0xE7000000;
-        D_80173CC0 = temp_t1;
-        D_80173CC0 = temp_t1 + 8;
-        D_80173CC0 = temp_t1 + 0x10;
+        gDLPtr = temp_t1;
+        gDLPtr = temp_t1 + 8;
+        gDLPtr = temp_t1 + 0x10;
         temp_v1_5->unk4 = 0;
         temp_t1->unkC = -0xDC8;
-        D_80173CC0->unk8 = 0xE200001C;
+        gDLPtr->unk8 = 0xE200001C;
         temp_t1->unk4 = 0x1F1A3078;
         temp_t1->unk8 = 0xFCFFFFFF;
         switch (arg4) {                             /* irregular */
         case 0:
             temp_t1->unk10 = 0xDA380003;
             temp_t1->unk18 = 0xDE000000;
-            temp_a0_5 = D_8017C118 << 7;
+            temp_a0_5 = gRenderIdx << 7;
             temp_a2_4 = gPlayerList << 6;
-            temp_t1->unk14 = (s32) (D_8017C7F0 + temp_a0_5 + temp_a2_4);
-            D_80173CC0 = temp_t1 + 0x18;
-            D_80173CC0 = temp_t1 + 0x20;
+            temp_t1->unk14 = (s32) (gRenderBase + temp_a0_5 + temp_a2_4);
+            gDLPtr = temp_t1 + 0x18;
+            gDLPtr = temp_t1 + 0x20;
             temp_t1->unk20 = 0xDA380003;
-            temp_t1->unk24 = (s32) (D_8017C7F0 + (temp_a0_5 + 0x80) + temp_a2_4);
+            temp_t1->unk24 = (s32) (gRenderBase + (temp_a0_5 + 0x80) + temp_a2_4);
             temp_t1->unk28 = 0xDE000000;
             temp_t1->unk1C = (s32) ((Unk *)arg0->unk6C)->unk0;
-            D_80173CC0 = temp_t1 + 0x28;
-            D_80173CC0 = temp_t1 + 0x30;
+            gDLPtr = temp_t1 + 0x28;
+            gDLPtr = temp_t1 + 0x30;
             temp_t1->unk30 = 0xDA380003;
-            temp_t1->unk34 = (s32) (D_8017C7F0 + (temp_a0_5 + 0x100) + temp_a2_4);
+            temp_t1->unk34 = (s32) (gRenderBase + (temp_a0_5 + 0x100) + temp_a2_4);
             temp_t1->unk38 = 0xDE000000;
             temp_t1->unk2C = (s32) ((Unk *)arg0->unk6C)->unk4;
-            D_80173CC0 = temp_t1 + 0x38;
+            gDLPtr = temp_t1 + 0x38;
             var_v1_4 = ((Unk *)arg0->unk6C)->unk8;
             var_v0_2 = temp_t1 + 0x40;
 block_40:
-            D_80173CC0 = var_v0_2;
+            gDLPtr = var_v0_2;
             temp_t1->unk3C = var_v1_4;
             break;
         case 1:
             temp_t1->unk10 = 0xDA380003;
             temp_t1->unk18 = 0xDE000000;
-            temp_a0_6 = D_8017C118 << 7;
+            temp_a0_6 = gRenderIdx << 7;
             var_a2 = gPlayerList << 6;
-            temp_t1->unk14 = (s32) (D_8017C7F0 + temp_a0_6 + var_a2);
-            D_80173CC0 = temp_t1 + 0x18;
-            D_80173CC0 = temp_t1 + 0x20;
-            var_v0_3 = D_8017C7F0 + (temp_a0_6 + 0x80) + var_a2;
+            temp_t1->unk14 = (s32) (gRenderBase + temp_a0_6 + var_a2);
+            gDLPtr = temp_t1 + 0x18;
+            gDLPtr = temp_t1 + 0x20;
+            var_v0_3 = gRenderBase + (temp_a0_6 + 0x80) + var_a2;
             var_a1 = ((Unk *)arg0->unk6C)->unk0;
-            var_v1_5 = D_8017C7F0 + (temp_a0_6 + 0x100);
+            var_v1_5 = gRenderBase + (temp_a0_6 + 0x100);
 block_39:
             temp_t1->unk20 = 0xDA380003;
             temp_t1->unk24 = var_v0_3;
             temp_t1->unk28 = 0xDE000000;
             temp_t1->unk1C = var_a1;
-            D_80173CC0 = temp_t1 + 0x28;
-            D_80173CC0 = temp_t1 + 0x30;
+            gDLPtr = temp_t1 + 0x28;
+            gDLPtr = temp_t1 + 0x30;
             temp_t1->unk30 = 0xDA380003;
             temp_t1->unk34 = (s32) (var_v1_5 + var_a2);
             temp_t1->unk38 = 0xDE000000;
             temp_t1->unk2C = (s32) ((Unk *)arg0->unk6C)->unk10;
-            D_80173CC0 = temp_t1 + 0x38;
+            gDLPtr = temp_t1 + 0x38;
             var_v1_4 = ((Unk *)arg0->unk6C)->unk14;
             var_v0_2 = temp_t1 + 0x40;
             goto block_40;
         case 2:
             temp_t1->unk10 = 0xDA380003;
             temp_t1->unk18 = 0xDE000000;
-            temp_a0_7 = D_8017C118 << 7;
+            temp_a0_7 = gRenderIdx << 7;
             var_a2 = gPlayerList << 6;
-            temp_t1->unk14 = (s32) (D_8017C7F0 + temp_a0_7 + var_a2);
-            D_80173CC0 = temp_t1 + 0x18;
-            D_80173CC0 = temp_t1 + 0x20;
-            var_v0_3 = D_8017C7F0 + (temp_a0_7 + 0x80) + var_a2;
-            var_v1_5 = D_8017C7F0 + (temp_a0_7 + 0x100);
+            temp_t1->unk14 = (s32) (gRenderBase + temp_a0_7 + var_a2);
+            gDLPtr = temp_t1 + 0x18;
+            gDLPtr = temp_t1 + 0x20;
+            var_v0_3 = gRenderBase + (temp_a0_7 + 0x80) + var_a2;
+            var_v1_5 = gRenderBase + (temp_a0_7 + 0x100);
             var_a1 = ((Unk *)arg0->unk6C)->unkC;
             goto block_39;
         case 3:
             temp_t1->unk10 = 0xDA380003;
             temp_t1->unk18 = 0xDE000000;
-            temp_t1->unk14 = (s32) (D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
-            D_80173CC0 = temp_t1 + 0x18;
-            D_80173CC0 = temp_t1 + 0x20;
+            temp_t1->unk14 = (s32) (gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
+            gDLPtr = temp_t1 + 0x18;
+            gDLPtr = temp_t1 + 0x20;
             temp_t1->unk1C = (s32) ((Unk *)arg0->unk6C)->unk18;
             break;
         }
         var_a0_2 = (s32 **)0x80170000;
         var_a2_2 = 0x0C184DD8;
     } else {
-        var_a0_2 = &D_80173CC0;
+        var_a0_2 = &gDLPtr;
         var_a2_2 = 0xC8103078;
     }
     temp_v0_3 = *var_a0_2;
@@ -486,15 +486,15 @@ block_39:
     temp_v0_3->unk8 = 0xE200001C;
     temp_v0_4->unk4 = var_a2_2;
     if (arg2 != 0xFF) {
-        temp_v1_6 = D_80173CC0;
-        temp_t1_2 = D_80173CC0 + 8;
+        temp_v1_6 = gDLPtr;
+        temp_t1_2 = gDLPtr + 8;
         temp_v1_6->unk0 = 0xE7000000;
-        D_80173CC0 = temp_t1_2;
-        D_80173CC0 = temp_t1_2 + 8;
+        gDLPtr = temp_t1_2;
+        gDLPtr = temp_t1_2 + 8;
         temp_v1_6->unk4 = 0;
-        D_80173CC0->unk8 = 0xFA000000;
+        gDLPtr->unk8 = 0xFA000000;
         temp_t1_2->unk4 = (s32) ((0xFF - arg2) & 0xFF);
-        D_80173CC0 = temp_t1_2 + 0x10;
+        gDLPtr = temp_t1_2 + 0x10;
         temp_t1_2->unkC = -0x1C8;
         temp_t1_2->unk8 = 0xFC1217FF;
         if (arg4 != 1) {
@@ -505,22 +505,22 @@ block_39:
                 } else {
                     temp_t1_2->unk10 = 0xDA380003;
                     temp_t1_2->unk18 = 0xDE000000;
-                    temp_a0_8 = D_8017C118 << 7;
+                    temp_a0_8 = gRenderIdx << 7;
                     temp_a2_5 = gPlayerList << 6;
-                    temp_t1_2->unk14 = (s32) (D_8017C7F0 + temp_a0_8 + temp_a2_5);
-                    D_80173CC0 = temp_t1_2 + 0x18;
-                    D_80173CC0 = temp_t1_2 + 0x20;
+                    temp_t1_2->unk14 = (s32) (gRenderBase + temp_a0_8 + temp_a2_5);
+                    gDLPtr = temp_t1_2 + 0x18;
+                    gDLPtr = temp_t1_2 + 0x20;
                     temp_t1_2->unk20 = 0xDA380003;
-                    temp_t1_2->unk24 = (s32) (D_8017C7F0 + (temp_a0_8 + 0x80) + temp_a2_5);
+                    temp_t1_2->unk24 = (s32) (gRenderBase + (temp_a0_8 + 0x80) + temp_a2_5);
                     temp_t1_2->unk28 = 0xDE000000;
                     temp_t1_2->unk1C = (s32) ((Unk *)arg0->unk6C)->unk0;
-                    D_80173CC0 = temp_t1_2 + 0x28;
-                    D_80173CC0 = temp_t1_2 + 0x30;
+                    gDLPtr = temp_t1_2 + 0x28;
+                    gDLPtr = temp_t1_2 + 0x30;
                     temp_t1_2->unk30 = 0xDA380003;
-                    temp_t1_2->unk34 = (s32) (D_8017C7F0 + (temp_a0_8 + 0x100) + temp_a2_5);
+                    temp_t1_2->unk34 = (s32) (gRenderBase + (temp_a0_8 + 0x100) + temp_a2_5);
                     temp_t1_2->unk38 = 0xDE000000;
                     temp_t1_2->unk2C = (s32) ((Unk *)arg0->unk6C)->unk4;
-                    D_80173CC0 = temp_t1_2 + 0x38;
+                    gDLPtr = temp_t1_2 + 0x38;
                     var_v1_7 = ((Unk *)arg0->unk6C)->unk8;
                     var_v0_4 = temp_t1_2 + 0x40;
                     goto block_57;
@@ -532,58 +532,58 @@ block_39:
                 } else {
                     temp_t1_2->unk10 = 0xDA380003;
                     temp_t1_2->unk18 = 0xDE000000;
-                    temp_t1_2->unk14 = (s32) (D_8017C7F0 + (D_8017C118 << 7) + (gPlayerList << 6));
-                    D_80173CC0 = temp_t1_2 + 0x18;
-                    D_80173CC0 = temp_t1_2 + 0x20;
+                    temp_t1_2->unk14 = (s32) (gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
+                    gDLPtr = temp_t1_2 + 0x18;
+                    gDLPtr = temp_t1_2 + 0x20;
                     temp_t1_2->unk1C = (s32) ((Unk *)arg0->unk6C)->unk18;
                     goto block_59;
                 }
             } else {
                 temp_t1_2->unk10 = 0xDA380003;
                 temp_t1_2->unk18 = 0xDE000000;
-                temp_a0_9 = D_8017C118 << 7;
+                temp_a0_9 = gRenderIdx << 7;
                 var_a2_3 = gPlayerList << 6;
-                temp_t1_2->unk14 = (s32) (D_8017C7F0 + temp_a0_9 + var_a2_3);
-                D_80173CC0 = temp_t1_2 + 0x18;
-                D_80173CC0 = temp_t1_2 + 0x20;
-                var_v0_5 = D_8017C7F0 + (temp_a0_9 + 0x80) + var_a2_3;
-                var_v1_8 = D_8017C7F0 + (temp_a0_9 + 0x100);
+                temp_t1_2->unk14 = (s32) (gRenderBase + temp_a0_9 + var_a2_3);
+                gDLPtr = temp_t1_2 + 0x18;
+                gDLPtr = temp_t1_2 + 0x20;
+                var_v0_5 = gRenderBase + (temp_a0_9 + 0x80) + var_a2_3;
+                var_v1_8 = gRenderBase + (temp_a0_9 + 0x100);
                 var_a1_2 = ((Unk *)arg0->unk6C)->unkC;
                 goto block_56;
             }
         } else {
             temp_t1_2->unk10 = 0xDA380003;
             temp_t1_2->unk18 = 0xDE000000;
-            temp_a0_10 = D_8017C118 << 7;
+            temp_a0_10 = gRenderIdx << 7;
             var_a2_3 = gPlayerList << 6;
-            temp_t1_2->unk14 = (s32) (D_8017C7F0 + temp_a0_10 + var_a2_3);
-            D_80173CC0 = temp_t1_2 + 0x18;
-            D_80173CC0 = temp_t1_2 + 0x20;
-            var_v0_5 = D_8017C7F0 + (temp_a0_10 + 0x80) + var_a2_3;
+            temp_t1_2->unk14 = (s32) (gRenderBase + temp_a0_10 + var_a2_3);
+            gDLPtr = temp_t1_2 + 0x18;
+            gDLPtr = temp_t1_2 + 0x20;
+            var_v0_5 = gRenderBase + (temp_a0_10 + 0x80) + var_a2_3;
             var_a1_2 = ((Unk *)arg0->unk6C)->unk0;
-            var_v1_8 = D_8017C7F0 + (temp_a0_10 + 0x100);
+            var_v1_8 = gRenderBase + (temp_a0_10 + 0x100);
 block_56:
             temp_t1_2->unk20 = 0xDA380003;
             temp_t1_2->unk24 = var_v0_5;
             temp_t1_2->unk28 = 0xDE000000;
             temp_t1_2->unk1C = var_a1_2;
-            D_80173CC0 = temp_t1_2 + 0x28;
-            D_80173CC0 = temp_t1_2 + 0x30;
+            gDLPtr = temp_t1_2 + 0x28;
+            gDLPtr = temp_t1_2 + 0x30;
             temp_t1_2->unk30 = 0xDA380003;
             temp_t1_2->unk34 = (s32) (var_v1_8 + var_a2_3);
             temp_t1_2->unk38 = 0xDE000000;
             temp_t1_2->unk2C = (s32) ((Unk *)arg0->unk6C)->unk10;
-            D_80173CC0 = temp_t1_2 + 0x38;
+            gDLPtr = temp_t1_2 + 0x38;
             var_v1_7 = ((Unk *)arg0->unk6C)->unk14;
             var_v0_4 = temp_t1_2 + 0x40;
 block_57:
-            D_80173CC0 = var_v0_4;
+            gDLPtr = var_v0_4;
             temp_t1_2->unk3C = var_v1_7;
             goto block_59;
         }
     } else {
 block_59:
-        var_v1_6 = &D_8017C118;
+        var_v1_6 = &gRenderIdx;
     }
     *var_v1_6 += 3;
 }

@@ -3,8 +3,8 @@ void copyU16Array(u16*, u16*);                        /* extern */
 void intToAsciiStr(Unk*, s32);                        /* extern */
 void rdpFmt2Digit(Unk*, s32);                        /* extern */
 void rdpFormatFloatGetter(u16 *, u8, s32, s32);               /* extern */
-extern s32 D_80182E88;
-extern s32 D_80182EA4;
+extern s32 gTextCharAdv;
+extern s32 gTextBaseX;
 
 void rdpFormatStr(u16 *arg0, Unk *arg1, s32 arg2) {
     Unk *var_s1;
@@ -112,14 +112,14 @@ s32 trackComputeLen(s32 arg0, s16 arg1, s16 arg2) {
             if (temp_v0 != NULL) {
                 var_a3 += (u32) (temp_v0->unk0 * var_a0->unk8) >> 0x10;
             } else {
-                var_v0 = D_80182EA4;
+                var_v0 = gTextBaseX;
                 if (var_v0 < 0) {
                     var_v0 += 3;
                 }
                 var_a3 = var_a3 + 6 + (var_v0 >> 2);
             }
             if (var_a1 < (arg2 - 1)) {
-                var_a3 += D_80182E88;
+                var_a3 += gTextCharAdv;
             }
             var_a1 += 1;
             var_a0 += 0x10;

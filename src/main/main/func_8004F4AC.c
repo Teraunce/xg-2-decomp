@@ -5,10 +5,10 @@ void overlayNodeMark(Unk*);                            /* extern */
 void mtxIdentInit(Unk*, s32, s32, s32);                   /* extern */
 s32 triComputeNormal(Unk*, Unk*, Unk*, Unk*);                /* extern */
 s32 func_8013BDF4(s32);                               /* extern */
-extern f32 D_8004BBF8;
+extern f32 gNodeInitF;
 extern s32 gColorSwapMode;
-extern s32 D_80091FD0;
-extern char *D_80174BF8;
+extern s32 gEntityFlagMask;
+extern char *gTrackNodePtr;
 
 void renderNodeSetup(Unk *arg0, s32 arg1) {
     s32 saved_reg_s7;
@@ -196,7 +196,7 @@ void renderNodeSetup(Unk *arg0, s32 arg1) {
         if (arg0->unk58 > 0) {
             var_a0_3 = arg0->unk50 + 6;
             do {
-                if (*(s32*)((char*)var_a0_3 - 4)& (D_80091FD0 | 0x10)) {
+                if (*(s32*)((char*)var_a0_3 - 4)& (gEntityFlagMask | 0x10)) {
                     temp_v0[var_a0_3->unk0] = 1;
                 }
                 var_s1_3 += 1;
@@ -244,7 +244,7 @@ void renderNodeSetup(Unk *arg0, s32 arg1) {
     var_s1_6 = 0;
     if (arg0->unk58 > 0) {
         var_s2 = var_s4 + 3;
-        temp_fs1 = D_8004BBF8;
+        temp_fs1 = gNodeInitF;
         do {
             if (temp_fp[var_s2->unk3] == 0xFFFF) {
                 var_s2->unk3 = 0U;
@@ -391,7 +391,7 @@ void entityListPrune(void) {
     char *var_a0;
     Unk *var_v1;
 
-    var_v1 = D_80174BF8;
+    var_v1 = gTrackNodePtr;
     var_a0 = NULL;
     if (var_v1 != NULL) {
 loop_2:
@@ -408,7 +408,7 @@ loop_2:
                 *var_a0 = var_v1->unk0;
                 return;
             }
-            D_80174BF8 = var_v1->unk0;
+            gTrackNodePtr = var_v1->unk0;
         }
     }
 }

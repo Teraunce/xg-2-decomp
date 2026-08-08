@@ -20,7 +20,7 @@ for readability, correctness, and as many IDO byte-matches as possible.
 | Remaining M2C_ERROR call sites | **0** |
 | Remaining FIXME annotations | **0** |
 | Named functions (proper identifiers) | **702** |
-| Named data globals applied | **97** |
+| Named data globals applied | **810** |
 | ROM byte-exact match | ✅ yes |
 
 The 14 IDO-matched functions (all leaf functions — no `sw $ra`):
@@ -586,3 +586,87 @@ Regenerate stubs (destructive): `python3 tools/splat.py .splat/xg2.yaml`
     `sfxRaceUpdate`), game (`gameSceneInit`).
     Applied 19 replacements across 16 files. Fixed `audioRspDoneGetter` GETTER_NOJR stub.
     Total named: **639**.
+64. **Named 263 data globals** — fifteen batches of D_XXXXXXXX symbol identification:
+    Display/render (`gDLPtr`, `gLineVtxBase`, `gRenderBase`, `gRenderIdx`, `gLineTexBase`,
+    `gTexScaleX`, `gTexScaleY`, `gScreenWidth`, `gScreenHeight`, `gCurRenderNode`,
+    `gEntityVisited`, `gEntityActive`, `gRdpTilePtr`, `gRdpTilePtr2`, `gTexTileCmd`,
+    `gOrthoMtx`, `gPerspMtx`, `gDLBufEnd`, `gGfxTaskOut`, `gRspGeomBuf`),
+    SFX/audio (`gSfxVoiceCount`, `gSfxBufList`, `gSfxCooldown`, `gSfxTimer`,
+    `gSfxFrameState`, `gSfxBlockedFlag`, `gSfxTimerRef`, `gSfxFrameOut`,
+    `gSfxOutputActive`, `gSfxActive`, `gSfxEffectFlag`, `gSfxEffectList`,
+    `gSfxEffectTableA`, `gSfxEffectTableB`, `gSfxChanPtr`, `gSfxChanFuncs`,
+    `gSfxSpatialCount`, `gSfxListenerPos`, `gSfxListenerScale`, `gSfxDistMax`,
+    `gSfxDistClamp2`, `gSfxDistClamp3`, `gSfxDistThresh`, `gSfxPanScale`,
+    `gSfxVolDecay`, `gSfxPitchScale`, `gSfxSpatialScale`, `gSfxVolScale`,
+    `gSfxDecodeDst`, `gSfxDecodeBuf`, `gSfxDecodeBufData`, `gSfxDecodeSize`,
+    `gSfxDecodedCount`, `gSfxDecodeIdx`, `gSfxDecodeState`, `gSfxDecodePending`,
+    `gSfxDecodeTable`, `gSfxStreamCtx`, `gSfxChanReady`, `gSfxMidiReady`,
+    `gSfxQueueDepth`, `gSfxQueueReady`, `gSfxRaceReady`, `gSfxRaceTimer`,
+    `gSfxAmbientSlot`, `gSfxAmbientCount`, `gSfxAmbientHandle`, `gSfxAmbientIds`,
+    `gSfxAmbientParams`, `gSfxEntityHandle`, `gSfxUcodeEnd`, `gSfxProbeTable`,
+    `gSfxDmaDst`, `gSfxBufPool`, `gSfxGameParams`, `gSfxSampleRate`),
+    Audio engine (`gAudioDmaBuf`, `gAudioUcode`, `gAudioUcodeEnd`, `gAudioUcodeImemEnd`,
+    `gAudioUcodeData`, `gAudioRspData`, `gAudioSynthCfg`, `gAudioMesgQueue`,
+    `gAudioHeap`, `gAudioLoadTask`, `gAudioYieldBuf`, `gAudioAiBuf`, `gAudioOutBuf`,
+    `gAudioOutBuf`, `gAudioBufPtr`, `gAudioBufSize`, `gAudioBufSizeMin`,
+    `gAudioNoteList`, `gAudioStreamBuf`, `gAudioDecodeCount`, `gAudioHufDst`,
+    `gAudioFrameIdx`, `gAudioFrameCount`, `gAudioQueueBuf`, `gAudioQueueState`,
+    `gAudioPackedParams`, `gAudioParam0`–`gAudioParam4`, `gAudioSampleBase`,
+    `gAudioBankIdx`, `gAudioBankData`, `gAudioOutCtx`, `gAudioTrackBuf`,
+    `gAudioTrackBuf2`, `gMidiCtx`, `gMidiNoteTable`, `gMidiFreqTable`,
+    `gMidiVelThresh`, `gMidiSynthCfg`, `gMidiSynthCfg`),
+    Track/race (`gTrackEdgeData`, `gTrackEdgeTable`, `gTrackSegLen`, `gTrackNodePtr`,
+    `gTrackNodePool`, `gTrackTilt`, `gTrackTiltDir`, `gTrackFriction`, `gTrackReady`,
+    `gTrackRenderPtr`, `gTrackColorKey`, `gRaceCtx`, `gRaceActive`, `gRaceMax`,
+    `gRacePhase`, `gRaceCtrlCount`, `gRaceFlags`, `gRaceEntityPtr`),
+    Render/text (`gTextCurX`, `gTextCurY`, `gTextBaseX`, `gTextLayoutX`, `gTextLayoutW`,
+    `gTextCharAdv`, `gTextFontId`, `gTextWrap`, `gTextAlignFlags`, `gTextVisible`,
+    `gTextGlyphIdx`, `gTextGlyphCoords`, `gTextVertBuf`, `gTextColorBuf`,
+    `gTextTexU`, `gTextTexV`, `gGlyphSize`, `gGlyphCacheIdx`, `gFontData`,
+    `gFontRange`, `gFontTable`, `gFontGlyphPtr`, `gFontCacheKey`, `gFontInitDone`,
+    `gFontMesgQueue`, `gRdpSyncDone`, `gTexColorKey`, `gTexAddrKey`, `gTexCacheSlot`,
+    `gTexUVScale`),
+    SI/controller (`gSiReadBuf`, `gSiCmdBuf`, `gSiLocked`, `gSiWriteReady`,
+    `gSiMesgQueue`, `gSiMutexQueue`, `gContInput`, `gContPakSaveData`, `gContPakNoteAttr`,
+    `gContPakSlots`, `gContPakResult`, `gContPakCurEntry`, `gContPakDetected`,
+    `gContPakMesgQueue`, `gContPakDirCount`, `gContPakDirId`, `gContPakWaitCnt`,
+    `gContPakDmaReady`),
+    SRAM/PI (`gSramReady`, `gSramInit`, `gSramState`, `gSramDmaHead`, `gSramDmaNode`,
+    `gSramPiDmaCtx`, `gSramPiHandle`, `gPiMesgQueue`),
+    OS/hardware (`PI_STATUS_REG`, `SP_STATUS_REG`, `VI_V_CURRENT`, `SRAM_ADDR_REG`,
+    `gPhysMemBase`, `gExcBase`, `gViMsg`, `gViModePtr`, `gViModeData`, `gViModeCfg`,
+    `gViInited`, `gViTimingA`–`gViTimingD`, `gViRegPair0A`–`gViRegPair0E`,
+    `gNmiMesgQueue`, `gNmiMsg`, `gNmiMsg2`, `gTimerCount`, `gTimerPrev`, `gTimerHi`,
+    `gTimerBase`, `gTimerElapsed`, `gOsTimerQueue`, `gRspDmaMesgQueue`,
+    `gRspTask`, `gRspGeomBuf`, `gAudioRspData`),
+    Game/misc (`gHandlerCtx`, `gHandlerMsgQueue`, `gEntityMesgQueue`, `gEntityFlagMask`,
+    `gLoopCount`, `gGameMode`, `gGameFlags2`, `gRaceFlags`, `gGameThread`,
+    `gGameThreadArgs`, `gVideoMode`, `gVideoModeCfg`, `gMtxIdent00`–`gMtxIdent33`,
+    `gMtxOneF`, `gMtxZeroF`, `gOneF`, `gDegToRad`, `gTrigCoeffs`, `gRotClamp`,
+    `gRandState`, `gRandInitB`, `gRandStateA`, `gRandStateB`, `gOrthoMtx`,
+    `gOverlayTable`, `gOverlayTable2`, `gSceneOverlay`, `gSceneReady`,
+    `gCamClampF`, `gCamDLData`, `gDLBufEnd`, `gFontInitDone`).
+    Named data globals total: **360** (97 pre-existing + 263 this session).
+    All 453 C files still compile cleanly.
+65. **Named 450 additional data globals** — ten batches of remaining D_XXXXXXXX
+    symbols, covering all rodata f32/f64 constant clusters, BSS globals, and MMIO
+    registers. Key groups: ROM data pointers (`gFontRomAddr`, `gFontRomSize`,
+    `gAudioBankRomAddr`/`RomSize`/`EntryCount`, `gAudioUcodeRomAddr`/`RomSize`/
+    `EntryCount`, `gSceneOverlayData`, `gAudioHufTableRom`, `gGfxSetupTable`),
+    resolution/texture scaling (`gResScaleX`, `gResScaleY`, `gTileScaleU`, `gTileScaleV`),
+    VI mode register pairs (`gViRegPair2A`–`gViRegPair2J`), velStateInit params
+    (`gVelStateInitF`, `gVelInitParamA`–`gVelInitParamM`), entity/track init
+    (`gTrackSearchDist`, `gEntitySlotInitA/B`, `gNodeInitF`, `gEntityUpVecY`,
+    `gEntitySpawnScale`), trackNodeRender params (`gTrackNodeRenderA`–`D`),
+    geometry constants (`gVec3NormLen`, `gEdgeCrossParam`, `gGeomParamA`–`I`),
+    fog/display (`gFogYScale`, `gMtxPackInitF`), sfx spatial computation
+    (`gSfxSpatialDistThresh`, `gSfxSpatialParamB`–`F`, `gSfxSpatialImplA`–`H`,
+    `gSfxSpatialDefDist`, `gSfxInterpConst`, `gSfxInterpScale`, `gSfxVolInitF`),
+    sfx frequency (`gSfxFreqParamA/B`, `gSfxFreqThresh`, `gSfxFreqScale`,
+    `gSfxRaceParamA`), audio (`gAudioBufScale`, `gAudioNodeConst`),
+    camera (`gCamAvgScale/Clamp`, `gCamNearClip`, `gCamFarClip`, `gCamPerspDist/Far`,
+    `gCamUpVecY`), misc (`gFmtScaleD`, `gGeomScaleConst`, `gGfxRenderBufBase`),
+    MMIO (`AI_STATUS`=0xA450000C, `SI_STATUS`=0xA4800018).
+    Named data globals total: **810**. All 453 C files compile cleanly.
+    13 D_ references intentionally left as-is (comment-only annotations in
+    nonmatching stub files, e.g. D_80052BAC, D_80059234, D_800669F4, etc.).

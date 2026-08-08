@@ -1,8 +1,8 @@
 #include "ultra64.h"
 f64 frexp(f64, s32 *);                      /* extern */
-extern f64 D_8004CED8;
-extern f64 D_8004CEE0;
-extern Unk D_80095570;
+extern f64 gAudioFreqScaleD;
+extern f64 gAudioConvScaleD;
+extern Unk gAudioNodeCfg;
 
 s16 audioCalcRatio(f64 arg1, s32 arg0) {
     s16 *saved_reg_s1 = NULL; /* implicit $s1 set by caller — not saved/restored here */
@@ -34,12 +34,12 @@ s16 audioCalcRatio(f64 arg1, s32 arg0) {
     if ((s32)0.0 /* implicit $fs0/$f16 float from caller */ <= 0.0) {
 
     }
-    M2C_MEMCPY_ALIGNED(&sp68, &D_80095570, 0x3C);
+    M2C_MEMCPY_ALIGNED(&sp68, &gAudioNodeCfg, 0x3C);
     temp_fs0 = (f64) 0x40000000;
-    ((Unk*)&sp68)->unk3C = (s32) D_80095570.unk3C;
+    ((Unk*)&sp68)->unk3C = (s32) gAudioNodeCfg.unk3C;
     var_s0 = (s32) ((1.0 / (f64) arg0) * temp_fs0);
     var_fv1 = 1.0;
-    var_fv0 = 1.0 + (((*(f32*)((char*)(((s32)sp68 + ((s32) (frexp(var_fa1 / (s32)0.0 /* implicit $fs0/$f16 float from caller */, &spB0) * (f64) 0x10) * 8)))) - 40)+ (f64) spB0) * D_8004CED8) / (1.0 * temp_fs0);
+    var_fv0 = 1.0 + (((*(f32*)((char*)(((s32)sp68 + ((s32) (frexp(var_fa1 / (s32)0.0 /* implicit $fs0/$f16 float from caller */, &spB0) * (f64) 0x10) * 8)))) - 40)+ (f64) spB0) * gAudioFreqScaleD) / (1.0 * temp_fs0);
 
     if (var_s0 != 0) {
         do {
@@ -55,6 +55,6 @@ s16 audioCalcRatio(f64 arg1, s32 arg0) {
     temp_fa0 = temp_fv0 * temp_fv0;
     temp_fv1 = temp_fa0 * temp_fa0;
     temp_ft3 = (s32) temp_fv1;
-    *saved_reg_s1 = (s16) (s32) ((temp_fv1 - (f64) (f32) (s16) temp_ft3) * D_8004CEE0);
+    *saved_reg_s1 = (s16) (s32) ((temp_fv1 - (f64) (f32) (s16) temp_ft3) * gAudioConvScaleD);
     return (s16) temp_ft3;
 }

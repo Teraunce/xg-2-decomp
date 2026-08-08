@@ -2,9 +2,9 @@
 /* Warning: missing "jr $ra" in last block of osTimerHandlerGetter (initial). */
 
 extern Unk *gOSMsgQueuePtr;
-extern s32 D_80189A8C;
-extern s32 D_80189A90;
-extern s32 D_80189A94;
+extern s32 gTimerCount;
+extern s32 gTimerPrev;
+extern s32 gOsTimerLen;
 
 void __osRemoveLink(void **arg1, char *arg2, char *arg3) {
     char *var_a2;
@@ -29,10 +29,10 @@ loop_1:
 }
 
 void osMsgQueueInit(void) {
-    D_80189A8C = 0;
-    D_80189A8C = 0;
-    D_80189A90 = 0;
-    D_80189A94 = 0;
+    gTimerCount = 0;
+    gTimerCount = 0;
+    gTimerPrev = 0;
+    gOsTimerLen = 0;
     gOSMsgQueuePtr->unk4 = (void *) gOSMsgQueuePtr;
     gOSMsgQueuePtr->unk0 = (void *) gOSMsgQueuePtr->unk4;
     gOSMsgQueuePtr->unk10 = 0;

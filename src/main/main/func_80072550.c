@@ -9,10 +9,10 @@ s32 contPakCountNotes(void *, s32*);                   /* extern */
 s32 contPakReadDir(void *, s32*, s32*);              /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
-extern s32 D_80093EC8;
-extern s32 D_80093ECC;
-extern Unk D_801887D0;
-extern s32 D_80188940;
+extern s32 gContPakNoteAttr;
+extern s32 gContPakSaveData;
+extern Unk gHandlerCtx;
+extern s32 gContPakResult;
 
 void contPakLoadNote(s32 arg0, s32 arg1, s32 arg2) {
     s32 sp4C;
@@ -29,9 +29,9 @@ void contPakLoadNote(s32 arg0, s32 arg1, s32 arg2) {
     char *temp_s0_2;
     char *temp_s0_3;
 
-    D_80188940 = 0;
+    gContPakResult = 0;
 loop_1:
-    var_v0 = &D_801887D0;
+    var_v0 = &gHandlerCtx;
 loop_2:
     var_v0->unk168 = 1;
     temp_s0 = (arg1 * 4) + var_v0;
@@ -42,18 +42,18 @@ loop_2:
         }
     }
     sp40 = 0;
-    if ((D_801887D0.unk168 != 0) && ((temp_s0_2 = (arg1 * 0x68) + (&D_801887D0 + 0x17C), var_v0 = &D_801887D0, (entityStepState(contPakCountNotes(temp_s0_2, &sp40), arg1, -1) != 0)) || ((D_801887D0.unk168 != 0) && (var_v0 = &D_801887D0, (entityStepState(contPakReadDir(temp_s0_2, &sp44, &sp48), arg1, -1) != 0))))) {
+    if ((gHandlerCtx.unk168 != 0) && ((temp_s0_2 = (arg1 * 0x68) + (&gHandlerCtx + 0x17C), var_v0 = &gHandlerCtx, (entityStepState(contPakCountNotes(temp_s0_2, &sp40), arg1, -1) != 0)) || ((gHandlerCtx.unk168 != 0) && (var_v0 = &gHandlerCtx, (entityStepState(contPakReadDir(temp_s0_2, &sp44, &sp48), arg1, -1) != 0))))) {
         goto loop_2;
     }
     var_s1 = 0;
-    if (D_801887D0.unk168 != 0) {
-        temp_s0_3 = (arg1 * 0x68) + (&D_801887D0 + 0x17C);
-        if ((contPakReadNote(temp_s0_3, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp4C) == 0) && (contPakFetchNote(temp_s0_3, sp4C, &sp20) == 0)) {
+    if (gHandlerCtx.unk168 != 0) {
+        temp_s0_3 = (arg1 * 0x68) + (&gHandlerCtx + 0x17C);
+        if ((contPakReadNote(temp_s0_3, gContPakNoteCode, gGameID, &gContPakSaveData, &gContPakNoteAttr, &sp4C) == 0) && (contPakFetchNote(temp_s0_3, sp4C, &sp20) == 0)) {
             var_s1 = sp20;
             sp48 -= 1;
         }
-        if (D_801887D0.unk168 != 0) {
-            if (((sp40 + var_s1) < arg2) || (var_v1 = &D_801887D0, ((sp48 < 0x10) == 0))) {
+        if (gHandlerCtx.unk168 != 0) {
+            if (((sp40 + var_s1) < arg2) || (var_v1 = &gHandlerCtx, ((sp48 < 0x10) == 0))) {
                 var_a0 = 0x4E;
                 if (sp48 >= 0x10) {
                     var_a0 = 0x4C;
@@ -62,15 +62,15 @@ loop_2:
                 if (temp_v0 != 1) {
                     if (temp_v0 < 2) {
                         if (temp_v0 != 0) {
-                            var_v1 = &D_801887D0;
+                            var_v1 = &gHandlerCtx;
                         } else {
                             goto loop_1;
                         }
                     } else if (temp_v0 != 2) {
-                        var_v1 = &D_801887D0;
+                        var_v1 = &gHandlerCtx;
                     } else {
-                        ((arg1 * 4) + &D_801887D0)->unk31C = 4;
-                        D_801887D0.unk168 = 0;
+                        ((arg1 * 4) + &gHandlerCtx)->unk31C = 4;
+                        gHandlerCtx.unk168 = 0;
                         goto block_28;
                     }
                 } else {
@@ -85,7 +85,7 @@ loop_2:
     } else {
 block_28:
 block_29:
-        var_v1 = &D_801887D0;
+        var_v1 = &gHandlerCtx;
     }
     var_v1->unk160 = (s32) (var_v1->unk160 - 1);
 }

@@ -12,29 +12,29 @@ void midiNoteSetState(void *, s16, s32);                      /* extern */
 void midiSetVolume(void *, s16);                          /* extern */
 void midiSetExpression(void *, s8);                           /* extern */
 void midiSetController(void *, s8);                           /* extern */
-extern f32 D_8004BE20;
-extern f32 D_8004BE24;
-extern f32 D_8004BE28;
-extern f32 D_8004BE2C;
-extern f64 D_8004BE30;
-extern f64 D_8004BE38;
-extern f64 D_8004BE40;
-extern f32 D_8004BE48;
-extern s32 D_800927F0;
+extern f32 gSfxSpatialDistThresh;
+extern f32 gMidiVelThresh;
+extern f32 gSfxSpatialParamB;
+extern f32 gSfxSpatialParamC;
+extern f64 gSfxSpatialParamD;
+extern f64 gSfxSpatialParamE;
+extern f64 gSfxSpatialParamF;
+extern f32 gSfxDistClampA;
+extern s32 gMidiCtx;
 extern s32 gAudioQueueReadIdx;
 extern s32 gAudioQueueWriteIdx;
-extern s32 D_80092830;
-extern s32 D_80092834;
-extern s32 D_80092838;
-extern s32 D_8009283C;
-extern s32 D_80092844;
-extern s32 D_80092848;
-extern s32 D_800928DC;
-extern s32 D_80092A00;
-extern s32 D_801808DC;
-extern s32 D_80180908;
-extern s32 D_80180B38;
-extern s32 D_801839A4;
+extern s32 gSfxSampleRate;
+extern s32 gSfxQueueDepth;
+extern s32 gSfxMidiReady;
+extern s32 gSfxQueueReady;
+extern s32 gSfxSpatialCount;
+extern s32 gMidiProgramTbl;
+extern s32 gMidiVelocityTbl;
+extern s32 gMidiFreqTable;
+extern s32 gMidiNoteTable;
+extern s32 gAudioNoteList;
+extern s32 gAudioQueueBuf;
+extern s32 gSfxVolumeF64;
 
 void midiQueueProcess(void) {
     u8 sp10;
@@ -100,12 +100,12 @@ void midiQueueProcess(void) {
     var_v0 = &sp10;
     do {
         var_s3 += 1;
-        *var_v0 = (D_80092838 != 0) * 4;
+        *var_v0 = (gSfxMidiReady != 0) * 4;
         var_v0 = &(&sp10)[var_s3];
     } while (var_s3 < 0x1C);
-    D_80092838 = 0;
+    gSfxMidiReady = 0;
     var_s3_2 = 0;
-    var_s0 = &D_80180908;
+    var_s0 = &gAudioNoteList;
     do {
         temp_v0 = var_s0->unk4;
         if (temp_v0 != 1) {
@@ -116,13 +116,13 @@ void midiQueueProcess(void) {
             }
         } else {
 block_7:
-            midiSetNote(D_800927F0, var_s0->unk12);
+            midiSetNote(gMidiCtx, var_s0->unk12);
             var_s3_2 += 1;
-            if (midiNoteIsPlaying(D_800927F0) == 0) {
-                midiReleaseNote(D_800927F0, var_s0->unk12);
+            if (midiNoteIsPlaying(gMidiCtx) == 0) {
+                midiReleaseNote(gMidiCtx, var_s0->unk12);
                 var_s0->unk4 = 0;
                 var_s0->unk0 = 0;
-                D_80092844 -= 1;
+                gSfxSpatialCount -= 1;
             }
         }
         var_s0 += 0x14;
@@ -131,14 +131,14 @@ block_7:
     if (var_s3_3 != gAudioQueueWriteIdx) {
         var_v0_2 = var_s3_3 * 4;
         do {
-            temp_s1 = ((var_v0_2 + var_s3_3) * 4) + &D_80180B38;
+            temp_s1 = ((var_v0_2 + var_s3_3) * 4) + &gAudioQueueBuf;
             temp_v1 = temp_s1->unk4;
             if (temp_v1 != 1) {
                 if (temp_v1 >= 2) {
                     if (temp_v1 != 2) {
                         if (temp_v1 == 3) {
                             var_s2 = 0;
-                            var_v1 = &D_80180908;
+                            var_v1 = &gAudioNoteList;
 loop_59:
                             if (var_v1->unk0 != temp_s1->unk0) {
                                 var_s2 += 1;
@@ -149,8 +149,8 @@ loop_59:
                             } else if (var_v1->unk4 == 1) {
                                 temp_s1_2 = &(&sp10)[var_s2];
                                 if (!(*temp_s1_2 & 1)) {
-                                    midiSetNote(D_800927F0, var_v1->unk12);
-                                    midiTimerReset(D_800927F0);
+                                    midiSetNote(gMidiCtx, var_v1->unk12);
+                                    midiTimerReset(gMidiCtx);
                                 }
                                 *temp_s1_2 = 0;
                                 var_v1->unk4 = 3;
@@ -161,7 +161,7 @@ loop_59:
                     } else {
                         var_s2_2 = 0;
                         var_a2 = &sp10;
-                        var_v1_2 = &D_80180908;
+                        var_v1_2 = &gAudioNoteList;
 loop_28:
                         if (var_v1_2->unk0 != temp_s1->unk0) {
                             var_a2 += 1;
@@ -174,21 +174,21 @@ loop_28:
                             }
                         } else {
                             if (var_v1_2->unk4 == 1) {
-                                if (D_8004BE20 < fabsf(var_v1_2->unk8 - temp_s1->unk8)) {
+                                if (gSfxSpatialDistThresh < fabsf(var_v1_2->unk8 - temp_s1->unk8)) {
                                     *var_a2 |= 2;
                                     temp_fv1 = var_v1_2->unk8;
                                     temp_fv0 = temp_s1->unk8;
                                     if (!(temp_fv0 < temp_fv1)) {
                                         temp_fv0_2 = temp_fv0 - temp_fv1;
-                                        if (D_8004BE24 <= temp_fv0_2) {
-                                            var_fv0 = temp_fv1 + D_8004BE24;
+                                        if (gMidiVelThresh <= temp_fv0_2) {
+                                            var_fv0 = temp_fv1 + gMidiVelThresh;
                                         } else {
                                             var_fv0 = temp_fv1 + temp_fv0_2;
                                         }
                                     } else {
                                         temp_fv0_3 = temp_fv1 - temp_fv0;
-                                        if (D_8004BE24 <= temp_fv0_3) {
-                                            var_fv0 = temp_fv1 - D_8004BE24;
+                                        if (gMidiVelThresh <= temp_fv0_3) {
+                                            var_fv0 = temp_fv1 - gMidiVelThresh;
                                         } else {
                                             var_fv0 = temp_fv1 - temp_fv0_3;
                                         }
@@ -231,7 +231,7 @@ loop_28:
                 }
             } else {
                 var_s2_3 = 0;
-                var_v1_3 = &D_80180908;
+                var_v1_3 = &gAudioNoteList;
 loop_20:
                 if (var_v1_3->unk4 != 0) {
                     var_s2_3 += 1;
@@ -242,7 +242,7 @@ loop_20:
                         goto loop_20;
                     }
                 } else {
-                    temp_v0_2 = midiAllocNote(D_800927F0, ((Unk*)(s32)(D_801808DC + (temp_s1->unk6 * 4)))->unk10);
+                    temp_v0_2 = midiAllocNote(gMidiCtx, ((Unk*)(s32)(gMidiNoteTable + (temp_s1->unk6 * 4)))->unk10);
                     if (temp_v0_2 >= 0) {
                         var_v1_3->unk0 = (s32) temp_s1->unk0;
                         var_v1_3->unk4 = (s32) temp_s1->unk4;
@@ -251,7 +251,7 @@ loop_20:
                         var_v1_3->unk10 = (s32) temp_s1->unk10;
                         var_v1_3->unk12 = temp_v0_2;
                         (&sp10)[var_s2_3] = 1;
-                        D_80092844 += 1;
+                        gSfxSpatialCount += 1;
                     }
 block_67:
                     var_s3_3 += 1;
@@ -264,15 +264,15 @@ block_67:
         } while (var_s3_3 != gAudioQueueWriteIdx);
     }
     gAudioQueueReadIdx = var_s3_3;
-    if (D_8009283C != 0) {
+    if (gSfxQueueReady != 0) {
         var_s3_4 = 0;
-        var_s0_2 = &D_80180908;
+        var_s0_2 = &gAudioNoteList;
         do {
             if (var_s0_2->unk4 == 1) {
                 temp_s1_3 = &(&sp10)[var_s3_4];
                 if (!(*temp_s1_3 & 1)) {
-                    midiSetNote(D_800927F0, var_s0_2->unk12);
-                    midiTimerReset(D_800927F0);
+                    midiSetNote(gMidiCtx, var_s0_2->unk12);
+                    midiTimerReset(gMidiCtx);
                 }
                 *temp_s1_3 = 0;
                 var_s0_2->unk4 = 3;
@@ -280,16 +280,16 @@ block_67:
             var_s3_4 += 1;
             var_s0_2 += 0x14;
         } while (var_s3_4 < 0x1C);
-        D_8009283C = 0;
+        gSfxQueueReady = 0;
     }
     sp = 0;
     var_s3_5 = 0;
-    var_s0_3 = &D_80180908;
-    temp_fs4 = D_8004BE28;
-    temp_fs3 = D_8004BE2C;
-    temp_fs2 = D_8004BE30;
-    temp_fs1 = D_8004BE38;
-    temp_fs0 = D_8004BE40;
+    var_s0_3 = &gAudioNoteList;
+    temp_fs4 = gSfxSpatialParamB;
+    temp_fs3 = gSfxSpatialParamC;
+    temp_fs2 = gSfxSpatialParamD;
+    temp_fs1 = gSfxSpatialParamE;
+    temp_fs0 = gSfxSpatialParamF;
     do {
         temp_s2 = ((Unk*)(s32)(sp + var_s3_5))->unk10;
         if (var_s0_3->unk4 != 1) {
@@ -297,36 +297,36 @@ block_67:
         } else if (temp_s2 == 0) {
             var_s3_5 += 1;
         } else {
-            midiSetNote(D_800927F0, var_s0_3->unk12);
+            midiSetNote(gMidiCtx, var_s0_3->unk12);
             var_v0_4 = temp_s2 & 5;
             if (temp_s2 & 3) {
-                temp_fv1_2 = var_s0_3->unk8 * (f32) *(((var_s0_3->unk6 + 1) * 2) + &D_800928DC);
+                temp_fv1_2 = var_s0_3->unk8 * (f32) *(((var_s0_3->unk6 + 1) * 2) + &gMidiVelocityTbl);
                 var_fv0_2 = temp_fv1_2 * temp_fs4;
                 if (!(var_fv0_2 <= temp_fs3)) {
                     var_fv0_2 = temp_fs3;
                 }
-                if (var_fv0_2 <= D_8004BE48) {
-                    var_fv1 = D_8004BE48;
+                if (var_fv0_2 <= gSfxDistClampA) {
+                    var_fv1 = gSfxDistClampA;
                 } else {
                     var_fv1 = temp_fv1_2 * temp_fs4;
                     if (!(var_fv1 <= temp_fs3)) {
                         var_fv1 = temp_fs3;
                     }
                 }
-                midiTimerSetNote(D_800927F0, var_fv1);
+                midiTimerSetNote(gMidiCtx, var_fv1);
                 var_v0_4 = temp_s2 & 5;
             }
             var_v0_5 = temp_s2 & 9;
             if (var_v0_4 != 0) {
                 temp_v1_5 = (u16) var_s0_3->unk6;
                 if ((u32) (temp_v1_5 - 0x6A) < 0x22U) {
-                    var_fv1_2 = (f64) D_80092834 * ((f64) var_s0_3->unkC * temp_fs2);
-                    var_v0_6 = (s16) temp_v1_5 + &D_80092A00;
+                    var_fv1_2 = (f64) gSfxQueueDepth * ((f64) var_s0_3->unkC * temp_fs2);
+                    var_v0_6 = (s16) temp_v1_5 + &gMidiFreqTable;
                     goto block_97;
                 }
                 if (((u32) ((temp_v1_5 - 0x18) & 0xFFFF) < 2U) || ((u32) ((temp_v1_5 - 0xE) & 0xFFFF) < 2U) || ((s16) temp_v1_5 == 0x10)) {
-                    var_fv1_2 = (f64) D_801839A4 * ((f64) var_s0_3->unkC * temp_fs2);
-                    var_v0_6 = var_s0_3->unk6 + &D_80092A00;
+                    var_fv1_2 = (f64) gSfxVolumeF64 * ((f64) var_s0_3->unkC * temp_fs2);
+                    var_v0_6 = var_s0_3->unk6 + &gMidiFreqTable;
 block_97:
                     var_fv1_3 = var_fv1_2 * (f64) var_v0_6->unk1;
                     var_ft0 = var_fv1_3 * temp_fs1;
@@ -338,7 +338,7 @@ block_97:
                         goto block_108;
                     }
                 } else {
-                    var_fv1_3 = (f64) D_80092830 * ((f64) var_s0_3->unkC * temp_fs2) * (f64) ((Unk*)((char*)&D_80092A00 + (s16)temp_v1_5))->unk1;
+                    var_fv1_3 = (f64) gSfxSampleRate * ((f64) var_s0_3->unkC * temp_fs2) * (f64) ((Unk*)((char*)&gMidiFreqTable + (s16)temp_v1_5))->unk1;
                     var_ft0_2 = var_fv1_3 * temp_fs1;
                     if (!(var_ft0_2 <= temp_fs0)) {
                         var_ft0_2 = temp_fs0;
@@ -353,7 +353,7 @@ block_108:
                         var_a1 = (s16) (s32) var_fv1_4;
                     }
                 }
-                midiSetVolume(D_800927F0, var_a1);
+                midiSetVolume(gMidiCtx, var_a1);
                 var_v0_5 = temp_s2 & 9;
             }
             var_v0_7 = temp_s2 & 0x11;
@@ -369,7 +369,7 @@ block_108:
                         var_a1_2 = 0;
                     }
                 }
-                midiSetExpression(D_800927F0, var_a1_2);
+                midiSetExpression(gMidiCtx, var_a1_2);
                 var_v0_7 = temp_s2 & 0x11;
             }
             var_v0_8 = temp_s2 & 1;
@@ -385,13 +385,13 @@ block_108:
                         var_a1_3 = 0;
                     }
                 }
-                midiSetController(D_800927F0, var_a1_3);
+                midiSetController(gMidiCtx, var_a1_3);
                 var_v0_8 = temp_s2 & 1;
             }
             var_s3_5 += 1;
             if (var_v0_8 != 0) {
-                midiNoteSetState(D_800927F0, var_s0_3->unk12, *(var_s0_3->unk6 + &D_80092848));
-                midiSeqStop(D_800927F0);
+                midiNoteSetState(gMidiCtx, var_s0_3->unk12, *(var_s0_3->unk6 + &gMidiProgramTbl));
+                midiSeqStop(gMidiCtx);
             }
         }
         var_s0_3 += 0x14;

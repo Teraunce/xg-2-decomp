@@ -1,5 +1,5 @@
 #include "ultra64.h"
-extern f32 D_8004BDAC;
+extern f32 gEdgeCrossParam;
 
 /*
  * vec3CrossEdge — compute cross product of two edge vectors (nonmatching).
@@ -31,7 +31,7 @@ void vec3Cross(Unk *arg0, Unk *arg1, Unk *arg2) {
     temp_ft0 = (arg0->unk0 * arg1->unk4) - (arg0->unk4 * arg1->unk0);
     arg2->unk8 = temp_ft0;
     if ((arg2->unk0 == 0.0f) && (arg2->unk4 == 0.0f) && (temp_ft0 == 0.0f)) {
-        arg2->unk0 = (f32) D_8004BDAC;
+        arg2->unk0 = (f32) gEdgeCrossParam;
     }
 }
 

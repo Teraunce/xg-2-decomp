@@ -7,9 +7,9 @@ s32 contPakWriteNote(Unk*, s32, u8, s32, s32, char*);    /* extern */
 s32 contPakReadNote(void *, u16, s32, s32, s32, s32*); /* extern */
 extern u16 gContPakNoteCode;
 extern s32 gGameID;
-extern s8 D_80093EC8;
-extern s32 D_80093ECC;
-extern s32 D_8018894C;
+extern s8 gContPakNoteAttr;
+extern s32 gContPakSaveData;
+extern s32 gContPakSlots;
 
 s32 contPakFormatNote(s32 arg0) {
     s32 sp68;
@@ -34,9 +34,9 @@ s32 contPakFormatNote(s32 arg0) {
     char *temp_s1;
 
     memsetBytes(&sp60, 0, 4);
-    temp_s1 = (arg0 * 0x68) + &D_8018894C;
+    temp_s1 = (arg0 * 0x68) + &gContPakSlots;
     sp60 = 0x33;
-    temp_v0 = contPakAllocNote(temp_s1, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, 0x100, &sp68);
+    temp_v0 = contPakAllocNote(temp_s1, gContPakNoteCode, gGameID, &gContPakSaveData, &sp60, 0x100, &sp68);
     if (temp_v0 < 9) {
         if (temp_v0 < 7) {
             var_s0 = arg0 * 2;
@@ -46,7 +46,7 @@ s32 contPakFormatNote(s32 arg0) {
             goto block_8;
         }
         var_v0 = 1;
-        if (contPakReadNote(temp_s1, gContPakNoteCode, gGameID, &D_80093ECC, &D_80093EC8, &sp68) == 0) {
+        if (contPakReadNote(temp_s1, gContPakNoteCode, gGameID, &gContPakSaveData, &gContPakNoteAttr, &sp68) == 0) {
             temp_v0_2 = contPakWriteNote(temp_s1, sp68, 0, 0, 0x20, &sp20);
             var_v0 = 1;
             if (temp_v0_2 != 6) {
@@ -62,7 +62,7 @@ s32 contPakFormatNote(s32 arg0) {
                         *temp_v1 = temp_v0_3;
                         var_v0_2 = &(&sp20)[var_a0];
                     } while (var_a0 < 0x20);
-                    temp_s0 = (arg0 * 0x68) + &D_8018894C;
+                    temp_s0 = (arg0 * 0x68) + &gContPakSlots;
                     if (contPakWriteNote(temp_s0, sp68, 1, 0, 0x20, &sp40) != 0) {
                         var_s5 = 0;
                     }
@@ -94,8 +94,8 @@ s32 contPakFormatNote(s32 arg0) {
     }
     var_s0 = arg0 * 2;
 block_8:
-    temp_s0_2 = ((((var_s0 + arg0) * 4) + arg0) * 8) + &D_8018894C;
-    temp_s5 = contPakReadNote(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60, &sp68);
-    contPakLoadSave(temp_s0_2, gContPakNoteCode, gGameID, &D_80093ECC, &sp60);
+    temp_s0_2 = ((((var_s0 + arg0) * 4) + arg0) * 8) + &gContPakSlots;
+    temp_s5 = contPakReadNote(temp_s0_2, gContPakNoteCode, gGameID, &gContPakSaveData, &sp60, &sp68);
+    contPakLoadSave(temp_s0_2, gContPakNoteCode, gGameID, &gContPakSaveData, &sp60);
     return temp_s5 == 0;
 }
