@@ -2,9 +2,7 @@
 void contParseReadRespGetter(s32, s32);
 /* Warning: missing "jr $ra" in last block of contParseReadRespGetter (initial). */
 
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 s32 osGetTime();                                /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 void siInitControllerReadCmd(s32);                                 /* extern */
 s32 osSetTimerImpl(void *, s32, s32, s32, s32, s32, s32);       /* extern */

@@ -6,7 +6,10 @@ s32 osRestoreInt(s32);                               /* extern */
 void osStartThread(Unk*);                               /* extern */
 extern Unk *__osRunningThread;
 
-s32 osRecvMesg(Unk *arg0, s32 *arg1, s32 arg2) {
+s32 osRecvMesg(OSMesgQueue *mq, OSMesg *pmsg, s32 flag) {
+    Unk *arg0 = (Unk *)mq;
+    s32 *arg1 = (s32 *)pmsg;
+    s32 arg2 = flag;
     s32 temp_s0;
 
     temp_s0 = osDisableInt();

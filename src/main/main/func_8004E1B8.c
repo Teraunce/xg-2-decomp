@@ -1,6 +1,4 @@
 #include "ultra64.h"
-s32 osRecvMesg(Unk*, s32*, s32);                    /* extern */
-s32 osSendMesg(Unk*, s32, s32);                     /* extern */
 s32 siDmaReset(s32);                                  /* extern */
 extern s32 gSiMesgQueue;
 extern s32 gPiMesgQueue;

@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "mtx.h"
 /* Warning: missing "jr $ra" in last block of func_80056C2C (initial). */
 
 s32 func_80056850(void *, s32);                            /* extern */
@@ -19,7 +20,7 @@ void mtxRotAxisApply(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     mtxCatFSafe(&sp10, arg0, arg0);
 }
 
-void mtxIdentInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
+void mtxIdentInit(Matrix4x4 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk4 = 0;
     arg0->unk8 = 0;
     arg0->unkC = 0;
@@ -38,7 +39,7 @@ void mtxIdentInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->unk3C = (f32) gMtxZeroF;
 }
 
-void mtxCopyTranslate(Unk *arg0, Unk *arg1, f32 arg2, f32 arg3, f32 arg4) {
+void mtxCopyTranslate(Matrix4x4 *arg0, Matrix4x4 *arg1, f32 arg2, f32 arg3, f32 arg4) {
     if (arg0 != arg1) {
         arg1->unk0 = (f32) arg0->unk0;
         arg1->unk4 = (f32) arg0->unk4;

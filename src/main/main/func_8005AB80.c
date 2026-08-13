@@ -2,7 +2,6 @@
 void audioRspSubmit(Unk*);                               /* extern */
 void audioSetupCopySample(Unk*, s32, s32);                       /* extern */
 void safeCopy(u32, u32, u32);                  /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 extern s32 gRspDmaMesgQueue;
 extern s32 gAudioDecodeCount;
 extern s32 gAudioDmaBuf;

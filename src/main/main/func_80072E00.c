@@ -2,7 +2,6 @@
 s32 sfxRandNext();                                /* extern */
 void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 void osSetEventMesg(s32, s32, s32);                      /* extern */
 s32 siReadBlocking(s32);                               /* extern */
 void contGetInputPort(s32);                               /* extern */

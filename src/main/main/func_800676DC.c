@@ -1,4 +1,7 @@
 #include "ultra64.h"
+#include "vi.h"
+#include "entity.h"
+#include "render.h"
 void mtxProjectVec(Unk*, Unk*, Unk*);                /* extern */
 void guMtxL2FFixedW(s32, s32);                       /* extern */
 void sfxSetState(s32);                                 /* extern */
@@ -17,13 +20,13 @@ extern f32 gRaceRenderParam8;
 extern f32 gRaceRenderParam9;
 extern f32 gRaceRenderParamA;
 extern f32 gRaceClampA;
-extern s32 gEntityPool;
+extern Entity gEntityPool[];
 extern s32 gTrackNodeCount;
 extern s32 gPlayerList;
-extern s32 gTrackNodePool;
+extern RenderNode gTrackNodePool[];
 extern Unk *gDLPtr;
 extern s32 gRaceActive;
-extern s32 gVideoMode;
+extern VideoModeConfig gVideoMode;
 extern Unk gRaceCtx;
 extern s32 gRaceColorMode;
 extern s8 gRaceColorR;
@@ -42,7 +45,7 @@ void gameRaceRender(s32 arg0) {
     f32 sp60;
     s32 sp20;
     char *var_a1;
-    Unk *var_s1;
+    RenderNode *var_s1;
     f32 temp_fa0;
     f32 temp_fs0;
     f32 temp_fs2;
@@ -71,20 +74,20 @@ void gameRaceRender(s32 arg0) {
     s8 var_v0_3;
     Unk *temp_a0;
     Unk *temp_a2_2;
-    Unk *temp_s2;
-    Unk *temp_s3;
+    ViewportEntry *temp_s2;
+    Entity *temp_s3;
     Unk *temp_v0;
     Unk *temp_v1;
     Unk *temp_v1_4;
-    Unk *var_s0;
+    Entity *var_s0;
 
-    temp_s3 = (arg0 * 0x228) + &gEntityPool;
-    if ((gRaceCtx.unk16D8 != 2) && (temp_s3->unkD0 != 0)) {
-        sp70 = temp_s3->unkC - temp_s3->unk0;
+    temp_s3 = &gEntityPool[arg0];
+    if ((gRaceCtx.unk16D8 != 2) && (temp_s3->renderObj != 0)) {
+        sp70 = temp_s3->atX - temp_s3->eyeX;
         var_s4 = 0;
-        sp74 = temp_s3->unk10 - temp_s3->unk4;
-        sp78 = temp_s3->unk14 - temp_s3->unk8;
-        guMtxL2FFixedW(temp_s3 + ((gPlayerList << 6) + 0x30), &sp20);
+        sp74 = temp_s3->atY - temp_s3->eyeY;
+        sp78 = temp_s3->atZ - temp_s3->eyeZ;
+        guMtxL2FFixedW((s32)((char *)temp_s3 + ((gPlayerList << 6) + 0x30)), (s32)&sp20);
         rdpRunSetupDL(&gDLPtr);
         sfxSetState(0);
         sceneDispatch(&gRaceRenderParam0, 0, 5);
@@ -100,25 +103,25 @@ void gameRaceRender(s32 arg0) {
         temp_v1->unk8 = 0xE2001D00;
         temp_v1->unkC = 4;
         if (gTrackNodeCount > 0) {
-            temp_s2 = (arg0 << 5) + &gVideoMode;
+            temp_s2 = &gVideoMode.vp[arg0];
             var_s0 = temp_s3;
-            var_s1 = &gTrackNodePool;
+            var_s1 = gTrackNodePool;
             temp_fs3 = gRaceRenderParam3;
             temp_fs0 = gRaceRenderParam4;
             temp_fs2 = gRaceRenderParam5;
             do {
-                if ((var_s1->unk450 == 0) && (var_s4 != ((Unk *)temp_s3->unkD0)->unk560)) {
+                if ((var_s1->active == 0) && (var_s4 != temp_s3->renderObj->entityIdx)) {
                     var_fv1 = gRaceRenderParam6;
-                    if (((Unk*)(s32)var_s1->unk0)->unkC == 0) {
+                    if (((Unk*)(s32)var_s1->posX)->unkC == 0) {
                         var_fv1 = gRaceRenderParam7;
                     }
-                    temp_ft2 = (var_s1->unk0 + (var_s1->unk40 * var_fv1)) - temp_s3->unk0;
+                    temp_ft2 = (var_s1->posX + (var_s1->upX * var_fv1)) - temp_s3->eyeX;
                     sp60 = temp_ft2;
                     temp_ft2_2 = -temp_ft2;
-                    temp_ft0 = (var_s1->unk4 + (var_s1->unk44 * var_fv1)) - temp_s3->unk4;
+                    temp_ft0 = (var_s1->posY + (var_s1->upY * var_fv1)) - temp_s3->eyeY;
                     sp64 = temp_ft0;
                     temp_ft0_2 = -temp_ft0;
-                    temp_fv1 = (var_s1->unk8 + (var_s1->unk48 * var_fv1)) - temp_s3->unk8;
+                    temp_fv1 = (var_s1->posZ + (var_s1->upZ * var_fv1)) - temp_s3->eyeZ;
                     temp_fa0 = -temp_fv1;
                     sp80 = temp_ft2_2;
                     sp84 = temp_ft0_2;
@@ -151,17 +154,17 @@ block_23:
                         } else {
                             var_s0->unkDC = 0;
                         }
-                        if (((Unk*)((char*)&gEntityPool + (arg0 * 0x228)))->unk1E4 != 0) {
-                            var_fv0 = temp_s2->unk18 - (sp60 * temp_s2->unk10);
+                        if (gEntityPool[arg0].hiliteFlag != 0) {
+                            var_fv0 = temp_s2->centerX - (sp60 * temp_s2->scaleX);
                         } else {
-                            var_fv0 = temp_s2->unk18 + (sp60 * temp_s2->unk10);
+                            var_fv0 = temp_s2->centerX + (sp60 * temp_s2->scaleX);
                         }
                         sp60 = var_fv0;
-                        temp_ft0_3 = temp_s2->unk1C - (sp64 * temp_s2->unk14);
+                        temp_ft0_3 = temp_s2->centerY - (sp64 * temp_s2->scaleY);
                         sp64 = temp_ft0_3;
-                        temp_v1_2 = temp_s2->unk0;
-                        if (((f32) (temp_v1_2 - 0x18) <= sp60) && (sp60 < (f32) (temp_v1_2 + temp_s2->unk8 + 0x18)) && (temp_v1_3 = temp_s2->unk4, ((f32) (temp_v1_3 - 6) <= temp_ft0_3)) && (temp_ft0_3 < (f32) (temp_v1_3 + temp_s2->unkC + 6))) {
-                            if ((var_s0->unk124 != 0) && (temp_a2 = (var_s0->unk124 * (0xFF - var_s1->unk558)) / 255, (temp_a2 > 0))) {
+                        temp_v1_2 = temp_s2->x;
+                        if (((f32) (temp_v1_2 - 0x18) <= sp60) && (sp60 < (f32) (temp_v1_2 + temp_s2->w + 0x18)) && (temp_v1_3 = temp_s2->y, ((f32) (temp_v1_3 - 6) <= temp_ft0_3)) && (temp_ft0_3 < (f32) (temp_v1_3 + temp_s2->h + 6))) {
+                            if ((var_s0->viewDepth != 0) && (temp_a2 = (var_s0->viewDepth * (0xFF - var_s1->alphaParam)) / 255, (temp_a2 > 0))) {
                                 temp_v1_4 = gDLPtr + 8;
                                 gDLPtr->unk0 = 0xE7000000;
                                 gDLPtr->unk4 = 0;
@@ -187,7 +190,7 @@ block_23:
                                 }
                                 temp_v1_4->unk4 = var_v0_4;
                                 if (gRaceCtx.unk16F4 == 2) {
-                                    var_v0_5 = var_s1->unk440;
+                                    var_v0_5 = var_s1->raceIdx;
                                     var_a3 = (s32) sp60;
                                     var_a1 = &gRaceRenderParam1;
                                 } else {
@@ -214,7 +217,7 @@ block_51:
                     var_s0 += 1;
                 }
                 var_s4 += 1;
-                var_s1 += 0x668;
+                var_s1++;
             } while (var_s4 < gTrackNodeCount);
         }
         temp_a2_2 = gDLPtr;

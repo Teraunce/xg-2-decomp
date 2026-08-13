@@ -1,8 +1,9 @@
 #include "ultra64.h"
+#include "mtx.h"
 f32 sqrtfWrap(f32);                             /* extern */
 void guMtxIdent(char *);                         /* extern */
 
-void guLookAtF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+void guLookAtF(Matrix4x4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fa1_2;
@@ -24,7 +25,7 @@ void guLookAtF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 
     f32 temp_fv1_2;
     f32 temp_fv1_3;
 
-    guMtxIdent(arg0);
+    guMtxIdent((char *)arg0);
     temp_fv0 = arg4 - arg1;
     temp_fs1 = arg5 - arg2;
     temp_fs2 = arg6 - arg3;

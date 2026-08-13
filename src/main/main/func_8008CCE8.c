@@ -8,7 +8,6 @@ extern s32 gContPakDmaBufA;
 extern s32 gContPakDmaBufB;
 extern s32 gContPakCmdBufA;
 extern s32 gContPakCmdBufB;
-extern s32 PI_STATUS_REG;
 
 s32 contPakBuildMap(s32 arg0, Unk *arg1, s32 arg2) {
     Unk *sp = (Unk*)0;

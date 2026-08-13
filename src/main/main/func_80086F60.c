@@ -1,7 +1,5 @@
 #include "ultra64.h"
 s32 __osGetCount();                                /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                    /* extern */
-s32 osSendMesg(Unk*, s32, s32);                       /* extern */
 void osTimerHandlerGetter();                                  /* extern */
 char *osViGetCurrentFramebuffer();                              /* extern */
 void osViSwapBuffer();                                  /* extern */

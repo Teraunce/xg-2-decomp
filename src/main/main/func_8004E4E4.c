@@ -1,5 +1,4 @@
 #include "ultra64.h"
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 void osSetEventMesg(s32, s32, s32);                         /* extern */
 s32 siReadControllers(char*, s32, s32);                    /* extern */
 extern s32 gContReadBuf;

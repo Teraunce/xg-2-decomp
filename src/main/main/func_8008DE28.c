@@ -25,15 +25,12 @@
  * -------------------------------------------------------------------------
  */
 
-s32  osRecvMesg(void *arg0, void *arg1, s32 arg2);
-s32  osSendMesg(void *arg0, void *arg1, s32 arg2);
 void osDisableIntMask(s32 arg0);
 void osEPiRawWriteIoGetter(void *arg0, s32 arg1, s32 arg2);
 void osEPiRawReadIoGetter(void *arg0, s32 arg1, s32 arg2);
 void osEnableIntMask(s32 arg0);
 void __osPiWait(void);
 
-extern s32 PI_STATUS_REG;  /* RSP/RDP register */
 
 void gfxDmaEventLoop(Unk *arg0) {
     /* nonmatching: geometry update section and full loop body —

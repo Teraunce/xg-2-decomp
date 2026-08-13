@@ -42,8 +42,8 @@ loop_2:
         var_s3 = var_s2 + 3;
         do {
             var_s1 += 4;
-            temp_v0 = *(u16*)((char*)var_s3 - 2)
-            temp_v1 = *(u8*)((char*)var_s3 - 1)
+            temp_v0 = *(u16*)((char*)var_s3 - 2);
+            temp_v1 = *(u8*)((char*)var_s3 - 1);
             temp_a2 = var_s3->unk0;
             var_s3 += 4;
             temp_a1_2 = *var_s2;

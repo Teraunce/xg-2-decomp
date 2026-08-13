@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "mtx.h"
 s32 vec3Normalize(f32, f32 *, f32 *);                 /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 extern f32 gGeomParamD;
@@ -7,7 +8,7 @@ extern f32 gGeomParamF;
 extern f32 gGeomParamG;
 extern f32 gGeomParamH;
 
-void mtxLookAt(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void mtxLookAt(Matrix4x4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 sp78;
     f32 sp74;
     f32 sp70;

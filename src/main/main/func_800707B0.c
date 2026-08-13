@@ -29,7 +29,6 @@ void contPakLoadNote(s32 arg0, s32 arg1, s32 arg2);
 void contPakSaveNote(s32 arg0, s32 arg1, s32 (*arg2)(s32, s32));
 void contPakCreateNote(s32 arg0, s32 arg1, s32 arg2, s32 (*arg3)(s32));
 void osSetEventMesg(s32 arg0, s32 arg1, s32 arg2);
-s32  osRecvMesg(Unk *arg0, s32 *arg1, s32 arg2);
 s32  sfxHasEntity(void *entity);
 
 extern Unk gHandlerCtx;  /* game state; cmd entries at +0, stride 0x2C */

@@ -1,5 +1,4 @@
 #include "ultra64.h"
-s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 void piMgrInit();                                  /* extern */
 extern s32 gFontMesgQueue;
 

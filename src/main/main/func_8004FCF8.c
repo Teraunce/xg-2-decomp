@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "track.h"
 void entityListPrune(void);                              /* extern */
 s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
@@ -15,7 +16,7 @@ extern s32 gEntityActive;
 extern Unk *gCurRenderNode;
 extern Unk gRaceCtx;
 
-void trackNodeRender(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
+void trackNodeRender(TrackNode *arg0, s32 arg1, u16 arg2, s32 arg3) {
     f32 spA8;
     f32 sp70;
     f32 sp68;
@@ -42,16 +43,15 @@ void trackNodeRender(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
     f32 temp_fv0;
     s32 var_condition_bit;
     s32 var_s6;
-    s32 var_v0;
     u16 temp_a2;
     u16 temp_v1_2;
     u16 var_a0;
     u16 var_s3;
-    Unk *temp_s0;
-    Unk *temp_s2;
-    Unk *temp_v1;
-    Unk *var_v1;
-    Unk *var_v1_2;
+    TrackNode *temp_s0;
+    TrackNode *temp_s2;
+    TrackNode *temp_v1;
+    TrackNode *var_v1;
+    TrackNode *var_v1_2;
     Unk *spA4;
 
     var_s6 = 0;
@@ -59,35 +59,42 @@ void trackNodeRender(s32 arg0, s32 arg1, u16 arg2, s32 arg3) {
     temp_fs3 = gTrackNodeRenderB;
     spA8 = gTrackNodeRenderA;
     temp_fs2 = gTrackNodeRenderC;
-    *(((s32) (((Unk *)((char *)(s32)arg0 + arg2 * 0x38))->unk16 << 0x10) >> 0x1B) + &gEntityActive) = 1;
-    var_v0 = var_s3 * 8;
+    /* Mark the starting node's entity slot as active */
+    *(((s32) ((arg0[arg2].flags << 0x10) >> 0x1B)) + &gEntityActive) = 1;
+
 loop_1:
-    temp_a2 = ((Unk *)((char *)(s32)arg0 + (var_v0 - var_s3) * 8))->unk18;
-    if ((temp_a2 != var_s3) && (temp_v1 = (Unk *)((char *)(s32)arg0 + temp_a2 * 0x38), (*(((s32) (temp_v1->unk16 << 0x10) >> 0x1B) + &gEntityActive) == 0))) {
-        if (*(s32*)((char*)temp_v1 - 20)== 0x8000) {
+    /* Check branching neighbour — nextNode of the current node */
+    temp_a2 = arg0[var_s3].nextNode;
+    if ((temp_a2 != var_s3) && (temp_v1 = &arg0[temp_a2], (*(((s32) (temp_v1->flags << 0x10) >> 0x1B) + &gEntityActive) == 0))) {
+        /* Only recurse if the branch target begins a new section:
+         * the previous node's nextNode == 0x8000 means it is a section end,
+         * so the branch target is the first node of a fresh section. */
+        if ((temp_v1 - 1)->nextNode == 0x8000) {
             trackNodeRender(arg0, arg1, temp_a2, arg3);
         }
     }
-    temp_s2 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
-    temp_s2->unk12 = (u16) ((Unk *)((char *)temp_s2 + (gRaceCtx.unk16E0 % 3) * 2))->unk2C;
+    temp_s2 = &arg0[var_s3];
+    /* Select colour from the three race-slot colours based on current race phase */
+    temp_s2->colorIdx = (&temp_s2->raceColor0)[gRaceCtx.unk16E0 % 3];
     if (gColorSwapMode != 0) {
-        temp_s2->unk0 = (s32) -temp_s2->unk0;
-        temp_s2->unkC = (u16) -(s32) temp_s2->unkC;
+        temp_s2->posX    = -temp_s2->posX;
+        temp_s2->normalX = (s16) -(s32) temp_s2->normalX;
     }
     if (gSfxInitFlag == 0) {
-        if (temp_s2->unk16 & (gEntityFlagMask * 4)) {
-            sp30 = (f32) (temp_s2->unk38 - temp_s2->unk0);
-            sp34 = (f32) (temp_s2->unk3C - temp_s2->unk4);
-            sp38 = (f32) (temp_s2->unk40 - temp_s2->unk8);
-            sp10 = (f32) (s16) temp_s2->unkC;
-            sp14 = (f32) temp_s2->unkE;
-            sp18 = (f32) temp_s2->unk10;
+        if (temp_s2->flags & (gEntityFlagMask * 4)) {
+            /* Compute edge vector to next node (cross-element: node[i+1] – node[i]) */
+            sp30 = (f32) ((temp_s2 + 1)->posX - temp_s2->posX);
+            sp34 = (f32) ((temp_s2 + 1)->posY - temp_s2->posY);
+            sp38 = (f32) ((temp_s2 + 1)->posZ - temp_s2->posZ);
+            sp10 = (f32) temp_s2->normalX;
+            sp14 = (f32) temp_s2->normalY;
+            sp18 = (f32) temp_s2->normalZ;
             vec3Cross(&sp30, &sp10, &sp20);
             vec3Cross(&sp30, &sp20, &sp10);
             vec3Normalize(&sp10, &sp14, &sp18);
-            sp40 = (f32) temp_s2->unk0;
-            sp44 = (f32) temp_s2->unk4;
-            sp48 = (f32) temp_s2->unk8;
+            sp40 = (f32) temp_s2->posX;
+            sp44 = (f32) temp_s2->posY;
+            sp48 = (f32) temp_s2->posZ;
             do {
                 sp50 = sp40 + (sp10 * temp_fs3);
                 sp54 = sp44 + (sp14 * temp_fs3);
@@ -111,35 +118,36 @@ loop_1:
             if (temp_ft2 < spA8) {
                 spA8 = temp_ft2;
             }
-            temp_s0 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
-            temp_s0->unk32 = (s16) (s32) (temp_ft2 + gTrackNodeRenderD);
+            temp_s0 = &arg0[var_s3];
+            temp_s0->friction   = (s16) (s32) (temp_ft2 + gTrackNodeRenderD);
             sp40 -= sp10 * gTrackFriction;
             sp48 -= sp18 * gTrackFriction;
             sp44 -= sp14 * gTrackFriction;
             func_800FDD50(&sp18, &sp14, &sp50, &sp40, 0x14, &sp70);
             if ((s32)spA4 == gCurRenderNode->unk8) {
-                temp_s0->unk34 = 0;
+                temp_s0->renderNode = 0;
             } else {
-                temp_s0->unk34 = spA4;
+                temp_s0->renderNode = (s32) spA4;
             }
             if ((var_s6 == 0) && ((u32) (gRaceCtx.unk16D8 - 1) < 2U) && (spA4 != NULL) && (spA4->unk5C == 0x63)) {
-                var_v1 = (Unk *)((char *)(s32)arg0 + var_s3 * 0x38);
+                /* Walk backward to find the first node in the current section.
+                 * A node with (ptr-1)->nextNode == 0x8000 is the section start. */
+                var_v1 = &arg0[var_s3];
                 var_a0 = var_s3;
-                if (*(s32*)((char*)var_v1 - 20)!= 0x8000) {
-                    do {
-                        var_v1 -= 0x38;
-                        var_a0 -= 1;
-                    } while (*(s32*)((char*)var_v1 - 20)!= 0x8000);
+                while ((var_v1 - 1)->nextNode != 0x8000) {
+                    var_v1--;
+                    var_a0--;
                 }
-                var_v1_2 = (Unk *)((char *)(s32)arg0 + var_a0 * 0x38);
-                if (var_v1_2->unk18 != 0x8000) {
+                /* Clear friction/render state for all nodes in this section */
+                var_v1_2 = &arg0[var_a0];
+                if (var_v1_2->nextNode != 0x8000) {
                     var_a0 = 0x8000;
                     do {
-                        var_v1_2->unk32 = 0x206;
-                        var_v1_2->unk34 = 0;
-                        var_v1_2->unk16 = (u16) (var_v1_2->unk16 & ~0x1C);
-                        var_v1_2 += 0x38;
-                    } while (var_v1_2->unk18 != 0x8000);
+                        var_v1_2->friction   = 0x206;
+                        var_v1_2->renderNode = 0;
+                        var_v1_2->flags      = (u16) (var_v1_2->flags & ~0x1C);
+                        var_v1_2++;
+                    } while (var_v1_2->nextNode != 0x8000);
                 }
                 var_s6 = 1;
                 entityListPrune();
@@ -148,20 +156,19 @@ loop_1:
                 goto block_32;
             }
         } else {
-            temp_s2->unk32 = 0x206;
-            temp_s2->unk34 = 0;
+            temp_s2->friction   = 0x206;
+            temp_s2->renderNode = 0;
             goto block_32;
         }
     } else {
 block_32:
         var_s3 += 1;
     }
-    temp_v1_2 = ((Unk *)((char *)(s32)arg0 + var_s3 * 0x38))->unk18;
+    temp_v1_2 = arg0[var_s3].nextNode;
     if (temp_v1_2 != 0x8000) {
         if (temp_v1_2 & 0x8000) {
             var_s3 = temp_v1_2 & 0x7FFF;
         }
-        var_v0 = var_s3 * 8;
         if (var_s3 != arg2) {
             goto loop_1;
         }

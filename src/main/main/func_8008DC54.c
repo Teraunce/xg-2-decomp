@@ -6,7 +6,6 @@ typedef struct {
 
 void piDmaNotify();                                  /* extern */
 extern s32 osIntMask;
-extern s32 PI_STATUS_REG;
 extern s32 SRAM_ADDR_REG;
 
 void piCartDmaComplete(void) {

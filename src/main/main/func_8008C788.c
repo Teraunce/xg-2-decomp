@@ -1,5 +1,4 @@
 #include "ultra64.h"
-s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 void siInitPollCmd(s32);                                 /* extern */
 s32 contParsePollRespGetter(void *, s32 (*)[]);                    /* extern */

@@ -1,5 +1,4 @@
 #include "ultra64.h"
-s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */
@@ -57,8 +56,8 @@ loop_1:
         var_t7 += 0xC;
         var_t6 += 0xC;
         *(s32*)((char*)var_t6 - 12) = temp_at;
-        *(s32*)((char*)var_t6 - 8)= (s32) (s32) *(s32*)((char*)var_t7 - 8)
-        *(s32*)((char*)var_t6 - 4)= (s32) (s32) *(s32*)((char*)var_t7 - 4)
+        *(s32*)((char*)var_t6 - 8)= (s32) (s32) *(s32*)((char*)var_t7 - 8);
+        *(s32*)((char*)var_t6 - 4)= (s32) (s32) *(s32*)((char*)var_t7 - 4);
     } while ((char*)var_t7 != temp_t9);
     var_t6->unk0 = (s32) (s32) var_t7->unk0;
     temp_t2 = (s32) (sp2E & 0xC0) >> 4;

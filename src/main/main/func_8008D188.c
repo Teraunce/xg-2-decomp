@@ -8,7 +8,6 @@ extern s32 PI_DRAM_ADDR;
 extern s32 PI_CART_ADDR;
 extern s32 PI_RD_LEN;
 extern s32 PI_WR_LEN;
-extern s32 PI_STATUS_REG;
 extern s32 PI_BSD_DOM1_LAT;
 extern s32 PI_BSD_DOM1_PWD;
 extern s32 PI_BSD_DOM1_PGS;

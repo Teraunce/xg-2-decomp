@@ -1,5 +1,4 @@
 #include "ultra64.h"
-s32 osSendMesg(Unk*, s32, s32);                  /* extern */
 s32 osSendMesgImpl(Unk*, s32, s32);                  /* extern */
 s32 piGetHandle();                                /* extern */
 extern s32 gFontData;

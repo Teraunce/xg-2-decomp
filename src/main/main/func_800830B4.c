@@ -1,12 +1,13 @@
 #include "ultra64.h"
-s32 audioHeapAlloc(s32, s32, s32, s32, s32);               /* extern */
-void audioNodeInit(Unk*, s32, s32, s32);              /* extern */
+#include "audio.h"
+s32 audioHeapAlloc(s32, s32, s32, s32, s32);
+void audioNodeInit(Unk *, s32, s32, s32);
 extern s32 audioMidiNodeCmd;
 extern s32 audioNodeDispatch;
 
-void audioMidiNodeInit(Unk *arg0, s32 arg1) {
-    audioNodeInit(arg0, &audioNodeDispatch, &audioMidiNodeCmd, 4);
-    arg0->unk14 = audioHeapAlloc(0, 0, arg1, 1, 0x50);
+void audioMidiNodeInit(AudioMidiNode *arg0, s32 arg1) {
+    audioNodeInit((Unk *)arg0, &audioNodeDispatch, &audioMidiNodeCmd, AUDIO_NODE_MIDI);
+    arg0->eventBufPtr = audioHeapAlloc(0, 0, arg1, 1, 0x50);
     arg0->unk38 = 1;
     arg0->unk48 = 0;
     arg0->unk1A = 1;

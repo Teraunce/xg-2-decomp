@@ -7,7 +7,6 @@ void sfxFindEntity(void *);                               /* extern */
 s32 sfxHasEntity(void *);                             /* extern */
 s32 sfxGetTopEntity();                                /* extern */
 s32 sfxGetAllocEntity();                                /* extern */
-s32 osSendMesg(Unk*, s32, s32);                       /* extern */
 extern s32 gHandlerMainFlag;
 extern s32 gHandlerAuxFlag;
 extern s32 gHandlerTable;

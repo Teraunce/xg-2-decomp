@@ -1,18 +1,12 @@
 #include "ultra64.h"
-typedef struct {
-    /* 0x00 */ u8 pad00[0x14];
-    /* 0x14 */ s32 unk14;
-    /* 0x18 */ s32 unk18;
-    /* 0x1C */ s32 unk1C;
-} UnkStruct_arg0;
-
-void audioNodeInit(void *, void *, void *, s32);
+#include "audio.h"
+void audioNodeInit(Unk *, s32, s32, s32);
 extern s32 audioMixNodeCmd;
 extern s32 audioMixCmd;
 
-void audioMixNodeInit(UnkStruct_arg0 *arg0, s32 arg1, s32 arg2) {
-    audioNodeInit(arg0, &audioMixCmd, &audioMixNodeCmd, 6);
-    arg0->unk14 = 0;
-    arg0->unk18 = arg2;
-    arg0->unk1C = arg1;
+void audioMixNodeInit(AudioMixNode *arg0, s32 arg1, s32 arg2) {
+    audioNodeInit((Unk *)arg0, &audioMixCmd, &audioMixNodeCmd, AUDIO_NODE_MIX);
+    arg0->unk14      = 0;
+    arg0->voiceCount = arg2;
+    arg0->voiceBufPtr = arg1;
 }

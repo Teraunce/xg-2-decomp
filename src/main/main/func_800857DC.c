@@ -57,5 +57,5 @@ char *audioTriOscCmd(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
 
 s32 geomBufWrite(void);  /* forward: GETTER_NOJR fallthrough */
 void geomBufWriteGetter(s32 arg1) {
-    return geomBufWrite();
+    geomBufWrite();
 }

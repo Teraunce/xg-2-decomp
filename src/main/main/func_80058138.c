@@ -1,10 +1,11 @@
 #include "ultra64.h"
+#include "mtx.h"
 s32 vec3Normalize(void *, s32, s32);                  /* extern */
 f32 cosf(f32);                             /* extern */
 f32 sinf(f32);                             /* extern */
 extern f32 gOneF;
 
-void mtxRotAxisAngle(Unk *arg0, Unk *arg1, f32 arg2) {
+void mtxRotAxisAngle(Matrix4x4 *arg0, Unk *arg1, f32 arg2) {
     f32 temp_fa0;
     f32 temp_fa0_2;
     f32 temp_fa0_3;

@@ -1,7 +1,6 @@
 #include "ultra64.h"
 void audioBufRecycle();                                  /* extern */
 void __osInvalICache_full();                                  /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osAiRawStartDma(s32, s32);                          /* extern */
 void sfxLoadUcode(void *);                               /* extern */
 void osSpTaskStart(s32);                               /* extern */

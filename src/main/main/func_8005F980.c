@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "vi.h"
 void dlResetPtr();                                  /* extern */
 void rspResetCounters();                                  /* extern */
 s32 heap_alloc_default(s32);                               /* extern */
@@ -40,7 +41,7 @@ extern s32 gRaceConfig;
 extern s32 gTrackReady;
 extern s32 gSceneReady;
 extern s32 gRaceCtrlCount;
-extern Unk gVideoMode;
+extern VideoModeConfig gVideoMode;
 extern s32 gSceneActiveFlag;
 extern Unk gSfxChanFuncs;
 extern s32 gLineTexBase;
@@ -54,17 +55,17 @@ void gameSceneInit(s32 arg0) {
     sfxTableInit();
     gSfxChanFuncs.unk0 = heap_alloc_default(0x20000);
     gSfxChanFuncs.unk4 = heap_alloc_default(0x20000);
-    gVideoMode.unk0 = 0;
-    gVideoMode.unk8 = 0x140;
-    gVideoMode.unkC = 0xF0;
+    gVideoMode.vp[0].x = 0;
+    gVideoMode.vp[0].w = 0x140;
+    gVideoMode.vp[0].h = 0xF0;
     gRaceCtrlCount = 1;
     gColorSwapMode = 0;
-    gVideoMode.unk4 = 0;
+    gVideoMode.vp[0].y = 0;
     gSceneActiveFlag = 1;
-    gVideoMode.unk10 = (f32) gVidScaleX;
-    gVideoMode.unk14 = (f32) gVidScaleY;
-    gVideoMode.unk18 = (f32) gVidScaleX;
-    gVideoMode.unk1C = (f32) gVidScaleY;
+    gVideoMode.vp[0].scaleX = (f32) gVidScaleX;
+    gVideoMode.vp[0].scaleY = (f32) gVidScaleY;
+    gVideoMode.vp[0].centerX = (f32) gVidScaleX;
+    gVideoMode.vp[0].centerY = (f32) gVidScaleY;
     if (arg0 == 0) {
         func_800AE150();
         audioBootDecode();

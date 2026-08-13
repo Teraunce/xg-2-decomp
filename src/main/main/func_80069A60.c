@@ -1,4 +1,6 @@
 #include "ultra64.h"
+#include "camera.h"
+#include "render.h"
 void mtxCopyTranslate(Unk*, Unk*, f32, f32, f32);           /* extern */
 void mtxXfmPoint3(Unk*, Unk*, Unk*);                 /* extern */
 void guMtxScaleF2L(Unk*, Unk*);                          /* extern */
@@ -25,7 +27,7 @@ extern f32 gEntityRenderParam9;
 extern f32 gEntityRenderParamA;
 extern f32 gEntityClampB;
 extern s32 gPlayerList;
-extern s32 gTrackNodePool;
+extern RenderNode gTrackNodePool[];
 extern s32 gSceneOverlay;
 extern Unk *gDLPtr;
 extern Unk *gLineVtxBase;
@@ -35,7 +37,7 @@ extern s32 gPlayerInfoTable;
 extern s32 gRenderBase;
 extern s32 gRaceCtx;
 
-void cameraViewRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7) {
+void cameraViewRender(RenderNode *arg0, CameraView *arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7) {
     f32 *sp1A0;
     s32 sp160;
     f32 sp158;
@@ -121,22 +123,22 @@ void cameraViewRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 ar
     char *var_v1_4;
 
     var_s6 = arg6;
-    temp_fs1 = arg0->unk40;
-    temp_fs2 = arg0->unk44;
-    temp_fs0 = arg0->unk48;
-    mtxLookAt(&sp70, arg0->unk10 - arg0->unk34, arg0->unk14 - arg0->unk38, arg0->unk18 - arg0->unk3C, temp_fs1, temp_fs2, temp_fs0);
-    mtxCopyTranslate(&sp70, &sp30, arg0->unk34 - arg1->unk0, arg0->unk38 - arg1->unk4, arg0->unk3C - arg1->unk8);
+    temp_fs1 = arg0->upX;
+    temp_fs2 = arg0->upY;
+    temp_fs0 = arg0->upZ;
+    mtxLookAt(&sp70, arg0->eyeX - arg0->refX, arg0->eyeY - arg0->refY, arg0->eyeZ - arg0->refZ, temp_fs1, temp_fs2, temp_fs0);
+    mtxCopyTranslate(&sp70, &sp30, arg0->refX - arg1->eyeX, arg0->refY - arg1->eyeY, arg0->refZ - arg1->eyeZ);
     guMtxScaleF2L(&sp30, gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
     sp1A0 = &sp130;
     sp134 = 0.0f;
-    sp130 = ((Unk *)arg0->unkC)->unk78;
-    sp138 = ((Unk *)arg0->unkC)->unk80;
+    sp130 = ((Unk *)arg0->modelObj)->unk78;
+    sp138 = ((Unk *)arg0->modelObj)->unk80;
     mtxXfmPoint3(&sp70, &sp130, &sp140);
-    mtxLookAt(&spB0, (sp140 + arg0->unk34) - arg0->unk1C, (sp144 + arg0->unk38) - arg0->unk20, (sp148 + arg0->unk3C) - arg0->unk24, temp_fs1, temp_fs2, temp_fs0);
-    mtxLookAt(&sp70, arg0->unk10 - arg0->unk1C, arg0->unk14 - arg0->unk20, arg0->unk18 - arg0->unk24, temp_fs1, temp_fs2, temp_fs0);
-    mtxCopyTranslate(&sp70, &sp30, arg0->unk10 - arg1->unk0, arg0->unk14 - arg1->unk4, arg0->unk18 - arg1->unk8);
+    mtxLookAt(&spB0, (sp140 + arg0->refX) - arg0->atX, (sp144 + arg0->refY) - arg0->atY, (sp148 + arg0->refZ) - arg0->atZ, temp_fs1, temp_fs2, temp_fs0);
+    mtxLookAt(&sp70, arg0->eyeX - arg0->atX, arg0->eyeY - arg0->atY, arg0->eyeZ - arg0->atZ, temp_fs1, temp_fs2, temp_fs0);
+    mtxCopyTranslate(&sp70, &sp30, arg0->eyeX - arg1->eyeX, arg0->eyeY - arg1->eyeY, arg0->eyeZ - arg1->eyeZ);
     guMtxScaleF2L(&sp30, gRenderBase + ((gRenderIdx << 7) + 0x80) + (gPlayerList << 6));
-    mtxCopyTranslate(&spB0, &sp30, arg0->unk1C - arg1->unk0, arg0->unk20 - arg1->unk4, arg0->unk24 - arg1->unk8);
+    mtxCopyTranslate(&spB0, &sp30, arg0->atX - arg1->eyeX, arg0->atY - arg1->eyeY, arg0->atZ - arg1->eyeZ);
     guMtxScaleF2L(&sp30, gRenderBase + ((gRenderIdx << 7) + 0x100) + (gPlayerList << 6));
     temp_v0 = gDLPtr + 8;
     gDLPtr->unk0 = 0xD9FFFFFF;
@@ -169,14 +171,14 @@ void cameraViewRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 ar
     temp_v0->unk44 = arg3;
     gDLPtr = temp_v0 + 0x40;
     gDLPtr = temp_v0 + 0x48;
-    sp130 = arg0->unk1C - arg1->unk0;
-    sp134 = arg0->unk20 - arg1->unk4;
-    sp138 = arg0->unk24 - arg1->unk8;
-    sp140 = arg1->unk18;
-    sp144 = arg1->unk1C;
-    sp148 = arg1->unk20;
+    sp130 = arg0->atX - arg1->eyeX;
+    sp134 = arg0->atY - arg1->eyeY;
+    sp138 = arg0->atZ - arg1->eyeZ;
+    sp140 = arg1->upX;
+    sp144 = arg1->upY;
+    sp148 = arg1->upZ;
     vec3Cross(sp1A0, &sp140, &sp150);
-    guLookAtHilite(&sp160, 0, 0, 0.0f, sp150, sp154, sp158, arg1->unk18, arg1->unk1C, arg1->unk20);
+    guLookAtHilite(&sp160, 0, 0, 0.0f, sp150, sp154, sp158, arg1->upX, arg1->upY, arg1->upZ);
     temp_a1 = gDLPtr;
     temp_a3 = gDLPtr + 8;
     temp_a1->unk0 = 0xDC08000A;
@@ -185,13 +187,13 @@ void cameraViewRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, f32 arg4, f32 ar
     temp_a1->unk4 = temp_v1;
     gDLPtr->unk8 = 0xDC08030A;
     temp_a3->unk4 = (void *) (temp_v1 + 0x10);
-    temp_a1_2 = arg0->unkC;
+    temp_a1_2 = arg0->modelObj;
     gDLPtr = temp_a3 + 8;
     gHiliteIdx += 1;
     if (temp_a1_2->unk0 == 0) {
         var_ft1 = (temp_a1_2->unk38 - temp_a1_2->unk44) * gCamProjScale;
         var_ft2 = (temp_a1_2->unk3C - temp_a1_2->unk48) * gCamProjScale;
-        temp_v1_2 = ((Unk*)((char*)&gTrackNodePool + arg7 * 0x668))->unk64C;
+        temp_v1_2 = gTrackNodePool[arg7].cameraFlag;
         if (temp_v1_2 != 0) {
             var_s0 = (s32 *)0x80180000;
             if (temp_v1_2 != 1) {
@@ -266,14 +268,14 @@ block_11:
         if (arg0->unk54 >= 0xD) {
             temp_a3->unk10 = 0xDB060020;
             gDLPtr = temp_a3 + 0x18;
-            temp_a3->unk14 = (s32) *(s32*)((char*)(((char*)(s32)gSceneOverlay + arg0->unk54 * 4)) - 34)
+            temp_a3->unk14 = (s32) *(s32*)((char*)(((char*)(s32)gSceneOverlay + arg0->unk54 * 4)) - 34);
         }
         gLineVtxBase->unk0 = 0xD7000002;
         gLineVtxBase->unk4 = 0x10000800;
         gLineVtxBase += 8;
-        guLookAt(&spF0, 0, 0, 0, arg1->unkC - arg1->unk0, arg1->unk10 - arg1->unk4, arg1->unk14 - arg1->unk8, arg1->unk18, arg1->unk1C, arg1->unk20);
-        guMtxXfm(&spF0, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8, &sp140, &sp144, &sp148);
-        temp_fv0 = -(sp148 + arg1->unkCC) * gEntityRenderParam4;
+        guLookAt(&spF0, 0, 0, 0, arg1->atX - arg1->eyeX, arg1->atY - arg1->eyeY, arg1->atZ - arg1->eyeZ, arg1->upX, arg1->upY, arg1->upZ);
+        guMtxXfm(&spF0, arg0->unk0 - arg1->eyeX, arg0->unk4 - arg1->eyeY, arg0->unk8 - arg1->eyeZ, &sp140, &sp144, &sp148);
+        temp_fv0 = -(sp148 + arg1->nearClip) * gEntityRenderParam4;
         temp_a3_2 = gLineVtxBase;
         gLineVtxBase = temp_a3_2 + 8;
         if (!(gEntityClampA <= temp_fv0)) {
@@ -293,7 +295,7 @@ block_11:
         gLineVtxBase = temp_t3;
         gDLPtr += 8;
         gLineVtxBase = temp_t3 + 8;
-        if (((Unk *)arg0->unkC)->unk2C != 0) {
+        if (((Unk *)arg0->modelObj)->unk2C != 0) {
             var_t5 = 0;
             var_t6 = -1;
             gLineVtxBase = temp_t3 + 0x10;
@@ -314,7 +316,7 @@ block_11:
             temp_t3->unk2C = 0x0703C000;
             temp_t3->unk30 = 0xE7000000;
             temp_t3->unk34 = 0;
-            temp_t3->unkC = (s32) ((Unk *)arg0->unkC)->unk2C;
+            temp_t3->unkC = (s32) ((Unk *)arg0->modelObj)->unk2C;
             if (gEntityRenderParam6 < arg5) {
                 var_t5 = 0x100;
             }
@@ -352,7 +354,7 @@ block_11:
             temp_t3->unk64 = (s32) (temp_v1_4 | 0x01010050);
             temp_t3->unk68 = 0xF2000000;
             temp_t3->unk6C = 0x0107C03C;
-            temp_t3->unk3C = (s32) (((Unk *)arg0->unkC)->unk30 + var_t5);
+            temp_t3->unk3C = (s32) (((Unk *)arg0->modelObj)->unk30 + var_t5);
             if (!(gEntityClampB <= temp_fv0_2)) {
                 var_v1_3 = (s32) temp_fv0_2;
             } else {
@@ -400,7 +402,7 @@ block_11:
                     }
                 } else {
 block_36:
-                    if (((Unk *)arg0->unkC)->unkC == 0) {
+                    if (((Unk *)arg0->modelObj)->unkC == 0) {
                         var_s6 = 1;
                     }
                     goto block_38;
@@ -408,7 +410,7 @@ block_36:
             }
         } else {
 block_38:
-            if (((Unk *)arg0->unkC)->unk10 == 0) {
+            if (((Unk *)arg0->modelObj)->unk10 == 0) {
                 var_s6 = 0;
             }
         }
@@ -436,15 +438,15 @@ block_38:
                 temp_t1->unk20 = 0xDA380003;
                 temp_t1->unk24 = (s32) (gRenderBase + (temp_a0_4 + 0x80) + temp_a2_2);
                 temp_t1->unk28 = 0xDE000000;
-                temp_t1->unk1C = (s32) ((Unk *)arg0->unkC)->unk0;
+                temp_t1->unk1C = (s32) ((Unk *)arg0->modelObj)->unk0;
                 gDLPtr = temp_t1 + 0x28;
                 gDLPtr = temp_t1 + 0x30;
                 temp_t1->unk30 = 0xDA380003;
                 temp_t1->unk34 = (s32) (gRenderBase + (temp_a0_4 + 0x100) + temp_a2_2);
                 temp_t1->unk38 = 0xDE000000;
-                temp_t1->unk2C = (s32) ((Unk *)arg0->unkC)->unk4;
+                temp_t1->unk2C = (s32) ((Unk *)arg0->modelObj)->unk4;
                 gDLPtr = temp_t1 + 0x38;
-                var_v1_5 = ((Unk *)arg0->unkC)->unk8;
+                var_v1_5 = ((Unk *)arg0->modelObj)->unk8;
                 var_v0_3 = temp_t1 + 0x40;
 block_53:
                 gDLPtr = var_v0_3;
@@ -459,7 +461,7 @@ block_53:
                 gDLPtr = temp_t1 + 0x18;
                 gDLPtr = temp_t1 + 0x20;
                 var_v0_4 = gRenderBase + (temp_a0_5 + 0x80) + var_a2;
-                var_a1 = ((Unk *)arg0->unkC)->unk0;
+                var_a1 = ((Unk *)arg0->modelObj)->unk0;
                 var_v1_6 = gRenderBase + (temp_a0_5 + 0x100);
 block_52:
                 temp_t1->unk20 = 0xDA380003;
@@ -471,9 +473,9 @@ block_52:
                 temp_t1->unk30 = 0xDA380003;
                 temp_t1->unk34 = (s32) (var_v1_6 + var_a2);
                 temp_t1->unk38 = 0xDE000000;
-                temp_t1->unk2C = (s32) ((Unk *)arg0->unkC)->unk10;
+                temp_t1->unk2C = (s32) ((Unk *)arg0->modelObj)->unk10;
                 gDLPtr = temp_t1 + 0x38;
-                var_v1_5 = ((Unk *)arg0->unkC)->unk14;
+                var_v1_5 = ((Unk *)arg0->modelObj)->unk14;
                 var_v0_3 = temp_t1 + 0x40;
                 goto block_53;
             case 2:
@@ -486,7 +488,7 @@ block_52:
                 gDLPtr = temp_t1 + 0x20;
                 var_v0_4 = gRenderBase + (temp_a0_6 + 0x80) + var_a2;
                 var_v1_6 = gRenderBase + (temp_a0_6 + 0x100);
-                var_a1 = ((Unk *)arg0->unkC)->unkC;
+                var_a1 = ((Unk *)arg0->modelObj)->unkC;
                 goto block_52;
             case 3:
                 temp_t1->unk10 = 0xDA380003;
@@ -494,7 +496,7 @@ block_52:
                 temp_t1->unk14 = (s32) (gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
                 gDLPtr = temp_t1 + 0x18;
                 gDLPtr = temp_t1 + 0x20;
-                temp_t1->unk1C = (s32) ((Unk *)arg0->unkC)->unk18;
+                temp_t1->unk1C = (s32) ((Unk *)arg0->modelObj)->unk18;
                 break;
             }
             var_a0 = (void **)0x80170000;
@@ -539,15 +541,15 @@ block_52:
                         temp_t1_2->unk20 = 0xDA380003;
                         temp_t1_2->unk24 = (s32) (gRenderBase + (temp_a0_7 + 0x80) + temp_a2_3);
                         temp_t1_2->unk28 = 0xDE000000;
-                        temp_t1_2->unk1C = (s32) ((Unk *)arg0->unkC)->unk0;
+                        temp_t1_2->unk1C = (s32) ((Unk *)arg0->modelObj)->unk0;
                         gDLPtr = temp_t1_2 + 0x28;
                         gDLPtr = temp_t1_2 + 0x30;
                         temp_t1_2->unk30 = 0xDA380003;
                         temp_t1_2->unk34 = (s32) (gRenderBase + (temp_a0_7 + 0x100) + temp_a2_3);
                         temp_t1_2->unk38 = 0xDE000000;
-                        temp_t1_2->unk2C = (s32) ((Unk *)arg0->unkC)->unk4;
+                        temp_t1_2->unk2C = (s32) ((Unk *)arg0->modelObj)->unk4;
                         gDLPtr = temp_t1_2 + 0x38;
-                        var_v1_7 = ((Unk *)arg0->unkC)->unk8;
+                        var_v1_7 = ((Unk *)arg0->modelObj)->unk8;
                         var_v0_5 = temp_t1_2 + 0x40;
                         goto block_70;
                     }
@@ -561,7 +563,7 @@ block_52:
                         temp_t1_2->unk14 = (s32) (gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
                         gDLPtr = temp_t1_2 + 0x18;
                         gDLPtr = temp_t1_2 + 0x20;
-                        temp_t1_2->unk1C = (s32) ((Unk *)arg0->unkC)->unk18;
+                        temp_t1_2->unk1C = (s32) ((Unk *)arg0->modelObj)->unk18;
                         goto block_72;
                     }
                 } else {
@@ -574,7 +576,7 @@ block_52:
                     gDLPtr = temp_t1_2 + 0x20;
                     var_v0_6 = gRenderBase + (temp_a0_8 + 0x80) + var_a2_3;
                     var_v1_8 = gRenderBase + (temp_a0_8 + 0x100);
-                    var_a1_2 = ((Unk *)arg0->unkC)->unkC;
+                    var_a1_2 = ((Unk *)arg0->modelObj)->unkC;
                     goto block_69;
                 }
             } else {
@@ -586,7 +588,7 @@ block_52:
                 gDLPtr = temp_t1_2 + 0x18;
                 gDLPtr = temp_t1_2 + 0x20;
                 var_v0_6 = gRenderBase + (temp_a0_9 + 0x80) + var_a2_3;
-                var_a1_2 = ((Unk *)arg0->unkC)->unk0;
+                var_a1_2 = ((Unk *)arg0->modelObj)->unk0;
                 var_v1_8 = gRenderBase + (temp_a0_9 + 0x100);
 block_69:
                 temp_t1_2->unk20 = 0xDA380003;
@@ -598,9 +600,9 @@ block_69:
                 temp_t1_2->unk30 = 0xDA380003;
                 temp_t1_2->unk34 = (s32) (var_v1_8 + var_a2_3);
                 temp_t1_2->unk38 = 0xDE000000;
-                temp_t1_2->unk2C = (s32) ((Unk *)arg0->unkC)->unk10;
+                temp_t1_2->unk2C = (s32) ((Unk *)arg0->modelObj)->unk10;
                 gDLPtr = temp_t1_2 + 0x38;
-                var_v1_7 = ((Unk *)arg0->unkC)->unk14;
+                var_v1_7 = ((Unk *)arg0->modelObj)->unk14;
                 var_v0_5 = temp_t1_2 + 0x40;
 block_70:
                 gDLPtr = var_v0_5;

@@ -4,8 +4,6 @@ void osWritebackDCache(u32, s32);                            /* extern */
 s32 osVirtualToPhysical(u32);                             /* extern */
 s32 __osPiIsBusy();                                /* extern */
 extern s32 SI_DRAM_ADDR;
-extern s32 SI_PIF_ADDR_RD64B;
-extern s32 SI_PIF_ADDR_WR64B;
 
 s32 osSiRawStartDma(s32 arg0, s32 arg1) {
     if (__osPiIsBusy() != 0) {

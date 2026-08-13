@@ -1,16 +1,11 @@
 #include "ultra64.h"
-typedef struct {
-    /* 0x00 */ u8 pad00[0x14];
-    /* 0x14 */ s32 unk14;
-    /* 0x18 */ s32 unk18;
-} UnkStruct_arg0;
-
-void audioNodeInit(void *, void *, void *, s32);
+#include "audio.h"
+void audioNodeInit(Unk *, s32, s32, s32);
 extern s32 audioNodeSetProp;
 extern s32 audioTimerNodeCmd;
 
-void audioTimerNodeInit(UnkStruct_arg0 *arg0) {
-    audioNodeInit(arg0, &audioTimerNodeCmd, &audioNodeSetProp, 3);
+void audioTimerNodeInit(AudioTimerNode *arg0) {
+    audioNodeInit((Unk *)arg0, &audioTimerNodeCmd, &audioNodeSetProp, AUDIO_NODE_TIMER);
     arg0->unk14 = 0;
     arg0->unk18 = 1;
 }

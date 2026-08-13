@@ -1,4 +1,6 @@
 #include "ultra64.h"
+#include "vi.h"
+#include "entity.h"
 s16 randRange(s16);                                 /* extern */
 void guLookAt(void *, s32, s32, s32, f32, f32, f32, s32, s32, s32); /* extern */
 void guMtxXfm(s32, s32, s32, s32, s32, s32, s32); /* extern */
@@ -23,7 +25,7 @@ extern f32 gTrackClampA;
 extern f32 gTrackRenderParam8;
 extern f32 gTrackClampB;
 extern f32 gTrackClampC;
-extern s32 gEntityPool;
+extern Entity gEntityPool[];
 extern s32 gPlayerList;
 extern s32 gPlayerList2;
 extern s32 gGameFlags;
@@ -40,7 +42,7 @@ extern char *gTrackNodePtr;
 extern char *gTrackRenderPtr;
 extern s32 gRenderIdx;
 extern s32 gRenderBase;
-extern s32 gVideoMode;
+extern VideoModeConfig gVideoMode;
 extern s32 gTrackRotMtx;
 extern s32 gRaceColorMode;
 
@@ -130,22 +132,22 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     Unk *temp_a2_2;
     Unk *temp_a3;
     Unk *temp_a3_2;
-    Unk *temp_s0;
+    Entity *temp_s0;
     char *temp_s0_2;
     char *temp_s0_3;
-    Unk *temp_s0_4;
-    Unk *temp_s1;
-    Unk *temp_s1_2;
+    Entity *temp_s0_4;
+    ViewportEntry *temp_s1;
+    Entity *temp_s1_2;
     Unk *temp_s1_3;
     Unk *temp_s2_3;
     Unk *temp_s5_2;
     Unk *temp_t0_2;
-    Unk *temp_t1;
+    Entity *temp_t1;
     Unk *temp_t1_2;
     Unk *temp_v0;
     Unk *temp_v0_2;
     Unk *temp_v0_4;
-    Unk *temp_v0_5;
+    Entity *temp_v0_5;
     Unk *temp_v1;
     Unk *temp_v1_2;
     Unk *temp_v1_3;
@@ -159,10 +161,11 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     Unk *var_v0_6;
     char *var_v1_3;
 
+    Entity *ent;
     var_fs0 = arg3;
-    temp_v1 = (arg0 * 0x228) + &gEntityPool;
-    temp_v1->unk220 = arg1;
-    if (temp_v1->unk1E4 != 0) {
+    ent = &gEntityPool[arg0];
+    ent->unk220 = arg1;
+    if (ent->hiliteFlag != 0) {
         var_v1 = (void **)0x80090000;
         var_v0 = &gCamTrackData;
     } else {
@@ -171,18 +174,18 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     }
     *var_v1 = var_v0;
     gRaceColorMode = 0;
-    temp_t1 = (arg0 * 0x228) + &gEntityPool;
+    temp_t1 = ent;
     temp_t0 = temp_t1->unk134;
     temp_a2 = 0xFF - temp_t0;
-    temp_s6 = ((temp_t1->unkBC * temp_a2) / 255) + temp_t0;
-    temp_s5 = ((temp_t1->unkBD * temp_a2) / 255) + temp_t0;
-    temp_s4 = ((temp_t1->unkBE * temp_a2) / 255) + temp_t0;
+    temp_s6 = ((temp_t1->colorR * temp_a2) / 255) + temp_t0;
+    temp_s5 = ((temp_t1->colorG * temp_a2) / 255) + temp_t0;
+    temp_s4 = ((temp_t1->colorB * temp_a2) / 255) + temp_t0;
     if (temp_t1->unk1E0 == 0) {
         var_v0_2 = (s32 *)0x80090000;
-        if (temp_t1->unk1DC == 4) {
+        if (temp_t1->raceSlotType == 4) {
             var_ft0 = temp_t1->unk144;
         } else {
-            temp_v0 = temp_t1->unkD0;
+            temp_v0 = temp_t1->renderObj;
             temp_fv1 = temp_v0->unk398;
             temp_ft0 = temp_v0->unk39C;
             temp_fv0 = temp_v0->unk3A0;
@@ -209,9 +212,9 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
             var_fv0 = gCamClampF;
         }
     }
-    temp_s1 = (arg0 << 5) + &gVideoMode;
-    temp_s0 = (arg0 * 0x228) + &gEntityPool;
-    temp_s0->unk148 = var_fv0;
+    temp_s1 = &gVideoMode.vp[arg0];
+    temp_s0 = ent;
+    temp_s0->velParamG = var_fv0;
     func_800AAEFC(temp_s0->unk1D8, temp_s0->unk1D9, temp_s1, temp_s0, var_fv0, temp_s6, temp_s5, temp_s4, temp_s0->unk134, 1);
     temp_v1_2 = gDLPtr + 8;
     gDLPtr->unk0 = 0xE3000A01;
@@ -221,7 +224,7 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     gDLPtr->unk8 = 0xDE000000;
     temp_v1_2->unk4 = &gTrackRenderDL2;
     guScaleGetter(&sp68, gTrackScale, gTrackScale);
-    sp134 = (s32) ((f32) temp_s0->unkB0 * arg1);
+    sp134 = (s32) ((f32) temp_s0->timerA * arg1);
     if (gGameFlags & 1) {
         sp134 = sp134 / 2;
     }
@@ -230,7 +233,7 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
         var_fv0_2 = gTrackRenderParam4;
         var_ft0_2 = gTrackRenderParam5;
     } else {
-        var_a3 = (f32) temp_s1->unk8 / (f32) temp_s1->unkC;
+        var_a3 = (f32) temp_s1->w / (f32) temp_s1->h;
         var_fv0_2 = gTrackRenderParam6;
         var_ft0_2 = gTrackRenderParam7;
     }
@@ -240,25 +243,25 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     temp_v1_3->unk0 = 0xDB0E0000;
     temp_v1_3->unk4 = (s32) sp130;
     temp_s2 = arg0 * 0x228;
-    temp_s1_2 = temp_s2 + &gEntityPool;
+    temp_s1_2 = ent;
     temp_s1_2->unk224 = sp130;
     guRotateInt(&gTrackRotMtx, 0.0f, 0.0f);
-    sp120 = temp_s1_2->unk18;
-    sp124 = temp_s1_2->unk1C;
-    sp128 = temp_s1_2->unk20;
+    sp120 = temp_s1_2->upX;
+    sp124 = temp_s1_2->upY;
+    sp128 = temp_s1_2->upZ;
     if (gGameFlags & 0x10) {
-        guRotateInt(&spE0, (f32) -gPlayerList2, temp_s1_2->unkC - temp_s1_2->unk0);
+        guRotateInt(&spE0, (f32) -gPlayerList2, temp_s1_2->atX - temp_s1_2->eyeX);
         guMtxXfm(&spE0, sp120, sp124, sp128, &sp120, &sp124, &sp128);
     }
-    temp_s0_2 = temp_s2 + (&gEntityPool + 0x30);
-    guLookAt(temp_s0_2 + (gPlayerList << 6), 0, 0, 0, temp_s1_2->unkC - temp_s1_2->unk0, temp_s1_2->unk10 - temp_s1_2->unk4, temp_s1_2->unk14 - temp_s1_2->unk8, sp120, sp124, sp128);
+    temp_s0_2 = (char *)ent + 0x30;
+    guLookAt(temp_s0_2 + (gPlayerList << 6), 0, 0, 0, temp_s1_2->atX - temp_s1_2->eyeX, temp_s1_2->atY - temp_s1_2->eyeY, temp_s1_2->atZ - temp_s1_2->eyeZ, sp120, sp124, sp128);
     temp_a0 = temp_s0_2 + (gPlayerList << 6);
     guMtxCat(temp_a0, &sp68, temp_a0);
     temp_s0_3 = temp_s0_2 + (gPlayerList << 6);
     guMtxCat(temp_s0_3, &sp28, temp_s0_3);
     temp_v1_4 = gPlayerList << 6;
     var_a0 = temp_v1_4 + ((gRenderIdx << 7) + gRenderBase);
-    temp_v1_5 = temp_v1_4 + temp_s2 + &gEntityPool;
+    temp_v1_5 = (char *)ent + temp_v1_4;
     var_v0_3 = temp_v1_5 + 0x30;
     do {
         var_a0->unk0 = (s32) var_v0_3->unk0;
@@ -274,9 +277,9 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     gDLPtr += 8;
     gRenderIdx += 1;
     temp_t0_2->unk4 = (s32) (gRenderBase + temp_a1 + (gPlayerList << 6));
-    temp_s0_4 = (arg0 * 0x228) + &gEntityPool;
+    temp_s0_4 = ent;
     func_800AAFD0(temp_s0_4->unk1DA, temp_s0_4->unk1DB, temp_s0_4, var_fv0, temp_s6, temp_s5, temp_s4, temp_s0_4->unk134, 1);
-    temp_v1_6 = temp_s0_4->unkB4;
+    temp_v1_6 = temp_s0_4->timerB;
     if (temp_v1_6 >= 0x3DF) {
         var_a3_2 = 0xE200001C;
         temp_a0_2 = gDLPtr;
@@ -339,7 +342,7 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     ((Unk *)(temp_s2_3 + 8))->unk4 = (s32) (randRange(0x100) & 0xFF);
     temp_v1_7 = gPlayerList << 6;
     var_a1 = temp_v1_7 + ((gRenderIdx << 7) + gRenderBase);
-    temp_v1_8 = temp_v1_7 + (arg0 * 0x228) + &gEntityPool;
+    temp_v1_8 = (char *)ent + temp_v1_7;
     var_v0_6 = temp_v1_8 + 0x30;
     do {
         var_a1->unk0 = (s32) var_v0_6->unk0;
@@ -362,7 +365,7 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
     gDLPtr->unk8 = 0xDA380003;
     temp_t1_2->unkC = &gTrackRenderDL;
     gDLPtr = temp_t1_2 + 0x10;
-    if (((Unk*)((char*)&gEntityPool + (arg0 * 0x228)))->unk1E4 != 0) {
+    if (ent->hiliteFlag != 0) {
         var_v1_3 = temp_t1_2 + 0x18;
         temp_t1_2->unk10 = 0xD9FFFFFF;
         var_v0_7 = 0x200;
@@ -392,16 +395,16 @@ void gameCameraSetup(s32 arg0, f32 arg1, f32 arg3) {
         temp_v0_4->unk18 = 0xE2001E01;
         temp_v0_4->unk1C = 1;
     }
-    temp_v0_5 = (arg0 * 0x228) + &gEntityPool;
-    spA8 = temp_v0_5->unkC - temp_v0_5->unk0;
-    spAC = temp_v0_5->unk10 - temp_v0_5->unk4;
-    spB0 = temp_v0_5->unk14 - temp_v0_5->unk8;
+    temp_v0_5 = ent;
+    spA8 = temp_v0_5->atX - temp_v0_5->eyeX;
+    spAC = temp_v0_5->atY - temp_v0_5->eyeY;
+    spB0 = temp_v0_5->atZ - temp_v0_5->eyeZ;
     if (gGameFlags & 1) {
         sp134 = sp134 / 2;
     }
     var_s6 = gTrackNodePtr;
     if (var_s6 != NULL) {
-        var_t2 = &gEntityPool;
+        var_t2 = (char *)gEntityPool;
         sp138 = arg0 * 0x44;
         do {
             temp_s5_2 = var_s6->unk84;

@@ -1,4 +1,6 @@
 #include "ultra64.h"
+#include "entity.h"
+#include "render.h"
 s32 func_800567DC(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 extern f32 gSfxSpatialImplA;
@@ -14,7 +16,7 @@ extern f32 gSfxDistClamp5;
 extern f32 gSfxSpatialImplG;
 extern f32 gSfxDistClamp3;
 extern f32 gSfxSpatialImplH;
-extern s32 gEntityPool;
+extern Entity gEntityPool[];
 extern s32 gGameState;
 extern s32 gSfxGameParams;
 extern s32 gRaceCtrlCount;
@@ -35,8 +37,8 @@ s32 sfxComputeSpatialImpl(f32 arg0, f32 arg1, f32 arg3, f32 arg4, f32 arg5, f32 
     f32 sp18;
     f32 sp14;
     f32 sp10;
-    Unk *var_s1;
-    Unk *var_v1;
+    Entity *var_s1;
+    Entity *var_v1;
     f32 temp_fs0;
     f32 temp_ft1;
     f32 temp_ft2;
@@ -63,55 +65,55 @@ s32 sfxComputeSpatialImpl(f32 arg0, f32 arg1, f32 arg3, f32 arg4, f32 arg5, f32 
     s32 var_a2;
     s32 var_s2;
     s32 var_v0;
-    Unk *temp_v0;
-    Unk *temp_v0_2;
-    Unk *temp_v0_3;
+    RenderNode *temp_v0;
+    RenderNode *temp_v0_2;
+    RenderNode *temp_v0_3;
 
-    var_s1 = arg10;
+    var_s1 = (Entity *)arg10;
     var_ft4 = gSfxSpatialImplA;
     var_s2 = 0;
     var_a2 = 1;
     if (var_s1 != NULL) {
-        temp_v0 = var_s1->unkD0;
-        var_s2 = ((char*)var_s1 - (char*)&gEntityPool) / 552;
+        temp_v0 = var_s1->renderObj;
+        var_s2 = var_s1 - gEntityPool;
         if (temp_v0 != NULL) {
-            sp10 = temp_v0->unk0 - arg0;
-            sp14 = ((Unk *)var_s1->unkD0)->unk4 - arg1;
-            var_fv0 = ((Unk *)var_s1->unkD0)->unk8 - arg3;
+            sp10 = temp_v0->posX - arg0;
+            sp14 = temp_v0->posY - arg1;
+            var_fv0 = temp_v0->posZ - arg3;
         } else {
-            sp10 = var_s1->unkC - arg0;
-            sp14 = var_s1->unk10 - arg1;
-            var_fv0 = var_s1->unk14 - arg3;
+            sp10 = var_s1->eyeX - arg0;
+            sp14 = var_s1->eyeY - arg1;
+            var_fv0 = var_s1->eyeZ - arg3;
         }
         sp18 = var_fv0;
         temp_fv1 = fabsf(sp10) + fabsf(sp14) + fabsf(var_fv0);
-        if ((var_s1->unk1DC != 4) && !(gSfxSpatialImplB < temp_fv1)) {
-            temp_v0_2 = var_s1->unkD0;
+        if ((var_s1->raceSlotType != 4) && !(gSfxSpatialImplB < temp_fv1)) {
+            temp_v0_2 = var_s1->renderObj;
             if (temp_v0_2 == NULL) {
                 var_a2 = 0;
-            } else if (temp_v0_2->unk450 == 0) {
+            } else if (temp_v0_2->active == 0) {
                 var_a2 = 0;
             } else {
                 goto block_12;
             }
         } else {
 block_12:
-            temp_fv0 = var_s1->unk0 - arg0;
+            temp_fv0 = var_s1->eyeX - arg0;
             sp10 = temp_fv0;
-            temp_fv0_2 = var_s1->unk4 - arg1;
+            temp_fv0_2 = var_s1->eyeY - arg1;
             sp14 = temp_fv0_2;
-            temp_fv0_3 = var_s1->unk8 - arg3;
+            temp_fv0_3 = var_s1->eyeZ - arg3;
             sp18 = temp_fv0_3;
             var_ft4 = sqrtf((temp_fv0 * temp_fv0) + (temp_fv0_2 * temp_fv0_2) + (temp_fv0_3 * temp_fv0_3));
         }
     } else {
         var_a0 = 0;
         if ((s32) var_s1 < gRaceCtrlCount) {
-            var_v1 = &gEntityPool;
+            var_v1 = gEntityPool;
             do {
-                temp_ft3 = var_v1->unkC - arg0;
-                temp_ft2 = var_v1->unk10 - arg1;
-                temp_ft1 = var_v1->unk14 - arg3;
+                temp_ft3 = var_v1->atX - arg0;
+                temp_ft2 = var_v1->atY - arg1;
+                temp_ft1 = var_v1->atZ - arg3;
                 temp_fv1_2 = sqrtf((temp_ft3 * temp_ft3) + (temp_ft2 * temp_ft2) + (temp_ft1 * temp_ft1));
                 if (temp_fv1_2 < var_ft4) {
                     var_s1 = var_v1;
@@ -122,7 +124,7 @@ block_12:
                     sp18 = temp_ft1;
                 }
                 var_a0 += 1;
-                var_v1 += 0x228;
+                var_v1++;
             } while (var_a0 < gRaceCtrlCount);
         }
     }
@@ -133,9 +135,9 @@ block_12:
         }
         temp_fs0 = gSfxSpatialImplE;
         *arg7 = (s32) ((f32) *arg7 * (temp_fs0 - (var_ft4 * gSfxSpatialImplD)));
-        sp20 = var_s1->unkC0 - arg3;
-        sp24 = var_s1->unkC4 - arg4;
-        sp28 = var_s1->unkC8 - arg5;
+        sp20 = var_s1->unkC0 - arg3;   /* SFX spatial ref X */
+        sp24 = var_s1->unkC4 - arg4;   /* SFX spatial ref Y */
+        sp28 = var_s1->unkC8 - arg5;   /* SFX spatial ref Z */
         func_800567DC(&sp10, &sp14, &sp18);
         temp_fv1_3 = ((sp10 * sp20) + (sp14 * sp24) + (sp18 * sp28)) * gSfxSpatialImplF;
         var_fv0_2 = temp_fs0 - temp_fv1_3;
@@ -164,12 +166,12 @@ block_12:
             }
         }
         *arg6 = var_fv1_2;
-        sp30 = var_s1->unkC - var_s1->unk0;
-        sp34 = var_s1->unk10 - var_s1->unk4;
-        sp38 = var_s1->unk14 - var_s1->unk8;
-        sp40 = var_s1->unk18;
-        sp44 = var_s1->unk1C;
-        sp48 = var_s1->unk20;
+        sp30 = var_s1->atX - var_s1->eyeX;
+        sp34 = var_s1->atY - var_s1->eyeY;
+        sp38 = var_s1->atZ - var_s1->eyeZ;
+        sp40 = var_s1->upX;
+        sp44 = var_s1->upY;
+        sp48 = var_s1->upZ;
         vec3Cross(&sp30, &sp40, &sp50);
         func_800567DC(&sp50, &sp54, &sp58);
         var_ft1 = (sp10 * sp50) + (sp14 * sp54) + (sp18 * sp58);
@@ -192,10 +194,10 @@ block_38:
         var_v0 = (s32) var_fv1_3;
     }
     *arg8 = var_v0;
-    *arg9 = var_s1->unk218 / 3;
-    temp_v0_3 = var_s1->unkD0;
+    *arg9 = var_s1->raceSlotCount / 3;
+    temp_v0_3 = var_s1->renderObj;
     if (temp_v0_3 != NULL) {
-        *arg7 = (s32) ((f32) *arg7 * (gSfxSpatialImplH - temp_v0_3->unk648));
+        *arg7 = (s32) ((f32) *arg7 * (gSfxSpatialImplH - temp_v0_3->speed));
     }
     return 1;
 }

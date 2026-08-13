@@ -54,8 +54,8 @@ loop_4:
                 temp_t8 = var_v0->unk1;
                 var_v0 += 4;
                 *(u8*)((char*)var_v1 - 3)= temp_t8;
-                *(u16*)((char*)var_v1 - 2)= (u8) *(u16*)((char*)var_v0 - 2)
-                *(u8*)((char*)var_v1 - 1)= (u8) *(u8*)((char*)var_v0 - 1)
+                *(u16*)((char*)var_v1 - 2)= (u8) *(u16*)((char*)var_v0 - 2);
+                *(u8*)((char*)var_v1 - 1)= (u8) *(u8*)((char*)var_v0 - 1);
             } while (var_a3 != arg2);
         }
     }

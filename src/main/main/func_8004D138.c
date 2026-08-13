@@ -1,7 +1,6 @@
 #include "ultra64.h"
 void osWritebackInvalDCache(u32, s32);                          /* extern */
 void osWritebackDCache(u32, s32);                          /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);     /* extern */
 extern s32 gRspDmaMesgQueue;
 

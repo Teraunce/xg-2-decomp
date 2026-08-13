@@ -54,7 +54,7 @@ extern void *gSfxPhaseEntityPtr;       /* secondary entity ptr */
 extern void *gSfxSlotEnd;      /* 0x80092CE0 past-end sentinel */
 extern void *gHandlerSentinel;       /* handler-table sentinel */
 extern void *gHandlerTable;       /* handler-table base */
-extern void *gSfxFadeTimer;       /* overlay alias: same storage as gSfxFadeTimer */
+/* gSfxFadeTimer already declared above */
 
 void sfxMarkEntityActive(void *entity);                    /* mark active (sfxHeapInsert.c) */
 void sfxHeapInsert(void *entity, s32 slot, s32 flags); /* heap insert (sfxHeapInsert.c) */

@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "mtx.h"
 f32 cosf(f32);                             /* cosf */
 f32 sinf(f32);                             /* sinf */
 extern f32 gMtxScaleOut;
@@ -14,7 +15,7 @@ extern f32 gMtxScaleOut;
  * The matrix elements are all multiplied by arg4 (a uniform scale factor).
  * arg5/arg6/arg7 are stored to the translation column (unk30/unk34/unk38).
  */
-void mtxEulerScaleF(Unk *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7 /*, f32 scale_fv0 */) {
+void mtxEulerScaleF(Matrix4x4 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7 /*, f32 scale_fv0 */) {
     f32 sp40;
     f32 sp3C;
     f32 sp34;

@@ -44,12 +44,13 @@
 #define PIF_RAM_CTRL   (*(volatile u32 *)0xBFC007FC)
 
 /* Compressed block staging area (DMA copy destination, in upper RDRAM) */
-extern u32 D_8024BA20;    /* staging area base — DMA destination */
-extern u32 D_8024BA28;    /* staging area + 8 — header word at +8 (hdr_size) */
+extern u32 gStagingBuf;    /* 0x8024BA20 — staging area base, DMA destination */
+extern u32 gStagingBufHdr; /* 0x8024BA28 — staging area +8: LZSS header word (hdr_size) */
 
 /* Source of LZSS compressed block (in the 1MB initial load) */
+/* Also the decompressor output address and final entry point */
 typedef void (*DecompEntryFn)(void);
-extern DecompEntryFn D_8004BA20;  /* also the decompressor output address */
+extern DecompEntryFn gMainBlob;  /* 0x8004BA20 */
 
 /* Copy word count (= 0x2B588 / 4 = 0xAD62 words — header + compressed data
    rounded up to 4 bytes). Used as loop limit for staging copy. */
@@ -77,14 +78,14 @@ void func_8004B498(void) {
     PIF_RAM_CTRL |= 8;
 
     /* --- Copy compressed block to staging area (word-by-word DMA) ---
-     * Copies 0xAD62 words (0x2B588 bytes) from D_8004BA20 → D_8024BA20.
+     * Copies 0xAD62 words (0x2B588 bytes) from gMainBlob → gStagingBuf.
      * This moves the LZSS header + compressed data to a safe location
      * so the decompressor can write its output back to 0x8004BA20
      * without clobbering the source as it reads it.
      */
     {
-        u32 *src  = (u32 *)&D_8004BA20;
-        u32 *dst  = (u32 *)&D_8024BA20;
+        u32 *src  = (u32 *)&gMainBlob;
+        u32 *dst  = (u32 *)&gStagingBuf;
         s32  words = (u32)&D_2B588 / 4;   /* 0xAD62 */
         s32  i    = 0;
         while (i < words) {
@@ -107,7 +108,7 @@ void func_8004B498(void) {
 
     /* --- Locate compressed data via the staged header ---
      *
-     * Staging header at D_8024BA20:
+     * Staging header at gStagingBuf:
      *   [0] = version (1)
      *   [1] = pad (0)
      *   [2] = hdr_size (0x18)   ← used here
@@ -115,13 +116,13 @@ void func_8004B498(void) {
      *   [4] = out_size (0x4AB20) ← t3 counter
      *   [5] = in_size  (0x2B56F)
      *
-     * a3 = &D_8024BA28 + D_8024BA28.hdr_size - 8
+     * a3 = &gStagingBufHdr + gStagingBufHdr.hdr_size - 8
      *    = 0x8024BA28 + (0x18 - 8)
      *    = 0x8024BA38  ← first byte of compressed data
      */
-    u8  *src_ptr   = (u8 *)((u32)&D_8024BA28 + *(u32 *)&D_8024BA28 - 8);
-    s8  *out_ptr   = (s8 *)&D_8004BA20;  /* write output back to 0x8004BA20 */
-    s32  out_left  = *((s32 *)&D_8024BA28 + 2);   /* header[+0x10] = out_size */
+    u8  *src_ptr   = (u8 *)((u32)&gStagingBufHdr + *(u32 *)&gStagingBufHdr - 8);
+    s8  *out_ptr   = (s8 *)&gMainBlob;  /* write output back to 0x8004BA20 */
+    s32  out_left  = *((s32 *)&gStagingBufHdr + 2);   /* header[+0x10] = out_size */
     s32  write_pos = 0xFEE;                         /* ring write position */
     s32  flags     = 0;                             /* flag shift register */
 
@@ -184,7 +185,7 @@ void func_8004B498(void) {
     func_8004B464();
 
     /* Jump to decompressed code entry at 0x8004BA20 (never returns) */
-    D_8004BA20();
+    gMainBlob();
 }
 
 

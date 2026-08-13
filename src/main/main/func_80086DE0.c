@@ -1,5 +1,4 @@
 #include "ultra64.h"
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);    /* extern */
 s32 osDisableInt();                                /* extern */
 s32 osRestoreInt(s32);                               /* extern */

@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "mtx.h"
 s32 vec3Normalize(f32 *, f32 *, f32 *);               /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
 extern f32 gGeomParamA;
@@ -90,7 +91,7 @@ block_8:
     arg0->unk34 = (s32) (temp_fa0_9 << 0x10);
 }
 
-void mtxTransposeL2F(Unk *arg0, Unk *arg1) {
+void mtxTransposeL2F(Matrix4x4 *arg0, Matrix4x4 *arg1) {
     if (arg0 != arg1) {
         arg1->unk0 = (f32) arg0->unk0;
         arg1->unk10 = (f32) arg0->unk4;

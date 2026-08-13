@@ -400,5 +400,5 @@ block_108:
 
 s32 sfxComputeSpatialImpl(void);  /* forward: GETTER_NOJR fallthrough */
 void sfxComputeSpatial(s32 arg2) {
-    return sfxComputeSpatialImpl();
+    sfxComputeSpatialImpl();
 }

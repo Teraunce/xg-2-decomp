@@ -1,4 +1,6 @@
 #include "ultra64.h"
+#include "entity.h"
+#include "render.h"
 s32 sfxQueueCmd(s16, f32, s32, s8, s32);           /* extern */
 void audioQueuePlay(s32, f32, s32, s8, s32);           /* extern */
 void audioQueueStop(s32);                               /* extern */
@@ -8,7 +10,7 @@ extern f32 gSfxFreqParamA;
 extern f32 gSfxFreqParamB;
 extern f32 gSfxFreqThresh;
 extern f32 gSfxFreqScale;
-extern s32 gEntityPool;
+extern Entity gEntityPool[];
 extern s32 gSfxSpatialCount;
 extern s32 gRaceCtrlCount;
 
@@ -51,41 +53,41 @@ block_10:
 }
 
 s32 entityFindNearest(f32 arg0, f32 arg1, f32 arg2, s32 *arg3, s32 *arg4) {
-    Unk *var_a1;
-    Unk *var_v1;
+    Entity *var_a1;
+    Entity *var_v1;
     f32 temp_ft0;
     f32 temp_fv0;
     f32 temp_fv0_2;
     f32 temp_fv1;
     f32 var_ft1;
     s32 var_a0;
-    Unk *temp_v0;
+    RenderNode *temp_v0;
 
     var_a0 = 0;
     var_ft1 = gSfxFreqThresh;
     var_a1 = NULL;
     if (gRaceCtrlCount > 0) {
-        var_v1 = &gEntityPool;
+        var_v1 = gEntityPool;
         do {
-            temp_fv0 = var_v1->unkC - arg0;
-            temp_ft0 = var_v1->unk10 - arg1;
-            temp_fv1 = var_v1->unk14 - arg2;
+            temp_fv0 = var_v1->atX - arg0;
+            temp_ft0 = var_v1->atY - arg1;
+            temp_fv1 = var_v1->atZ - arg2;
             temp_fv0_2 = sqrtf((temp_fv0 * temp_fv0) + (temp_ft0 * temp_ft0) + (temp_fv1 * temp_fv1));
             var_a0 += 1;
             if (temp_fv0_2 < var_ft1) {
                 var_a1 = var_v1;
                 var_ft1 = temp_fv0_2;
             }
-            var_v1 += 0x228;
+            var_v1++;
         } while (var_a0 < gRaceCtrlCount);
     }
     if (var_a1 == NULL) {
         return 0;
     }
-    *arg4 = var_a1->unk218 / 3;
-    temp_v0 = var_a1->unkD0;
+    *arg4 = var_a1->raceSlotCount / 3;
+    temp_v0 = var_a1->renderObj;
     if (temp_v0 != NULL) {
-        *arg3 = (s32) ((f32) *arg3 * (gSfxFreqScale - temp_v0->unk648));
+        *arg3 = (s32) ((f32) *arg3 * (gSfxFreqScale - temp_v0->speed));
     }
     return 1;
 }

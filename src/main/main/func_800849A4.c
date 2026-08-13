@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "audio.h"
 /*
  * audioNodeDispatch — audio playback sub-dispatcher (nonmatching).
  *
@@ -12,19 +13,19 @@
  */
 void audioNodeDispatch(void) { /* nonmatching — see asm stub */ }
 
-void audioNodeInit(Unk *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    arg0->unk0 = 0;
-    arg0->unk4 = arg1;
-    arg0->unk8 = arg2;
-    arg0->unkC = 0;
-    arg0->unkE = 0;
-    arg0->unk10 = arg3;
+void audioNodeInit(AudioNodeBase *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    arg0->state    = 0;
+    arg0->cmdFn    = arg1;
+    arg0->propFn   = arg2;
+    arg0->unk0C    = 0;
+    arg0->unk0E    = 0;
+    arg0->nodeType = arg3;
 }
 
-s32 audioNoteWrite(Unk *arg0, s32 arg1, s32 arg2) {
+s32 audioNoteWrite(AudioNoteWriteNode *arg0, s32 arg1, s32 arg2) {
     if (arg1 == 2) {
-        *(s32*)(s32)(arg0->unk1C + (arg0->unk14 * 4)) = arg2;
-        arg0->unk14 = (s32) (arg0->unk14 + 1);
+        *(s32*)(s32)(arg0->bufPtr + (arg0->writeIdx * 4)) = arg2;
+        arg0->writeIdx = (s32) (arg0->writeIdx + 1);
     }
     return 0;
 }

@@ -110,22 +110,22 @@ s32 memmove(s32 arg0, s32 arg1, s32 arg2) {
                     case 0:                         /* switch 2 */
                         break;
                     default:                        /* switch 2 */
-                        temp_v0_2 = *(u8*)((char*)(s32)var_a0_2 - 1)
+                        temp_v0_2 = *(u8*)((char*)(s32)var_a0_2 - 1);
                         var_a0_2 -= 1;
                         var_a1_2 -= 1;
                         var_a2 -= 1;
                         *(s8*)(s32)var_a1_2 = temp_v0_2;
                         break;
                     case 2:                         /* switch 2 */
-                        temp_v0_3 = *(u16*)((char*)(s32)var_a0_2 - 2)
+                        temp_v0_3 = *(u16*)((char*)(s32)var_a0_2 - 2);
                         var_a0_2 -= 2;
                         var_a1_2 -= 2;
                         var_a2 -= 2;
                         *(s8*)(s32)var_a1_2 = temp_v0_3;
                         break;
                     case 3:                         /* switch 2 */
-                        temp_v0_4 = *(u8*)((char*)(s32)var_a0_2 - 1)
-                        temp_v1 = *(u8*)((char*)(s32)var_a0_2 - 3)
+                        temp_v0_4 = *(u8*)((char*)(s32)var_a0_2 - 1);
+                        temp_v1 = *(u8*)((char*)(s32)var_a0_2 - 3);
                         var_a0_2 -= 3;
                         var_a1_2 -= 3;
                         var_a2 -= 3;
@@ -135,14 +135,14 @@ s32 memmove(s32 arg0, s32 arg1, s32 arg2) {
                     }
 loop_35:
                     if (var_a2 >= 0x20) {
-                        temp_v0_5 = *(s32*)((char*)(s32)var_a0_2 - 4)
-                        temp_v1_2 = *(s32*)((char*)(s32)var_a0_2 - 8)
+                        temp_v0_5 = *(s32*)((char*)(s32)var_a0_2 - 4);
+                        temp_v1_2 = *(s32*)((char*)(s32)var_a0_2 - 8);
                         temp_t0 = *(s32*)((char*)(s32)var_a0_2 - 0xC);
-                        temp_t1 = *(s32*)((char*)(s32)var_a0_2 - 10)
-                        temp_t2 = *(s32*)((char*)(s32)var_a0_2 - 14)
-                        temp_t3 = *(s32*)((char*)(s32)var_a0_2 - 18)
+                        temp_t1 = *(s32*)((char*)(s32)var_a0_2 - 10);
+                        temp_t2 = *(s32*)((char*)(s32)var_a0_2 - 14);
+                        temp_t3 = *(s32*)((char*)(s32)var_a0_2 - 18);
                         temp_t4 = *(s32*)((char*)(s32)var_a0_2 - 0x1C);
-                        temp_t5 = *(s32*)((char*)(s32)var_a0_2 - 20)
+                        temp_t5 = *(s32*)((char*)(s32)var_a0_2 - 20);
                         var_a0_2 -= 0x20;
                         var_a1_2 -= 0x20;
                         var_a2 -= 0x20;
@@ -158,10 +158,10 @@ loop_35:
                     }
 loop_37:
                     if (var_a2 >= 0x10) {
-                        temp_v0_6 = *(s32*)((char*)(s32)var_a0_2 - 4)
-                        temp_v1_3 = *(s32*)((char*)(s32)var_a0_2 - 8)
+                        temp_v0_6 = *(s32*)((char*)(s32)var_a0_2 - 4);
+                        temp_v1_3 = *(s32*)((char*)(s32)var_a0_2 - 8);
                         temp_t0_2 = *(s32*)((char*)(s32)var_a0_2 - 0xC);
-                        temp_t1_2 = *(s32*)((char*)(s32)var_a0_2 - 10)
+                        temp_t1_2 = *(s32*)((char*)(s32)var_a0_2 - 10);
                         var_a0_2 -= 0x10;
                         var_a1_2 -= 0x10;
                         var_a2 -= 0x10;
@@ -173,7 +173,7 @@ loop_37:
                     }
 loop_39:
                     if (var_a2 >= 4) {
-                        temp_v0_7 = *(s32*)((char*)(s32)var_a0_2 - 4)
+                        temp_v0_7 = *(s32*)((char*)(s32)var_a0_2 - 4);
                         var_a0_2 -= 4;
                         var_a1_2 -= 4;
                         var_a2 -= 4;

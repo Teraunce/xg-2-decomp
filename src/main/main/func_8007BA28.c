@@ -115,7 +115,10 @@ void __osInvalICache_full(void) {
     } while (var_t0 < 0x80001FF0U);
 }
 
-void osCreateMesgQueue(Unk *arg0, s32 arg1, s32 arg2) {
+void osCreateMesgQueue(OSMesgQueue *mq, OSMesg *msg, s32 count) {
+    Unk *arg0 = (Unk *)mq;
+    s32 arg1 = (s32)msg;
+    s32 arg2 = count;
     arg0->unk0 = &gRunQueueSentinel;
     arg0->unk4 = &gRunQueueSentinel;
     arg0->unk8 = 0;

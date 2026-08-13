@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "camera.h"
 void mtxCopyTranslate(Unk*, Unk*, f32, f32, f32);           /* extern */
 void mtxNodeInit(void *, f32, f32, f32);                /* extern */
 void mtxCatFSafe(s32, s32, s32);                     /* extern */
@@ -26,7 +27,7 @@ extern Unk *gDLPtr;
 extern s32 gRenderIdx;
 extern s32 gRenderBase;
 
-void cameraMatrixBuild(Unk *arg0, Unk *arg1) {
+void cameraMatrixBuild(Unk *arg0, CameraView *arg1) {
     s32 spA0;
     s32 sp60;
     s32 sp20;
@@ -91,9 +92,9 @@ void cameraMatrixBuild(Unk *arg0, Unk *arg1) {
             temp_fv0 = arg0->unk648;
             temp_fv1 = 2.0f * temp_fv0 * temp_ft1_2;
             mtxNodeInit(&sp20, temp_fv1, temp_fv1, temp_fv0 * (temp_ft1_2 * gNodeRenderParam7));
-            mtxLookAt(&sp60, arg1->unkC - arg1->unk0, arg1->unk10 - arg1->unk4, arg1->unk14 - arg1->unk8, arg1->unk18, arg1->unk1C, arg1->unk20);
+            mtxLookAt(&sp60, arg1->atX - arg1->eyeX, arg1->atY - arg1->eyeY, arg1->atZ - arg1->eyeZ, arg1->upX, arg1->upY, arg1->upZ);
             mtxCatFSafe(&sp20, &sp60, &spA0);
-            mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
+            mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->eyeX, arg0->unk4 - arg1->eyeY, arg0->unk8 - arg1->eyeZ);
             guMtxScaleF2L(&sp20, gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
             temp_a0 = gDLPtr + 8;
             gDLPtr->unk0 = 0xDA380003;
@@ -129,9 +130,9 @@ void cameraMatrixBuild(Unk *arg0, Unk *arg1) {
         temp_v1_2->unk8 = 0xFCFFB9FF;
         temp_v1_2->unkC = 0xFFFDFE38;
         mtxNodeInit(&sp20, gNodeScale, gNodeScale, 2.0f);
-        mtxLookAt(&sp60, arg0->unk340, arg0->unk344, arg0->unk348, arg1->unk18, arg1->unk1C, arg1->unk20);
+        mtxLookAt(&sp60, arg0->unk340, arg0->unk344, arg0->unk348, arg1->upX, arg1->upY, arg1->upZ);
         mtxCatFSafe(&sp20, &sp60, &spA0);
-        mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->unk0, arg0->unk4 - arg1->unk4, arg0->unk8 - arg1->unk8);
+        mtxCopyTranslate(&spA0, &sp20, arg0->unk0 - arg1->eyeX, arg0->unk4 - arg1->eyeY, arg0->unk8 - arg1->eyeZ);
         guMtxScaleF2L(&sp20, gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
         temp_a3 = gDLPtr;
         temp_a0_2 = gDLPtr + 8;
@@ -164,7 +165,7 @@ void cameraMatrixBuild(Unk *arg0, Unk *arg1) {
         temp_a3_2->unk10 = 0xFC127FFF;
         temp_a3_2->unk14 = -0xDC8;
         gDLPtr = temp_a3_2 + 0x18;
-        if (arg1->unk1E4 != 0) {
+        if (arg1->hiliteFlag != 0) {
             var_v1 = 0x10200;
         } else {
             var_v1 = 0x10400;

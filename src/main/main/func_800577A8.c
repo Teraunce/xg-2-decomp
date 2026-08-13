@@ -1,9 +1,10 @@
 #include "ultra64.h"
+#include "mtx.h"
 extern f32 gSfxDistThresh;
 extern f32 gSfxVolInitF;
 extern f32 gSfxVolDecay;
 
-void mtxProjectVec(Unk *arg0, Unk *arg1, Unk *arg2) {
+void mtxProjectVec(Matrix4x4 *arg0, Unk *arg1, Unk *arg2) {
     s32 spC;
     s32 sp0;
     s32 sp4;
@@ -16,7 +17,7 @@ void mtxProjectVec(Unk *arg0, Unk *arg1, Unk *arg2) {
     s32 var_v0;
     Unk *var_a0;
 
-    var_a0 = arg0;
+    var_a0 = (Unk *)arg0;
     var_a3 = 0;
     var_v1 = sp;
     do {
@@ -41,7 +42,7 @@ void mtxProjectVec(Unk *arg0, Unk *arg1, Unk *arg2) {
     arg2->unk8 = (f32) (sp8 / spC);
 }
 
-void guMtxScaleF2L(Unk *arg0, Unk *arg1) {
+void guMtxScaleF2L(Matrix4x4 *arg0, Unk *arg1) {
     s32 temp_ft3;
     s32 temp_ft3_10;
     s32 temp_ft3_11;

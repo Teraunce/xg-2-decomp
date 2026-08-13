@@ -1,6 +1,4 @@
 #include "ultra64.h"
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
-s32 osSendMesg(Unk*, s32, s32);                         /* extern */
 extern s32 gFontInitDone;
 extern s32 gFontMsg;
 extern s32 gFontMesgQueue;

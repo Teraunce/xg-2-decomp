@@ -1,6 +1,4 @@
 #include "ultra64.h"
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
-s32 osSendMesg(Unk*, s32, s32);                         /* extern */
 extern s32 gSiAcquired;
 extern s32 gSiMutexMsg;
 extern s32 gSiMutexQueue;

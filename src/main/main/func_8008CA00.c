@@ -11,7 +11,6 @@ typedef struct {
     /* 0x00 */ s32 unk0;
 } UnkStruct_var_t6;
 
-s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 osSiRawStartDma(s32, s32);                          /* extern */
 s32 __siLock();                                  /* extern */
 void __siUnlock();                                  /* extern */

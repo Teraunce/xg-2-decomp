@@ -1,5 +1,4 @@
 #include "ultra64.h"
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);        /* extern */
 void osStartThread(Unk*);                               /* extern */
 extern s32 gGameMesgQueue;

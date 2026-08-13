@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "camera.h"
 void mtxCopyTranslate(Unk*, Unk*, f32, f32, f32);           /* extern */
 void guMtxScaleF2L(Unk*, Unk*);                          /* extern */
 void vec3Cross(Unk*, Unk*, Unk*);               /* extern */
@@ -30,7 +31,7 @@ extern s32 gRenderIdx;
 extern s32 gPlayerInfoTable;
 extern s32 gRenderBase;
 
-void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
+void cameraHiliteRender(Unk *arg0, CameraView *arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 sp120;
     f32 sp118;
     f32 sp114;
@@ -116,13 +117,13 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     temp_fs2 = arg0->unk64;
     temp_fs0 = arg0->unk68;
     mtxLookAt(&sp70, arg0->unk30 - arg0->unk3C, arg0->unk34 - arg0->unk40, arg0->unk38 - arg0->unk44, temp_fs1, temp_fs2, temp_fs0);
-    mtxCopyTranslate(&sp70, &sp30, arg0->unk3C - arg1->unk0, arg0->unk40 - arg1->unk4, arg0->unk44 - arg1->unk8);
+    mtxCopyTranslate(&sp70, &sp30, arg0->unk3C - arg1->eyeX, arg0->unk40 - arg1->eyeY, arg0->unk44 - arg1->eyeZ);
     guMtxScaleF2L(&sp30, gRenderBase + (gRenderIdx << 7) + (gPlayerList << 6));
     mtxLookAt(&sp70, arg0->unk0 - arg0->unkC, arg0->unk4 - arg0->unk10, arg0->unk8 - arg0->unk14, temp_fs1, temp_fs2, temp_fs0);
-    mtxCopyTranslate(&sp70, &sp30, arg0->unkC - arg1->unk0, arg0->unk10 - arg1->unk4, arg0->unk14 - arg1->unk8);
+    mtxCopyTranslate(&sp70, &sp30, arg0->unkC - arg1->eyeX, arg0->unk10 - arg1->eyeY, arg0->unk14 - arg1->eyeZ);
     guMtxScaleF2L(&sp30, gRenderBase + ((gRenderIdx << 7) + 0x80) + (gPlayerList << 6));
     mtxLookAt(&sp70, arg0->unk18 - arg0->unk24, arg0->unk1C - arg0->unk28, arg0->unk20 - arg0->unk2C, temp_fs1, temp_fs2, temp_fs0);
-    mtxCopyTranslate(&sp70, &sp30, arg0->unk24 - arg1->unk0, arg0->unk28 - arg1->unk4, arg0->unk2C - arg1->unk8);
+    mtxCopyTranslate(&sp70, &sp30, arg0->unk24 - arg1->eyeX, arg0->unk28 - arg1->eyeY, arg0->unk2C - arg1->eyeZ);
     guMtxScaleF2L(&sp30, gRenderBase + ((gRenderIdx << 7) + 0x100) + (gPlayerList << 6));
     temp_v0 = gDLPtr + 8;
     gDLPtr->unk0 = 0xD9FFFFFF;
@@ -155,14 +156,14 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     temp_v0->unk44 = arg3;
     gDLPtr = temp_v0 + 0x40;
     gDLPtr = temp_v0 + 0x48;
-    spF0 = arg0->unk3C - arg1->unk0;
-    spF4 = arg0->unk40 - arg1->unk4;
-    spF8 = arg0->unk44 - arg1->unk8;
-    sp100 = arg1->unk18;
-    sp104 = arg1->unk1C;
-    sp108 = arg1->unk20;
+    spF0 = arg0->unk3C - arg1->eyeX;
+    spF4 = arg0->unk40 - arg1->eyeY;
+    spF8 = arg0->unk44 - arg1->eyeZ;
+    sp100 = arg1->upX;
+    sp104 = arg1->upY;
+    sp108 = arg1->upZ;
     vec3Cross(&spF0, &sp100, &sp110);
-    guLookAtHilite(&sp120, 0, 0, 0.0f, sp110, sp114, sp118, arg1->unk18, arg1->unk1C, arg1->unk20);
+    guLookAtHilite(&sp120, 0, 0, 0.0f, sp110, sp114, sp118, arg1->upX, arg1->upY, arg1->upZ);
     temp_t0 = gDLPtr + 8;
     gDLPtr->unk0 = 0xDC08000A;
     temp_v1 = (gHiliteIdx << 6) + ((gPlayerList << 5) + &gPlayerInfoTable);
@@ -178,9 +179,9 @@ void cameraHiliteRender(Unk *arg0, Unk *arg1, s32 arg2, s32 arg3, s32 arg4) {
     gDLPtr = temp_t0 + 8;
     gDLPtr = temp_t0 + 0x10;
     gLineVtxBase += 8;
-    guLookAt(&spB0, 0, 0, 0, arg1->unkC - arg1->unk0, arg1->unk10 - arg1->unk4, arg1->unk14 - arg1->unk8, arg1->unk18, arg1->unk1C, arg1->unk20);
-    guMtxXfm(&spB0, arg0->unk3C - arg1->unk0, arg0->unk40 - arg1->unk4, arg0->unk44 - arg1->unk8, &sp100, &sp104, &sp108);
-    temp_fv0 = -(sp108 + arg1->unkCC) * gHiliteScaleF;
+    guLookAt(&spB0, 0, 0, 0, arg1->atX - arg1->eyeX, arg1->atY - arg1->eyeY, arg1->atZ - arg1->eyeZ, arg1->upX, arg1->upY, arg1->upZ);
+    guMtxXfm(&spB0, arg0->unk3C - arg1->eyeX, arg0->unk40 - arg1->eyeY, arg0->unk44 - arg1->eyeZ, &sp100, &sp104, &sp108);
+    temp_fv0 = -(sp108 + arg1->nearClip) * gHiliteScaleF;
     temp_a0 = gLineVtxBase;
     gLineVtxBase = temp_a0 + 8;
     if (!(gHiliteClampA <= temp_fv0)) {

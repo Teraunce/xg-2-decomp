@@ -55,7 +55,7 @@ void rdpDrawString(s32 arg0, s32 arg1, u16 *arg2) {
     sfxGetVolLevel(arg0, arg1);
 }
 
-void sceneObjectDispatch(void);  /* forward: GETTER_NOJR fallthrough */
-void sceneDispatch(s32 arg1, s32 arg2, s32 arg3) {
-    sceneObjectDispatch();
+s32 sceneObjectDispatch(Unk *, u8 *, s32, s32);  /* extern */
+void sceneDispatch(Unk *entity, u8 *cmd, s32 data0, s32 data1) {
+    sceneObjectDispatch(entity, cmd, data0, data1);
 }

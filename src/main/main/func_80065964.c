@@ -31,7 +31,7 @@ void rdpFormatStr(u16 *arg0, Unk *arg1, s32 arg2) {
                             if ((s32) temp_v1 >= 0x62) {
                                 if (temp_v1 == 0x64) {
                                     var_s1 += 4;
-                                    intToAsciiStr(var_s0, *(s32*)((char*)var_s1 - 4);
+                                    intToAsciiStr(var_s0, *(s32*)((char*)var_s1 - 4));
                                     if (*var_s0 != 0) {
                                         do {
                                             var_s0 += 2;
@@ -46,7 +46,7 @@ void rdpFormatStr(u16 *arg0, Unk *arg1, s32 arg2) {
                             }
                         } else {
                             var_s1 += 4;
-                            var_v1 = *(s32*)((char*)var_s1 - 4)
+                            var_v1 = *(s32*)((char*)var_s1 - 4);
                             if (*var_v1 != 0) {
                                 do {
                                     temp_v0_2 = *var_v1;
@@ -59,7 +59,7 @@ void rdpFormatStr(u16 *arg0, Unk *arg1, s32 arg2) {
                     } else if (temp_v1 != 0x69) {
                         if (temp_v1 == 0x73) {
                             var_s1 += 4;
-                            copyU16Array(var_s0, *(s32*)((char*)var_s1 - 4);
+                            copyU16Array(var_s0, *(s32*)((char*)var_s1 - 4));
                             if (*var_s0 != 0) {
                                 do {
                                     var_s0 += 2;
@@ -68,7 +68,7 @@ void rdpFormatStr(u16 *arg0, Unk *arg1, s32 arg2) {
                         }
                     } else {
                         var_s1 += 4;
-                        rdpFmt2Digit(var_s0, *(s32*)((char*)var_s1 - 4);
+                        rdpFmt2Digit(var_s0, *(s32*)((char*)var_s1 - 4));
                         if (*var_s0 != 0) {
                             do {
                                 var_s0 += 2;
@@ -77,7 +77,7 @@ void rdpFormatStr(u16 *arg0, Unk *arg1, s32 arg2) {
                     }
                 } else {
                     var_s1 += 8;
-                    rdpFormatFloatGetter(var_s0, temp_a1, *(s32*)((char*)var_s1 - 8) *(s32*)((char*)var_s1 - 4);
+                    rdpFormatFloatGetter(var_s0, temp_a1, *(s32*)((char*)var_s1 - 8), *(s32*)((char*)var_s1 - 4));
                     if (*var_s0 != 0) {
                         do {
                             var_s0 += 2;

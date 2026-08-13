@@ -6,7 +6,6 @@ void piDmaNotify();                                  /* extern */
 void sramDmaStep();                               /* static */
 extern s32 osIntMask;
 extern s32 gSramPiHandle;
-extern s32 PI_STATUS_REG;
 extern s32 SRAM_STATUS_REG;
 extern s32 SRAM_ADDR_REG;
 

@@ -2,7 +2,6 @@
 void entityClearSlots(s32, s32);                       /* extern */
 void osWritebackInvalDCache(u32, s32);                            /* extern */
 void osWritebackDCache(u32, s32);                            /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 s32 siReadBlocking(s32);                               /* extern */
 void contGetInputPort(s32);                               /* extern */
 s32 siQueryControllers(s32, u8*);                       /* extern */

@@ -37,5 +37,5 @@ char *audioNoteWriteCmd(Unk *arg0, s32 arg1, s32 arg2, s32 arg3, Unk *arg4) {
 
 s32 audioNodeCmd(void);  /* forward: GETTER_NOJR fallthrough */
 void audioNodeCmdGetter(s32 arg1) {
-    return audioNodeCmd();
+    audioNodeCmd();
 }

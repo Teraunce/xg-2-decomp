@@ -1,6 +1,7 @@
 #include "ultra64.h"
+#include "entity.h"
 s32 func_8013AB6C(s32, s32, void *, void *, s32);     /* extern */
-extern s32 gEntityPool;
+extern Entity gEntityPool[];
 extern s32 gPlayerList;
 extern s32 gCamDLData;
 extern s32 gCamTrackData;
@@ -64,8 +65,8 @@ void trackEntityRender(s32 arg0, f32 arg1) {
     Unk *temp_a3;
     Unk *temp_s1;
     Unk *temp_s4;
-    Unk *temp_v0;
-    Unk *temp_v0_2;
+    Entity *temp_v0;
+    Entity *temp_v0_2;
     Unk *temp_v0_3;
     Unk *temp_v1_3;
     Unk *var_s0;
@@ -76,7 +77,7 @@ void trackEntityRender(s32 arg0, f32 arg1) {
     gDLPtr->unk4 = &gTrackRenderDL2;
     temp_a0 = gDLPtr + 8;
     gDLPtr = temp_a0;
-    if (((Unk*)((char*)&gEntityPool + (var_t2 * 0x228)))->unk1E4 != 0) {
+    if (gEntityPool[var_t2].hiliteFlag != 0) {
         gDLPtr = temp_a0 + 8;
         var_v0 = &gCamTrackData;
     } else {
@@ -87,10 +88,10 @@ void trackEntityRender(s32 arg0, f32 arg1) {
     temp_a0->unk4 = var_v0;
     gDLPtr->unk0 = 0xDE000000;
     gDLPtr->unk4 = &gTrackRenderDL;
-    temp_v0 = (var_t2 * 0x228) + &gEntityPool;
-    temp_v1 = temp_v0->unkB4;
+    temp_v0 = &gEntityPool[var_t2];
+    temp_v1 = temp_v0->timerB;
     temp_a1 = gDLPtr + 8;
-    var_t4 = (s32) ((f32) temp_v0->unkB0 * arg1);
+    var_t4 = (s32) ((f32) temp_v0->timerA * arg1);
     gDLPtr = temp_a1;
     if (temp_v1 >= 0x3DF) {
         gDLPtr = temp_a1 + 8;
@@ -122,16 +123,16 @@ void trackEntityRender(s32 arg0, f32 arg1) {
         temp_a1->unk8 = 0xE200001C;
         temp_a1->unkC = var_v1_2;
     }
-    temp_v0_2 = (var_t2 * 0x228) + &gEntityPool;
+    temp_v0_2 = &gEntityPool[var_t2];
     var_s7 = gTrackNodePtr;
-    sp40 = temp_v0_2->unkC - temp_v0_2->unk0;
+    sp40 = temp_v0_2->atX - temp_v0_2->eyeX;
     temp_v1_3 = gDLPtr;
     temp_a0_2 = gDLPtr + 8;
     gDLPtr = temp_a0_2;
-    sp44 = temp_v0_2->unk10 - temp_v0_2->unk4;
+    sp44 = temp_v0_2->atY - temp_v0_2->eyeY;
     gDLPtr = temp_a0_2 + 8;
     gDLPtr = temp_a0_2 + 0x10;
-    sp48 = temp_v0_2->unk14 - temp_v0_2->unk8;
+    sp48 = temp_v0_2->atZ - temp_v0_2->eyeZ;
     temp_v1_3->unk4 = 0x30;
     temp_v1_3->unk0 = 0xE3001A01;
     temp_a0_2->unk4 = 0xC0;
@@ -139,7 +140,7 @@ void trackEntityRender(s32 arg0, f32 arg1) {
     temp_a0_2->unk8 = 0xE7000000;
     temp_a0_2->unkC = 0;
     if (var_s7 != NULL) {
-        var_t3 = &gEntityPool;
+        var_t3 = (char *)gEntityPool;
         sp50 = var_t2 * 0x44;
         do {
             temp_s4 = var_s7->unk84;

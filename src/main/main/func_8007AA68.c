@@ -55,7 +55,7 @@ void guMtxCatF(char *arg0, f32 *arg1, char *arg2) {
         var_v1_2 += 0x10;
         *(f32*)((char*)var_v1_2 - 10)= temp_ft1;
         *(s32*)((char*)var_v1_2 - 12) = (f32) *(s32*)((char*)var_a0_2 - 0xC);
-        *(f32*)((char*)var_v1_2 - 8)= (f32) *(f32*)((char*)var_a0_2 - 8)
-        *(f32*)((char*)var_v1_2 - 4)= (f32) *(f32*)((char*)var_a0_2 - 4)
+        *(f32*)((char*)var_v1_2 - 8)= (f32) *(f32*)((char*)var_a0_2 - 8);
+        *(f32*)((char*)var_v1_2 - 4)= (f32) *(f32*)((char*)var_a0_2 - 4);
     } while ((void*)var_a0_2 != (void*)&sp5C);
 }

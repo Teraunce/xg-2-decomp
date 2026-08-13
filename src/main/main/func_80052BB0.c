@@ -1,15 +1,10 @@
 #include "ultra64.h"
+#include "render.h"
 typedef struct {
     /* 0x00 */ s32 unk0;
     /* 0x04 */ s32 unk4;
     /* 0x08 */ s32 unk8;
 } GfxCmd;
-typedef struct {
-    /* 0x00 */ u8 pad00[0x30C];
-    /* 0x30C */ s32 unk30C;
-    /* 0x310 */ u8 pad310[0x140];
-    /* 0x450 */ s32 unk450;
-} UnkStruct_arg0;
 typedef struct {
     /* 0x00 */ u8 pad00[0x4];
     /* 0x04 */ s32 unk4;
@@ -42,11 +37,6 @@ typedef struct {
     /* 0x28 */ s32 unk28;
     /* 0x2C */ s32 unk2C;
 } UnkStruct_temp_a3;
-typedef struct {
-    /* 0x00 */ u8 pad00[0x588];
-    /* 0x588 */ s32 unk588;
-} UnkStruct_var_a0;
-
 s32 heap_alloc_default(s32);                               /* extern */
 extern f32 gFogYScale;
 extern f32 gFogScale;
@@ -54,7 +44,7 @@ extern f32 gFogClamp;
 extern s32 gTrackNodeCount;
 extern s32 gSetupDisplayList;
 extern s32 gMainHeapBase;
-extern s32 gTrackNodePool;
+extern RenderNode gTrackNodePool[];
 extern s32 gScreenHeight;
 extern GfxCmd *gDLPtr;
 extern u16 *gBootCheck;
@@ -71,11 +61,11 @@ void func_80052BE0(void) {
     }
 }
 
-s32 func_80052C04(UnkStruct_arg0 *arg0) {
-    UnkStruct_var_a0 *var_a0;
+s32 func_80052C04(RenderNode *arg0) {
+    RenderNode *var_a0;
     s32 var_v1;
 
-    if ((arg0->unk30C > 0.0f) || (arg0->unk450 != 0) || (gGameMode == 0xE)) {
+    if ((arg0->distRef > 0.0f) || (arg0->active != 0) || (gGameMode == 0xE)) {
         /* Duplicate return node #3. Try simplifying control flow for better match */
         return 0;
     }
@@ -85,8 +75,8 @@ s32 func_80052C04(UnkStruct_arg0 *arg0) {
             var_a0 = &gTrackNodePool;
 loop_7:
             var_v1 += 1;
-            if ((u32) (var_a0->unk588 - 4) >= 2U) {
-                var_a0 += 0x668;
+            if ((u32) (var_a0->state - 4) >= 2U) {
+                var_a0++;
                 if (var_v1 >= gTrackNodeCount) {
                     /* Duplicate return node #9. Try simplifying control flow for better match */
                     return 1;

@@ -2,7 +2,6 @@
 /* Warning: missing "jr $ra" in last block of audioGetRspCount (initial). */
 
 void audioRspSubmit(Unk *);                       /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 extern s32 gRspDmaMesgQueue;
 extern s32 gAudioDecodeCount;
 

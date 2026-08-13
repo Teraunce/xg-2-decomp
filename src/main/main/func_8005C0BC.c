@@ -8,8 +8,6 @@ void audioSetChanA(s32);                               /* extern */
 void audioSetChanB(s32);                               /* extern */
 void osWritebackInvalDCache(u32, s32);                        /* extern */
 void __osInvalICache_full();                                  /* extern */
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                         /* extern */
 void overlayLoadEntries(Unk*, s32);                        /* extern */
 void audioSynthSetupGetter(void *, void *, s32 *, void *);              /* extern */
 void audioHeapInit(void *, s32, s32);                     /* extern */

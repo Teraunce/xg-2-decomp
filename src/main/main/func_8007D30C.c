@@ -11,7 +11,6 @@ typedef struct {
 } UnkStruct_sp24;
 
 s32 __osGetCount();                                /* extern */
-s32 osSendMesg(Unk*, s32, s32);                       /* extern */
 void __osTimerSetCompare(s32, u32);                          /* extern */
 u32 __osTimerEnqueue(void*);                            /* extern */
 void setCOP0Compare();                              /* extern */

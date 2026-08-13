@@ -365,7 +365,7 @@ block_97:
                         do {
                             temp_v1_20 = (s32 *)((char *)(s32)temp_a1_2 + (var_lo + var_s0_2) * 4);
                             temp_a0_5 = *temp_v1_20;
-                            *temp_v1_20 = *(s32*)((char*)(((char *)(s32)temp_a1_2 + ((var_lo + arg0->unk8) - var_s0_2) * 4)) - 4)
+                            *temp_v1_20 = *(s32*)((char*)(((char *)(s32)temp_a1_2 + ((var_lo + arg0->unk8) - var_s0_2) * 4)) - 4);
                             temp_v0_7 = arg0->unk8;
                             *(s32*)((char*)(((char *)(s32)temp_a1_2 + (((var_s1_7 * temp_v0_7) + temp_v0_7) - var_s0_2) * 4)) - 4)= temp_a0_5;
                             temp_a0_4 = arg0->unk8;

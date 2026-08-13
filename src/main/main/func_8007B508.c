@@ -1,18 +1,9 @@
 #include "ultra64.h"
-typedef struct {
-    /* 0x00 */ s32 unk0;
-    /* 0x04 */ u8 pad04[0x10];
-    /* 0x14 */ s32 unk14;
-    /* 0x18 */ u8 pad18[0x10];
-    /* 0x28 */ s32 unk28;
-    /* 0x2C */ u8 pad2C[0x10];
-    /* 0x3C */ s32 unk3C;
-} UnkStruct_arg0;
-
+#include "mtx.h"
 void guMtxIdent(char *);                         /* extern */
 
-void guScaleF(UnkStruct_arg0 *arg0, f32 arg1, f32 arg2, f32 arg3) {
-    guMtxIdent(arg0);
+void guScaleF(Matrix4x4 *arg0, f32 arg1, f32 arg2, f32 arg3) {
+    guMtxIdent((char *)arg0);
     arg0->unk0 = arg1;
     arg0->unk14 = arg2;
     arg0->unk3C = 1.0f;

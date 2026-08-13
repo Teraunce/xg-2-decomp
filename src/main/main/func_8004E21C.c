@@ -2,7 +2,6 @@
 void dlResetPtr();                                  /* extern */
 s32 contInit();                                /* extern */
 void entityUpdateDispatch(void);                              /* extern */
-void osCreateMesgQueue(Unk*, s32, s32);                       /* extern */
 void osCreateThread(OSThread*, OSId, u32, s32, u32, OSPri);          /* extern */
 void osSetEventMesg(s32, s32, s32);                     /* extern */
 void osStartThread(Unk*);                               /* extern */

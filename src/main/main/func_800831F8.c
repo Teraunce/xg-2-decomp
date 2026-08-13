@@ -22,7 +22,6 @@
 void audioNodeInit(void *arg0, void *arg1, void *arg2, s32 arg3);
 char *audioHeapAlloc(s32 arg0, s32 arg1, Unk *arg2, u8 arg3, s32 arg4);
 void audioFillDecayTable(Unk *arg0);
-void osSendMesg(void *arg0, void *arg1, s32 arg2);  /* unused extern? */
 
 extern s32 gMidiSampleTblA[];   /* geometry table: selector 1 */
 extern s32 gMidiSampleTblB[];   /* geometry table: selector 2 */

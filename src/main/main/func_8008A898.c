@@ -11,7 +11,7 @@ typedef struct {
 
 s32 contPakReadWriteNote(Unk*, Unk*, u8, u8);              /* extern */
 
-s32 contPakWriteNote(UnkStruct_arg0 *arg0, u8 *arg1, s32 arg2, UnkStruct_arg3 *arg3) {
+s32 contPakWriteNoteEntry(UnkStruct_arg0 *arg0, u8 *arg1, s32 arg2, UnkStruct_arg3 *arg3) {
     s32 sp1C;
     u8 temp_t7;
     u8 temp_t9;

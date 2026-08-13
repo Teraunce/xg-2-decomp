@@ -3,7 +3,6 @@
 
 void osWritebackInvalDCache(u32, s32);                         /* extern */
 void __osInvalICache_full(void);                             /* extern */
-s32 osRecvMesg(Unk*, s32*, s32);                       /* extern */
 s32 spTaskSubmit(Unk*, s32, s32, s32, s32, s32, s32);    /* extern */
 extern char *gDLWritePtr;
 extern char *gDLBase;

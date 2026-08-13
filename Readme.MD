@@ -1,3 +1,3 @@
 This is a decomp of Extreme-G 2 for the N64. I, Teraunce, am using Claude for this. If you want the nitty gritty see Notes.MD and Claude.MD.
 
-The makefile expects the tools needed in a sister Tools Directory to the XG-2 Decomp folder.
+The old attempt at using SN64 can be found in the folder "Old SN64". The decomp at the root of this project is not aiming to be byte-identical as that is impossible in C. Instead I am aiming for being functionally identical using IDO 7.1 as a base. This does mean some functions have been altered or split up so they no longer rely on SN64 compiler quirks/bugs to function.

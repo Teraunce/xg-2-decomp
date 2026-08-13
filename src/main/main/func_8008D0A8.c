@@ -5,7 +5,6 @@ extern s32 PI_DRAM_ADDR;
 extern s32 PI_CART_ADDR;
 extern s32 PI_RD_LEN;
 extern s32 PI_WR_LEN;
-extern s32 PI_STATUS_REG;
 
 s32 osEPiStartDma_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (PI_STATUS_REG & 3) {
